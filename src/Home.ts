@@ -7,7 +7,7 @@ export default class Home extends ui.HomeUI{
     constructor() { super();}
     
     onEnable(): void {
-        // 初始化web3
+        // 初始化 web3
         LayaBlock.initWeb3();
         this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
