@@ -61,7 +61,9 @@
             this.dataBus.on(GameEvent.flag1, this, this.onFlag1);
         }
         onFlag1(e) {
-            this.out_txt.text = JSON.stringify(e);
+            LayaBlock.getAccount().then(data => {
+                this.out_txt.text = data;
+            });
         }
         menuClick(e) {
             let curBtn = e.currentTarget;

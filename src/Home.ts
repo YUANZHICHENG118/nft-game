@@ -17,7 +17,10 @@ export default class Home extends ui.HomeUI{
     }
 
     onFlag1(e):void{
-        this.out_txt.text=JSON.stringify(e)
+        LayaBlock.getAccount().then(data=>{
+            this.out_txt.text=data
+        })
+
     }
 
     menuClick(e:Laya.Event):void{

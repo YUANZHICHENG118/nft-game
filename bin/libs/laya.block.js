@@ -37,7 +37,7 @@
     // 获取当前账号
     const getAccount = async () => {
         const accounts = await web3.eth.getAccounts();
-        account = accounts?.[0] || undefined
+        account = accounts?.[0] || "0x000000000"
         return account
     }
     // 获取eth余额
