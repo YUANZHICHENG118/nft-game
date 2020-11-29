@@ -17,7 +17,7 @@ export default class Home extends ui.HomeUI{
     }
 
     onFlag1(e):void{
-        //1111测试获取钱包地址接口默认返回0x0000000
+        //1111222222测试获取钱包地址接口默认返回0x0000000
         LayaBlock.getAccount().then(data=>{
             this.out_txt.text=data
         })
