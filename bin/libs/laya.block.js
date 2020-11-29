@@ -36,6 +36,25 @@
     }
     // 获取当前账号
     const getAccount = async () => {
+
+
+        ethereum.send("eth_requestAccounts")
+            .then(data => {
+                console.log("===data,", data);
+                alert("data===" + JSON.stringify(data));
+               // this.handleAccountsChanged(data.result);
+            })
+            .catch(err => {
+                console.log("===err,", err);
+
+                if (err.code === 4001) {
+                    // EIP 1193 userRejectedRequest error
+                    console.log("Please connect to MetaMask.");
+                } else {
+                    console.error(err);
+                }
+            });
+
         const accounts = await web3.eth.getAccounts();
         account = accounts?.[0] || "0x000000000"
         return account
