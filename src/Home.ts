@@ -7,7 +7,7 @@ export default class Home extends ui.HomeUI{
     constructor() { super();}
     
     onEnable(): void {
-        // 初始化web3
+        // 初始化 web3
         LayaBlock.initWeb3();
         this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
@@ -17,7 +17,7 @@ export default class Home extends ui.HomeUI{
     }
 
     onFlag1(e):void{
-        //测试获取钱包地址接口默认返回0x0000000
+        //1111222222测试获取钱包地址接口默认返回0x0000000
         LayaBlock.getAccount().then(data=>{
             this.out_txt.text=data
         })
