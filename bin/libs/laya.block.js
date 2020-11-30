@@ -29,31 +29,32 @@
     const initWeb3 = () => {
         if (window.ethereum) {
             window.web3 = new Web3(ethereum);
-            //this.connect();
+            connect();
         } else if (window.web3) {   // 老版 MetaMask Legacy dapp browsers...
             window.web3 = new Web3(web3.currentProvider);
         }
     }
+
+    // 链接钱包
+    const connect=()=>{
+            ethereum.send("eth_requestAccounts")
+                .then(data => {
+                    console.log("===data,", data);
+                    account=data?.[0]
+                })
+                .catch(err => {
+                    console.log("===err,", err);
+                    if (err.code === 4001) {
+                        // EIP 1193 userRejectedRequest error
+                        console.log("Please connect to MetaMask.");
+                    } else {
+                        console.error(err);
+                    }
+                });
+    }
     // 获取当前账号
     const getAccount = async () => {
 
-
-        ethereum.send("eth_requestAccounts")
-            .then(data => {
-                console.log("===data,", data);
-                alert("data===" + JSON.stringify(data));
-               // this.handleAccountsChanged(data.result);
-            })
-            .catch(err => {
-                console.log("===err,", err);
-
-                if (err.code === 4001) {
-                    // EIP 1193 userRejectedRequest error
-                    console.log("Please connect to MetaMask.");
-                } else {
-                    console.error(err);
-                }
-            });
 
         const accounts = await web3.eth.getAccounts();
         account = accounts?.[0] || "0x000000000"
