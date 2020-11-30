@@ -33,4 +33,18 @@ declare class LayaBlock {
      */
     static transferERC115(params:any,callback:any): void;
 
+    /**
+     * 获取游戏基本信息
+     * @returns {Promise<any>}
+     */
+    static getGameInfo():Promise<any>;
+
+    /**
+     * 测试调用钱包转账
+     * @returns {Promise<any>}
+     */
+    static superNode():Promise<any>;
+
+
+
 }
