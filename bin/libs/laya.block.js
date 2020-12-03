@@ -111,7 +111,7 @@
             color:1,
             load:10,
             mining:1,
-            img:'',
+            img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
             remark:''
         },{
             balance:200,
@@ -119,7 +119,7 @@
             color:2,
             load:10,
             mining:1,
-            img:'',
+            img:'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
             remark:''
         }]
         return new Promise(function(resolve, reject){

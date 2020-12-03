@@ -62,6 +62,8 @@ interface IUserBase {
 
 /**
  * 我的设备数据 NFT
+ * 类型type 1:翻斗车 2 挖掘机 3 采矿车
+ * 颜色 color 1:白色 2:绿 3 蓝 4 紫 5粉 6 橙色
  */
 interface IMachine{
     //余额
