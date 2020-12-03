@@ -86,9 +86,46 @@
      * @returns {*[]}
      */
     const getMineData=()=>{
-        return {id:1,total:20000,surplus:1000}
+        return new Promise(function(resolve, reject){
+            resolve({id:1,total:20000,surplus:1000})
+        });
+    }
+    /**
+     * 获取用户基础数据
+     * @returns {Promise<any>}
+     */
+    const getUserBase=()=>{
+        return new Promise(function(resolve, reject){
+            resolve({ethBalance:10,tokenBalance:100,amount: 100, rank: 10, rate: 0.2, reward: 100})
+        });
     }
 
+    /**
+     * 获取用户设备数据
+     * @returns {Promise<any>}
+     */
+    const getUserMachine=()=>{
+        const data=[{
+            balance:100,
+            type:1,
+            color:1,
+            load:10,
+            mining:1,
+            img:'',
+            remark:''
+        },{
+            balance:200,
+            type:2,
+            color:2,
+            load:10,
+            mining:1,
+            img:'',
+            remark:''
+        }]
+        return new Promise(function(resolve, reject){
+            resolve(data)
+        });
+    }
 
 
     // 获取当前账号
@@ -156,6 +193,8 @@
     var block = {
         getGameServer:getGameServer,
         getMineData:getMineData,
+        getUserBase:getUserBase,
+        getUserMachine:getUserMachine,
         currentAccount: account,
         ethToken: ethToken,
         initWeb3: initWeb3,
