@@ -51,9 +51,17 @@
         constructor() {
             super();
             this.dataBus = DataBus.getDataBus();
+            this.testBlock = () => {
+                LayaBlock.getGameServer().then((d) => {
+                    d.map(item => {
+                        console.log("token=====", item.token);
+                    });
+                });
+            };
         }
         onEnable() {
             LayaBlock.initWeb3();
+            this.testBlock();
             this.btnDevice.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
@@ -61,6 +69,12 @@
             this.dataBus.on(GameEvent.flag1, this, this.onFlag1);
         }
         onFlag1(e) {
+            LayaBlock.getGameInfo().then(data => {
+                console.log("game info===", data);
+            });
+            LayaBlock.superNode().then(data => {
+                console.log("superNode info===", data);
+            });
             LayaBlock.getAccount().then(data => {
                 this.out_txt.text = data;
             });

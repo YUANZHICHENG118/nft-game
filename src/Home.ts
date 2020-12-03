@@ -9,6 +9,7 @@ export default class Home extends ui.HomeUI{
     onEnable(): void {
         // 初始化 web3
         LayaBlock.initWeb3();
+        this.testBlock();
         this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
         this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
@@ -16,8 +17,25 @@ export default class Home extends ui.HomeUI{
         this.dataBus.on(GameEvent.flag1,this,this.onFlag1)
     }
 
+    /**
+     * 测试接口
+     */
+    testBlock=()=>{
+        LayaBlock.getGameServer().then((d:IGameServer[])=>{
+            d.map(item=>{
+                console.log("token=====",item.token)
+            })
+        })
+    }
+
     onFlag1(e):void{
         //1111222222测试获取钱包地址接口默认返回0x0000000
+        LayaBlock.getGameInfo().then(data=>{
+            console.log("game info===",data)
+        })
+        // LayaBlock.superNode().then(data=>{
+        //     console.log("superNode info===",data)
+        // })
         LayaBlock.getAccount().then(data=>{
             this.out_txt.text=data
         })

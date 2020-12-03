@@ -1,0 +1,56 @@
+// 类型 1:挖掘机 2 挖掘机 3 采矿车
+// 颜色 1:白色 2:绿 3 蓝 4 紫 5粉 6 橙色
+
+//挖掘机 白色 数量 3000
+{
+  "type":2,
+  "color":1,
+  "load":1,
+  "mining":10,
+  "img":"https:\/\/nft-files.s3.us-east-2.amazonaws.com\/2\/1.png"
+}
+//挖掘机 绿 数量 2000
+
+{
+  "type":2,
+  "color":2,
+  "load":2,
+  "mining":20,
+  "img":"https:\/\/nft-files.s3.us-east-2.amazonaws.com\/2\/2.png"
+}
+//挖掘机 蓝 数量 1000
+
+{
+  "type":2,
+  "color":3,
+  "load":5,
+  "mining":50,
+  "img":"https:\/\/nft-files.s3.us-east-2.amazonaws.com\/2\/3.png"
+}
+//挖掘机 紫 数量 500
+
+{
+  "type":2,
+  "color":4,
+  "load":10,
+  "mining":100,
+  "img":"https:\/\/nft-files.s3.us-east-2.amazonaws.com\/2\/4.png"
+}
+//挖掘机 粉 数量 200
+
+{
+  "type":2,
+  "color":5,
+  "load":30,
+  "mining":300,
+  "img":"https:\/\/nft-files.s3.us-east-2.amazonaws.com\/2\/5.png"
+}
+//挖掘机 橙 数量 100
+
+{
+  "type":2,
+  "color":6,
+  "load":100,
+  "mining":1000,
+  "img":"https:\/\/nft-files.s3.us-east-2.amazonaws.com\/2\/6.png"
+}

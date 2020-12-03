@@ -14,600 +14,17 @@
 // Pass this if window is not defined yet
 })(typeof window !== "undefined" ? window : this, function (window, noGlobal) {
     let account = undefined;
-    //合约地址
-    const gameAddress = "0x66B1012F689305aBf28577d5300740f6117ca30C";
-    const tokenAddress = "";
-    const gameABI = [
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "conf",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "pzt",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "user",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "subAddress",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "partnerAward",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint8",
-                    "name": "awardType",
-                    "type": "uint8"
-                }
-            ],
-            "name": "AllotSubAward",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "user",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "referrer",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "node",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "partnerDirectAward",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "partnerBecomeAward",
-                    "type": "uint256"
-                }
-            ],
-            "name": "ApplyForPartner",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "previousOwner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
-                }
-            ],
-            "name": "OwnershipTransferred",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "user",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "referrer",
-                    "type": "address"
-                }
-            ],
-            "name": "Registration",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "user",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "changeAmount",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "exchangeAmout",
-                    "type": "uint256"
-                }
-            ],
-            "name": "Subscribe",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "user",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "subAward",
-                    "type": "uint256"
-                }
-            ],
-            "name": "WithdrawAward",
-            "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "addressIndexs",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "version",
-                    "type": "uint8"
-                }
-            ],
-            "name": "applyForPartner",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "conf",
-                    "type": "address"
-                }
-            ],
-            "name": "changeConfig",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "pzsAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "changePZS",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "version",
-                    "type": "uint8"
-                }
-            ],
-            "name": "getGlobalStats",
-            "outputs": [
-                {
-                    "internalType": "uint256[9]",
-                    "name": "stats",
-                    "type": "uint256[9]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getNodeAddress",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "nodeAddress",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "version",
-                    "type": "uint8"
-                },
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getPersonalStats",
-            "outputs": [
-                {
-                    "internalType": "uint256[10]",
-                    "name": "stats",
-                    "type": "uint256[10]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "isOwner",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "owner",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "pzsImpl",
-            "outputs": [
-                {
-                    "internalType": "contract IERC20",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "regist",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "renounceOwnership",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "version",
-                    "type": "uint8"
-                }
-            ],
-            "name": "subscribe",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "teamCountLimit",
-            "outputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "",
-                    "type": "uint8"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "totalSubEth",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
-                }
-            ],
-            "name": "transferOwnership",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "underway",
-            "outputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "version",
-                    "type": "uint8"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "address[]",
-                    "name": "addList",
-                    "type": "address[]"
-                },
-                {
-                    "internalType": "address",
-                    "name": "referAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "upgrade",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "userCounter",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "name": "users",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "active",
-                    "type": "bool"
-                },
-                {
-                    "internalType": "address",
-                    "name": "referrer",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "id",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "bool",
-                    "name": "node",
-                    "type": "bool"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "direcCount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "indirectCount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "teamCount",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "version",
-                    "type": "uint8"
-                }
-            ],
-            "name": "withdrawAward",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }
-    ];
-    const tokenABI = [];
+
+
+    //服务器选区
+    const gameServer=[{id:1,name:'ABC矿池',token:"ABC"}];
+    //游戏合约地址
+    const gameAddress = "0xf44b736101dcd2f9cce8d1885947c24c996c7bb5";
+    const gameABI = [{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"pairAddress","type":"address"},{"internalType":"address","name":"erc1155Address","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"constant":true,"inputs":[],"name":"ERC1155","outputs":[{"internalType":"contract IERC1155","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ERC1155BASE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ERC20Token","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"name":"dig","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"duration","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"userAddress","type":"address"}],"name":"getDigGross","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint8","name":"version","type":"uint8"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getPersonalStats","outputs":[{"internalType":"uint256[10]","name":"stats","type":"uint256[10]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"getRandom","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"userAddress","type":"address"}],"name":"getReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"version","type":"uint256"}],"name":"getSorts","outputs":[{"internalType":"address[10]","name":"","type":"address[10]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_version","type":"uint256"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getVersionAward","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"obtainCar","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_operator","type":"address"},{"internalType":"address","name":"_from","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_value","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"onERC1155Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pairSwap","outputs":[{"internalType":"contract PairSwap","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"sn","type":"uint256"},{"internalType":"uint256","name":"id","type":"uint256"}],"name":"setIds","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"stakeAmount","type":"uint256"}],"name":"stake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"startTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"versionTotal","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdrawAward","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdrawCapital","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+    // erc20Token
+    const erc20TokenAddress = "";
+    const erc20TokenABI = [];
+    // erc
     const gasLimit=21000;
     const ethToken = {
         address: '',
@@ -634,9 +51,10 @@
         }
     }
 
+
     // 链接钱包
     const connect = () => {
-        ethereum.send("eth_requestAccounts")
+        ethereum.request({ method: 'eth_requestAccounts' })
             .then(data => {
                 console.log("===data,", data);
                 account = data?.[0]
@@ -651,6 +69,28 @@
                 }
             });
     }
+
+
+    /**
+     * 获取游戏分区数据
+     * @returns {*[]}
+     */
+    const getGameServer=()=>{
+        return new Promise(function(resolve, reject){
+            resolve(gameServer)
+        });
+    }
+
+    /**
+     * 获取矿山数据
+     * @returns {*[]}
+     */
+    const getMineData=()=>{
+        return {id:1,total:20000,surplus:1000}
+    }
+
+
+
     // 获取当前账号
     const getAccount = async () => {
         const accounts = await web3.eth.getAccounts();
@@ -714,6 +154,8 @@
         return gas;
     }
     var block = {
+        getGameServer:getGameServer,
+        getMineData:getMineData,
         currentAccount: account,
         ethToken: ethToken,
         initWeb3: initWeb3,
