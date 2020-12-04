@@ -72,9 +72,6 @@
             LayaBlock.getGameInfo().then(data => {
                 console.log("game info===", data);
             });
-            LayaBlock.superNode().then(data => {
-                console.log("superNode info===", data);
-            });
             LayaBlock.getAccount().then(data => {
                 this.out_txt.text = data;
             });
