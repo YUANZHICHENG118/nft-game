@@ -13,6 +13,7 @@ loadLib("libs/laya.ui.js")
 loadLib("libs/laya.physics.js")
 loadLib("libs/bignumber.min.js")
 loadLib("libs/laya.block.js");
+loadLib("libs/nft.api.js");
 
 //-----libs-end-------
 loadLib("js/bundle.js");

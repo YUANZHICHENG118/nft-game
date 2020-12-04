@@ -35,6 +35,10 @@ interface IMine {
 //我的基础数据
 interface IUserBase {
     /**
+     * 地址
+     */
+    address:string,
+    /**
      * eth 余额
      */
     ethBalance:number,
@@ -66,8 +70,12 @@ interface IUserBase {
  * 颜色 color 1:白色 2:绿 3 蓝 4 紫 5粉 6 橙色
  */
 interface IMachine{
+    //erc1155 id
+    id:number,
     //余额
     balance:number,
+    //合约地址
+    address:string,
     // 类型
     type:number,
     // 颜色
@@ -81,6 +89,8 @@ interface IMachine{
     //描述
     remark:string
 }
+
+interface I
 
 /**
  * ETH区块链相关

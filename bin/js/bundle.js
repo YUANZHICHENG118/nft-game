@@ -57,6 +57,9 @@
                         console.log("token=====", item.token);
                     });
                 });
+                NftApi.getGameLoadDec().then((d) => {
+                    console.log("load dec zh=====", d.zh);
+                });
             };
         }
         onEnable() {

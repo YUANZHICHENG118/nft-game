@@ -94,9 +94,10 @@
      * 获取用户基础数据
      * @returns {Promise<any>}
      */
-    const getUserBase=()=>{
+    const getUserBase= async ()=>{
+        const data={address:await getAccount(),ethBalance:10,tokenBalance:100,amount: 100, rank: 10, rate: 0.2, reward: 100}
         return new Promise(function(resolve, reject){
-            resolve({ethBalance:10,tokenBalance:100,amount: 100, rank: 10, rate: 0.2, reward: 100})
+            resolve(data)
         });
     }
 
@@ -106,7 +107,9 @@
      */
     const getUserMachine=()=>{
         const data=[{
+            id:1,
             balance:100,
+            address:'0xaaaa',
             type:1,
             color:1,
             load:10,
@@ -114,7 +117,9 @@
             img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
             remark:''
         },{
+            id:2,
             balance:200,
+            address:'0xaaaa',
             type:2,
             color:2,
             load:10,

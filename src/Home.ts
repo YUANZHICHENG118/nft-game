@@ -26,6 +26,11 @@ export default class Home extends ui.HomeUI{
                 console.log("token=====",item.token)
             })
         })
+
+        NftApi.getGameLoadDec().then((d:IGameLoadDec)=>{
+            console.log("load dec zh=====",d.zh)
+
+        })
     }
 
     onFlag1(e):void{
