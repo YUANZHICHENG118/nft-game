@@ -136,7 +136,8 @@
      * 获取用户收益
      * @returns {Promise<any>}
      */
-    const getUserIncome=(address)=>{
+    const getUserIncome=async ()=>{
+        const address=await  getAccount()
         const data=[{
             gameId:1,//期数
             machineNum:100,//派出设备数
@@ -186,6 +187,75 @@
             resolve(data)
         });
     }
+
+
+    /**
+     * erc20 是否已经授权
+     * @returns {Promise<boolean>}
+     */
+    const getTokenAllowance=()=>{
+        return new Promise(function(resolve, reject){
+            resolve(false)
+        });
+    }
+
+    /**
+     * erc20 授权
+     * @returns {Promise<boolean>}
+     */
+    const tokenApprove=()=>{
+        return new Promise(function(resolve, reject){
+            resolve({txId:'0xpppppp'})
+        });
+    }
+
+    /**
+     * 质押erc20
+     * @param {number} amount 质押数量
+     * @returns {Promise<ITransaction>}
+     */
+    const stakeToken=(amount)=>{
+        return new Promise(function(resolve, reject){
+            resolve({txId:'0xpppppp'})
+        });
+    }
+
+
+    /**
+     * erc1155 是否已经授权
+     * @returns {Promise<boolean>}
+     */
+    const getTokenNftAllowance=(id)=>{
+        return new Promise(function(resolve, reject){
+            resolve(false)
+        });
+    }
+
+    /**
+     * erc1155 授权
+     * @returns {Promise<boolean>}
+     */
+    const tokenNftApprove=(id)=>{
+        return new Promise(function(resolve, reject){
+            resolve({txId:'0xpppppp'})
+        });
+    }
+
+
+    /**
+     * 质押erc1155 派出设备挖矿
+     * @param {number[]} ids
+     * @param {number[]} amounts
+     * @returns {Promise<ITransaction>}
+     */
+    const stakeTokenNft=(ids,amounts)=>{
+        return new Promise(function(resolve, reject){
+            resolve({txId:'0xpppppp'})
+        });
+    }
+
+
+
 
 
     // 获取当前账号
@@ -256,6 +326,12 @@
         getUserBase:getUserBase,
         getUserMachine:getUserMachine,
         getUserIncome:getUserIncome,
+        getTokenAllowance:getTokenAllowance,
+        tokenApprove:tokenApprove,
+        stakeToken:stakeToken,
+        getTokenNftAllowance:getTokenNftAllowance,
+        tokenNftApprove:tokenNftApprove,
+        stakeTokenNft:stakeTokenNft,
         currentAccount: account,
         ethToken: ethToken,
         initWeb3: initWeb3,
@@ -267,6 +343,8 @@
         superNode: superNode
 
     }
+
+
     if (!noGlobal) {
         window.LayaBlock = block;
     }

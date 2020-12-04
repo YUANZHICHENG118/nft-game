@@ -117,6 +117,20 @@ interface IIncomeDetail{
 }
 
 /**
+ * 区块链交易返回数据
+ */
+interface ITransaction{
+    txId:string
+}
+
+/**
+ * 质押返回哈希
+ */
+interface IApprove extends  ITransaction{
+}
+
+
+/**
  * ETH区块链相关
  */
 declare class LayaBlock {
@@ -161,7 +175,48 @@ declare class LayaBlock {
      * 我的收益
      * @returns {Promise<IIncome[]>}
      */
-    static getUserIncome(address:string):Promise<IIncome[]>;
+    static getUserIncome():Promise<IIncome[]>;
+
+    /**
+     * erc20 是否已经授权
+     * @returns {Promise<boolean>}
+     */
+    static getTokenAllowance():Promise<boolean>;
+
+    /**
+     * erc20 授权
+     * @returns {Promise<boolean>}
+     */
+    static tokenApprove():Promise<IApprove>;
+
+    /**
+     * 质押erc20
+     * @param {number} amount 质押数量
+     * @returns {Promise<ITransaction>}
+     */
+    static stakeToken(amount:number):Promise<ITransaction>;
+
+
+    /**
+     * erc1155 是否已经授权
+     * @returns {Promise<boolean>}
+     */
+    static getTokenNftAllowance(id:number):Promise<boolean>;
+
+    /**
+     * erc1155 授权
+     * @returns {Promise<boolean>}
+     */
+    static tokenNftApprove(id:number):Promise<IApprove>;
+
+
+    /**
+     * 质押erc1155 派出设备挖矿
+     * @param {number[]} id
+     * @param {number[]} amount
+     * @returns {Promise<ITransaction>}
+     */
+    static stakeTokenNft(ids:number[],amounts:number[]):Promise<ITransaction>;
 
 
     /**
@@ -195,6 +250,5 @@ declare class LayaBlock {
      * @returns {Promise<any>}
      */
     static superNode(): Promise<any>;
-
 
 }
