@@ -53,6 +53,15 @@ interface IEmail{
 //帮助
 interface IHelp extends INotice{
 }
+
+//返佣明细
+interface ICommission{
+    nick:string,
+    address:string, // 地址
+    amount:number, //数量
+    txId?:string, // 哈希
+    receive:number // 0未领取 1 已领取
+}
 /**
  * 游戏相关http 接口
  */
@@ -95,4 +104,11 @@ declare class NftApi {
      * @returns {Promise<IHelp[]>}
      */
     static getHelp():Promise<IHelp[]>
+
+    /**
+     * 获取返佣明细
+     * @param {string} address
+     * @returns {Promise<ICommission[]>}
+     */
+    static getCommission(address:string):Promise<ICommission[]>
 }

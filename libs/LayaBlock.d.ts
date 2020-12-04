@@ -90,7 +90,31 @@ interface IMachine{
     remark:string
 }
 
-interface I
+/**
+ * 我的收益
+ */
+interface IIncome{
+    gameId:number,//期数
+    machineNum:number,//派出设备数
+    reward:number, // 收益
+    receive:number, // 0未领取 1 已领取
+    detail:IIncomeDetail[]
+
+}
+/**
+ * 我的收益详情
+ */
+interface IIncomeDetail{
+    id:number,
+    // 载重
+    load:number,
+    // 采矿数
+    mining:number,
+    // 图片
+    img:string,
+    reward:number, // 收益
+    txId:string
+}
 
 /**
  * ETH区块链相关
@@ -131,6 +155,14 @@ declare class LayaBlock {
      * @returns {Promise<IMachine[]>}
      */
     static getUserMachine():Promise<IMachine[]>;
+
+
+    /**
+     * 我的收益
+     * @returns {Promise<IIncome[]>}
+     */
+    static getUserIncome(address:string):Promise<IIncome[]>;
+
 
     /**
      * 获取当前地址

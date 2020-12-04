@@ -107,6 +107,30 @@
             resolve(data)
         });
     }
+
+    /**
+     * 我的佣金明细
+     * @returns {Promise<any>}
+     */
+    const getCommission=()=>{
+        const data=[{
+            nick:'第二敌人',
+            address:'0xsssssssssss', // 地址
+            amount:100, //数量
+            txId:'', // 哈希
+            receive:0 // 0未领取 1 已领取
+        },{
+            nick:'第五敌人',
+            address:'0xsssssssssss', // 地址
+            amount:100, //数量
+            txId:'', // 哈希
+            receive:1 // 0未领取 1 已领取
+        }]
+        return new Promise(function(resolve, reject){
+            resolve(data)
+        });
+    }
+
     var api = {
         getGameLoadDec:getGameLoadDec,
         getNick:getNick,
@@ -114,6 +138,7 @@
         getNotice:getNotice,
         getEmail:getEmail,
         getHelp:getHelp,
+        getCommission:getCommission
     }
     if (!noGlobal) {
         window.NftApi = api;

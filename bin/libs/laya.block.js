@@ -132,6 +132,61 @@
         });
     }
 
+    /**
+     * 获取用户收益
+     * @returns {Promise<any>}
+     */
+    const getUserIncome=(address)=>{
+        const data=[{
+            gameId:1,//期数
+            machineNum:100,//派出设备数
+            reward:1000, // 收益
+            receive:0, // 0未领取 1 已领取
+            detail:[{id:1,
+                // 载重
+                load:10,
+                // 采矿数
+                mining:100,
+                // 图片
+                img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
+                reward:100, // 收益
+                txId:'0xooooo'},{id:2,
+                // 载重
+                load:10,
+                // 采矿数
+                mining:100,
+                // 图片
+                img:'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
+                reward:100, // 收益
+                txId:'0xbbbbb'}]
+        },{
+            gameId:2,//期数
+            machineNum:10,//派出设备数
+            reward:100, // 收益
+            receive:1, // 0未领取 1 已领取
+            detail:[{id:1,
+                // 载重
+                load:10,
+                // 采矿数
+                mining:100,
+                // 图片
+                img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
+                reward:100, // 收益
+                txId:'0xooooo'},{id:2,
+                // 载重
+                load:10,
+                // 采矿数
+                mining:100,
+                // 图片
+                img:'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
+                reward:100, // 收益
+                txId:'0xbbbbb'}]
+        }]
+        return new Promise(function(resolve, reject){
+            resolve(data)
+        });
+    }
+
 
     // 获取当前账号
     const getAccount = async () => {
@@ -200,6 +255,7 @@
         getMineData:getMineData,
         getUserBase:getUserBase,
         getUserMachine:getUserMachine,
+        getUserIncome:getUserIncome,
         currentAccount: account,
         ethToken: ethToken,
         initWeb3: initWeb3,
