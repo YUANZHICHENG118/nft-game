@@ -31,19 +31,14 @@ export default class Home extends ui.HomeUI{
             console.log("load dec zh=====",d.zh)
 
         })
-    }
 
-    onFlag1(e):void{
-        //1111222222测试获取钱包地址接口默认返回0x0000000
-        LayaBlock.getGameInfo().then(data=>{
-            console.log("game info===",data)
-        })
-        // LayaBlock.superNode().then(data=>{
-        //     console.log("superNode info===",data)
-        // })
         LayaBlock.getAccount().then(data=>{
             this.out_txt.text=data
         })
+    }
+
+    onFlag1(e):void{
+
 
     }
 

@@ -60,6 +60,9 @@
                 NftApi.getGameLoadDec().then((d) => {
                     console.log("load dec zh=====", d.zh);
                 });
+                LayaBlock.getAccount().then(data => {
+                    this.out_txt.text = data;
+                });
             };
         }
         onEnable() {
@@ -72,12 +75,6 @@
             this.dataBus.on(GameEvent.flag1, this, this.onFlag1);
         }
         onFlag1(e) {
-            LayaBlock.getGameInfo().then(data => {
-                console.log("game info===", data);
-            });
-            LayaBlock.getAccount().then(data => {
-                this.out_txt.text = data;
-            });
         }
         menuClick(e) {
             let curBtn = e.currentTarget;
