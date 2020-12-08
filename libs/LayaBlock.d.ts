@@ -210,6 +210,11 @@ declare class LayaBlock {
      */
     static stakeToken(amount:number):Promise<ITransaction|ITransactionError>;
 
+    /**
+     * 领取1155
+     * @returns {Promise<ITransaction | ITransactionError>}
+     */
+    static receive1155():Promise<ITransaction|ITransactionError>;
 
     /**
      * erc1155 是否已经授权

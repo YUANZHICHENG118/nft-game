@@ -58,6 +58,11 @@
                 LayaBlock.getEthBalance().then((d) => {
                     console.log("eth balance=====", d);
                 });
+                LayaBlock.getUserMachine().then((d) => {
+                    d.map((item) => {
+                        console.log("getUserMachine====", item.balance);
+                    });
+                });
                 LayaBlock.getTokenAllowance().then((d) => {
                     console.log("getTokenAllowance=====", d);
                     if (!d) {
@@ -67,11 +72,6 @@
                             console.log("tokenApprove error=====", e);
                         });
                     }
-                });
-                LayaBlock.stakeToken(10000).then((d) => {
-                    console.log("stakeToken=====", d.transactionHash);
-                }).catch((e) => {
-                    console.log("stakeToken error=====", e);
                 });
                 LayaBlock.getGameServer().then((d) => {
                     d.map(item => {

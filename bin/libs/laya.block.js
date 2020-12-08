@@ -1,4 +1,4 @@
-(function (global, factory, BigNumber) {
+(function (global, factory, BigNumber,Laya) {
     "use strict";
     if (typeof module === "object" && typeof module.exports === "object") {
         module.exports = global.document ? factory(global, true) : function (w) {
@@ -15,7 +15,146 @@
 })(typeof window !== "undefined" ? window : this, function (window, noGlobal) {
     let account = undefined;
 
+    // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
+    // A 采矿车 B 翻斗车 C 挖掘机
+    
+    const machineA=[
+        {
+        "type":3,
+        "color":1,
+        "load":0,
+        "mining":1,
+        "img":"https://nft-files.s3.us-east-2.amazonaws.com/3/1.png"
+    },{
+            "type":3,
+            "color":2,
+            "load":0,
+            "mining":2,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/3/2.png"
+        },{
+            "type":3,
+            "color":3,
+            "load":0,
+            "mining":5,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/3/3.png"
+        },{
+            "type":3,
+            "color":4,
+            "load":0,
+            "mining":10,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/3/4.png"
+        },{
+            "type":3,
+            "color":5,
+            "load":0,
+            "mining":30,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/3/5.png"
+        },{
+            "type":3,
+            "color":6,
+            "load":0,
+            "mining":100,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/3/6.png"
+        }]
+    const machineB=[
+        {
+            "type":1,
+            "color":1,
+            "load":10,
+            "mining":1,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/1/1.png"
+        },
 
+        {
+            "type":1,
+            "color":2,
+            "load":20,
+            "mining":2,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/1/2.png"
+        },
+
+        {
+            "type":1,
+            "color":3,
+            "load":50,
+            "mining":5,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/1/3.png"
+        },
+
+        {
+            "type":1,
+            "color":4,
+            "load":100,
+            "mining":10,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/1/4.png"
+        },
+
+        {
+            "type":1,
+            "color":5,
+            "load":300,
+            "mining":30,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/1/5.png"
+        },
+
+        {
+            "type":1,
+            "color":6,
+            "load":1000,
+            "mining":100,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/1/6.png"
+        }
+    ]
+    const machineC=[
+        {
+            "type":2,
+            "color":1,
+            "load":1,
+            "mining":10,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/2/1.png"
+        },
+
+        {
+            "type":2,
+            "color":2,
+            "load":2,
+            "mining":20,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/2/2.png"
+        },
+
+        {
+            "type":2,
+            "color":3,
+            "load":5,
+            "mining":50,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/2/3.png"
+        },
+
+        {
+            "type":2,
+            "color":4,
+            "load":10,
+            "mining":100,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/2/4.png"
+        },
+
+        {
+            "type":2,
+            "color":5,
+            "load":30,
+            "mining":300,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/2/5.png"
+        },
+
+        {
+            "type":2,
+            "color":6,
+            "load":100,
+            "mining":1000,
+            "img":"https://nft-files.s3.us-east-2.amazonaws.com/2/6.png"
+        }
+    ]
+    
     //服务器选区
     const gameServer = [{id: 1, name: 'Crypto Mine矿池', token: "CM"}];
     //游戏合约地址
@@ -44,7 +183,7 @@
         name:'Crypto Mine',
         symbol: 'CM',
         decimals: Math.pow(10, 18),
-        approveAmount:100000 //授权金额
+        approveAmount:10000000 //授权金额
     }
 
     //初始化合约
@@ -137,28 +276,39 @@
      * 获取用户设备数据
      * @returns {Promise<any>}
      */
-    const getUserMachine = () => {
-        const data = [{
-            id: 1,
-            balance: 100,
-            address: '0xaaaa',
-            type: 1,
-            color: 1,
-            load: 10,
-            mining: 1,
-            img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-            remark: ''
-        }, {
-            id: 2,
-            balance: 200,
-            address: '0xaaaa',
-            type: 2,
-            color: 2,
-            load: 10,
-            mining: 1,
-            img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-            remark: ''
-        }]
+    const getUserMachine = async () => {
+
+        let data=[];
+        const contract = token1155Contract();
+        for(let i=1;i<=18;i++){
+            let machine={};
+            let balance= await contract.methods.balanceOf(await getAccount(),i).call()
+            //let uri= await contract.methods.uri(i).call()
+            // let xhr = new Laya.HttpRequest();
+            // let _d= xhr.send(uri+".json","","get","json");//发送了一个get请求，携带的参数为a = xxxx,b=xxx
+
+            let detail=[];
+            if(i<=6){
+                detail=machineA
+            }
+            if(i>6&&i<=12){
+                detail=machineB
+            }
+            if(i>12){
+                detail=machineC
+            }
+            let mod=i%6;
+            machine['id']=i;
+            machine['balance']=balance;
+
+            let newObj = {};
+            Object.assign(newObj,machine,detail[mod>0?mod-1:5])
+
+            data.push(newObj);
+        }
+
+       // console.log("getUserMachine===",data)
+
         return new Promise(function (resolve, reject) {
             resolve(data)
         });
@@ -298,6 +448,34 @@
         })
     }
 
+    /**
+     * 领取erc1155 NFT
+     * @returns {Promise<any>}
+     */
+    const receive1155 = async () => {
+        const contract = gameContract();
+
+        const gasAmount = await contract.methods.obtainCar().estimateGas({
+            from: await getAccount(),
+            value: 0
+        });
+
+        return contract.methods.obtainCar().send({
+            from: await getAccount(),
+            value: 0,
+            gasLimit: gasAmount
+        }).then(data => {
+            console.log("receive1155 ====",data)
+            return data;
+        }).catch(e=>{
+            console.log("receive error===",e)
+            return new Promise(function (resolve, reject) {
+                reject(e)
+            });
+        })
+    }
+
+
 
     /**
      * erc1155 是否已经授权
@@ -409,6 +587,7 @@
         getTokenAllowance: getTokenAllowance,
         tokenApprove: tokenApprove,
         stakeToken: stakeToken,
+        receive1155:receive1155,
         getTokenNftAllowance: getTokenNftAllowance,
         tokenNftApprove: tokenNftApprove,
         stakeTokenNft: stakeTokenNft,

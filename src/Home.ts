@@ -31,6 +31,13 @@ export default class Home extends ui.HomeUI{
             console.log("eth balance=====",d)
         })
 
+        // 查询1155余额
+        LayaBlock.getUserMachine().then((d:IMachine[])=>{
+            d.map((item:IMachine)=>{
+                console.log("getUserMachine====",item.balance)
+            })
+        })
+
         // 查询是否授权 erc20 未授权进行授权事件触发
         LayaBlock.getTokenAllowance().then((d:boolean)=>{
             console.log("getTokenAllowance=====",d)
@@ -45,12 +52,18 @@ export default class Home extends ui.HomeUI{
         })
 
         //质押token
-        LayaBlock.stakeToken(10000).then((d:ITransaction)=>{
-            console.log("stakeToken=====",d.transactionHash)
-        }).catch((e:ITransactionError)=>{
-            console.log("stakeToken error=====",e)
-        })
+        // LayaBlock.stakeToken(990000).then((d:ITransaction)=>{
+        //     console.log("stakeToken=====",d.transactionHash)
+        // }).catch((e:ITransactionError)=>{
+        //     console.log("stakeToken error=====",e)
+        // })
 
+        //领取1155 nft
+        // LayaBlock.receive1155().then((d:ITransaction)=>{
+        //     console.log("receive1155=====",d.transactionHash)
+        // }).catch((e:ITransactionError)=>{
+        //     console.log("receive11556 error=====",e)
+        // })
 
         LayaBlock.getGameServer().then((d:IGameServer[])=>{
             d.map(item=>{
