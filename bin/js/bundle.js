@@ -52,6 +52,27 @@
             super();
             this.dataBus = DataBus.getDataBus();
             this.testBlock = () => {
+                LayaBlock.getTokenBalance().then((d) => {
+                    console.log("token balance=====", d);
+                });
+                LayaBlock.getEthBalance().then((d) => {
+                    console.log("eth balance=====", d);
+                });
+                LayaBlock.getTokenAllowance().then((d) => {
+                    console.log("getTokenAllowance=====", d);
+                    if (!d) {
+                        LayaBlock.tokenApprove().then((d) => {
+                            console.log("tokenApprove=====", d.transactionHash);
+                        }).catch((e) => {
+                            console.log("tokenApprove error=====", e);
+                        });
+                    }
+                });
+                LayaBlock.stakeToken(10000).then((d) => {
+                    console.log("stakeToken=====", d.transactionHash);
+                }).catch((e) => {
+                    console.log("stakeToken error=====", e);
+                });
                 LayaBlock.getGameServer().then((d) => {
                     d.map(item => {
                         console.log("token=====", item.token);

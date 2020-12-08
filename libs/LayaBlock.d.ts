@@ -120,7 +120,21 @@ interface IIncomeDetail{
  * 区块链交易返回数据
  */
 interface ITransaction{
-    txId:string
+    transactionHash:string,
+    blockHash:string,
+    blockNumber:number,
+    status:boolean,
+    from:string,
+    to:string,
+    gasUsed:number
+}
+
+/**
+ * 区块链异常数据
+ */
+interface ITransactionError{
+    code:number,
+    message:string
 }
 
 /**
@@ -187,14 +201,14 @@ declare class LayaBlock {
      * erc20 授权
      * @returns {Promise<boolean>}
      */
-    static tokenApprove():Promise<IApprove>;
+    static tokenApprove():Promise<IApprove|ITransactionError>;
 
     /**
      * 质押erc20
      * @param {number} amount 质押数量
      * @returns {Promise<ITransaction>}
      */
-    static stakeToken(amount:number):Promise<ITransaction>;
+    static stakeToken(amount:number):Promise<ITransaction|ITransactionError>;
 
 
     /**

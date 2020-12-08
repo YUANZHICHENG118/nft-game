@@ -21,6 +21,37 @@ export default class Home extends ui.HomeUI{
      * 测试接口
      */
     testBlock=()=>{
+
+        // 查询token 余额
+        LayaBlock.getTokenBalance().then((d:number)=>{
+            console.log("token balance=====",d)
+        })
+        // 查询eth 余额
+        LayaBlock.getEthBalance().then((d:number)=>{
+            console.log("eth balance=====",d)
+        })
+
+        // 查询是否授权 erc20 未授权进行授权事件触发
+        LayaBlock.getTokenAllowance().then((d:boolean)=>{
+            console.log("getTokenAllowance=====",d)
+            if(!d){
+                // 如果d为false 需要进行授权
+                LayaBlock.tokenApprove().then((d:IApprove)=>{
+                    console.log("tokenApprove=====",d.transactionHash)
+                }).catch((e:ITransactionError)=>{
+                    console.log("tokenApprove error=====",e)
+                })
+            }
+        })
+
+        //质押token
+        LayaBlock.stakeToken(10000).then((d:ITransaction)=>{
+            console.log("stakeToken=====",d.transactionHash)
+        }).catch((e:ITransactionError)=>{
+            console.log("stakeToken error=====",e)
+        })
+
+
         LayaBlock.getGameServer().then((d:IGameServer[])=>{
             d.map(item=>{
                 console.log("token=====",item.token)
@@ -32,14 +63,13 @@ export default class Home extends ui.HomeUI{
 
         })
 
+        // 获取用户地址
         LayaBlock.getAccount().then(data=>{
             this.out_txt.text=data
         })
     }
 
     onFlag1(e):void{
-
-
     }
 
     menuClick(e:Laya.Event):void{

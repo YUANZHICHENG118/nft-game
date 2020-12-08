@@ -1,4 +1,4 @@
-(function (global, factory,BigNumber) {
+(function (global, factory, BigNumber) {
     "use strict";
     if (typeof module === "object" && typeof module.exports === "object") {
         module.exports = global.document ? factory(global, true) : function (w) {
@@ -17,19 +17,34 @@
 
 
     //服务器选区
-    const gameServer=[{id:1,name:'ABC矿池',token:"ABC"}];
+    const gameServer = [{id: 1, name: 'Crypto Mine矿池', token: "CM"}];
     //游戏合约地址
-    const gameAddress = "0xf44b736101dcd2f9cce8d1885947c24c996c7bb5";
-    const gameABI = [{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"pairAddress","type":"address"},{"internalType":"address","name":"erc1155Address","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"constant":true,"inputs":[],"name":"ERC1155","outputs":[{"internalType":"contract IERC1155","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ERC1155BASE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ERC20Token","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"name":"dig","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"duration","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"userAddress","type":"address"}],"name":"getDigGross","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint8","name":"version","type":"uint8"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getPersonalStats","outputs":[{"internalType":"uint256[10]","name":"stats","type":"uint256[10]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"getRandom","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"userAddress","type":"address"}],"name":"getReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"version","type":"uint256"}],"name":"getSorts","outputs":[{"internalType":"address[10]","name":"","type":"address[10]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_version","type":"uint256"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getVersionAward","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"obtainCar","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_operator","type":"address"},{"internalType":"address","name":"_from","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_value","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"onERC1155Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pairSwap","outputs":[{"internalType":"contract PairSwap","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"sn","type":"uint256"},{"internalType":"uint256","name":"id","type":"uint256"}],"name":"setIds","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"stakeAmount","type":"uint256"}],"name":"stake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"startTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"versionTotal","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdrawAward","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdrawCapital","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+    const gameAddress = "0x740809F6e4800095ACada019bfFcafd506DD8FD7";
+    const gameABI = [{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"pairAddress","type":"address"},{"internalType":"address","name":"erc1155Address","type":"address"},{"internalType":"address payable","name":"_proAddress","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"constant":true,"inputs":[],"name":"ERC1155","outputs":[{"internalType":"contract IERC1155","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ERC20Token","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"LAST_STRAW_PERCNET","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ONE_DAY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ORE_AMOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"RANKING_AWARD_PERCENT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"START_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"carIds","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"cars","outputs":[{"internalType":"uint256","name":"fertility","type":"uint256"},{"internalType":"uint256","name":"carry","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"duration","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"carId","type":"uint256"}],"name":"findCarId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"userAddress","type":"address"},{"internalType":"uint256","name":"_version","type":"uint256"}],"name":"findRank","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"userAddress","type":"address"}],"name":"getDigGross","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint8","name":"_version","type":"uint8"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getPersonalStats","outputs":[{"internalType":"uint256[6]","name":"stats","type":"uint256[6]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_version","type":"uint256"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getRecord","outputs":[{"internalType":"bool","name":"drawStatus","type":"bool"},{"internalType":"uint256","name":"digGross","type":"uint256"},{"internalType":"bool","name":"lastStraw","type":"bool"},{"internalType":"uint8","name":"ranking","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_version","type":"uint256"}],"name":"getSorts","outputs":[{"internalType":"address[10]","name":"","type":"address[10]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_version","type":"uint256"},{"internalType":"address","name":"userAddress","type":"address"}],"name":"getVersionAward","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"history","outputs":[{"internalType":"uint256","name":"ethAmount","type":"uint256"},{"internalType":"uint256","name":"tokenAmount","type":"uint256"},{"internalType":"uint256","name":"complete","type":"uint256"},{"internalType":"uint256","name":"actual","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"indexs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"obtainCar","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"},{"internalType":"uint256[]","name":"","type":"uint256[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"}],"name":"obtainRecord","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_operator","type":"address"},{"internalType":"address","name":"_from","type":"address"},{"internalType":"uint256[]","name":"_ids","type":"uint256[]"},{"internalType":"uint256[]","name":"_values","type":"uint256[]"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"onERC1155BatchReceived","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_operator","type":"address"},{"internalType":"address","name":"_from","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_value","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"onERC1155Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pairSwap","outputs":[{"internalType":"contract PairSwap","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"}],"name":"records","outputs":[{"internalType":"bool","name":"drawStatus","type":"bool"},{"internalType":"uint256","name":"digGross","type":"uint256"},{"internalType":"bool","name":"lastStraw","type":"bool"},{"internalType":"uint8","name":"ranking","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"sn","type":"uint256"},{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"fertility","type":"uint256"},{"internalType":"uint256","name":"carry","type":"uint256"}],"name":"setIds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"sorts","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"stakeAmount","type":"uint256"}],"name":"stake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes4","name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"userCounter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"users","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"investment","type":"uint256"},{"internalType":"uint256","name":"withdrawVersion","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdrawAward","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdrawCapital","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+
+
     // erc20Token
-    const erc20TokenAddress = "";
-    const erc20TokenABI = [];
-    // erc
-    const gasLimit=21000;
+    const erc20TokenAddress = "0x5E97390031cC1B4E48488a0a270a74A9C73578a2";
+    const erc20TokenABI = [{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"symbol","type":"string"},{"internalType":"address","name":"minter_","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"minter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+
+    //erc115Token
+    const erc1155TokenAddres = "0x842dcfDFa421F66CadB5d524D75Af3D3F03bA531";
+    const erc1155TokenABI = [{"inputs":[{"internalType":"string","name":"_name","type":"string"},{"internalType":"string","name":"_symbol","type":"string"},{"internalType":"address","name":"_proxyRegistryAddress","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"_owner","type":"address"},{"indexed":true,"internalType":"address","name":"_operator","type":"address"},{"indexed":false,"internalType":"bool","name":"_approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"_operator","type":"address"},{"indexed":true,"internalType":"address","name":"_from","type":"address"},{"indexed":true,"internalType":"address","name":"_to","type":"address"},{"indexed":false,"internalType":"uint256[]","name":"_ids","type":"uint256[]"},{"indexed":false,"internalType":"uint256[]","name":"_amounts","type":"uint256[]"}],"name":"TransferBatch","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"_operator","type":"address"},{"indexed":true,"internalType":"address","name":"_from","type":"address"},{"indexed":true,"internalType":"address","name":"_to","type":"address"},{"indexed":false,"internalType":"uint256","name":"_id","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"TransferSingle","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"_uri","type":"string"},{"indexed":true,"internalType":"uint256","name":"_id","type":"uint256"}],"name":"URI","type":"event"},{"constant":true,"inputs":[{"internalType":"address","name":"_owner","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address[]","name":"_owners","type":"address[]"},{"internalType":"uint256[]","name":"_ids","type":"uint256[]"}],"name":"balanceOfBatch","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256[]","name":"_ids","type":"uint256[]"},{"internalType":"uint256[]","name":"_quantities","type":"uint256[]"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"batchMint","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_initialOwner","type":"address"},{"internalType":"uint256","name":"_initialSupply","type":"uint256"},{"internalType":"string","name":"_uri","type":"string"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"create","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"creators","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"_owner","type":"address"},{"internalType":"address","name":"_operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"isOperator","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_quantity","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"mint","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256[]","name":"_ids","type":"uint256[]"},{"internalType":"uint256[]","name":"_amounts","type":"uint256[]"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeBatchTransferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_operator","type":"address"},{"internalType":"bool","name":"_approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"string","name":"_newBaseMetadataURI","type":"string"}],"name":"setBaseMetadataURI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256[]","name":"_ids","type":"uint256[]"}],"name":"setCreator","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes4","name":"_interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tokenSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]
+
+
     const ethToken = {
         address: '',
+        name:'ETH',
         symbol: 'ETH',
         decimals: Math.pow(10, 18),
+    }
+    // erc20 token
+    const erc20Token = {
+        address: erc20TokenAddress,
+        name:'Crypto Mine',
+        symbol: 'CM',
+        decimals: Math.pow(10, 18),
+        approveAmount:100000 //授权金额
     }
 
     //初始化合约
@@ -37,10 +52,19 @@
         return new web3.eth.Contract(abi, address);
     }
     // 初始化游戏合约
-    const nftContract = () => {
+    const gameContract = () => {
         return baseContract(gameABI, gameAddress);
     }
 
+    // 初始化Token合约
+    const tokenContract = () => {
+        return baseContract(erc20TokenABI, erc20TokenAddress);
+    }
+
+    // 初始化Token1155合约
+    const token1155Contract = () => {
+        return baseContract(erc1155TokenABI, erc1155TokenAddres);
+    }
     // 初始化web3
     const initWeb3 = () => {
         if (window.ethereum) {
@@ -54,7 +78,7 @@
 
     // 链接钱包
     const connect = () => {
-        ethereum.request({ method: 'eth_requestAccounts' })
+        ethereum.request({method: 'eth_requestAccounts'})
             .then(data => {
                 console.log("===data,", data);
                 account = data?.[0]
@@ -75,8 +99,8 @@
      * 获取游戏分区数据
      * @returns {*[]}
      */
-    const getGameServer=()=>{
-        return new Promise(function(resolve, reject){
+    const getGameServer = () => {
+        return new Promise(function (resolve, reject) {
             resolve(gameServer)
         });
     }
@@ -85,18 +109,26 @@
      * 获取矿山数据
      * @returns {*[]}
      */
-    const getMineData=()=>{
-        return new Promise(function(resolve, reject){
-            resolve({id:1,total:20000,surplus:1000})
+    const getMineData = () => {
+        return new Promise(function (resolve, reject) {
+            resolve({id: 1, total: 20000, surplus: 1000})
         });
     }
     /**
      * 获取用户基础数据
      * @returns {Promise<any>}
      */
-    const getUserBase= async ()=>{
-        const data={address:await getAccount(),ethBalance:10,tokenBalance:100,amount: 100, rank: 10, rate: 0.2, reward: 100}
-        return new Promise(function(resolve, reject){
+    const getUserBase = async () => {
+        const data = {
+            address: await getAccount(),
+            ethBalance: 10,
+            tokenBalance: 100,
+            amount: 100,
+            rank: 10,
+            rate: 0.2,
+            reward: 100
+        }
+        return new Promise(function (resolve, reject) {
             resolve(data)
         });
     }
@@ -105,29 +137,29 @@
      * 获取用户设备数据
      * @returns {Promise<any>}
      */
-    const getUserMachine=()=>{
-        const data=[{
-            id:1,
-            balance:100,
-            address:'0xaaaa',
-            type:1,
-            color:1,
-            load:10,
-            mining:1,
-            img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-            remark:''
-        },{
-            id:2,
-            balance:200,
-            address:'0xaaaa',
-            type:2,
-            color:2,
-            load:10,
-            mining:1,
-            img:'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-            remark:''
+    const getUserMachine = () => {
+        const data = [{
+            id: 1,
+            balance: 100,
+            address: '0xaaaa',
+            type: 1,
+            color: 1,
+            load: 10,
+            mining: 1,
+            img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
+            remark: ''
+        }, {
+            id: 2,
+            balance: 200,
+            address: '0xaaaa',
+            type: 2,
+            color: 2,
+            load: 10,
+            mining: 1,
+            img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
+            remark: ''
         }]
-        return new Promise(function(resolve, reject){
+        return new Promise(function (resolve, reject) {
             resolve(data)
         });
     }
@@ -136,54 +168,62 @@
      * 获取用户收益
      * @returns {Promise<any>}
      */
-    const getUserIncome=async ()=>{
-        const address=await  getAccount()
-        const data=[{
-            gameId:1,//期数
-            machineNum:100,//派出设备数
-            reward:1000, // 收益
-            receive:0, // 0未领取 1 已领取
-            detail:[{id:1,
+    const getUserIncome = async () => {
+        const address = await  getAccount()
+        const data = [{
+            gameId: 1,//期数
+            machineNum: 100,//派出设备数
+            reward: 1000, // 收益
+            receive: 0, // 0未领取 1 已领取
+            detail: [{
+                id: 1,
                 // 载重
-                load:10,
+                load: 10,
                 // 采矿数
-                mining:100,
+                mining: 100,
                 // 图片
-                img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-                reward:100, // 收益
-                txId:'0xooooo'},{id:2,
+                img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
+                reward: 100, // 收益
+                txId: '0xooooo'
+            }, {
+                id: 2,
                 // 载重
-                load:10,
+                load: 10,
                 // 采矿数
-                mining:100,
+                mining: 100,
                 // 图片
-                img:'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-                reward:100, // 收益
-                txId:'0xbbbbb'}]
-        },{
-            gameId:2,//期数
-            machineNum:10,//派出设备数
-            reward:100, // 收益
-            receive:1, // 0未领取 1 已领取
-            detail:[{id:1,
+                img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
+                reward: 100, // 收益
+                txId: '0xbbbbb'
+            }]
+        }, {
+            gameId: 2,//期数
+            machineNum: 10,//派出设备数
+            reward: 100, // 收益
+            receive: 1, // 0未领取 1 已领取
+            detail: [{
+                id: 1,
                 // 载重
-                load:10,
+                load: 10,
                 // 采矿数
-                mining:100,
+                mining: 100,
                 // 图片
-                img:'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-                reward:100, // 收益
-                txId:'0xooooo'},{id:2,
+                img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
+                reward: 100, // 收益
+                txId: '0xooooo'
+            }, {
+                id: 2,
                 // 载重
-                load:10,
+                load: 10,
                 // 采矿数
-                mining:100,
+                mining: 100,
                 // 图片
-                img:'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-                reward:100, // 收益
-                txId:'0xbbbbb'}]
+                img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
+                reward: 100, // 收益
+                txId: '0xbbbbb'
+            }]
         }]
-        return new Promise(function(resolve, reject){
+        return new Promise(function (resolve, reject) {
             resolve(data)
         });
     }
@@ -193,31 +233,69 @@
      * erc20 是否已经授权
      * @returns {Promise<boolean>}
      */
-    const getTokenAllowance=()=>{
-        return new Promise(function(resolve, reject){
-            resolve(false)
-        });
+    const getTokenAllowance = async () => {
+        const contract = tokenContract();
+        return contract.methods.allowance(await getAccount(),gameAddress).call().then(data => {
+            console.log("getTokenAllowance===",data)
+            return data>0;
+        })
     }
 
     /**
      * erc20 授权
      * @returns {Promise<boolean>}
      */
-    const tokenApprove=()=>{
-        return new Promise(function(resolve, reject){
-            resolve({txId:'0xpppppp'})
+    const tokenApprove = async () => {
+        const contract = tokenContract();
+        let amount =new BigNumber(erc20Token.approveAmount*erc20Token.decimals);
+        let _amount = '0x' + amount.toString(16)
+        const gasAmount = await contract.methods.approve(gameAddress,_amount).estimateGas({
+            from: await getAccount(),
+            value: 0
         });
+
+        return contract.methods.approve(gameAddress,_amount).send({
+            from: await getAccount(),
+            value: 0,
+            gasLimit: gasAmount
+        }).then(data => {
+            console.log("approve ====",data)
+            return data;
+        }).catch(e=>{
+            console.log("approve error===",e)
+            return new Promise(function (resolve, reject) {
+                reject(e)
+            });
+        })
     }
 
     /**
      * 质押erc20
-     * @param {number} amount 质押数量
+     * @param {number} value 质押数量
      * @returns {Promise<ITransaction>}
      */
-    const stakeToken=(amount)=>{
-        return new Promise(function(resolve, reject){
-            resolve({txId:'0xpppppp'})
+    const stakeToken = async (value) => {
+        const contract = gameContract();
+        let amount =new BigNumber(value*erc20Token.decimals);
+        let _amount = '0x' + amount.toString(16)
+        const gasAmount = await contract.methods.stake(_amount).estimateGas({
+            from: await getAccount(),
+            value: 0
         });
+
+        return contract.methods.stake(_amount).send({
+            from: await getAccount(),
+            value: 0,
+            gasLimit: gasAmount
+        }).then(data => {
+            console.log("stake ====",data)
+            return data;
+        }).catch(e=>{
+            console.log("stake error===",e)
+            return new Promise(function (resolve, reject) {
+                reject(e)
+            });
+        })
     }
 
 
@@ -225,8 +303,8 @@
      * erc1155 是否已经授权
      * @returns {Promise<boolean>}
      */
-    const getTokenNftAllowance=(id)=>{
-        return new Promise(function(resolve, reject){
+    const getTokenNftAllowance = (id) => {
+        return new Promise(function (resolve, reject) {
             resolve(false)
         });
     }
@@ -235,9 +313,9 @@
      * erc1155 授权
      * @returns {Promise<boolean>}
      */
-    const tokenNftApprove=(id)=>{
-        return new Promise(function(resolve, reject){
-            resolve({txId:'0xpppppp'})
+    const tokenNftApprove = (id) => {
+        return new Promise(function (resolve, reject) {
+            resolve({txId: '0xpppppp'})
         });
     }
 
@@ -248,14 +326,11 @@
      * @param {number[]} amounts
      * @returns {Promise<ITransaction>}
      */
-    const stakeTokenNft=(ids,amounts)=>{
-        return new Promise(function(resolve, reject){
-            resolve({txId:'0xpppppp'})
+    const stakeTokenNft = (ids, amounts) => {
+        return new Promise(function (resolve, reject) {
+            resolve({txId: '0xpppppp'})
         });
     }
-
-
-
 
 
     // 获取当前账号
@@ -267,12 +342,14 @@
     // 获取eth余额
     const getEthBalance = async () => {
         const balance = await web3.eth.getBalance(account || await getAccount());
-        console.log("this.account", balance / ethToken.decimals);
         return balance / ethToken.decimals;
     }
     // 获取token余额
     const getTokenBalance = async () => {
-
+        const contract = tokenContract();
+        return contract.methods.balanceOf(await getAccount()).call().then(data => {
+            return data/erc20Token.decimals;
+        })
     }
     // 转账115
     const transferERC115 = async (params, callback) => {
@@ -280,7 +357,7 @@
     }
     //测试查询nft 游戏数据
     const getGameInfo = () => {
-        const contract = nftContract();
+        const contract = gameContract();
         return contract.methods.getGlobalStats(0).call().then(data => {
             return data;
         })
@@ -288,7 +365,7 @@
 
     //测试转账接口
     const superNode = async () => {
-        const contract = nftContract();
+        const contract = gameContract();
         let fee = 5;
         let amount = web3.utils.toWei(fee.toString(), 'ether');
         let _amount = web3.utils.toHex(amount)
@@ -316,24 +393,25 @@
         }
     }
 
-    const calculateGasMargin=(value)=> {
-        const gas= new BigNumber(value).multipliedBy(new BigNumber(10000).plus(new BigNumber(10000))).dividedBy(new BigNumber(10000))
+    const calculateGasMargin = (value) => {
+        const gas = new BigNumber(value).multipliedBy(new BigNumber(10000).plus(new BigNumber(10000))).dividedBy(new BigNumber(10000))
         return gas;
     }
     var block = {
-        getGameServer:getGameServer,
-        getMineData:getMineData,
-        getUserBase:getUserBase,
-        getUserMachine:getUserMachine,
-        getUserIncome:getUserIncome,
-        getTokenAllowance:getTokenAllowance,
-        tokenApprove:tokenApprove,
-        stakeToken:stakeToken,
-        getTokenNftAllowance:getTokenNftAllowance,
-        tokenNftApprove:tokenNftApprove,
-        stakeTokenNft:stakeTokenNft,
         currentAccount: account,
         ethToken: ethToken,
+        erc20Token:erc20Token,
+        getGameServer: getGameServer,
+        getMineData: getMineData,
+        getUserBase: getUserBase,
+        getUserMachine: getUserMachine,
+        getUserIncome: getUserIncome,
+        getTokenAllowance: getTokenAllowance,
+        tokenApprove: tokenApprove,
+        stakeToken: stakeToken,
+        getTokenNftAllowance: getTokenNftAllowance,
+        tokenNftApprove: tokenNftApprove,
+        stakeTokenNft: stakeTokenNft,
         initWeb3: initWeb3,
         getAccount: getAccount,
         getEthBalance: getEthBalance,
