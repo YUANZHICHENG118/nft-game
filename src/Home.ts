@@ -52,7 +52,7 @@ export default class Home extends ui.HomeUI{
         })
 
         //质押token
-        // LayaBlock.stakeToken(990000).then((d:ITransaction)=>{
+        // LayaBlock.stakeToken(100).then((d:ITransaction)=>{
         //     console.log("stakeToken=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
         //     console.log("stakeToken error=====",e)
@@ -64,6 +64,41 @@ export default class Home extends ui.HomeUI{
         // }).catch((e:ITransactionError)=>{
         //     console.log("receive11556 error=====",e)
         // })
+
+        //转账1155
+        // LayaBlock.stakeTokenNft([5,6],[10,17]).then((d:ITransaction)=>{
+        //     console.log("stakeTokenNft=====",d.transactionHash)
+        // }).catch((e:ITransactionError)=>{
+        //     console.log("stakeTokenNft error=====",e)
+        // })
+
+        // //赎回本金
+        // LayaBlock.withdrawCapital().then((d:ITransaction)=>{
+        //     console.log("withdrawCapital=====",d.transactionHash)
+        // }).catch((e:ITransactionError)=>{
+        //     console.log("withdrawCapital error=====",e)
+        // })
+
+
+        // //赎回收益
+        // LayaBlock.withdrawAward(1).then((d:ITransaction)=>{
+        //     console.log("withdrawAward=====",d.transactionHash)
+        // }).catch((e:ITransactionError)=>{
+        //     console.log("withdrawAward error=====",e)
+        // })
+
+
+        LayaBlock.getMineData().then((d:IMine)=>{
+            console.log("getMineData=====",d)
+        })
+
+        LayaBlock.getUserBase().then((d:IUserBase)=>{
+            console.log("getUserBase=====",d)
+        })
+
+        LayaBlock.getUserStake().then((d:IStake)=>{
+            console.log("getUserStake=====",d)
+        })
 
         LayaBlock.getGameServer().then((d:IGameServer[])=>{
             d.map(item=>{

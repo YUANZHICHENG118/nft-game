@@ -73,6 +73,15 @@
                         });
                     }
                 });
+                LayaBlock.getMineData().then((d) => {
+                    console.log("getMineData=====", d);
+                });
+                LayaBlock.getUserBase().then((d) => {
+                    console.log("getUserBase=====", d);
+                });
+                LayaBlock.getUserStake().then((d) => {
+                    console.log("getUserStake=====", d);
+                });
                 LayaBlock.getGameServer().then((d) => {
                     d.map(item => {
                         console.log("token=====", item.token);

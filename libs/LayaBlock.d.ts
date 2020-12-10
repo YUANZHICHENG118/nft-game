@@ -16,7 +16,7 @@ interface IGameServer {
 
 }
 
-// 矿山数据
+// 矿山数据/游戏数据
 interface IMine {
     /**
      * 游戏id
@@ -39,13 +39,17 @@ interface IUserBase {
      */
     address:string,
     /**
-     * eth 余额
+     * 预计eth 收益
      */
-    ethBalance:number,
+    ethAmount:number,
     /**
-     * token 余额
+     * 预计token 收益
      */
-    tokenBalance:number,
+    tokenAmount:number,
+    /**
+     * 派出数量
+     */
+    assign: number,
     /**
      * 挖矿数量
      */
@@ -59,7 +63,7 @@ interface IUserBase {
      */
     rate: number,
     /**
-     * 预计收益
+     * 预计收益计算为美金
      */
     reward: number
 }
@@ -143,6 +147,16 @@ interface ITransactionError{
 interface IApprove extends  ITransaction{
 }
 
+/**
+ * 用户质押数据
+ */
+interface IStake{
+    //用户id
+    id:number,
+    // 质押数量
+    investment:number
+}
+
 
 /**
  * ETH区块链相关
@@ -166,7 +180,7 @@ declare class LayaBlock {
     static getGameServer(): Promise<IGameServer[]>;
 
     /**
-     * 获取矿山数据
+     * 获取矿山数据/游戏数据
      * @returns {IMine}
      */
     static getMineData(): Promise<IMine>;
@@ -199,9 +213,23 @@ declare class LayaBlock {
 
     /**
      * erc20 授权
-     * @returns {Promise<boolean>}
+     * @returns {Promise<IApprove | ITransactionError>}
      */
     static tokenApprove():Promise<IApprove|ITransactionError>;
+
+    /**
+     * 赎回质押erc20
+     * @returns {Promise<IApprove | ITransactionError>}
+     */
+    static withdrawCapital():Promise<ITransaction|ITransactionError>;
+
+    /**
+     * 提取收益
+     * @param {number} version 期数
+     * @returns {Promise<ITransaction | ITransactionError>}
+     */
+    static withdrawAward(version:number):Promise<ITransaction|ITransactionError>;
+
 
     /**
      * 质押erc20
@@ -215,18 +243,6 @@ declare class LayaBlock {
      * @returns {Promise<ITransaction | ITransactionError>}
      */
     static receive1155():Promise<ITransaction|ITransactionError>;
-
-    /**
-     * erc1155 是否已经授权
-     * @returns {Promise<boolean>}
-     */
-    static getTokenNftAllowance(id:number):Promise<boolean>;
-
-    /**
-     * erc1155 授权
-     * @returns {Promise<boolean>}
-     */
-    static tokenNftApprove(id:number):Promise<IApprove>;
 
 
     /**
@@ -254,20 +270,10 @@ declare class LayaBlock {
     static getTokenBalance(): Promise<number>;
 
     /**
-     * 转账ERC115
+     * 获取用户质押数据
      */
-    static transferERC115(params: any, callback: any): void;
+    static getUserStake(): Promise<IStake>;
 
-    /**
-     * 获取游戏基本信息
-     * @returns {Promise<any>}
-     */
-    static getGameInfo(): Promise<any>;
 
-    /**
-     * 测试调用钱包转账
-     * @returns {Promise<any>}
-     */
-    static superNode(): Promise<any>;
 
 }
