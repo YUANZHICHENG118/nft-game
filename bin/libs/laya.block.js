@@ -318,22 +318,12 @@
             let machine = {};
 
             let i=index+1;
-            let detail = [];
-            if (i <= 6) {
-                detail = machineA
-            }
-            if (i > 6 && i <= 12) {
-                detail = machineB
-            }
-            if (i > 12) {
-                detail = machineC
-            }
-            let mod = i % 6;
+
             machine['id'] = i;
             machine['balance'] = item;
 
             let newObj = {};
-            Object.assign(newObj, machine, detail[mod > 0 ? mod - 1 : 5])
+            Object.assign(newObj, machine,getMachineAttribute(i) )
 
             data.push(newObj);
 
@@ -345,11 +335,70 @@
     }
 
     /**
+     * 获取设备属性 By 设备id
+     * @param id
+     * @returns {*}
+     */
+    const getMachineAttribute=(id)=>{
+        let detail = [];
+        if (id <= 6) {
+            detail = machineA
+        }
+        if (id > 6 && id <= 12) {
+            detail = machineB
+        }
+        if (id > 12) {
+            detail = machineC
+        }
+        let mod = id % 6;
+
+       return detail[mod > 0 ? mod - 1 : 5]
+    }
+
+    /**
      * 获取用户收益
      * @returns {Promise<any>}
      */
     const getUserIncome = async () => {
         const address = await  getAccount()
+        const version = await  getGameVersion()
+        const contract = gameContract();
+        const incomes=[];
+
+        for(let i=0;i<=version;i++){
+            let income={id:i+1}
+            const data = await contract.methods.getVersionAward(version,address).call();
+
+            //eth 收益
+            let ethReward=parseFloat(data[0]/ethToken.decimals).toFixed(ethToken.scale)
+            //token 收益
+            let tokenReward=parseFloat(data[1]/erc20Token.decimals).toFixed(erc20Token.scale)
+            //派出设备数
+            let machineNum=parseInt(data[2])
+            // true false
+            let receive=data[3]
+                income["ethReward"]=ethReward;
+            income["tokenReward"]=tokenReward;
+            income["machineNum"]=machineNum;
+            income["receive"]=receive;
+
+            incomes.push(income)
+        }
+        return new Promise(function (resolve, reject) {
+            resolve(incomes)
+        });
+    }
+
+
+    /**
+     * 查询我的某期收益详情
+     * @param version
+     * @param address
+     * @returns {Promise<void>}
+     */
+    const getUserIncomeDetail=async(version,address)=>{
+
+
         const data = [{
             gameId: 1,//期数
             machineNum: 100,//派出设备数
@@ -403,12 +452,8 @@
                 txId: '0xbbbbb'
             }]
         }]
-        return new Promise(function (resolve, reject) {
-            resolve(data)
-        });
+
     }
-
-
     /**
      * erc20 是否已经授权
      * @returns {Promise<boolean>}
@@ -670,6 +715,30 @@
 
     }
 
+    /**
+     * 获取前10名和最后一击
+     */
+    const getRankTop=async ()=>{
+        const contract = gameContract();
+        const version= await getGameVersion();
+        const ranks=[];
+        const sorts = await contract.methods.getSorts(version).call();
+        sorts.map(async (item,index)=>{
+
+            if(item==="0x0000000000000000000000000000000000000000") return;
+            const userGlobal = await contract.methods.getPersonalStats(version,item).call();
+
+            let machine=parseFloat(userGlobal[0])
+            let load=parseFloat(userGlobal[1])
+            let rank={id:index+1,address:item,machine:machine,load:load};
+            ranks.push(rank)
+        })
+
+        return new Promise(function (resolve, reject) {
+            resolve(ranks)
+        });
+    }
+
 
     const handleAccountsChanged = function (accounts) {
         if (accounts.length === 0) {
@@ -694,6 +763,7 @@
         getUserBase: getUserBase,
         getUserMachine: getUserMachine,
         getUserIncome: getUserIncome,
+        getUserIncomeDetail:getUserIncomeDetail,
         getTokenAllowance: getTokenAllowance,
         tokenApprove: tokenApprove,
         stakeToken: stakeToken,
@@ -708,7 +778,8 @@
         getEthBalance: getEthBalance,
         getTokenBalance: getTokenBalance,
         getUserStake:getUserStake,
-        getGameHistory:getGameHistory
+        getGameHistory:getGameHistory,
+        getRankTop:getRankTop
 
     }
 

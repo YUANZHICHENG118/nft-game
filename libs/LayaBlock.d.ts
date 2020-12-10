@@ -3,7 +3,7 @@ interface IGameServer {
     /**
      * 服务器ID
      */
-    Id: number;
+    id: number;
     /**
      * 服务器名称
      */
@@ -98,11 +98,13 @@ interface IMachine{
  * 我的收益
  */
 interface IIncome{
-    gameId:number,//期数
+    id:number,//期数
     machineNum:number,//派出设备数
     reward:number, // 收益
-    receive:number, // 0未领取 1 已领取
-    detail:IIncomeDetail[]
+    tokenReward:number,//token 收益
+    ethReward:number,//eth 收益
+    receive:boolean, // false未领取 true已领取
+
 
 }
 /**
@@ -117,6 +119,8 @@ interface IIncomeDetail{
     // 图片
     img:string,
     reward:number, // 收益
+    tokenReward:number,//token 收益
+    ethReward:number,//eth 收益
     txId:string
 }
 
@@ -157,6 +161,26 @@ interface IStake{
     investment:number
 }
 
+/**
+ * 排名数据
+ */
+interface IRank{
+    //排名
+    id:number,
+    //用户地址
+    address:string,
+    //派出设备数量
+    machine:number,
+    //运走数量
+    load:number,
+}
+
+/**
+ * 前10名 和最后一击
+ */
+interface IRankTop extends IRank{
+
+}
 
 /**
  * ETH区块链相关
@@ -204,6 +228,14 @@ declare class LayaBlock {
      * @returns {Promise<IIncome[]>}
      */
     static getUserIncome():Promise<IIncome[]>;
+
+    /**
+     * 我的收益详情
+     * @param {number} version 期数
+     * @param {string} address 地址
+     * @returns {Promise<IIncomeDetail[]>}
+     */
+    static getUserIncomeDetail(version:number,address:string):Promise<IIncomeDetail[]>;
 
     /**
      * erc20 是否已经授权
@@ -274,6 +306,9 @@ declare class LayaBlock {
      */
     static getUserStake(): Promise<IStake>;
 
-
+    /**
+     * 获取当期前10名和最后一击
+     */
+    static getRankTop(): Promise<IRankTop[]>;
 
 }

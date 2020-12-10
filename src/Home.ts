@@ -34,7 +34,7 @@ export default class Home extends ui.HomeUI{
         // 查询1155余额
         LayaBlock.getUserMachine().then((d:IMachine[])=>{
             d.map((item:IMachine)=>{
-                console.log("getUserMachine====",item.balance)
+                console.log("getUserMachine====",item)
             })
         })
 
@@ -88,6 +88,9 @@ export default class Home extends ui.HomeUI{
         // })
 
 
+        LayaBlock.getRankTop().then((d:IRankTop[])=>{
+            console.log("getRankTop=====",d)
+        })
         LayaBlock.getMineData().then((d:IMine)=>{
             console.log("getMineData=====",d)
         })

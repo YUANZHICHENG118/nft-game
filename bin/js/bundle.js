@@ -60,7 +60,7 @@
                 });
                 LayaBlock.getUserMachine().then((d) => {
                     d.map((item) => {
-                        console.log("getUserMachine====", item.balance);
+                        console.log("getUserMachine====", item);
                     });
                 });
                 LayaBlock.getTokenAllowance().then((d) => {
@@ -72,6 +72,9 @@
                             console.log("tokenApprove error=====", e);
                         });
                     }
+                });
+                LayaBlock.getRankTop().then((d) => {
+                    console.log("getRankTop=====", d);
                 });
                 LayaBlock.getMineData().then((d) => {
                     console.log("getMineData=====", d);
