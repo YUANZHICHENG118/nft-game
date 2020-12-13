@@ -9,19 +9,69 @@ export default class Home extends ui.HomeUI{
     onEnable(): void {
         // 初始化 web3
         LayaBlock.initWeb3();
+        this.homeInit();
         this.testBlock();
-        this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
-        this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
-        this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
-        this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick);
-        this.dataBus.on(GameEvent.flag1,this,this.onFlag1)
+        this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.out_txt.on(Laya.Event.RIGHT_CLICK,this,this.clearOutTxt)
     }
+    homeInit=()=>{
+        //debugger
+        this.out_txt.text=''
+        //获取矿山数据
+        LayaBlock.getMineData().then((d:IMine)=>{
+            console.log(d)
+            this.out_txt.text+='矿山数据'+d.surplus+'/'+d.total
+        })
+
+        // 获取用户基础数据
+        LayaBlock.getUserBase().then((d:IUserBase)=>{
+            this.out_txt.text+='\n用户基础数据：address'+JSON.stringify(d)
+        })
+    }
+    menuClick(e:Laya.Event):void{
+        let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
+        switch(curBtn){
+            case this.btnDevice:
+                //我的设备NFT
+                LayaBlock.getUserMachine().then((d:IMachine[])=>{
+                    this.out_txt.text=JSON.stringify(d);
+                })
+                break;
+            case this.btnExchange:
+                
+                break;
+            case this.btnRank:
+                LayaBlock.getRankTop().then((d:IRankTop[])=>{
+                    console.log("getRankTop=====",d)
+                    this.out_txt.text=JSON.stringify(d)
+                })
+                break;
+            case this.btnMe:
+                // 获取用户基础数据
+                LayaBlock.getUserBase().then((d:IUserBase)=>{
+                    this.out_txt.text='\n用户基础数据：address'+JSON.stringify(d)
+                })
+                break;
+        }        
+    }
+    clearOutTxt=()=>{
+        console.clear();
+        this.out_txt.text='';
+    }
+    
+
+    
 
     /**
      * 测试接口
      */
     testBlock=()=>{
-
+        console.log('♥♥')
+        // 查询1155余额
+        
         // 查询token 余额
         LayaBlock.getTokenBalance().then((d:number)=>{
             console.log("token balance=====",d)
@@ -118,36 +168,6 @@ export default class Home extends ui.HomeUI{
         LayaBlock.getAccount().then(data=>{
             this.out_txt.text=data
         })
-    }
-
-    onFlag1(e):void{
-    }
-
-    menuClick(e:Laya.Event):void{
-        let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
-        switch(curBtn){
-            case this.btnDevice:
-                this.selectBg.x=curBtn.x;
-                this.num_txt.value='01';
-                eval('COMM.loadData(1)');
-                break;
-            case this.btnExchange:
-                this.selectBg.x=curBtn.x;
-                this.num_txt.value='02'
-                eval('COMM.loadData(2)');
-                break;
-            case this.btnRank:
-                this.selectBg.x=curBtn.x;
-                this.num_txt.value='03';
-                eval('COMM.loadData(3)');
-                break;
-            case this.btnMe:
-                this.selectBg.x=curBtn.x;
-                this.num_txt.value='04';
-                eval('COMM.loadData(4)');
-                break;
-        }
-        
     }
 
     onDisable(): void {

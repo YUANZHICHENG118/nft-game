@@ -51,7 +51,22 @@
         constructor() {
             super();
             this.dataBus = DataBus.getDataBus();
+            this.homeInit = () => {
+                this.out_txt.text = '';
+                LayaBlock.getMineData().then((d) => {
+                    console.log(d);
+                    this.out_txt.text += '矿山数据' + d.surplus + '/' + d.total;
+                });
+                LayaBlock.getUserBase().then((d) => {
+                    this.out_txt.text += '\n用户基础数据：address' + JSON.stringify(d);
+                });
+            };
+            this.clearOutTxt = () => {
+                console.clear();
+                this.out_txt.text = '';
+            };
             this.testBlock = () => {
+                console.log('♥♥');
                 LayaBlock.getTokenBalance().then((d) => {
                     console.log("token balance=====", d);
                 });
@@ -100,37 +115,33 @@
         }
         onEnable() {
             LayaBlock.initWeb3();
-            this.testBlock();
+            this.homeInit();
             this.btnDevice.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-            this.dataBus.on(GameEvent.flag1, this, this.onFlag1);
-        }
-        onFlag1(e) {
+            this.out_txt.on(Laya.Event.RIGHT_CLICK, this, this.clearOutTxt);
         }
         menuClick(e) {
             let curBtn = e.currentTarget;
             switch (curBtn) {
                 case this.btnDevice:
-                    this.selectBg.x = curBtn.x;
-                    this.num_txt.value = '01';
-                    eval('COMM.loadData(1)');
+                    LayaBlock.getUserMachine().then((d) => {
+                        this.out_txt.text = JSON.stringify(d);
+                    });
                     break;
                 case this.btnExchange:
-                    this.selectBg.x = curBtn.x;
-                    this.num_txt.value = '02';
-                    eval('COMM.loadData(2)');
                     break;
                 case this.btnRank:
-                    this.selectBg.x = curBtn.x;
-                    this.num_txt.value = '03';
-                    eval('COMM.loadData(3)');
+                    LayaBlock.getRankTop().then((d) => {
+                        console.log("getRankTop=====", d);
+                        this.out_txt.text = JSON.stringify(d);
+                    });
                     break;
                 case this.btnMe:
-                    this.selectBg.x = curBtn.x;
-                    this.num_txt.value = '04';
-                    eval('COMM.loadData(4)');
+                    LayaBlock.getUserBase().then((d) => {
+                        this.out_txt.text = '\n用户基础数据：address' + JSON.stringify(d);
+                    });
                     break;
             }
         }
