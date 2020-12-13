@@ -16,47 +16,46 @@
     let account = undefined;
 
     // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
-    // A 采矿车 B 翻斗车 C 挖掘机
 
-    const machineA = [
+    const machine=[
         {
-            "type": 3,
-            "color": 1,
-            "load": 0,
-            "mining": 1,
-            "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/1.png"
-        }, {
-            "type": 3,
-            "color": 2,
-            "load": 0,
-            "mining": 2,
-            "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/2.png"
-        }, {
-            "type": 3,
-            "color": 3,
-            "load": 0,
-            "mining": 5,
-            "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/3.png"
-        }, {
-            "type": 3,
-            "color": 4,
-            "load": 0,
-            "mining": 10,
-            "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/4.png"
-        }, {
-            "type": 3,
-            "color": 5,
-            "load": 0,
-            "mining": 30,
-            "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/5.png"
-        }, {
-            "type": 3,
-            "color": 6,
-            "load": 0,
-            "mining": 100,
-            "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/6.png"
-        }]
-    const machineB = [
+        "type": 3,
+        "color": 1,
+        "load": 0,
+        "mining": 1,
+        "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/1.png"
+    }, {
+        "type": 3,
+        "color": 2,
+        "load": 0,
+        "mining": 2,
+        "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/2.png"
+    }, {
+        "type": 3,
+        "color": 3,
+        "load": 0,
+        "mining": 5,
+        "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/3.png"
+    }, {
+        "type": 3,
+        "color": 4,
+        "load": 0,
+        "mining": 10,
+        "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/4.png"
+    }, {
+        "type": 3,
+        "color": 5,
+        "load": 0,
+        "mining": 30,
+        "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/5.png"
+    }, {
+        "type": 3,
+        "color": 6,
+        "load": 0,
+        "mining": 100,
+        "img": "https://nft-files.s3.us-east-2.amazonaws.com/3/6.png"
+    },
+
         {
             "type": 1,
             "color": 1,
@@ -103,10 +102,7 @@
             "load": 1000,
             "mining": 100,
             "img": "https://nft-files.s3.us-east-2.amazonaws.com/1/6.png"
-        }
-    ]
-    const machineC = [
-        {
+        }, {
             "type": 2,
             "color": 1,
             "load": 1,
@@ -153,6 +149,7 @@
             "mining": 1000,
             "img": "https://nft-files.s3.us-east-2.amazonaws.com/2/6.png"
         }
+
     ]
 
     //服务器选区
@@ -188,7 +185,7 @@
         symbol: 'CM',
         decimals: Math.pow(10, 18),
         scale:2,
-        approveAmount: 10000000 //授权金额
+        approveAmount: 100000 //授权金额
     }
 
     //初始化合约
@@ -320,7 +317,7 @@
             let i=index+1;
 
             machine['id'] = i;
-            machine['balance'] = item;
+            machine['balance'] = parseInt(item);
 
             let newObj = {};
             Object.assign(newObj, machine,getMachineAttribute(i) )
@@ -340,19 +337,8 @@
      * @returns {*}
      */
     const getMachineAttribute=(id)=>{
-        let detail = [];
-        if (id <= 6) {
-            detail = machineA
-        }
-        if (id > 6 && id <= 12) {
-            detail = machineB
-        }
-        if (id > 12) {
-            detail = machineC
-        }
-        let mod = id % 6;
 
-       return detail[mod > 0 ? mod - 1 : 5]
+       return machine[id-1]
     }
 
     /**
@@ -400,59 +386,29 @@
 
 
         const data = [{
-            gameId: 1,//期数
-            machineNum: 100,//派出设备数
-            reward: 1000, // 收益
-            receive: 0, // 0未领取 1 已领取
-            detail: [{
-                id: 1,
-                // 载重
-                load: 10,
-                // 采矿数
-                mining: 100,
-                // 图片
-                img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-                reward: 100, // 收益
-                txId: '0xooooo'
-            }, {
-                id: 2,
-                // 载重
-                load: 10,
-                // 采矿数
-                mining: 100,
-                // 图片
-                img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-                reward: 100, // 收益
-                txId: '0xbbbbb'
-            }]
-        }, {
-            gameId: 2,//期数
-            machineNum: 10,//派出设备数
+            id: 1,
+            // 载重
+            load: 10,
+            // 采矿数
+            mining: 100,
+            // 图片
+            img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
             reward: 100, // 收益
-            receive: 1, // 0未领取 1 已领取
-            detail: [{
-                id: 1,
-                // 载重
-                load: 10,
-                // 采矿数
-                mining: 100,
-                // 图片
-                img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-                reward: 100, // 收益
-                txId: '0xooooo'
-            }, {
-                id: 2,
-                // 载重
-                load: 10,
-                // 采矿数
-                mining: 100,
-                // 图片
-                img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-                reward: 100, // 收益
-                txId: '0xbbbbb'
-            }]
+            txId: '0xooooo'
+        }, {
+            id: 2,
+            // 载重
+            load: 10,
+            // 采矿数
+            mining: 100,
+            // 图片
+            img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
+            reward: 100, // 收益
+            txId: '0xbbbbb'
         }]
-
+        return new Promise(function (resolve, reject) {
+            resolve(data)
+        });
     }
     /**
      * erc20 是否已经授权
