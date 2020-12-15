@@ -677,21 +677,17 @@
     const getRankTop=async ()=>{
         const contract = gameContract();
         const version= await getGameVersion();
-        const ranks=[];
         const sorts = await contract.methods.getSorts(version).call();
-        sorts.map(async (item,index)=>{
-
-            if(item==="0x0000000000000000000000000000000000000000") return;
+        let results = await Promise.all(sorts.map(async (item,index)=>{
+           // if(item==="0x0000000000000000000000000000000000000000") return;
             const userGlobal = await contract.methods.getPersonalStats(version,item).call();
-
-            let machine=parseFloat(userGlobal[0])
+            let machine=parseFloat("20")
             let load=parseFloat(userGlobal[1])
             let rank={id:index+1,address:item,machine:machine,load:load};
-            ranks.push(rank)
-        })
-
+            return rank
+        }))
         return new Promise(function (resolve, reject) {
-            resolve(ranks)
+            resolve(results)
         });
     }
 
