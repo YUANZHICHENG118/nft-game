@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":16,
+    "selecteID":8,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
-    "maxID":18,
+    "maxID":71,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -60,9 +60,10 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,selectBg",
-            "props":{"y":1150.5,"x":58,"var":"selectBg","texture":"gameimg/selectBg.png"},
+            "props":{"y":1150.5,"x":-192,"var":"selectBg","texture":"gameimg/selectBg.png"},
             "nodeParent":2,
             "label":"selectBg",
+            "isOpen":false,
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -151,7 +152,7 @@
             "x":15,
             "type":"TextArea",
             "searchKey":"TextArea,out_txt",
-            "props":{"y":25,"x":25,"width":700,"var":"out_txt","text":"TextArea","height":1000,"fontSize":33},
+            "props":{"y":304.5,"x":29.5,"width":700,"var":"out_txt","text":"TextArea","height":700,"fontSize":33},
             "nodeParent":2,
             "label":"out_txt",
             "isDirectory":false,
@@ -160,6 +161,372 @@
             "compId":16,
             "child":[
                 ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":261,"x":592,"texture":"gameimg/btnSet.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":19,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":443,"x":596.5,"texture":"gameimg/btnHelp.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":20,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":383,"x":46,"texture":"gameimg/btnBg.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":21,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":22,"x":22,"texture":"gameimg/icon6.png"},
+                    "nodeParent":21,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":29,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":25,"x":66,"width":117,"text":"公告","height":33,"fontSize":33,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":21,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":45,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":21,"x":21,"width":704,"skin":"gameimg/numBg2.png","height":115},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":28,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,gongGao_txt",
+                    "props":{"y":38,"x":54,"width":593,"var":"gongGao_txt","text":"公告","height":33,"fontSize":38,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":28,
+                    "label":"gongGao_txt",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":47,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":493,"x":46,"texture":"gameimg/btnBg.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":31,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":22,"x":20,"texture":"gameimg/icon8.png"},
+                    "nodeParent":31,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":30,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":25,"x":66,"width":117,"text":"聊天","height":33,"fontSize":33,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":31,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":46,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":159.5,"x":34,"skin":"gameimg/numBg.png"},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":34,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":10,"x":11,"texture":"gameimg/icon1.png"},
+                    "nodeParent":34,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":33,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":26,"x":60,"width":99,"text":"0","height":29,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":34,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":48,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":159.5,"x":222,"skin":"gameimg/numBg.png"},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":35,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":13.5,"x":20,"texture":"gameimg/icon2.png"},
+                    "nodeParent":35,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":37,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":26,"x":60,"width":99,"text":"0","height":29,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":35,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":50,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":159.5,"x":410,"skin":"gameimg/numBg.png"},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":36,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":14,"x":22,"texture":"gameimg/icon3.png"},
+                    "nodeParent":36,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":38,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":26,"x":60,"width":99,"text":"0","height":29,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":36,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":51,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":257.5,"x":338,"skin":"gameimg/numBg.png"},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":39,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":13.5,"x":19,"texture":"gameimg/icon4.png"},
+                    "nodeParent":39,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":40,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":26,"x":60,"width":99,"text":"0","height":29,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":39,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":52,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":371,"x":338,"skin":"gameimg/numBg.png"},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":41,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":13.5,"x":19,"texture":"gameimg/icon5.png"},
+                    "nodeParent":41,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":42,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":26,"x":60,"width":99,"text":"0","height":29,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":41,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":53,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"UIView",
+            "source":"DevPannel.scene",
+            "searchKey":"UIView,devPannel",
+            "props":{"y":0,"x":0,"var":"devPannel"},
+            "nodeParent":2,
+            "label":"devPannel",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":70,
+            "child":[
+                ],
+            "$HIDDEN":true
         }],
     "animations":[
         {

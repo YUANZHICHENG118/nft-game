@@ -1,3 +1,7 @@
 <res>
    <item name="gameimg" type="" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="gameimg/numBg2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=33,90,44,90" picType="0" scale="0"/>
+   <item name="gameimg/numBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=25,50,25,50" picType="0" scale="0"/>
+   <item name="gameimg/btnBg.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="gameimg/pannel.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=151,88,68,88" picType="0" scale="0"/>
 </res>

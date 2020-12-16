@@ -16,6 +16,10 @@ export default class Home extends ui.HomeUI{
         this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.out_txt.on(Laya.Event.RIGHT_CLICK,this,this.clearOutTxt)
+        this.initUI();
+    }
+    initUI=()=>{
+        this.devPannel.visible=false;
     }
     homeInit=()=>{
         //debugger
@@ -33,12 +37,14 @@ export default class Home extends ui.HomeUI{
     }
     menuClick(e:Laya.Event):void{
         let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
+        this.selectBg.x=curBtn.x
         switch(curBtn){
             case this.btnDevice:
                 //我的设备NFT
                 LayaBlock.getUserMachine().then((d:IMachine[])=>{
                     this.out_txt.text=JSON.stringify(d);
                 })
+                this.devPannel.visible=true;                
                 break;
             case this.btnExchange:
                 

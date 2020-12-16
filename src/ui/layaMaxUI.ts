@@ -4,6 +4,16 @@ import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui {
+    export class DevPannelUI extends Scene {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("DevPannel");
+        }
+    }
+    REG("ui.DevPannelUI",DevPannelUI);
     export class HomeUI extends Scene {
 		public num_txt:Laya.FontClip;
 		public selectBg:Laya.Sprite;
@@ -12,6 +22,8 @@ export module ui {
 		public btnRank:Laya.Sprite;
 		public btnMe:Laya.Sprite;
 		public out_txt:Laya.TextArea;
+		public gongGao_txt:Laya.Label;
+		public devPannel:any;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

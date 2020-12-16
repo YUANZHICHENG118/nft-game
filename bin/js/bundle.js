@@ -36,6 +36,15 @@
     var REG = Laya.ClassUtils.regClass;
     var ui;
     (function (ui) {
+        class DevPannelUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("DevPannel");
+            }
+        }
+        ui.DevPannelUI = DevPannelUI;
+        REG("ui.DevPannelUI", DevPannelUI);
         class HomeUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -47,10 +56,31 @@
         REG("ui.HomeUI", HomeUI);
     })(ui || (ui = {}));
 
+    class DevPannel extends ui.DevPannelUI {
+        constructor() {
+            super();
+            this.intType = 1000;
+            this.numType = 1000;
+            this.strType = "hello laya";
+            this.boolType = true;
+        }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        closeClick() {
+            this.visible = false;
+        }
+        onDisable() {
+        }
+    }
+
     class Home extends ui.HomeUI {
         constructor() {
             super();
             this.dataBus = DataBus.getDataBus();
+            this.initUI = () => {
+                this.devPannel.visible = false;
+            };
             this.homeInit = () => {
                 this.out_txt.text = '';
                 LayaBlock.getMineData().then((d) => {
@@ -116,19 +146,23 @@
         onEnable() {
             LayaBlock.initWeb3();
             this.homeInit();
+            this.testBlock();
             this.btnDevice.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.out_txt.on(Laya.Event.RIGHT_CLICK, this, this.clearOutTxt);
+            this.initUI();
         }
         menuClick(e) {
             let curBtn = e.currentTarget;
+            this.selectBg.x = curBtn.x;
             switch (curBtn) {
                 case this.btnDevice:
                     LayaBlock.getUserMachine().then((d) => {
                         this.out_txt.text = JSON.stringify(d);
                     });
+                    this.devPannel.visible = true;
                     break;
                 case this.btnExchange:
                     break;
@@ -154,6 +188,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
+            reg("DevPannel.ts", DevPannel);
             reg("Home.ts", Home);
         }
     }
