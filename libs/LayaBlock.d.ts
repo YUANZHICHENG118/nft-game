@@ -95,6 +95,18 @@ interface IMachine{
 }
 
 /**
+ * 查询数据接口
+ */
+interface IMachineSearch{
+    //余额
+    sort?:'ASC'|'DESC',
+    // 类型
+    type?:number,
+    // 颜色
+    color?:number[]
+}
+
+/**
  * 我的收益
  */
 interface IIncome{
@@ -218,9 +230,10 @@ declare class LayaBlock {
 
     /**
      * 我的设备NFT
+     * @param {IMachineSearch} params
      * @returns {Promise<IMachine[]>}
      */
-    static getUserMachine():Promise<IMachine[]>;
+    static getUserMachine(params?:IMachineSearch):Promise<IMachine[]>;
 
 
     /**
@@ -310,5 +323,10 @@ declare class LayaBlock {
      * 获取当期前10名和最后一击
      */
     static getRankTop(): Promise<IRankTop[]>;
+
+    /**
+     * 定时刷新设备数据，游戏页面加载完成调用
+     */
+    static timerNFT():void;
 
 }
