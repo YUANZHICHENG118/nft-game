@@ -36,6 +36,15 @@
     var REG = Laya.ClassUtils.regClass;
     var ui;
     (function (ui) {
+        class BlackBgUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("BlackBg");
+            }
+        }
+        ui.BlackBgUI = BlackBgUI;
+        REG("ui.BlackBgUI", BlackBgUI);
         class DevPannelUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -59,13 +68,41 @@
     class DevPannel extends ui.DevPannelUI {
         constructor() {
             super();
-            this.intType = 1000;
-            this.numType = 1000;
-            this.strType = "hello laya";
-            this.boolType = true;
+            this.devType = 1;
+            this.btnColorArr = [];
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.btnDev1.on(Laya.Event.CLICK, this, this.btnDevClick);
+            this.btnDev2.on(Laya.Event.CLICK, this, this.btnDevClick);
+            this.btnDev3.on(Laya.Event.CLICK, this, this.btnDevClick);
+            this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
+            for (let i in this.btnColorArr) {
+                this.btnColorArr[i].on(Laya.Event.CLICK, this, this.btnColorClick);
+            }
+        }
+        btnColorClick(e) {
+            let colorX = e.currentTarget;
+            colorX.alpha = colorX.alpha > 0.5 ? 0 : 1;
+        }
+        btnDevClick(e) {
+            this.btnDev1.skin = 'gameimg/dev1_1.png';
+            this.btnDev2.skin = 'gameimg/dev2_1.png';
+            this.btnDev3.skin = 'gameimg/dev3_1.png';
+            let curBtn = e.currentTarget;
+            switch (curBtn) {
+                case this.btnDev1:
+                    this.devType = 1;
+                    break;
+                case this.btnDev2:
+                    this.devType = 2;
+                    break;
+                case this.btnDev3:
+                    this.devType = 3;
+                    break;
+            }
+            curBtn.skin = 'gameimg/dev' + this.devType + '_2.png';
+            console.log(curBtn.skin);
         }
         closeClick() {
             this.visible = false;
@@ -82,18 +119,17 @@
                 this.devPannel.visible = false;
             };
             this.homeInit = () => {
-                this.out_txt.text = '';
                 LayaBlock.getMineData().then((d) => {
-                    console.log(d);
-                    this.out_txt.text += '矿山数据' + d.surplus + '/' + d.total;
+                    console.log(d, '矿山数据' + d.surplus + '/' + d.total);
+                    this.mine_txt.text = d.surplus + '/' + d.total;
                 });
                 LayaBlock.getUserBase().then((d) => {
-                    this.out_txt.text += '\n用户基础数据：address' + JSON.stringify(d);
+                    console.log('用户基础数据：address' + JSON.stringify(d));
+                    this.ethAmount_txt.text = d.ethAmount + '';
+                    this.reward_txt.text = d.reward + '';
+                    this.rate_txt.text = d.rate * 100 + '%';
+                    this.rank_txt.text = d.rank + '';
                 });
-            };
-            this.clearOutTxt = () => {
-                console.clear();
-                this.out_txt.text = '';
             };
             this.testBlock = () => {
                 console.log('♥♥');
@@ -138,20 +174,18 @@
                 NftApi.getGameLoadDec().then((d) => {
                     console.log("load dec zh=====", d.zh);
                 });
-                LayaBlock.getAccount().then(data => {
-                    this.out_txt.text = data;
+                LayaBlock.getAccount().then(d => {
+                    console.log(d);
                 });
             };
         }
         onEnable() {
             LayaBlock.initWeb3();
             this.homeInit();
-            this.testBlock();
             this.btnDevice.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-            this.out_txt.on(Laya.Event.RIGHT_CLICK, this, this.clearOutTxt);
             this.initUI();
         }
         menuClick(e) {
@@ -160,7 +194,7 @@
             switch (curBtn) {
                 case this.btnDevice:
                     LayaBlock.getUserMachine().then((d) => {
-                        this.out_txt.text = JSON.stringify(d);
+                        console.log(d);
                     });
                     this.devPannel.visible = true;
                     break;
@@ -168,13 +202,12 @@
                     break;
                 case this.btnRank:
                     LayaBlock.getRankTop().then((d) => {
-                        console.log("getRankTop=====", d);
-                        this.out_txt.text = JSON.stringify(d);
+                        console.log(d);
                     });
                     break;
                 case this.btnMe:
                     LayaBlock.getUserBase().then((d) => {
-                        this.out_txt.text = '\n用户基础数据：address' + JSON.stringify(d);
+                        console.log(d);
                     });
                     break;
             }

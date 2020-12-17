@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":3,
-    "selecteID":6,
+    "selectedBox":2,
+    "selecteID":44,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"DevPannel.ts","height":1333},
     "nodeParent":-1,
-    "maxID":10,
+    "maxID":48,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -16,9 +16,24 @@
     "child":[
         {
             "x":15,
+            "type":"UIView",
+            "source":"BlackBg.scene",
+            "searchKey":"UIView",
+            "props":{"y":0,"x":0},
+            "nodeParent":2,
+            "label":"UIView",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":10,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,devPanel",
-            "props":{"y":75,"x":50,"var":"devPanel"},
+            "props":{"y":75,"x":34,"var":"devPanel"},
             "nodeParent":2,
             "label":"devPanel",
             "isOpen":true,
@@ -44,22 +59,8 @@
                 {
                     "x":30,
                     "type":"Sprite",
-                    "searchKey":"Sprite",
-                    "props":{"y":193,"x":38,"texture":"gameimg/bg1.png"},
-                    "nodeParent":3,
-                    "label":"Sprite",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":5,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Sprite",
                     "searchKey":"Sprite,btnClose",
-                    "props":{"y":8,"x":625,"var":"btnClose","texture":"gameimg/btnClose.png"},
+                    "props":{"y":-10,"x":660,"var":"btnClose","texture":"gameimg/btnClose.png"},
                     "nodeParent":3,
                     "label":"btnClose",
                     "isDirectory":false,
@@ -72,11 +73,11 @@
         },
         {
             "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{"y":125,"x":104,"width":151,"texture":"gameimg/dev1_2.png","height":52},
+            "type":"Image",
+            "searchKey":"Image,btnDev1",
+            "props":{"y":91.5,"x":43,"var":"btnDev1","skin":"gameimg/dev1_2.png"},
             "nodeParent":2,
-            "label":"Sprite",
+            "label":"btnDev1",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -86,11 +87,11 @@
         },
         {
             "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{"y":125,"x":299.5,"width":151,"texture":"gameimg/dev2_1.png","height":52},
+            "type":"Image",
+            "searchKey":"Image,btnDev2",
+            "props":{"y":91.5,"x":269.5,"var":"btnDev2","skin":"gameimg/dev2_1.png"},
             "nodeParent":2,
-            "label":"Sprite",
+            "label":"btnDev2",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -100,17 +101,289 @@
         },
         {
             "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{"y":125,"x":494,"width":151,"texture":"gameimg/dev2_1.png","height":52},
+            "type":"Image",
+            "searchKey":"Image,btnDev3",
+            "props":{"y":91.5,"x":494,"var":"btnDev3","skin":"gameimg/dev2_1.png"},
             "nodeParent":2,
-            "label":"Sprite",
+            "label":"btnDev3",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
             "compId":9,
             "child":[
                 ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":419,"x":-155,"texture":"gameimg/bg3.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":11,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":310,"x":-145,"texture":"gameimg/bg1.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":12,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":282,"x":32,"width":685,"texture":"gameimg/bg4.png","height":73},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":13,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":221,"x":91,"texture":"gameimg/color.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":14,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":212,"x":-96.5,"texture":"gameimg/duigou1.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":15,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":841,"x":405,"texture":"gameimg/btnBg4.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":17,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":293,"x":63,"width":153,"texture":"gameimg/btnbg3.png","height":51},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":18,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,color1",
+            "props":{"y":215,"x":91,"var":"color1","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
+            "nodeParent":2,
+            "label":"DuiGou",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":19,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
+                    "nodeParent":19,
+                    "label":"Sprite(DuiGou)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":16,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,color2",
+            "props":{"y":215,"x":196,"var":"color2","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
+            "nodeParent":2,
+            "label":"DuiGou",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":36,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
+                    "nodeParent":36,
+                    "label":"Sprite(DuiGou)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":37,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,color3",
+            "props":{"y":215,"x":302,"var":"color3","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
+            "nodeParent":2,
+            "label":"DuiGou",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":38,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
+                    "nodeParent":38,
+                    "label":"Sprite(DuiGou)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":39,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,color4",
+            "props":{"y":215,"x":407,"var":"color4","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
+            "nodeParent":2,
+            "label":"DuiGou",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":42,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
+                    "nodeParent":42,
+                    "label":"Sprite(DuiGou)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":45,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,color5",
+            "props":{"y":215,"x":513,"var":"color5","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
+            "nodeParent":2,
+            "label":"DuiGou",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":43,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
+                    "nodeParent":43,
+                    "label":"Sprite(DuiGou)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":46,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,color6",
+            "props":{"y":215,"x":618,"var":"color6","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
+            "nodeParent":2,
+            "label":"DuiGou",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":44,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
+                    "nodeParent":44,
+                    "label":"Sprite(DuiGou)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":47,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
         }],
     "animations":[
         {

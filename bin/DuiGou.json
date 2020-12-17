@@ -1,0 +1,1 @@
+{"type":"Sprite","props":{"y":0,"x":0,"width":40,"var":"btnDevice","height":40,"name":"DuiGou","presetID":1,"isPresetRoot":true},"child":[{"type":"Sprite","props":{"texture":"gameimg/duigou1.png","x":0,"y":0,"presetID":2},"compId":16}],"compId":19,"loadList":["gameimg/duigou1.png"],"loadList3D":[]}

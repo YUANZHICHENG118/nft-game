@@ -1,38 +1,37 @@
 import DataBus from "./DataBus";
 import GameEvent from "./GameEvent";
 import { ui } from "./ui/layaMaxUI";
-
 export default class Home extends ui.HomeUI{
     private dataBus:DataBus = DataBus.getDataBus();
-    constructor() { super();}
-    
+    constructor() { super();}    
     onEnable(): void {
         // 初始化 web3
         LayaBlock.initWeb3();
         this.homeInit();
-        this.testBlock();
+        //this.testBlock();
         this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
-        this.out_txt.on(Laya.Event.RIGHT_CLICK,this,this.clearOutTxt)
         this.initUI();
     }
     initUI=()=>{
         this.devPannel.visible=false;
     }
     homeInit=()=>{
-        //debugger
-        this.out_txt.text=''
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
-            console.log(d)
-            this.out_txt.text+='矿山数据'+d.surplus+'/'+d.total
+            console.log(d,'矿山数据'+d.surplus+'/'+d.total)
+            this.mine_txt.text=d.surplus+'/'+d.total
         })
 
         // 获取用户基础数据
         LayaBlock.getUserBase().then((d:IUserBase)=>{
-            this.out_txt.text+='\n用户基础数据：address'+JSON.stringify(d)
+            console.log('用户基础数据：address'+JSON.stringify(d))
+            this.ethAmount_txt.text=d.ethAmount+''
+            this.reward_txt.text=d.reward+''
+            this.rate_txt.text=d.rate*100+'%'
+            this.rank_txt.text=d.rank+''
         })
     }
     menuClick(e:Laya.Event):void{
@@ -42,7 +41,7 @@ export default class Home extends ui.HomeUI{
             case this.btnDevice:
                 //我的设备NFT
                 LayaBlock.getUserMachine().then((d:IMachine[])=>{
-                    this.out_txt.text=JSON.stringify(d);
+                    console.log(d);
                 })
                 this.devPannel.visible=true;                
                 break;
@@ -51,25 +50,17 @@ export default class Home extends ui.HomeUI{
                 break;
             case this.btnRank:
                 LayaBlock.getRankTop().then((d:IRankTop[])=>{
-                    console.log("getRankTop=====",d)
-                    this.out_txt.text=JSON.stringify(d)
+                    console.log(d);
                 })
                 break;
             case this.btnMe:
                 // 获取用户基础数据
                 LayaBlock.getUserBase().then((d:IUserBase)=>{
-                    this.out_txt.text='\n用户基础数据：address'+JSON.stringify(d)
+                    console.log(d);
                 })
                 break;
         }        
     }
-    clearOutTxt=()=>{
-        console.clear();
-        this.out_txt.text='';
-    }
-    
-
-    
 
     /**
      * 测试接口
@@ -171,8 +162,8 @@ export default class Home extends ui.HomeUI{
         })
 
         // 获取用户地址
-        LayaBlock.getAccount().then(data=>{
-            this.out_txt.text=data
+        LayaBlock.getAccount().then(d=>{
+            console.log(d);
         })
     }
 

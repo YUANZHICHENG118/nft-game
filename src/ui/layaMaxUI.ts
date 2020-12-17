@@ -4,9 +4,26 @@ import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui {
+    export class BlackBgUI extends Scene {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("BlackBg");
+        }
+    }
+    REG("ui.BlackBgUI",BlackBgUI);
     export class DevPannelUI extends Scene {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
+		public btnDev1:Laya.Image;
+		public btnDev2:Laya.Image;
+		public btnDev3:Laya.Image;
+		public color1:Laya.Sprite;
+		public color2:Laya.Sprite;
+		public color3:Laya.Sprite;
+		public color4:Laya.Sprite;
+		public color5:Laya.Sprite;
+		public color6:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -21,8 +38,13 @@ export module ui {
 		public btnExchange:Laya.Sprite;
 		public btnRank:Laya.Sprite;
 		public btnMe:Laya.Sprite;
-		public out_txt:Laya.TextArea;
 		public gongGao_txt:Laya.Label;
+		public mine_txt:Laya.Label;
+		public ethAmount_txt:Laya.Label;
+		public rank_txt:Laya.Label;
+		public rate_txt:Laya.Label;
+		public reward_txt:Laya.Label;
+		public shan:Laya.Sprite;
 		public devPannel:any;
         constructor(){ super()}
         createChildren():void {
