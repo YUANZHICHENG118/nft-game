@@ -296,9 +296,31 @@
 
     /**
      * 获取用户设备数据
+     * @params 查询参数
      * @returns {Promise<any>}
      */
-    const getUserMachine = async () => {
+    const getUserMachine = async (params) => {
+
+        console.log("params===",params)
+
+        //保存数据到缓存
+        const machine=localStorage.getItem("machine");
+        let data= machine?JSON.parse(machine):getNft1155();
+        data.sort((a,b)=>b.mining-a.mining)
+        if(params){
+            data=params['type']?data.filter(item=>item.type===params.type):data;
+            data=params['color']?data.filter(item=>params.color.includes(item.color)):data;
+            data=params['sort']?data.sort((a,b)=>params['sort']==="ASC"?a.mining-b.mining:b.mining-a.mining):data;
+        }
+        return new Promise(function (resolve, reject) {
+            resolve(data)
+        });
+    }
+
+    /**
+     * 从链上获取1155 并且保存到缓存
+     */
+    const getNft1155=async ()=>{
 
         let data = [];
         const contract = token1155Contract();
@@ -326,9 +348,11 @@
 
         })
 
-        return new Promise(function (resolve, reject) {
-            resolve(data)
-        });
+        //保存数据到缓存
+        localStorage.setItem("machine",JSON.stringify(data));
+
+        return data;
+
     }
 
     /**
@@ -691,6 +715,15 @@
         });
     }
 
+    /**
+     * 定时刷新设备
+     */
+    const timerNFT=()=>{
+        setTimeout(()=>{
+            console.log("timerNFT====")
+            getNft1155()
+        },5000)
+    }
 
     const handleAccountsChanged = function (accounts) {
         if (accounts.length === 0) {
@@ -731,10 +764,10 @@
         getTokenBalance: getTokenBalance,
         getUserStake:getUserStake,
         getGameHistory:getGameHistory,
-        getRankTop:getRankTop
+        getRankTop:getRankTop,
+        timerNFT:timerNFT
 
     }
-
 
     if (!noGlobal) {
         window.LayaBlock = block;
