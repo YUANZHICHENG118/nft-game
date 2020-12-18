@@ -305,7 +305,7 @@
 
         //保存数据到缓存
         const machine=localStorage.getItem("machine");
-        let data= machine?JSON.parse(machine):getNft1155();
+        let data= machine?JSON.parse(machine):await getNft1155();
         data.sort((a,b)=>b.mining-a.mining)
         if(params){
             data=params['type']?data.filter(item=>item.type===params.type):data;
