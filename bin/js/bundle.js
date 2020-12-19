@@ -65,25 +65,85 @@
         REG("ui.HomeUI", HomeUI);
     })(ui || (ui = {}));
 
+    var List = Laya.List;
+    var Handler = Laya.Handler;
     class DevPannel extends ui.DevPannelUI {
         constructor() {
             super();
             this.devType = 1;
+            this.selectColorArr = [1, 2, 3, 4, 5, 6];
+            this.sort = 'DESC';
             this.btnColorArr = [];
+            this.list = new List();
+            this.hasInitList = false;
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnDev1.on(Laya.Event.CLICK, this, this.btnDevClick);
             this.btnDev2.on(Laya.Event.CLICK, this, this.btnDevClick);
             this.btnDev3.on(Laya.Event.CLICK, this, this.btnDevClick);
+            this.sort_btn.on(Laya.Event.CLICK, this, this.sortClick);
             this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
             for (let i in this.btnColorArr) {
                 this.btnColorArr[i].on(Laya.Event.CLICK, this, this.btnColorClick);
             }
         }
+        sortClick() {
+            if (this.sort == 'DESC') {
+                this.sort = 'ASC';
+                this.sort_txt.text = '低 → 高';
+            }
+            else {
+                this.sort = 'DESC';
+                this.sort_txt.text = '高 → 低';
+            }
+            this.updateList();
+        }
+        initList() {
+            if (this.hasInitList) {
+                return;
+            }
+            this.hasInitList = true;
+            this.list.itemRender = Item;
+            this.list.repeatX = 4;
+            this.list.x = 50;
+            this.list.y = 423;
+            this.list.height = 600;
+            this.list.spaceX = 20;
+            this.list.spaceY = 20;
+            this.list.vScrollBarSkin = "";
+            this.list.selectEnable = true;
+            this.list.selectHandler = new Handler(this, this.onSelect);
+            this.list.renderHandler = new Handler(this, this.updateItem);
+            this.addChild(this.list);
+            this.updateList();
+        }
+        loadData(params) {
+            LayaBlock.getUserMachine(params).then((d) => {
+                console.log(d, typeof d);
+                let arr = [];
+                for (let i in d) {
+                    arr.push({ type: d[i].type, color: d[i].color });
+                }
+                this.list.array = arr;
+            });
+        }
+        updateItem(cell, index) {
+            cell.setItem(cell.dataSource);
+        }
+        onSelect(index) {
+            console.log("当前选择的索引：" + index);
+        }
         btnColorClick(e) {
             let colorX = e.currentTarget;
             colorX.alpha = colorX.alpha > 0.5 ? 0 : 1;
+            this.selectColorArr = [];
+            for (let i in this.btnColorArr) {
+                if (this.btnColorArr[i].alpha > 0.5) {
+                    this.selectColorArr.push(1 + Number(i));
+                }
+            }
+            this.updateList();
         }
         btnDevClick(e) {
             this.btnDev1.skin = 'gameimg/dev1_1.png';
@@ -102,7 +162,16 @@
                     break;
             }
             curBtn.skin = 'gameimg/dev' + this.devType + '_2.png';
-            console.log(curBtn.skin);
+            this.updateList();
+        }
+        updateList() {
+            const params = {
+                type: this.devType,
+                color: this.selectColorArr,
+                sort: this.sort
+            };
+            console.log('params', params);
+            this.loadData(params);
         }
         closeClick() {
             this.visible = false;
@@ -110,6 +179,31 @@
         onDisable() {
         }
     }
+    var Box = Laya.Box;
+    var Image = Laya.Image;
+    class Item extends Box {
+        constructor() {
+            super();
+            this.size(Item.WID, Item.HEI);
+            this.bg = new Image('gameimg/bg1.png');
+            this.bg.size(Item.WID, Item.HEI);
+            this.addChild(this.bg);
+            this.img = new Image();
+            this.img.x = 10;
+            this.img.y = 90;
+            this.addChild(this.img);
+        }
+        setItem(itemData) {
+            var __scale = (Item.WID - 20) / Item.machinaWid[itemData.type - 1][0];
+            var __y = 0.5 * (Item.HEI - Item.machinaWid[itemData.type - 1][1] * __scale);
+            this.img.scaleX = this.img.scaleY = __scale;
+            this.img.y = __y;
+            this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
+        }
+    }
+    Item.WID = 147;
+    Item.HEI = 134;
+    Item.machinaWid = [[230, 123], [293, 209], [312, 133]];
 
     class Home extends ui.HomeUI {
         constructor() {
@@ -193,10 +287,8 @@
             this.selectBg.x = curBtn.x;
             switch (curBtn) {
                 case this.btnDevice:
-                    LayaBlock.getUserMachine().then((d) => {
-                        console.log(d);
-                    });
                     this.devPannel.visible = true;
+                    this.devPannel.initList();
                     break;
                 case this.btnExchange:
                     break;

@@ -39,11 +39,8 @@ export default class Home extends ui.HomeUI{
         this.selectBg.x=curBtn.x
         switch(curBtn){
             case this.btnDevice:
-                //我的设备NFT
-                LayaBlock.getUserMachine().then((d:IMachine[])=>{
-                    console.log(d);
-                })
-                this.devPannel.visible=true;                
+                this.devPannel.visible=true;
+                this.devPannel.initList();
                 break;
             case this.btnExchange:
                 

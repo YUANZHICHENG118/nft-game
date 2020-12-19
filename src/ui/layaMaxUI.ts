@@ -18,12 +18,15 @@ export module ui {
 		public btnDev1:Laya.Image;
 		public btnDev2:Laya.Image;
 		public btnDev3:Laya.Image;
+		public sort_btn:Laya.Sprite;
+		public sort_txt:Laya.Label;
 		public color1:Laya.Sprite;
 		public color2:Laya.Sprite;
 		public color3:Laya.Sprite;
 		public color4:Laya.Sprite;
 		public color5:Laya.Sprite;
 		public color6:Laya.Sprite;
+		public autoCheck_btn:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

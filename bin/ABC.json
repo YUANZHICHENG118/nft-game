@@ -1,0 +1,1 @@
+{"type":"View","props":{"width":200,"height":200},"compId":2,"child":[{"type":"Sprite","props":{"y":65.5,"x":46,"texture":"gameimg/bg4.png"},"compId":3}],"loadList":["gameimg/bg4.png"],"loadList3D":[]}
