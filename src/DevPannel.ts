@@ -3,10 +3,10 @@ import List = Laya.List;
 import Handler = Laya.Handler;
 export default class DevPannel extends ui.DevPannelUI {
     /** @prop {name:devType, tips:"整数类型示例", type:Int, default:1}*/
-    private devType: number = 1;
+    private devTypeArr: Array<number> = [1,2,3];
     private selectColorArr:Array<number>=[1,2,3,4,5,6];
     private sort:'ASC'|'DESC'='DESC';
-
+    private devArr:Array<Image>=[];
     private btnColorArr:Array <Laya.Sprite>=[];    
     private list: List = new List();    
     public hasInitList:boolean=false;
@@ -19,6 +19,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.btnDev3.on(Laya.Event.CLICK,this,this.btnDevClick)
         this.sort_btn.on(Laya.Event.CLICK,this,this.sortClick)
         this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];
+        this.devArr=[this.btnDev1,this.btnDev2,this.btnDev3]
         for(let i in this.btnColorArr){
             this.btnColorArr[i].on(Laya.Event.CLICK,this,this.btnColorClick)
         }
@@ -82,33 +83,31 @@ export default class DevPannel extends ui.DevPannelUI {
             if(this.btnColorArr[i].alpha>0.5){
                 this.selectColorArr.push(1+Number(i))
             }            
-        }  
+        }
         this.updateList()      
     }
 
     btnDevClick(e:Laya.Event):void{
-        this.btnDev1.skin='gameimg/dev1_1.png'
-        this.btnDev2.skin='gameimg/dev2_1.png'
-        this.btnDev3.skin='gameimg/dev3_1.png'
         let curBtn:Laya.Image=e.currentTarget as Laya.Image
-        switch (curBtn) {
-            case this.btnDev1:
-                this.devType=1
-                break;
-            case this.btnDev2:
-                this.devType=2
-                break;
-            case this.btnDev3:
-                this.devType=3
-                break;
+        let type:number=Number(curBtn.skin.charAt(11))
+        console.log('===',curBtn.skin.charAt(13))
+        let color:number=Number(curBtn.skin.charAt(13));
+        color=color==1?2:1
+        curBtn.skin='gameimg/dev'+type+'_'+color+'.png'
+        console.log('curBtn.skin=',curBtn.skin)
+        this.devTypeArr=[]
+        for(var i in this.devArr){
+            if(this.devArr[i].skin.indexOf('_2.png')>0){
+                this.devTypeArr.push(Number(i)+1)
+            }
         }
-        curBtn.skin='gameimg/dev'+this.devType+'_2.png'
+        console.log(this.devTypeArr)
         this.updateList()
     }
 
     updateList(){
         const params:IMachineSearch={
-            type:this.devType,
+            type:this.devTypeArr,
             color:this.selectColorArr,
             sort:this.sort
         }
