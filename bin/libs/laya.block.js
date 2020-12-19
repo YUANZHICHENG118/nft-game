@@ -308,7 +308,7 @@
         let data= machine?JSON.parse(machine):await getNft1155();
         data.sort((a,b)=>b.mining-a.mining)
         if(params){
-            data=params['type']?data.filter(item=>item.type===params.type):data;
+            data=params['type']?data.filter(item=>params.type.includes(item.type)):data;
             data=params['color']?data.filter(item=>params.color.includes(item.color)):data;
             data=params['sort']?data.sort((a,b)=>params['sort']==="ASC"?a.mining-b.mining:b.mining-a.mining):data;
         }

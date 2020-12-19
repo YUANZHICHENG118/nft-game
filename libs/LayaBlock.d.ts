@@ -101,7 +101,7 @@ interface IMachineSearch{
     //余额
     sort?:'ASC'|'DESC',
     // 类型
-    type?:number,
+    type?:number[],
     // 颜色
     color?:number[]
 }
