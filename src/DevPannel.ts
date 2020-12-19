@@ -9,20 +9,32 @@ export default class DevPannel extends ui.DevPannelUI {
     private devArr:Array<Image>=[];
     private btnColorArr:Array <Laya.Sprite>=[];    
     private list: List = new List();    
-    public hasInitList:boolean=false;
+    private hasInitList:boolean=false;
+    private listData:Array<any>
     constructor() { super(); }
     
     onEnable(): void {
+        this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];
+        this.devArr=[this.btnDev1,this.btnDev2,this.btnDev3]
+
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.btnDev1.on(Laya.Event.CLICK,this,this.btnDevClick)
         this.btnDev2.on(Laya.Event.CLICK,this,this.btnDevClick)
         this.btnDev3.on(Laya.Event.CLICK,this,this.btnDevClick)
         this.sort_btn.on(Laya.Event.CLICK,this,this.sortClick)
-        this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];
-        this.devArr=[this.btnDev1,this.btnDev2,this.btnDev3]
+        
+        
         for(let i in this.btnColorArr){
             this.btnColorArr[i].on(Laya.Event.CLICK,this,this.btnColorClick)
         }
+        this.selectAll_btn.on(Laya.Event.CHANGE,this,this.selectAllClick)
+    }
+
+    selectAllClick(e:Laya.Event){
+        for(let i in this.listData){
+            this.listData[i].selected=this.selectAll_btn.selected
+        }
+        this.list.array =this.listData
     }
     public sortClick(){
         if(this.sort=='DESC'){
@@ -52,6 +64,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list.selectEnable = true;
         this.list.selectHandler = new Handler(this, this.onSelect);
         this.list.renderHandler = new Handler(this, this.updateItem);
+        
         this.addChild(this.list) 
         this.updateList()
     }
@@ -59,11 +72,11 @@ export default class DevPannel extends ui.DevPannelUI {
     loadData(params:IMachineSearch):void{        
         LayaBlock.getUserMachine(params).then((d:IMachine[])=>{
             console.log(d,typeof d)
-            let arr=[]
+            this.listData=[]
             for(let i in d){
-                arr.push({type:d[i].type,color:d[i].color})
+                this.listData.push({type:d[i].type,color:d[i].color,selected:false})
             }
-            this.list.array =arr
+            this.list.array =this.listData
         })
     }
 
@@ -72,7 +85,8 @@ export default class DevPannel extends ui.DevPannelUI {
     }
 
     private onSelect(index: number): void {
-        console.log("当前选择的索引：" + index);
+        //laya.ui.js 3155行修改  if (true || this._selectedIndex != value) 
+        this.listData[index].selected=!this.listData[index].selected
     }
     
     btnColorClick(e:Laya.Event){
@@ -154,5 +168,6 @@ class Item extends Box {
         this.img.scaleX=this.img.scaleY=__scale
         this.img.y=__y;
         this.img.skin ='machine/m'+itemData.type +'_'+itemData.color+'.png'; //"machine/m1_1.png"
+        this.bg.skin='gameimg/bg'+(itemData.selected? 2:1)+'.png'
     }
 }

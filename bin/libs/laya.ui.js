@@ -3152,7 +3152,7 @@
 	        return this._selectedIndex;
 	    }
 	    set selectedIndex(value) {
-	        if (this._selectedIndex != value) {
+	        if (true || this._selectedIndex != value) {
 	            this._selectedIndex = value;
 	            this.changeSelectStatus();
 	            this.event(Laya.Event.CHANGE);

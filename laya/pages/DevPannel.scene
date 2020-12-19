@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":18,
-    "selecteID":51,
+    "selectedBox":2,
+    "selecteID":71,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"DevPannel.ts","height":1333},
     "nodeParent":-1,
-    "maxID":66,
+    "maxID":75,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -104,7 +104,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,btnDev2",
-            "props":{"y":36.5,"x":269.5,"var":"btnDev2","skin":"gameimg/dev2_1.png"},
+            "props":{"y":36.5,"x":269.5,"var":"btnDev2","skin":"gameimg/dev2_2.png"},
             "nodeParent":2,
             "label":"btnDev2",
             "isDirectory":false,
@@ -118,7 +118,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,btnDev3",
-            "props":{"y":36.5,"x":494,"var":"btnDev3","skin":"gameimg/dev2_1.png"},
+            "props":{"y":36.5,"x":494,"var":"btnDev3","skin":"gameimg/dev3_2.png"},
             "nodeParent":2,
             "label":"btnDev3",
             "isDirectory":false,
@@ -386,7 +386,7 @@
             "x":15,
             "type":"Label",
             "searchKey":"Label",
-            "props":{"y":245.5,"x":477,"width":151,"valign":"middle","text":"自动匹配：","strokeColor":"#954f03","stroke":4,"height":36,"fontSize":26,"font":"Microsoft YaHei","color":"#fffdfd","align":"center"},
+            "props":{"y":246,"x":519,"width":128,"valign":"middle","text":"自动匹配","strokeColor":"#954f03","stroke":4,"height":36,"fontSize":26,"font":"Microsoft YaHei","color":"#fffdfd","align":"center"},
             "nodeParent":2,
             "label":"Label",
             "isDirectory":false,
@@ -398,45 +398,17 @@
         },
         {
             "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{"y":238,"x":636,"width":44,"texture":"gameimg/bg4.png","height":43},
+            "type":"CheckBox",
+            "searchKey":"CheckBox",
+            "props":{"y":238,"x":646,"stateNum":"3","skin":"gameimg/checkbox.png","scaleY":0.7,"scaleX":0.7},
             "nodeParent":2,
-            "label":"Sprite",
+            "label":"CheckBox",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":56,
+            "compId":68,
             "child":[
                 ]
-        },
-        {
-            "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite,autoCheck_btn",
-            "props":{"y":238,"x":640,"var":"autoCheck_btn","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
-            "nodeParent":2,
-            "label":"DuiGou",
-            "isOpen":false,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":57,
-            "child":[
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite",
-                    "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
-                    "nodeParent":57,
-                    "label":"Sprite(DuiGou)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":58,
-                    "child":[
-                        ]
-                }],
-            "$HIDDEN":false
         },
         {
             "x":15,
@@ -519,6 +491,34 @@
             "isAniNode":true,
             "hasChild":false,
             "compId":65,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label",
+            "props":{"y":246,"x":369,"width":63,"valign":"middle","text":"全选","strokeColor":"#954f03","stroke":4,"height":36,"fontSize":26,"font":"Microsoft YaHei","color":"#fffdfd","align":"center"},
+            "nodeParent":2,
+            "label":"Label",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":69,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"CheckBox",
+            "searchKey":"CheckBox,selectAll_btn",
+            "props":{"y":238,"x":444,"var":"selectAll_btn","stateNum":"3","skin":"gameimg/checkbox.png","scaleY":0.7,"scaleX":0.7},
+            "nodeParent":2,
+            "label":"selectAll_btn",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":71,
             "child":[
                 ]
         }],

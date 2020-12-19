@@ -70,23 +70,32 @@
     class DevPannel extends ui.DevPannelUI {
         constructor() {
             super();
-            this.devType = 1;
+            this.devTypeArr = [1, 2, 3];
             this.selectColorArr = [1, 2, 3, 4, 5, 6];
             this.sort = 'DESC';
+            this.devArr = [];
             this.btnColorArr = [];
             this.list = new List();
             this.hasInitList = false;
         }
         onEnable() {
+            this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
+            this.devArr = [this.btnDev1, this.btnDev2, this.btnDev3];
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnDev1.on(Laya.Event.CLICK, this, this.btnDevClick);
             this.btnDev2.on(Laya.Event.CLICK, this, this.btnDevClick);
             this.btnDev3.on(Laya.Event.CLICK, this, this.btnDevClick);
             this.sort_btn.on(Laya.Event.CLICK, this, this.sortClick);
-            this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
             for (let i in this.btnColorArr) {
                 this.btnColorArr[i].on(Laya.Event.CLICK, this, this.btnColorClick);
             }
+            this.selectAll_btn.on(Laya.Event.CHANGE, this, this.selectAllClick);
+        }
+        selectAllClick(e) {
+            for (let i in this.listData) {
+                this.listData[i].selected = this.selectAll_btn.selected;
+            }
+            this.list.array = this.listData;
         }
         sortClick() {
             if (this.sort == 'DESC') {
@@ -121,18 +130,18 @@
         loadData(params) {
             LayaBlock.getUserMachine(params).then((d) => {
                 console.log(d, typeof d);
-                let arr = [];
+                this.listData = [];
                 for (let i in d) {
-                    arr.push({ type: d[i].type, color: d[i].color });
+                    this.listData.push({ type: d[i].type, color: d[i].color, selected: false });
                 }
-                this.list.array = arr;
+                this.list.array = this.listData;
             });
         }
         updateItem(cell, index) {
             cell.setItem(cell.dataSource);
         }
         onSelect(index) {
-            console.log("当前选择的索引：" + index);
+            this.listData[index].selected = !this.listData[index].selected;
         }
         btnColorClick(e) {
             let colorX = e.currentTarget;
@@ -146,27 +155,25 @@
             this.updateList();
         }
         btnDevClick(e) {
-            this.btnDev1.skin = 'gameimg/dev1_1.png';
-            this.btnDev2.skin = 'gameimg/dev2_1.png';
-            this.btnDev3.skin = 'gameimg/dev3_1.png';
             let curBtn = e.currentTarget;
-            switch (curBtn) {
-                case this.btnDev1:
-                    this.devType = 1;
-                    break;
-                case this.btnDev2:
-                    this.devType = 2;
-                    break;
-                case this.btnDev3:
-                    this.devType = 3;
-                    break;
+            let type = Number(curBtn.skin.charAt(11));
+            console.log('===', curBtn.skin.charAt(13));
+            let color = Number(curBtn.skin.charAt(13));
+            color = color == 1 ? 2 : 1;
+            curBtn.skin = 'gameimg/dev' + type + '_' + color + '.png';
+            console.log('curBtn.skin=', curBtn.skin);
+            this.devTypeArr = [];
+            for (var i in this.devArr) {
+                if (this.devArr[i].skin.indexOf('_2.png') > 0) {
+                    this.devTypeArr.push(Number(i) + 1);
+                }
             }
-            curBtn.skin = 'gameimg/dev' + this.devType + '_2.png';
+            console.log(this.devTypeArr);
             this.updateList();
         }
         updateList() {
             const params = {
-                type: this.devType,
+                type: this.devTypeArr,
                 color: this.selectColorArr,
                 sort: this.sort
             };
@@ -199,6 +206,7 @@
             this.img.scaleX = this.img.scaleY = __scale;
             this.img.y = __y;
             this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
+            this.bg.skin = 'gameimg/bg' + (itemData.selected ? 2 : 1) + '.png';
         }
     }
     Item.WID = 147;

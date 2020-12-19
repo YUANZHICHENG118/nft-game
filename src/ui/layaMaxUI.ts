@@ -26,7 +26,7 @@ export module ui {
 		public color4:Laya.Sprite;
 		public color5:Laya.Sprite;
 		public color6:Laya.Sprite;
-		public autoCheck_btn:Laya.Sprite;
+		public selectAll_btn:Laya.CheckBox;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
