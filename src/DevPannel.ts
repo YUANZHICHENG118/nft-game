@@ -28,8 +28,26 @@ export default class DevPannel extends ui.DevPannelUI {
             this.btnColorArr[i].on(Laya.Event.CLICK,this,this.btnColorClick)
         }
         this.selectAll_btn.on(Laya.Event.CHANGE,this,this.selectAllClick)
+        this.stakeTokenNft_btn.on(Laya.Event.CLICK,this,this.stakeTokenNft)
     }
-
+    stakeTokenNft(){
+        console.log('stakeTokenNft')
+        let ids:Array<number>
+        let amounts:Array<number>
+        var obj:object={}
+        for(var i in this.listData){
+            if(this.listData[i].selected==true){
+                let id=this.listData[i].id
+                if(obj[id]){
+                    obj[id]+=1;
+                }else{
+                    obj[id]=1;
+                }
+            }
+        }
+        console.log('obj',obj);//{17: 2, 18: 2}
+        LayaBlock.stakeTokenNft(obj)
+    }
     selectAllClick(e:Laya.Event){
         for(let i in this.listData){
             this.listData[i].selected=this.selectAll_btn.selected
@@ -74,7 +92,7 @@ export default class DevPannel extends ui.DevPannelUI {
             console.log(d,typeof d)
             this.listData=[]
             for(let i in d){
-                this.listData.push({type:d[i].type,color:d[i].color,selected:false})
+                this.listData.push({id:d[i].id,type:d[i].type,color:d[i].color,selected:false})
             }
             this.list.array =this.listData
         })

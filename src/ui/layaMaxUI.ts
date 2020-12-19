@@ -18,6 +18,7 @@ export module ui {
 		public btnDev1:Laya.Image;
 		public btnDev2:Laya.Image;
 		public btnDev3:Laya.Image;
+		public stakeTokenNft_btn:Laya.Image;
 		public sort_btn:Laya.Sprite;
 		public sort_txt:Laya.Label;
 		public color1:Laya.Sprite;
