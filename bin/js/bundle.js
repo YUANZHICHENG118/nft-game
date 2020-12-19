@@ -7,6 +7,7 @@
         }
     }
     GameEvent.flag1 = "flag1";
+    GameEvent.closePannel = 'closePannel';
 
     class DataBus extends Laya.EventDispatcher {
         constructor() {
@@ -91,14 +92,25 @@
             }
             this.selectAll_btn.on(Laya.Event.CHANGE, this, this.selectAllClick);
             this.stakeTokenNft_btn.on(Laya.Event.CLICK, this, this.stakeTokenNft);
+            this.list.itemRender = Item;
+            this.list.repeatX = 4;
+            this.list.x = 50;
+            this.list.y = 423;
+            this.list.height = 600;
+            this.list.spaceX = 20;
+            this.list.spaceY = 20;
+            this.list.vScrollBarSkin = "";
+            this.list.selectEnable = true;
+            this.list.selectHandler = new Handler(this, this.onSelect);
+            this.list.renderHandler = new Handler(this, this.updateItem);
+            this.addChild(this.list);
         }
         stakeTokenNft() {
-            console.log('stakeTokenNft');
-            let ids;
-            let amounts;
+            var machineNum = 0;
             var obj = {};
             for (var i in this.listData) {
                 if (this.listData[i].selected == true) {
+                    machineNum++;
                     let id = this.listData[i].id;
                     if (obj[id]) {
                         obj[id] += 1;
@@ -108,7 +120,14 @@
                     }
                 }
             }
+            if (machineNum == 0) {
+                alert('您还没有选择设备呢');
+                return;
+            }
             console.log('obj', obj);
+            LayaBlock.stakeTokenNft(obj);
+            this.closeClick();
+            this.event(GameEvent.closePannel);
         }
         selectAllClick(e) {
             for (let i in this.listData) {
@@ -128,22 +147,20 @@
             this.updateList();
         }
         initList() {
-            if (this.hasInitList) {
-                return;
+            this.devTypeArr = [1, 2, 3];
+            this.selectColorArr = [1, 2, 3, 4, 5, 6];
+            this.sort = 'DESC';
+            this.btnDev1.skin = 'gameimg/dev1_2.png';
+            this.btnDev2.skin = 'gameimg/dev2_2.png';
+            this.btnDev3.skin = 'gameimg/dev3_2.png';
+            this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
+            for (let i in this.btnColorArr) {
+                this.btnColorArr[i].alpha = 1;
             }
-            this.hasInitList = true;
-            this.list.itemRender = Item;
-            this.list.repeatX = 4;
-            this.list.x = 50;
-            this.list.y = 423;
-            this.list.height = 600;
-            this.list.spaceX = 20;
-            this.list.spaceY = 20;
-            this.list.vScrollBarSkin = "";
-            this.list.selectEnable = true;
-            this.list.selectHandler = new Handler(this, this.onSelect);
-            this.list.renderHandler = new Handler(this, this.updateItem);
-            this.addChild(this.list);
+            this.sort = 'ASC';
+            this.sort_txt.text = '低 → 高';
+            this.selectAll_btn.selected = false;
+            this.auto_btn.selected = false;
             this.updateList();
         }
         loadData(params) {
@@ -232,12 +249,37 @@
     Item.HEI = 134;
     Item.machinaWid = [[230, 123], [293, 209], [312, 133]];
 
+    var TimeLine = Laya.TimeLine;
     class Home extends ui.HomeUI {
         constructor() {
             super();
             this.dataBus = DataBus.getDataBus();
+            this.test = () => {
+                this.machineGo({});
+            };
+            this.closePannel = () => {
+                this.selectBg.x = -300;
+            };
             this.initUI = () => {
                 this.devPannel.visible = false;
+                this.machines.removeChildAt(0);
+            };
+            this.machineGo = (obj) => {
+                obj = { id: 1, type: 1, color: 1 };
+                let skin = 'machine/m' + obj.type + '_c' + obj.color + '.png';
+                let machineImg = new Laya.Image(skin);
+                machineImg.scale(-0.5, 0.5);
+                machineImg.pos(-45, 1150);
+                this.machines.addChild(machineImg);
+                let timeLine = new TimeLine();
+                timeLine.addLabel("road1", 0).to(machineImg, { x: 900, y: 814 }, 4000, null, 0)
+                    .addLabel("road2", 0).to(machineImg, { x: 774, y: 455, scaleX: 0.5, scaleY: 0.5, alpha: 1 }, 1000, null, 0)
+                    .addLabel("road3", 0).to(machineImg, { x: 460, y: 450, scaleX: 0.3, scaleY: 0.3, alpha: 1 }, 4000, null, 0)
+                    .addLabel("road4", 0).to(machineImg, { x: 360, y: 430, scaleX: 0.2, scaleY: 0.2, alpha: 1 }, 3000, null, 0)
+                    .addLabel("road5", 0).to(machineImg, { x: 270, y: 365, scaleX: 0.1, scaleY: 0.1, alpha: 1 }, 6000, null, 0);
+                timeLine.play(0, false);
+                timeLine.on(Laya.Event.COMPLETE, this, this.onComplete);
+                timeLine.on(Laya.Event.LABEL, this, this.onLabel);
             };
             this.homeInit = () => {
                 LayaBlock.getMineData().then((d) => {
@@ -307,7 +349,15 @@
             this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
             this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
+            this.devPannel.on(GameEvent.closePannel, this, this.closePannel);
+            this.test_btn.on(Laya.Event.CLICK, this, this.test);
             this.initUI();
+        }
+        onComplete() {
+            console.log("timeLine complete!!!!");
+        }
+        onLabel(label) {
+            console.log("LabelName:" + label);
         }
         menuClick(e) {
             let curBtn = e.currentTarget;

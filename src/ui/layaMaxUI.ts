@@ -27,6 +27,7 @@ export module ui {
 		public color4:Laya.Sprite;
 		public color5:Laya.Sprite;
 		public color6:Laya.Sprite;
+		public auto_btn:Laya.CheckBox;
 		public selectAll_btn:Laya.CheckBox;
         constructor(){ super()}
         createChildren():void {
@@ -43,11 +44,15 @@ export module ui {
 		public btnRank:Laya.Sprite;
 		public btnMe:Laya.Sprite;
 		public gongGao_txt:Laya.Label;
+		public test_btn:Laya.Sprite;
 		public mine_txt:Laya.Label;
 		public ethAmount_txt:Laya.Label;
 		public rank_txt:Laya.Label;
 		public rate_txt:Laya.Label;
 		public reward_txt:Laya.Label;
+		public machines:Laya.Sprite;
+		public machine:Laya.Sprite;
+		public mount_mask:Laya.Sprite;
 		public shan:Laya.Sprite;
 		public devPannel:any;
         constructor(){ super()}

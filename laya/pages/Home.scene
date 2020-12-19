@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":9,
+    "selecteID":31,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
-    "maxID":84,
+    "maxID":93,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -33,7 +33,7 @@
             "x":15,
             "type":"FontClip",
             "searchKey":"FontClip,num_txt",
-            "props":{"y":1062,"x":185,"var":"num_txt","value":"0123456789","skin":"comp/fontClip_num.png","sheet":"0123456789"},
+            "props":{"y":679,"x":-449,"var":"num_txt","value":"0123456789","skin":"comp/fontClip_num.png","sheet":"0123456789"},
             "nodeParent":2,
             "label":"num_txt",
             "isDirectory":false,
@@ -61,7 +61,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,selectBg",
-            "props":{"y":1157.5,"x":57,"var":"selectBg","texture":"gameimg/selectBg.png"},
+            "props":{"y":1157.5,"x":-183,"var":"selectBg","texture":"gameimg/selectBg.png"},
             "nodeParent":2,
             "label":"selectBg",
             "isOpen":false,
@@ -240,14 +240,13 @@
             "props":{"y":274,"x":-289.5,"texture":"gameimg/btnBg.png"},
             "nodeParent":2,
             "label":"Sprite",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":21,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":22,"x":22,"texture":"gameimg/icon6.png"},
@@ -261,7 +260,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":25,"x":66,"width":117,"text":"公告","height":33,"fontSize":33,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -282,14 +280,13 @@
             "props":{"y":21,"x":21,"width":704,"skin":"gameimg/numBg2.png","height":86},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":28,
             "child":[
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,gongGao_txt",
                     "props":{"y":28,"x":54,"width":593,"var":"gongGao_txt","text":"公告","height":33,"fontSize":38,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -306,10 +303,10 @@
         {
             "x":15,
             "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{"y":383,"x":-270,"texture":"gameimg/btnBg.png"},
+            "searchKey":"Sprite,test_btn",
+            "props":{"y":997,"x":35,"var":"test_btn","texture":"gameimg/btnBg.png"},
             "nodeParent":2,
-            "label":"Sprite",
+            "label":"test_btn",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
@@ -320,7 +317,7 @@
                     "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
-                    "props":{"y":22,"x":20,"texture":"gameimg/icon8.png"},
+                    "props":{"y":16,"x":13,"texture":"gameimg/icon8.png"},
                     "nodeParent":31,
                     "label":"Sprite",
                     "isDirectory":false,
@@ -334,7 +331,7 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":25,"x":66,"width":117,"text":"聊天","height":33,"fontSize":33,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "props":{"y":15.5,"x":54,"width":69,"text":"发车","height":27,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                     "nodeParent":31,
                     "label":"Label",
                     "isDirectory":false,
@@ -352,14 +349,13 @@
             "props":{"y":114,"x":22,"width":191,"skin":"gameimg/numBg.png","height":49},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":34,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":10,"x":11,"texture":"gameimg/icon1.png"},
@@ -373,7 +369,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,mine_txt",
                     "props":{"y":16,"x":47,"width":134,"var":"mine_txt","text":"0","height":22,"fontSize":22,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -394,14 +389,13 @@
             "props":{"y":114,"x":216,"width":139,"skin":"gameimg/numBg.png","height":49},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":35,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":10.5,"x":15,"texture":"gameimg/icon2.png"},
@@ -415,7 +409,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,ethAmount_txt",
                     "props":{"y":16,"x":45,"width":83,"var":"ethAmount_txt","text":"0","height":19,"fontSize":20,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -436,14 +429,13 @@
             "props":{"y":114,"x":358,"skin":"gameimg/numBg.png"},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":36,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":9.5,"x":14,"texture":"gameimg/icon3.png"},
@@ -457,7 +449,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,rank_txt",
                     "props":{"y":16,"x":45,"width":68,"var":"rank_txt","text":"0","height":19,"fontSize":20,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -478,14 +469,13 @@
             "props":{"y":114,"x":481,"skin":"gameimg/numBg.png"},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":39,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":9.5,"x":13,"texture":"gameimg/icon4.png"},
@@ -499,7 +489,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,rate_txt",
                     "props":{"y":16,"x":45,"width":68,"var":"rate_txt","text":"0","height":19,"fontSize":20,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -520,14 +509,13 @@
             "props":{"y":114,"x":605,"skin":"gameimg/numBg.png"},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":41,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":9.5,"x":15,"texture":"gameimg/icon5.png"},
@@ -541,7 +529,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,reward_txt",
                     "props":{"y":16,"x":45,"width":68,"var":"reward_txt","text":"0","height":19,"fontSize":20,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
@@ -558,30 +545,88 @@
         {
             "x":15,
             "type":"Sprite",
-            "searchKey":"Sprite,shan",
-            "props":{"y":432,"x":201,"var":"shan","texture":"gameimg/shan.png","pivotY":150,"pivotX":100},
+            "searchKey":"Sprite,machines",
+            "props":{"y":0,"x":0,"var":"machines"},
             "nodeParent":2,
-            "label":"shan",
+            "label":"machines",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":88,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite,machine",
+                    "props":{"y":413,"x":369,"width":37,"var":"machine","texture":"machine/m1_c6.png","scaleY":0.5,"scaleX":-0.5,"height":23},
+                    "nodeParent":88,
+                    "label":"machine",
+                    "isOpen":false,
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":86,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,mount_mask",
+            "props":{"y":645,"x":378,"var":"mount_mask","texture":"gameimg/shanX.png"},
+            "nodeParent":2,
+            "label":"mount_mask",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":71,
+            "compId":89,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
-            "props":{"y":351,"x":0,"texture":"gameimg/tu.png"},
+            "props":{"y":351,"x":0},
             "nodeParent":2,
             "label":"Sprite",
-            "isDirectory":false,
+            "isOpen":true,
+            "isDirectory":true,
             "isAniNode":true,
-            "hasChild":false,
-            "compId":72,
+            "hasChild":true,
+            "compId":90,
             "child":[
-                ]
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite,shan",
+                    "props":{"y":81,"x":201,"var":"shan","texture":"gameimg/shan.png","pivotY":150,"pivotX":100},
+                    "nodeParent":90,
+                    "label":"shan",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":91,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":41,"x":-17,"texture":"gameimg/tu.png"},
+                    "nodeParent":90,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":92,
+                    "child":[
+                        ]
+                }]
         },
         {
             "x":15,

@@ -1,6 +1,7 @@
 import DataBus from "./DataBus";
 import GameEvent from "./GameEvent";
 import { ui } from "./ui/layaMaxUI";
+import TimeLine = Laya.TimeLine;
 export default class Home extends ui.HomeUI{
     private dataBus:DataBus = DataBus.getDataBus();
     constructor() { super();}    
@@ -13,11 +14,50 @@ export default class Home extends ui.HomeUI{
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.devPannel.on(GameEvent.closePannel,this,this.closePannel)
+        this.test_btn.on(Laya.Event.CLICK,this,this.test)
         this.initUI();
+        
+    }
+    test=()=>{
+        this.machineGo({})
+    }
+    closePannel=()=>{
+        this.selectBg.x=-300;
     }
     initUI=()=>{
         this.devPannel.visible=false;
+        this.machines.removeChildAt(0);
     }
+
+    machineGo=(obj:any)=>{
+        obj={id:1,type:1,color:1}
+        let skin='machine/m'+obj.type +'_c'+obj.color+'.png';
+        let machineImg:Laya.Image=new Laya.Image(skin)
+        machineImg.scale(-0.5,0.5)
+        machineImg.pos(-45,1150)
+        this.machines.addChild(machineImg)
+        
+        let timeLine:TimeLine = new TimeLine();
+        timeLine.addLabel("road1",0).to(machineImg,{x:900, y:814},4000,null,0)   //右侧出洞
+                .addLabel("road2",0).to(machineImg,{x:774, y:455, scaleX:0.5, scaleY:0.5, alpha:1},1000,null,0)     //上行，调整状态
+                .addLabel("road3",0).to(machineImg,{x:460, y:450, scaleX:0.3, scaleY:0.3, alpha:1},4000,null,0)     //去中间
+                .addLabel("road4",0).to(machineImg,{x:360, y:430, scaleX:0.2, scaleY:0.2, alpha:1},3000,null,0)     //去金山
+                .addLabel("road5",0).to(machineImg,{x:270, y:365, scaleX:0.1, scaleY:0.1, alpha:1},6000,null,0)     //去金山后面
+		timeLine.play(0,false);
+		timeLine.on(Laya.Event.COMPLETE,this,this.onComplete);
+		timeLine.on(Laya.Event.LABEL, this, this.onLabel);
+    }
+
+    private onComplete():void
+    {
+        console.log("timeLine complete!!!!");
+    }
+    private onLabel(label:String):void
+    {
+        console.log("LabelName:" + label);
+    }
+    
     homeInit=()=>{
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
@@ -42,8 +82,7 @@ export default class Home extends ui.HomeUI{
                 this.devPannel.visible=true;
                 this.devPannel.initList();
                 break;
-            case this.btnExchange:
-                
+            case this.btnExchange:                
                 break;
             case this.btnRank:
                 LayaBlock.getRankTop().then((d:IRankTop[])=>{
@@ -56,7 +95,7 @@ export default class Home extends ui.HomeUI{
                     console.log(d);
                 })
                 break;
-        }        
+        }
     }
 
     /**

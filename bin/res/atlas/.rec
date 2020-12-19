@@ -40,7 +40,7 @@ P 5FD17798 vscroll.png
 P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
 D gameimg
-R 595FC0A0 bg.png
+R 6C3B1CE2 bg.png
 P 2A01246C bg1.png
 P 81F47862 bg2.png
 P 150DFCF6 bg3.png
@@ -74,16 +74,17 @@ P 78743AF4 icon5.png
 P 5FF5FB68 icon6.png
 P 0DF1F1B3 icon7.png
 P F56C54D5 icon8.png
-P D14E1289 jinshan.png
+P 3F70E7CC jinshan.png
 R F8F76E04 menuBarBg.png
-R 5F41C8C9 menuBarIcon.png
+R 3B4CFA1C menuBarIcon.png
 P 34037AEB numBg.png
 P F97D50B0 numBg2.png
 P 3D1FFBCC pannel.png
 P 38734B13 selectBg.png
 P 7D2A7C27 shan.png
+R 50A99E87 shanX.png
 P 944E19F4 sun.png
-R A52C8F0A tu.png
+R 4EBE398A tu.png
 P 694A575A zhishipai.png
 D machine
 P E49B0ED4 m1_1.png

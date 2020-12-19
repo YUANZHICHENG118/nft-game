@@ -1,3 +1,4 @@
+import GameEvent from "./GameEvent";
 import { ui } from "./ui/layaMaxUI";
 import List = Laya.List;
 import Handler = Laya.Handler;
@@ -29,14 +30,30 @@ export default class DevPannel extends ui.DevPannelUI {
         }
         this.selectAll_btn.on(Laya.Event.CHANGE,this,this.selectAllClick)
         this.stakeTokenNft_btn.on(Laya.Event.CLICK,this,this.stakeTokenNft)
+
+
+        //创建列表
+        this.list.itemRender = Item;
+        this.list.repeatX = 4;
+        //this.list.repeatY = 4;
+        this.list.x = 50;
+        this.list.y = 423;
+        this.list.height=600;
+        this.list.spaceX=20;
+        this.list.spaceY=20;
+        //使用但隐藏滚动条
+        this.list.vScrollBarSkin = "";
+        this.list.selectEnable = true;
+        this.list.selectHandler = new Handler(this, this.onSelect);
+        this.list.renderHandler = new Handler(this, this.updateItem);
+        this.addChild(this.list) 
     }
     stakeTokenNft(){
-        console.log('stakeTokenNft')
-        let ids:Array<number>
-        let amounts:Array<number>
+        var machineNum=0;
         var obj:object={}
         for(var i in this.listData){
             if(this.listData[i].selected==true){
+                machineNum++
                 let id=this.listData[i].id
                 if(obj[id]){
                     obj[id]+=1;
@@ -45,8 +62,14 @@ export default class DevPannel extends ui.DevPannelUI {
                 }
             }
         }
+        if(machineNum==0){
+            alert('您还没有选择设备呢')
+            return;
+        }
         console.log('obj',obj);//{17: 2, 18: 2}
         LayaBlock.stakeTokenNft(obj)
+        this.closeClick()
+        this.event(GameEvent.closePannel)
     }
     selectAllClick(e:Laya.Event){
         for(let i in this.listData){
@@ -64,26 +87,21 @@ export default class DevPannel extends ui.DevPannelUI {
         }
         this.updateList()
     }
-    public initList(){
-        if(this.hasInitList){
-            return;
+    public initList(){        
+        this.devTypeArr = [1,2,3];
+        this.selectColorArr=[1,2,3,4,5,6];
+        this.sort='DESC';
+        this.btnDev1.skin='gameimg/dev1_2.png'
+        this.btnDev2.skin='gameimg/dev2_2.png'
+        this.btnDev3.skin='gameimg/dev3_2.png'
+        this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];        
+        for(let i in this.btnColorArr){            
+            this.btnColorArr[i].alpha=1
         }
-        this.hasInitList=true
-        this.list.itemRender = Item;
-        this.list.repeatX = 4;
-        //this.list.repeatY = 4;
-        this.list.x = 50;
-        this.list.y = 423;
-        this.list.height=600;
-        this.list.spaceX=20;
-        this.list.spaceY=20;
-        //使用但隐藏滚动条
-        this.list.vScrollBarSkin = "";
-        this.list.selectEnable = true;
-        this.list.selectHandler = new Handler(this, this.onSelect);
-        this.list.renderHandler = new Handler(this, this.updateItem);
-        
-        this.addChild(this.list) 
+        this.sort='ASC'
+        this.sort_txt.text='低 → 高'
+        this.selectAll_btn.selected=false
+        this.auto_btn.selected=false
         this.updateList()
     }
 
