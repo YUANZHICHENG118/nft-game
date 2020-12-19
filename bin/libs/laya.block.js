@@ -301,8 +301,6 @@
      */
     const getUserMachine = async (params) => {
 
-        console.log("params===",params)
-
         //保存数据到缓存
         const machine=localStorage.getItem("machine");
         let data= machine?JSON.parse(machine):await getNft1155();
@@ -339,13 +337,15 @@
             let i=index+1;
 
             machine['id'] = i;
-            machine['balance'] = parseInt(item);
+            //machine['balance'] = parseInt(item);
 
             let newObj = {};
-            Object.assign(newObj, machine,getMachineAttribute(i) )
-
-            data.push(newObj);
-
+            for(let j=0;j<parseInt(item);j++){
+                machine['balance'] =1;
+                let {img,...params} = getMachineAttribute(i)
+                Object.assign(newObj, machine, params)
+                data.push(newObj);
+            }
         })
 
         //保存数据到缓存
