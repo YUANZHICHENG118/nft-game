@@ -292,11 +292,10 @@ declare class LayaBlock {
 
     /**
      * 质押erc1155 派出设备挖矿
-     * @param {number[]} id
-     * @param {number[]} amount
+     * @param {Object} obj {17:5,18:9}
      * @returns {Promise<ITransaction>}
      */
-    static stakeTokenNft(ids:number[],amounts:number[]):Promise<ITransaction>;
+    static stakeTokenNft(obj:Object):Promise<ITransaction>;
 
 
     /**

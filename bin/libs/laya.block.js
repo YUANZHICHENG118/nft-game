@@ -219,6 +219,7 @@
 
     // 链接钱包
     const connect = () => {
+
         ethereum.request({method: 'eth_requestAccounts'})
             .then(data => {
                 console.log("===data,", data);
@@ -554,11 +555,17 @@
 
     /**
      * 质押erc1155 派出设备挖矿
-     * @param {number[]} ids
+     * @param {} obj  {17:5,18:6}
      * @param {number[]} amounts
      * @returns {Promise<ITransaction>}
      */
-    const stakeTokenNft = async (ids, amounts) => {
+    const stakeTokenNft = async (obj) => {
+
+
+        let ids= Object.keys(obj).map((k) => parseInt(k))
+        let amounts= Object.keys(obj).map((v) => obj[v])
+
+        console.log("obg====",ids,amounts)
 
         const contract = token1155Contract();
         const data='0x00'
