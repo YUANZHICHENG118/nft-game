@@ -14,9 +14,12 @@ export default class Home extends ui.HomeUI{
     constructor() { super();}    
     onEnable(): void {
         // 初始化 web3
-        LayaBlock.initWeb3();        
-        this.initUI(); 
-        this.homeInit();
+        LayaBlock.initWeb3();   
+        //初始化界面     
+        this.initUI();
+        //初始化数据  
+        this.DataInit();
+        //注册事件
         this.addEvt();
         //this.testBlock();                  
     }
@@ -34,7 +37,7 @@ export default class Home extends ui.HomeUI{
         this.addChild(this.emailPannel);        
         this.emailPannel.visible=false;   
     }
-    homeInit=()=>{
+    DataInit=()=>{
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
             console.log(d,'矿山数据'+d.surplus+'/'+d.total)
