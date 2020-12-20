@@ -1,3 +1,4 @@
+import AniMachine from "./AniMachine";
 import DataBus from "./DataBus";
 import GameEvent from "./GameEvent";
 import { ui } from "./ui/layaMaxUI";
@@ -31,19 +32,22 @@ export default class Home extends ui.HomeUI{
     }
 
     machineGo=(obj:any)=>{
-        obj={id:1,type:1,color:1}
-        let skin='machine/m'+obj.type +'_c'+obj.color+'.png';
-        let machineImg:Laya.Image=new Laya.Image(skin)
-        machineImg.scale(-0.5,0.5)
-        machineImg.pos(-45,1150)
-        this.machines.addChild(machineImg)
+        obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}        
+        let aniMachine:AniMachine=new AniMachine() 
+        aniMachine.obj=obj
+
+        
+        aniMachine.scale(-0.5,0.5)
+        aniMachine.pos(-100,1200)
+        this.machines.addChild(aniMachine)
         
         let timeLine:TimeLine = new TimeLine();
-        timeLine.addLabel("road1",0).to(machineImg,{x:900, y:814},4000,null,0)   //右侧出洞
-                .addLabel("road2",0).to(machineImg,{x:774, y:455, scaleX:0.5, scaleY:0.5, alpha:1},1000,null,0)     //上行，调整状态
-                .addLabel("road3",0).to(machineImg,{x:460, y:450, scaleX:0.3, scaleY:0.3, alpha:1},4000,null,0)     //去中间
-                .addLabel("road4",0).to(machineImg,{x:360, y:430, scaleX:0.2, scaleY:0.2, alpha:1},3000,null,0)     //去金山
-                .addLabel("road5",0).to(machineImg,{x:270, y:365, scaleX:0.1, scaleY:0.1, alpha:1},6000,null,0)     //去金山后面
+        let dy=30;
+        timeLine.addLabel("road1",0).to(aniMachine,{x:900, y:814+dy},4000,null,0)   //右侧出洞
+                .addLabel("road2",0).to(aniMachine,{x:800, y:490+dy, scaleX:0.3, scaleY:0.3, alpha:1},1000,null,0)     //上行，调整状态
+                .addLabel("road3",0).to(aniMachine,{x:520, y:440+dy, scaleX:0.2, scaleY:0.2, alpha:1},4000,null,0)     //去中间
+                .addLabel("road4",0).to(aniMachine,{x:400, y:430+dy, scaleX:0.1, scaleY:0.1, alpha:1},3000,null,0)     //去金山
+                .addLabel("road5",0).to(aniMachine,{x:270, y:380+dy, scaleX:0.06, scaleY:0.06, alpha:1},6000,null,0)     //去金山后面
 		timeLine.play(0,false);
 		timeLine.on(Laya.Event.COMPLETE,this,this.onComplete);
 		timeLine.on(Laya.Event.LABEL, this, this.onLabel);
@@ -63,6 +67,7 @@ export default class Home extends ui.HomeUI{
         LayaBlock.getMineData().then((d:IMine)=>{
             console.log(d,'矿山数据'+d.surplus+'/'+d.total)
             this.mine_txt.text=d.surplus+'/'+d.total
+            this.shan.scaleY=(d.surplus/d.total)*0.9+0.1
         })
 
         // 获取用户基础数据

@@ -37,6 +37,15 @@
     var REG = Laya.ClassUtils.regClass;
     var ui;
     (function (ui) {
+        class AniMachineUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("AniMachine");
+            }
+        }
+        ui.AniMachineUI = AniMachineUI;
+        REG("ui.AniMachineUI", AniMachineUI);
         class BlackBgUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -249,6 +258,22 @@
     Item.HEI = 134;
     Item.machinaWid = [[230, 123], [293, 209], [312, 133]];
 
+    class AniMachine extends ui.AniMachineUI {
+        constructor() {
+            super();
+            this.machineConfig = { 1: { x: 21, y: 66, w: 267, h: 162 }, 2: { x: 13, y: 0, w: 241, h: 225 }, 3: { x: 0, y: 102, w: 267, h: 123 } };
+        }
+        onEnable() {
+            this.img.x = this.machineConfig[this.obj.type].x;
+            this.img.y = this.machineConfig[this.obj.type].y;
+            let skin = 'machine/m' + this.obj.type + '_c' + this.obj.color + '.png';
+            this.img.skin = skin;
+            this.ani1.play(0, true);
+        }
+        onDisable() {
+        }
+    }
+
     var TimeLine = Laya.TimeLine;
     class Home extends ui.HomeUI {
         constructor() {
@@ -265,18 +290,19 @@
                 this.machines.removeChildAt(0);
             };
             this.machineGo = (obj) => {
-                obj = { id: 1, type: 1, color: 1 };
-                let skin = 'machine/m' + obj.type + '_c' + obj.color + '.png';
-                let machineImg = new Laya.Image(skin);
-                machineImg.scale(-0.5, 0.5);
-                machineImg.pos(-45, 1150);
-                this.machines.addChild(machineImg);
+                obj = { id: 1, type: (Math.random() * 3 + 1) | 0, color: (Math.random() * 6 + 1) | 0 };
+                let aniMachine = new AniMachine();
+                aniMachine.obj = obj;
+                aniMachine.scale(-0.5, 0.5);
+                aniMachine.pos(-100, 1200);
+                this.machines.addChild(aniMachine);
                 let timeLine = new TimeLine();
-                timeLine.addLabel("road1", 0).to(machineImg, { x: 900, y: 814 }, 4000, null, 0)
-                    .addLabel("road2", 0).to(machineImg, { x: 774, y: 455, scaleX: 0.5, scaleY: 0.5, alpha: 1 }, 1000, null, 0)
-                    .addLabel("road3", 0).to(machineImg, { x: 460, y: 450, scaleX: 0.3, scaleY: 0.3, alpha: 1 }, 4000, null, 0)
-                    .addLabel("road4", 0).to(machineImg, { x: 360, y: 430, scaleX: 0.2, scaleY: 0.2, alpha: 1 }, 3000, null, 0)
-                    .addLabel("road5", 0).to(machineImg, { x: 270, y: 365, scaleX: 0.1, scaleY: 0.1, alpha: 1 }, 6000, null, 0);
+                let dy = 30;
+                timeLine.addLabel("road1", 0).to(aniMachine, { x: 900, y: 814 + dy }, 4000, null, 0)
+                    .addLabel("road2", 0).to(aniMachine, { x: 800, y: 490 + dy, scaleX: 0.3, scaleY: 0.3, alpha: 1 }, 1000, null, 0)
+                    .addLabel("road3", 0).to(aniMachine, { x: 520, y: 440 + dy, scaleX: 0.2, scaleY: 0.2, alpha: 1 }, 4000, null, 0)
+                    .addLabel("road4", 0).to(aniMachine, { x: 400, y: 430 + dy, scaleX: 0.1, scaleY: 0.1, alpha: 1 }, 3000, null, 0)
+                    .addLabel("road5", 0).to(aniMachine, { x: 270, y: 380 + dy, scaleX: 0.06, scaleY: 0.06, alpha: 1 }, 6000, null, 0);
                 timeLine.play(0, false);
                 timeLine.on(Laya.Event.COMPLETE, this, this.onComplete);
                 timeLine.on(Laya.Event.LABEL, this, this.onLabel);
@@ -285,6 +311,7 @@
                 LayaBlock.getMineData().then((d) => {
                     console.log(d, '矿山数据' + d.surplus + '/' + d.total);
                     this.mine_txt.text = d.surplus + '/' + d.total;
+                    this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
                 });
                 LayaBlock.getUserBase().then((d) => {
                     console.log('用户基础数据：address' + JSON.stringify(d));

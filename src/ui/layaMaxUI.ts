@@ -4,6 +4,16 @@ import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui {
+    export class AniMachineUI extends Scene {
+		public ani1:Laya.FrameAnimation;
+		public img:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("AniMachine");
+        }
+    }
+    REG("ui.AniMachineUI",AniMachineUI);
     export class BlackBgUI extends Scene {
         constructor(){ super()}
         createChildren():void {
@@ -51,7 +61,6 @@ export module ui {
 		public rate_txt:Laya.Label;
 		public reward_txt:Laya.Label;
 		public machines:Laya.Sprite;
-		public machine:Laya.Sprite;
 		public mount_mask:Laya.Sprite;
 		public shan:Laya.Sprite;
 		public devPannel:any;
