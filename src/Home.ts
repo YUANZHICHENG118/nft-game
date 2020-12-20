@@ -1,67 +1,39 @@
 import AniMachine from "./AniMachine";
 import DataBus from "./DataBus";
+import DevPannel from "./DevPannel";
+import EmailPannel from "./EmailPannel";
 import GameEvent from "./GameEvent";
+import NoticePannel from "./NoticePannel";
 import { ui } from "./ui/layaMaxUI";
 import TimeLine = Laya.TimeLine;
 export default class Home extends ui.HomeUI{
     private dataBus:DataBus = DataBus.getDataBus();
+    private devPannel:DevPannel
+    private notiecPannel:NoticePannel
+    private emailPannel:EmailPannel
     constructor() { super();}    
     onEnable(): void {
         // 初始化 web3
-        LayaBlock.initWeb3();
+        LayaBlock.initWeb3();        
+        this.initUI(); 
         this.homeInit();
-        //this.testBlock();
-        this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
-        this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
-        this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
-        this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
-        this.devPannel.on(GameEvent.closePannel,this,this.closePannel)
-        this.test_btn.on(Laya.Event.CLICK,this,this.test)
-        this.initUI();
-        
-    }
-    test=()=>{
-        this.machineGo({})
-    }
-    closePannel=()=>{
-        this.selectBg.x=-300;
+        this.addEvt();
+        //this.testBlock();                  
     }
     initUI=()=>{
+        //设备面板
+        this.devPannel=new DevPannel();
+        this.addChild(this.devPannel);        
         this.devPannel.visible=false;
-        this.machines.removeChildAt(0);
+        //公告面板
+        this.notiecPannel=new NoticePannel()
+        this.addChild(this.notiecPannel);        
+        this.notiecPannel.visible=false;
+        //邮件面板
+        this.emailPannel=new EmailPannel()
+        this.addChild(this.emailPannel);        
+        this.emailPannel.visible=false;   
     }
-
-    machineGo=(obj:any)=>{
-        obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}        
-        let aniMachine:AniMachine=new AniMachine() 
-        aniMachine.obj=obj
-
-        
-        aniMachine.scale(-0.5,0.5)
-        aniMachine.pos(-100,1200)
-        this.machines.addChild(aniMachine)
-        
-        let timeLine:TimeLine = new TimeLine();
-        let dy=30;
-        timeLine.addLabel("road1",0).to(aniMachine,{x:900, y:814+dy},4000,null,0)   //右侧出洞
-                .addLabel("road2",0).to(aniMachine,{x:800, y:490+dy, scaleX:0.3, scaleY:0.3, alpha:1},1000,null,0)     //上行，调整状态
-                .addLabel("road3",0).to(aniMachine,{x:520, y:440+dy, scaleX:0.2, scaleY:0.2, alpha:1},4000,null,0)     //去中间
-                .addLabel("road4",0).to(aniMachine,{x:400, y:430+dy, scaleX:0.1, scaleY:0.1, alpha:1},3000,null,0)     //去金山
-                .addLabel("road5",0).to(aniMachine,{x:270, y:380+dy, scaleX:0.06, scaleY:0.06, alpha:1},6000,null,0)     //去金山后面
-		timeLine.play(0,false);
-		timeLine.on(Laya.Event.COMPLETE,this,this.onComplete);
-		timeLine.on(Laya.Event.LABEL, this, this.onLabel);
-    }
-
-    private onComplete():void
-    {
-        console.log("timeLine complete!!!!");
-    }
-    private onLabel(label:String):void
-    {
-        console.log("LabelName:" + label);
-    }
-    
     homeInit=()=>{
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
@@ -79,6 +51,57 @@ export default class Home extends ui.HomeUI{
             this.rank_txt.text=d.rank+''
         })
     }
+    addEvt=()=>{
+        this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
+        this.devPannel.on(GameEvent.closePannel,this,this.closePannel)
+        this.btnNotice.on(Laya.Event.CLICK,this,this.showNoticePannel)
+        this.btnEmail.on(Laya.Event.CLICK,this,this.showEmailPannel)
+        this.test_btn.on(Laya.Event.CLICK,this,this.test)     
+    }
+    test=()=>{
+        this.machineGo({})
+    }
+    closePannel=()=>{
+        this.selectBg.x=-300;
+    }
+    showNoticePannel=()=>{
+        this.notiecPannel.visible=true;
+    }
+    showEmailPannel=()=>{
+        this.emailPannel.visible=true;
+    }
+    machineGo=(obj:any)=>{
+        obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}        
+        let aniMachine:AniMachine=new AniMachine() 
+        aniMachine.obj=obj;       
+        aniMachine.scale(-0.5,0.5)
+        aniMachine.pos(-100,1200)
+        this.machines.addChild(aniMachine);        
+        let timeLine:TimeLine = new TimeLine();
+        let dy=30;
+        timeLine.addLabel("road1",0).to(aniMachine,{x:900, y:814+dy},4000,null,0)   //右侧出洞
+                .addLabel("road2",0).to(aniMachine,{x:800, y:490+dy, scaleX:0.3, scaleY:0.3, alpha:1},1000,null,0)     //上行，调整状态
+                .addLabel("road3",0).to(aniMachine,{x:520, y:440+dy, scaleX:0.2, scaleY:0.2, alpha:1},4000,null,0)     //去中间
+                .addLabel("road4",0).to(aniMachine,{x:400, y:430+dy, scaleX:0.1, scaleY:0.1, alpha:1},3000,null,0)     //去金山
+                .addLabel("road5",0).to(aniMachine,{x:270, y:380+dy, scaleX:0.06, scaleY:0.06, alpha:1},6000,null,0)     //去金山后面
+		timeLine.play(0,false);
+		timeLine.on(Laya.Event.COMPLETE,this,this.onComplete);
+		timeLine.on(Laya.Event.LABEL, this, this.onLabel);
+    }
+
+    private onComplete():void
+    {
+        //console.log("timeLine complete!!!!");
+    }
+    private onLabel(label:String):void
+    {
+        //console.log("LabelName:" + label);
+    }
+    
+    
     menuClick(e:Laya.Event):void{
         let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
         this.selectBg.x=curBtn.x

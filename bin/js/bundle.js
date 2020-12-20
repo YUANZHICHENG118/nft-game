@@ -33,6 +33,7 @@
     }
     DataBus.instance = null;
 
+    var Dialog = Laya.Dialog;
     var Scene = Laya.Scene;
     var REG = Laya.ClassUtils.regClass;
     var ui;
@@ -64,6 +65,15 @@
         }
         ui.DevPannelUI = DevPannelUI;
         REG("ui.DevPannelUI", DevPannelUI);
+        class EmailUI extends Dialog {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("Email");
+            }
+        }
+        ui.EmailUI = EmailUI;
+        REG("ui.EmailUI", EmailUI);
         class HomeUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -73,6 +83,15 @@
         }
         ui.HomeUI = HomeUI;
         REG("ui.HomeUI", HomeUI);
+        class NoticeUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("Notice");
+            }
+        }
+        ui.NoticeUI = NoticeUI;
+        REG("ui.NoticeUI", NoticeUI);
     })(ui || (ui = {}));
 
     var List = Laya.List;
@@ -274,20 +293,84 @@
         }
     }
 
+    class EmailPannel extends ui.EmailUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.btnOk1.on(Laya.Event.CLICK, this, this.closeClick);
+            this.btnOk2.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
+    class NoticePannel extends ui.NoticeUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.btnOk.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
     var TimeLine = Laya.TimeLine;
     class Home extends ui.HomeUI {
         constructor() {
             super();
             this.dataBus = DataBus.getDataBus();
+            this.initUI = () => {
+                this.devPannel = new DevPannel();
+                this.addChild(this.devPannel);
+                this.devPannel.visible = false;
+                this.notiecPannel = new NoticePannel();
+                this.addChild(this.notiecPannel);
+                this.notiecPannel.visible = false;
+                this.emailPannel = new EmailPannel();
+                this.addChild(this.emailPannel);
+                this.emailPannel.visible = false;
+            };
+            this.homeInit = () => {
+                LayaBlock.getMineData().then((d) => {
+                    console.log(d, '矿山数据' + d.surplus + '/' + d.total);
+                    this.mine_txt.text = d.surplus + '/' + d.total;
+                    this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
+                });
+                LayaBlock.getUserBase().then((d) => {
+                    console.log('用户基础数据：address' + JSON.stringify(d));
+                    this.ethAmount_txt.text = d.ethAmount + '';
+                    this.reward_txt.text = d.reward + '';
+                    this.rate_txt.text = d.rate * 100 + '%';
+                    this.rank_txt.text = d.rank + '';
+                });
+            };
+            this.addEvt = () => {
+                this.btnDevice.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
+                this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
+                this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
+                this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
+                this.devPannel.on(GameEvent.closePannel, this, this.closePannel);
+                this.btnNotice.on(Laya.Event.CLICK, this, this.showNoticePannel);
+                this.btnEmail.on(Laya.Event.CLICK, this, this.showEmailPannel);
+                this.test_btn.on(Laya.Event.CLICK, this, this.test);
+            };
             this.test = () => {
                 this.machineGo({});
             };
             this.closePannel = () => {
                 this.selectBg.x = -300;
             };
-            this.initUI = () => {
-                this.devPannel.visible = false;
-                this.machines.removeChildAt(0);
+            this.showNoticePannel = () => {
+                this.notiecPannel.visible = true;
+            };
+            this.showEmailPannel = () => {
+                this.emailPannel.visible = true;
             };
             this.machineGo = (obj) => {
                 obj = { id: 1, type: (Math.random() * 3 + 1) | 0, color: (Math.random() * 6 + 1) | 0 };
@@ -306,20 +389,6 @@
                 timeLine.play(0, false);
                 timeLine.on(Laya.Event.COMPLETE, this, this.onComplete);
                 timeLine.on(Laya.Event.LABEL, this, this.onLabel);
-            };
-            this.homeInit = () => {
-                LayaBlock.getMineData().then((d) => {
-                    console.log(d, '矿山数据' + d.surplus + '/' + d.total);
-                    this.mine_txt.text = d.surplus + '/' + d.total;
-                    this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
-                });
-                LayaBlock.getUserBase().then((d) => {
-                    console.log('用户基础数据：address' + JSON.stringify(d));
-                    this.ethAmount_txt.text = d.ethAmount + '';
-                    this.reward_txt.text = d.reward + '';
-                    this.rate_txt.text = d.rate * 100 + '%';
-                    this.rank_txt.text = d.rank + '';
-                });
             };
             this.testBlock = () => {
                 console.log('♥♥');
@@ -371,20 +440,13 @@
         }
         onEnable() {
             LayaBlock.initWeb3();
-            this.homeInit();
-            this.btnDevice.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-            this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-            this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-            this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-            this.devPannel.on(GameEvent.closePannel, this, this.closePannel);
-            this.test_btn.on(Laya.Event.CLICK, this, this.test);
             this.initUI();
+            this.homeInit();
+            this.addEvt();
         }
         onComplete() {
-            console.log("timeLine complete!!!!");
         }
         onLabel(label) {
-            console.log("LabelName:" + label);
         }
         menuClick(e) {
             let curBtn = e.currentTarget;
