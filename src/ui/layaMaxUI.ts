@@ -50,8 +50,6 @@ export module ui {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
 		public btnOk1:Laya.Image;
-		public title_txt:Laya.Label;
-		public notie_txt:Laya.TextArea;
 		public btnOk2:Laya.Image;
         constructor(){ super()}
         createChildren():void {
@@ -88,12 +86,23 @@ export module ui {
         }
     }
     REG("ui.HomeUI",HomeUI);
+    export class ItemEmailUI extends View {
+		public title_txt:Laya.Label;
+		public notie_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemEmail");
+        }
+    }
+    REG("ui.ItemEmailUI",ItemEmailUI);
     export class NoticeUI extends Scene {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
 		public btnOk:Laya.Image;
 		public title_txt:Laya.Label;
-		public notie_txt:Laya.TextArea;
+		public content_txt:Laya.TextArea;
+		public time_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

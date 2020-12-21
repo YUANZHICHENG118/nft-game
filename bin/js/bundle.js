@@ -32,7 +32,9 @@
         }
     }
     DataBus.instance = null;
+    DataBus.account = '';
 
+    var View = Laya.View;
     var Dialog = Laya.Dialog;
     var Scene = Laya.Scene;
     var REG = Laya.ClassUtils.regClass;
@@ -83,6 +85,15 @@
         }
         ui.HomeUI = HomeUI;
         REG("ui.HomeUI", HomeUI);
+        class ItemEmailUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemEmail");
+            }
+        }
+        ui.ItemEmailUI = ItemEmailUI;
+        REG("ui.ItemEmailUI", ItemEmailUI);
         class NoticeUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -293,12 +304,53 @@
         }
     }
 
+    class ItemEmail extends ui.ItemEmailUI {
+        constructor() { super(); this.width = 660; this.height = 200; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+    }
+
+    var List$1 = Laya.List;
     class EmailPannel extends ui.EmailUI {
-        constructor() { super(); }
+        constructor() {
+            super();
+            this.list = new List$1();
+            this.hasInitList = false;
+            this.loadData = () => {
+                console.log('加载邮件', DataBus.account);
+                NftApi.getEmail(DataBus.account).then((d) => {
+                    console.log('d:', d);
+                    this.listData = [];
+                    for (let i in d) {
+                        this.listData.push({ id: d[i].id, title: d[i].title, time: d[i].time, content: d[i].content });
+                    }
+                    console.log(this.listData);
+                    this.list.array = this.listData;
+                });
+            };
+        }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnOk1.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnOk2.on(Laya.Event.CLICK, this, this.closeClick);
+            this.list.itemRender = ItemEmail;
+            ;
+            this.list.repeatX = 1;
+            this.list.x = 45;
+            this.list.y = 140;
+            this.list.height = 1000;
+            this.list.width = 660;
+            this.list.spaceX = 20;
+            this.list.spaceY = 20;
+            this.list.vScrollBarSkin = "";
+            this.list.selectEnable = true;
+            this.addChild(this.list);
+        }
+        updateItem(cell, index) {
+        }
+        onSelect(index) {
         }
         onDisable() {
         }
@@ -307,8 +359,43 @@
         }
     }
 
+    class Util {
+        constructor() {
+        }
+    }
+    Util.getDateStrFormat = (date, format = 'Y-M-D h:m:s') => {
+        format = format.replace('Y', date.getFullYear() + '');
+        format = format.replace('M', Util.format_0n(date.getMonth() + 1));
+        format = format.replace('D', Util.format_0n(date.getDate()));
+        format = format.replace('h', Util.format_0n(date.getHours()));
+        format = format.replace('m', Util.format_0n(date.getMinutes()));
+        format = format.replace('s', Util.format_0n(date.getSeconds()));
+        return format;
+    };
+    Util.getDateStrFormatByMs = (ms, format = 'Y-M-D h:m:s') => {
+        let date = new Date(ms);
+        return Util.getDateStrFormat(date, format);
+    };
+    Util.format_0n = (n) => {
+        let str = n + '';
+        if (n < 10) {
+            str = '0' + n;
+        }
+        return str;
+    };
+
     class NoticePannel extends ui.NoticeUI {
-        constructor() { super(); }
+        constructor() {
+            super();
+            this.loadData = () => {
+                NftApi.getNotice().then((d) => {
+                    console.log(d);
+                    this.title_txt.text = d.title;
+                    this.content_txt.text = d.content;
+                    this.time_txt.text = Util.getDateStrFormatByMs(d.time * 1000, 'Y-M-D h:m:s');
+                });
+            };
+        }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnOk.on(Laya.Event.CLICK, this, this.closeClick);
@@ -336,7 +423,7 @@
                 this.addChild(this.emailPannel);
                 this.emailPannel.visible = false;
             };
-            this.homeInit = () => {
+            this.DataInit = () => {
                 LayaBlock.getMineData().then((d) => {
                     console.log(d, '矿山数据' + d.surplus + '/' + d.total);
                     this.mine_txt.text = d.surplus + '/' + d.total;
@@ -348,6 +435,9 @@
                     this.reward_txt.text = d.reward + '';
                     this.rate_txt.text = d.rate * 100 + '%';
                     this.rank_txt.text = d.rank + '';
+                });
+                LayaBlock.getAccount().then((d) => {
+                    DataBus.account = d;
                 });
             };
             this.addEvt = () => {
@@ -368,9 +458,11 @@
             };
             this.showNoticePannel = () => {
                 this.notiecPannel.visible = true;
+                this.notiecPannel.loadData();
             };
             this.showEmailPannel = () => {
                 this.emailPannel.visible = true;
+                this.emailPannel.loadData();
             };
             this.machineGo = (obj) => {
                 obj = { id: 1, type: (Math.random() * 3 + 1) | 0, color: (Math.random() * 6 + 1) | 0 };
@@ -441,7 +533,7 @@
         onEnable() {
             LayaBlock.initWeb3();
             this.initUI();
-            this.homeInit();
+            this.DataInit();
             this.addEvt();
         }
         onComplete() {

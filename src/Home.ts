@@ -21,7 +21,7 @@ export default class Home extends ui.HomeUI{
         this.DataInit();
         //注册事件
         this.addEvt();
-        //this.testBlock();                  
+        //this.testBlock();
     }
     initUI=()=>{
         //设备面板
@@ -53,6 +53,10 @@ export default class Home extends ui.HomeUI{
             this.rate_txt.text=d.rate*100+'%'
             this.rank_txt.text=d.rank+''
         })
+
+        LayaBlock.getAccount().then((d:string)=>{
+            DataBus.account=d;
+        })
     }
     addEvt=()=>{
         this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
@@ -72,9 +76,11 @@ export default class Home extends ui.HomeUI{
     }
     showNoticePannel=()=>{
         this.notiecPannel.visible=true;
+        this.notiecPannel.loadData()
     }
     showEmailPannel=()=>{
         this.emailPannel.visible=true;
+        this.emailPannel.loadData();
     }
     machineGo=(obj:any)=>{
         obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}        

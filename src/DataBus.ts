@@ -3,6 +3,7 @@ import GameEvent from "./GameEvent";
 export default class DataBus extends Laya.EventDispatcher {
 
     private static instance:DataBus = null;
+    public static account:string='';
     
     constructor() { super(); }
 
