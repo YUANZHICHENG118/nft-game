@@ -54,7 +54,7 @@
      */
     const getNotice=()=>{
         return new Promise(function(resolve, reject){
-            resolve({id:1,title:"系统维护公告",time:1607050113,content:"系统维护公告内容"})
+            resolve({id:1,title:"系统维护公告",time:1607050113,content:"系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容系统维护公告内容"})
         });
     }
 

@@ -37,15 +37,15 @@ interface IUserBase {
     /**
      * 地址
      */
-    address:string,
+    address: string,
     /**
      * 预计eth 收益
      */
-    ethAmount:number,
+    ethAmount: number,
     /**
      * 预计token 收益
      */
-    tokenAmount:number,
+    tokenAmount: number,
     /**
      * 派出数量
      */
@@ -73,125 +73,172 @@ interface IUserBase {
  * 类型type 1:翻斗车 2 挖掘机 3 采矿车
  * 颜色 color 1:白色 2:绿 3 蓝 4 紫 5粉 6 橙色
  */
-interface IMachine{
+interface IMachine {
     //erc1155 id
-    id:number,
+    id: number,
     //余额
-    balance:number,
+    balance: number,
     //合约地址
-    address:string,
+    address: string,
     // 类型
-    type:number,
+    type: number,
     // 颜色
-    color:number,
+    color: number,
     // 载重
-    load:number,
+    load: number,
     // 采矿数
-    mining:number,
+    mining: number,
+    //等级 1普通 2中级 3高级
+    level: number,
     // 图片
-    img:string,
+    img: string,
     //描述
-    remark:string
+    remark: string
 }
 
 /**
  * 查询数据接口
  */
-interface IMachineSearch{
+interface IMachineSearch {
     //余额
-    sort?:'ASC'|'DESC',
+    sort?: 'ASC' | 'DESC',
     // 类型
-    type?:number[],
+    type?: number[],
     // 颜色
-    color?:number[]
+    color?: number[]
 }
 
 /**
  * 我的收益
  */
-interface IIncome{
-    id:number,//期数
-    machineNum:number,//派出设备数
-    reward:number, // 收益
-    tokenReward:number,//token 收益
-    ethReward:number,//eth 收益
-    receive:boolean, // false未领取 true已领取
+interface IIncome {
+    id: number,//期数
+    machineNum: number,//派出设备数
+    reward: number, // 收益
+    tokenReward: number,//token 收益
+    ethReward: number,//eth 收益
+    receive: boolean, // false未领取 true已领取
 
 
 }
+
 /**
  * 我的收益详情
  */
-interface IIncomeDetail{
-    id:number,
+interface IIncomeDetail {
+    id: number,
     // 载重
-    load:number,
+    load: number,
     // 采矿数
-    mining:number,
+    mining: number,
     // 图片
-    img:string,
-    reward:number, // 收益
-    tokenReward:number,//token 收益
-    ethReward:number,//eth 收益
-    txId:string
+    img: string,
+    reward: number, // 收益
+    tokenReward: number,//token 收益
+    ethReward: number,//eth 收益
+    txId: string
 }
 
 /**
  * 区块链交易返回数据
  */
-interface ITransaction{
-    transactionHash:string,
-    blockHash:string,
-    blockNumber:number,
-    status:boolean,
-    from:string,
-    to:string,
-    gasUsed:number
+interface ITransaction {
+    transactionHash: string,
+    blockHash: string,
+    blockNumber: number,
+    status: boolean,
+    from: string,
+    to: string,
+    gasUsed: number
 }
 
 /**
  * 区块链异常数据
  */
-interface ITransactionError{
-    code:number,
-    message:string
+interface ITransactionError {
+    code: number,
+    message: string
 }
 
 /**
  * 质押返回哈希
  */
-interface IApprove extends  ITransaction{
+interface IApprove extends ITransaction {
 }
 
 /**
  * 用户质押数据
  */
-interface IStake{
+interface IStake {
     //用户id
-    id:number,
+    id: number,
     // 质押数量
-    investment:number
+    investment: number
 }
 
 /**
  * 排名数据
  */
-interface IRank{
+interface IRank {
+    //期数
+    gameId: number,
     //排名
-    id:number,
-    //用户地址
-    address:string,
+    id: number,
+    //用户地址或昵称
+    address: string,
     //派出设备数量
-    machine:number,
+    machine: number,
     //运走数量
-    load:number,
+    load: number,
 }
 
 /**
- * 前10名 和最后一击
+ * 最后一击
  */
-interface IRankTop extends IRank{
+interface ILastStraw {
+    //期数
+    gameId: number,
+    //用户地址或昵称
+    address: string,
+    //挖矿数量
+    machine: number,
+    //运走数量
+    load: number,
+    // hash
+    txId?: string
+}
 
+/**
+ * 我的排名
+ */
+interface IUserRank {
+    gameId: number,
+    rank: number
+}
+
+/**
+ * 前N名 和最后一击
+ */
+interface IRankTop extends IRank {
+
+}
+
+/**
+ * 某一期派出明细
+ */
+interface IPlayDetail {
+    //期数
+    gameId: number,
+    //派出设备
+    machineIds: number[]
+    //派出设备对应的数量
+    machineAmounts: number[]
+    //挖矿数量
+    machine: number,
+    //运走数量
+    load: number,
+    //交易hash
+    txId: string,
 }
 
 /**
@@ -203,6 +250,15 @@ declare class LayaBlock {
 
     static ethToken: object;
 
+    /**
+     * 交易连接地址
+     */
+    static exchangeUrl: string;
+
+    /**
+     * eth区块链浏览器地址
+     */
+    static blockChainUrl: string;
 
     /**
      * 初始化web3
@@ -233,14 +289,14 @@ declare class LayaBlock {
      * @param {IMachineSearch} params
      * @returns {Promise<IMachine[]>}
      */
-    static getUserMachine(params?:IMachineSearch):Promise<IMachine[]>;
+    static getUserMachine(params?: IMachineSearch): Promise<IMachine[]>;
 
 
     /**
      * 我的收益
      * @returns {Promise<IIncome[]>}
      */
-    static getUserIncome():Promise<IIncome[]>;
+    static getUserIncome(): Promise<IIncome[]>;
 
     /**
      * 我的收益详情
@@ -248,32 +304,32 @@ declare class LayaBlock {
      * @param {string} address 地址
      * @returns {Promise<IIncomeDetail[]>}
      */
-    static getUserIncomeDetail(version:number,address:string):Promise<IIncomeDetail[]>;
+    static getUserIncomeDetail(version: number, address: string): Promise<IIncomeDetail[]>;
 
     /**
      * erc20 是否已经授权
      * @returns {Promise<boolean>}
      */
-    static getTokenAllowance():Promise<boolean>;
+    static getTokenAllowance(): Promise<boolean>;
 
     /**
      * erc20 授权
      * @returns {Promise<IApprove | ITransactionError>}
      */
-    static tokenApprove():Promise<IApprove|ITransactionError>;
+    static tokenApprove(): Promise<IApprove | ITransactionError>;
 
     /**
      * 赎回质押erc20
      * @returns {Promise<IApprove | ITransactionError>}
      */
-    static withdrawCapital():Promise<ITransaction|ITransactionError>;
+    static withdrawCapital(): Promise<ITransaction | ITransactionError>;
 
     /**
      * 提取收益
      * @param {number} version 期数
      * @returns {Promise<ITransaction | ITransactionError>}
      */
-    static withdrawAward(version:number):Promise<ITransaction|ITransactionError>;
+    static withdrawAward(version: number): Promise<ITransaction | ITransactionError>;
 
 
     /**
@@ -281,13 +337,13 @@ declare class LayaBlock {
      * @param {number} amount 质押数量
      * @returns {Promise<ITransaction>}
      */
-    static stakeToken(amount:number):Promise<ITransaction|ITransactionError>;
+    static stakeToken(amount: number): Promise<ITransaction | ITransactionError>;
 
     /**
      * 领取1155
      * @returns {Promise<ITransaction | ITransactionError>}
      */
-    static receive1155():Promise<ITransaction|ITransactionError>;
+    static receive1155(): Promise<ITransaction | ITransactionError>;
 
 
     /**
@@ -295,7 +351,7 @@ declare class LayaBlock {
      * @param {Object} obj {17:5,18:9}
      * @returns {Promise<ITransaction>}
      */
-    static stakeTokenNft(obj:Object):Promise<ITransaction>;
+    static stakeTokenNft(obj: Object): Promise<ITransaction>;
 
 
     /**
@@ -318,14 +374,44 @@ declare class LayaBlock {
      */
     static getUserStake(): Promise<IStake>;
 
+
     /**
-     * 获取当期前10名和最后一击
+     * 我的排名
+     * @param {number} gameId
+     * @returns {Promise<number>}
      */
-    static getRankTop(): Promise<IRankTop[]>;
+    static getUserRank(gameId?: number): Promise<IUserRank>;
+
+    /**
+     * 获取当期前10名
+     */
+    static getRankTop10(): Promise<IRankTop[]>;
+
+    /**
+     * 获取当期前50名
+     */
+    static getRankTop50(): Promise<IRankTop[]>;
+
+    /**
+     * 获取全网前50
+     */
+    static getGameRankTop50(): Promise<IRankTop[]>;
+
+    /**
+     * 获取最后一击
+     * @returns {Promise<ILastStraw>}
+     */
+    static getLastStraw(): Promise<ILastStraw>;
+
+    /**
+     * 某一期派出明细
+     */
+    static getPlayDetail(gameId: number): Promise<IPlayDetail[]>;
 
     /**
      * 定时刷新设备数据，游戏页面加载完成调用
      */
-    static timerNFT():void;
+    static timerNFT(): void;
+
 
 }
