@@ -417,6 +417,7 @@ declare class LayaBlock {
      */
     static getUserStake(): Promise<IStake>;
 
+    /**********************导航排名相关功能*********************************/
 
     /**
      * 我的排名
@@ -452,7 +453,7 @@ declare class LayaBlock {
     static getPlayDetail(gameId: number): Promise<IPlayDetail[]>;
 
 
-
+  /**********************导航我的相关功能*********************************/
     /**
      * 获取用户基础数据
      * @returns {Promise<IUserBase>}
