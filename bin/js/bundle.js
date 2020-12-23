@@ -76,6 +76,15 @@
         }
         ui.EmailUI = EmailUI;
         REG("ui.EmailUI", EmailUI);
+        class HelpPannelUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("HelpPannel");
+            }
+        }
+        ui.HelpPannelUI = HelpPannelUI;
+        REG("ui.HelpPannelUI", HelpPannelUI);
         class HomeUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -94,6 +103,15 @@
         }
         ui.ItemEmailUI = ItemEmailUI;
         REG("ui.ItemEmailUI", ItemEmailUI);
+        class MePannelUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("MePannel");
+            }
+        }
+        ui.MePannelUI = MePannelUI;
+        REG("ui.MePannelUI", MePannelUI);
         class NoticeUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -103,6 +121,24 @@
         }
         ui.NoticeUI = NoticeUI;
         REG("ui.NoticeUI", NoticeUI);
+        class RankPannelUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("RankPannel");
+            }
+        }
+        ui.RankPannelUI = RankPannelUI;
+        REG("ui.RankPannelUI", RankPannelUI);
+        class SetPannelUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("SetPannel");
+            }
+        }
+        ui.SetPannelUI = SetPannelUI;
+        REG("ui.SetPannelUI", SetPannelUI);
     })(ui || (ui = {}));
 
     var List = Laya.List;
@@ -359,6 +395,30 @@
         }
     }
 
+    class HelpPannel extends ui.HelpPannelUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
+    class MePannel extends ui.MePannelUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
     class Util {
         constructor() {
         }
@@ -407,6 +467,30 @@
         }
     }
 
+    class RankPannel extends ui.RankPannelUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
+    class SetPannel extends ui.SetPannelUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
     var TimeLine = Laya.TimeLine;
     class Home extends ui.HomeUI {
         constructor() {
@@ -422,6 +506,18 @@
                 this.emailPannel = new EmailPannel();
                 this.addChild(this.emailPannel);
                 this.emailPannel.visible = false;
+                this.mePannel = new MePannel();
+                this.addChild(this.mePannel);
+                this.mePannel.visible = false;
+                this.rankPannel = new RankPannel();
+                this.addChild(this.rankPannel);
+                this.rankPannel.visible = false;
+                this.setPannel = new SetPannel();
+                this.addChild(this.setPannel);
+                this.setPannel.visible = false;
+                this.helpPannel = new HelpPannel();
+                this.addChild(this.helpPannel);
+                this.helpPannel.visible = false;
             };
             this.DataInit = () => {
                 LayaBlock.getMineData().then((d) => {
@@ -429,7 +525,7 @@
                     this.mine_txt.text = d.surplus + '/' + d.total;
                     this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
                 });
-                LayaBlock.getUserBase().then((d) => {
+                LayaBlock.getUserMine().then((d) => {
                     console.log('用户基础数据：address' + JSON.stringify(d));
                     this.ethAmount_txt.text = d.ethAmount + '';
                     this.reward_txt.text = d.reward + '';
@@ -448,6 +544,8 @@
                 this.devPannel.on(GameEvent.closePannel, this, this.closePannel);
                 this.btnNotice.on(Laya.Event.CLICK, this, this.showNoticePannel);
                 this.btnEmail.on(Laya.Event.CLICK, this, this.showEmailPannel);
+                this.btnHelp.on(Laya.Event.CLICK, this, this.showHelpPannel);
+                this.btnSet.on(Laya.Event.CLICK, this, this.showSetPannel);
                 this.test_btn.on(Laya.Event.CLICK, this, this.test);
             };
             this.test = () => {
@@ -455,6 +553,12 @@
             };
             this.closePannel = () => {
                 this.selectBg.x = -300;
+            };
+            this.showHelpPannel = () => {
+                this.helpPannel.visible = true;
+            };
+            this.showSetPannel = () => {
+                this.setPannel.visible = true;
             };
             this.showNoticePannel = () => {
                 this.notiecPannel.visible = true;
@@ -505,7 +609,7 @@
                         });
                     }
                 });
-                LayaBlock.getRankTop().then((d) => {
+                LayaBlock.getRankTop10().then((d) => {
                     console.log("getRankTop=====", d);
                 });
                 LayaBlock.getMineData().then((d) => {
@@ -519,7 +623,7 @@
                 });
                 LayaBlock.getGameServer().then((d) => {
                     d.map(item => {
-                        console.log("token=====", item.token);
+                        console.log("token=====", item.symbol);
                     });
                 });
                 NftApi.getGameLoadDec().then((d) => {
@@ -532,9 +636,15 @@
         }
         onEnable() {
             LayaBlock.initWeb3();
-            this.initUI();
-            this.DataInit();
-            this.addEvt();
+            LayaBlock.getGameServer().then((d) => {
+                LayaBlock.activeGame(d[0]);
+                LayaBlock.getUserBase().then((d) => {
+                    console.log("userBase==", d);
+                });
+                this.initUI();
+                this.DataInit();
+                this.addEvt();
+            });
         }
         onComplete() {
         }
@@ -551,12 +661,14 @@
                 case this.btnExchange:
                     break;
                 case this.btnRank:
-                    LayaBlock.getRankTop().then((d) => {
+                    this.rankPannel.visible = true;
+                    LayaBlock.getRankTop10().then((d) => {
                         console.log(d);
                     });
                     break;
                 case this.btnMe:
-                    LayaBlock.getUserBase().then((d) => {
+                    this.mePannel.visible = true;
+                    LayaBlock.getUserMine().then((d) => {
                         console.log(d);
                     });
                     break;

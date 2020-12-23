@@ -58,6 +58,18 @@ export module ui {
         }
     }
     REG("ui.EmailUI",EmailUI);
+    export class HelpPannelUI extends View {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+		public title_txt:Laya.Label;
+		public notie_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("HelpPannel");
+        }
+    }
+    REG("ui.HelpPannelUI",HelpPannelUI);
     export class HomeUI extends Scene {
 		public selectBg:Laya.Sprite;
 		public btnDevice:Laya.Sprite;
@@ -96,6 +108,17 @@ export module ui {
         }
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
+    export class MePannelUI extends View {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+		public notie_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("MePannel");
+        }
+    }
+    REG("ui.MePannelUI",MePannelUI);
     export class NoticeUI extends Scene {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
@@ -110,4 +133,28 @@ export module ui {
         }
     }
     REG("ui.NoticeUI",NoticeUI);
+    export class RankPannelUI extends View {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+		public title_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("RankPannel");
+        }
+    }
+    REG("ui.RankPannelUI",RankPannelUI);
+    export class SetPannelUI extends Scene {
+		public btnClose:Laya.Sprite;
+		public music0:Laya.CheckBox;
+		public music1:Laya.CheckBox;
+		public sound0:Laya.CheckBox;
+		public sound1:Laya.CheckBox;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("SetPannel");
+        }
+    }
+    REG("ui.SetPannelUI",SetPannelUI);
 }

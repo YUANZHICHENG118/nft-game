@@ -3,7 +3,11 @@ import DataBus from "./DataBus";
 import DevPannel from "./DevPannel";
 import EmailPannel from "./EmailPannel";
 import GameEvent from "./GameEvent";
+import HelpPannel from "./HelpPannel";
+import MePannel from "./MePannel";
 import NoticePannel from "./NoticePannel";
+import RankPannel from "./RankPannel";
+import SetPannel from "./SetPannel";
 import { ui } from "./ui/layaMaxUI";
 import TimeLine = Laya.TimeLine;
 export default class Home extends ui.HomeUI{
@@ -11,6 +15,11 @@ export default class Home extends ui.HomeUI{
     private devPannel:DevPannel
     private notiecPannel:NoticePannel
     private emailPannel:EmailPannel
+
+    private mePannel:MePannel
+    private rankPannel:RankPannel
+    private setPannel:SetPannel
+    private helpPannel:HelpPannel
     constructor() { super();}    
     onEnable (): void {
         // 初始化 web3
@@ -43,7 +52,26 @@ export default class Home extends ui.HomeUI{
         //邮件面板
         this.emailPannel=new EmailPannel()
         this.addChild(this.emailPannel);        
-        this.emailPannel.visible=false;   
+        this.emailPannel.visible=false;  
+        //我的面板
+        this.mePannel=new MePannel()
+        this.addChild(this.mePannel);        
+        this.mePannel.visible=false;  
+
+        //排行面板
+        this.rankPannel=new RankPannel()
+        this.addChild(this.rankPannel);        
+        this.rankPannel.visible=false;  
+
+        //设置面板
+        this.setPannel=new SetPannel()
+        this.addChild(this.setPannel);        
+        this.setPannel.visible=false;  
+
+        //帮助面板
+        this.helpPannel=new HelpPannel()
+        this.addChild(this.helpPannel);        
+        this.helpPannel.visible=false;  
     }
     DataInit=()=>{
         //获取矿山数据
@@ -74,6 +102,8 @@ export default class Home extends ui.HomeUI{
         this.devPannel.on(GameEvent.closePannel,this,this.closePannel)
         this.btnNotice.on(Laya.Event.CLICK,this,this.showNoticePannel)
         this.btnEmail.on(Laya.Event.CLICK,this,this.showEmailPannel)
+        this.btnHelp.on(Laya.Event.CLICK,this,this.showHelpPannel)
+        this.btnSet.on(Laya.Event.CLICK,this,this.showSetPannel)
         this.test_btn.on(Laya.Event.CLICK,this,this.test)     
     }
     test=()=>{
@@ -81,6 +111,12 @@ export default class Home extends ui.HomeUI{
     }
     closePannel=()=>{
         this.selectBg.x=-300;
+    }
+    showHelpPannel=()=>{
+        this.helpPannel.visible=true;
+    }
+    showSetPannel=()=>{
+        this.setPannel.visible=true;
     }
     showNoticePannel=()=>{
         this.notiecPannel.visible=true;
@@ -130,11 +166,13 @@ export default class Home extends ui.HomeUI{
             case this.btnExchange:                
                 break;
             case this.btnRank:
+                this.rankPannel.visible=true
                 LayaBlock.getRankTop10().then((d:IRankTop[])=>{
                     console.log(d);
                 })
                 break;
             case this.btnMe:
+                this.mePannel.visible=true
                 // 获取用户基础数据
                 LayaBlock.getUserMine().then((d:IUserMine)=>{
                     console.log(d);
