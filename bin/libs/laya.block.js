@@ -160,7 +160,19 @@ window.LayaBlock = (function (exports) {
     ];
 
     //服务器选区
-    const gameServer = [{id: 1, name: 'Crypto Mine矿池', token: "CM"}];
+    const gameServer = [
+        {
+            name: 'Crypto Mine',
+            symbol: 'CM',
+            decimals: Math.pow(10, 18),
+            scale: 2,
+            approveAmount: 100000, //授权金额
+            erc20TokenAddress:"0x67E26F27b2A632820FA736CfE18c54A331Fc7839",
+            gameAddress:"0x2EeD38c79191De257fD1Fba9cFa0d985F34C4D86",
+            erc1155TokenAddres:"0x2dD61d4350D7F7851BC1bC0673ea34c7e2e43837"
+
+        }
+        ];
     //交易所地址
     const exchangeUrl = "https://app.cmblk.com";
     //区块链浏览器地址
@@ -169,7 +181,6 @@ window.LayaBlock = (function (exports) {
     const defaultAddress="0x0000000000000000000000000000000000000000";
 
     //游戏合约地址
-    const gameAddress = "0x2EeD38c79191De257fD1Fba9cFa0d985F34C4D86";
     const gameABI = [
         {
             "inputs": [
@@ -1227,10 +1238,7 @@ window.LayaBlock = (function (exports) {
             "type": "function"
         }
     ];
-
-
     // erc20Token
-    const erc20TokenAddress = "0x67E26F27b2A632820FA736CfE18c54A331Fc7839";
     const erc20TokenABI = [
         {
             "inputs": [{"internalType": "string", "name": "name", "type": "string"}, {
@@ -1404,9 +1412,7 @@ window.LayaBlock = (function (exports) {
             "stateMutability": "nonpayable",
             "type": "function"
         }];
-
     //erc115Token
-    const erc1155TokenAddres = "0x2dD61d4350D7F7851BC1bC0673ea34c7e2e43837";
     const erc1155TokenABI = [
         {
             "inputs": [{"internalType": "string", "name": "_name", "type": "string"}, {
@@ -1730,7 +1736,6 @@ window.LayaBlock = (function (exports) {
             "type": "function"
         }]
 
-
     const ethToken = {
         address: '',
         name: 'ETH',
@@ -1738,19 +1743,21 @@ window.LayaBlock = (function (exports) {
         decimals: Math.pow(10, 18),
         scale: 4 //保留小数位
     }
-    // erc20 token
-    const erc20Token = {
-        address: erc20TokenAddress,
-        name: 'Crypto Mine',
-        symbol: 'CM',
-        decimals: Math.pow(10, 18),
-        scale: 2,
-        approveAmount: 100000 //授权金额
-    }
+
 
     class LayaBlock {
         constructor() {
             this.account = undefined;
+            this.erc20TokenAddress="";
+            this.erc1155TokenAddres="";
+            this.gameAddress="";
+            this.erc20Token={
+                name: 'Crypto Mine',
+                symbol: 'CM',
+                decimals: Math.pow(10, 18),
+                scale: 2,
+                approveAmount: 100000 //授权金额
+            }
             /**
              * MAINNET = 1,
              * ROPSTEN = 3,
@@ -1771,17 +1778,17 @@ window.LayaBlock = (function (exports) {
         }
         // 初始化游戏合约
         static gameContract = () => {
-            return this.baseContract(gameABI, gameAddress);
+            return this.baseContract(gameABI, this.gameAddress);
         }
 
         // 初始化Token合约
         static  tokenContract = () => {
-            return this.baseContract(erc20TokenABI, erc20TokenAddress);
+            return this.baseContract(erc20TokenABI, this.erc20TokenAddress);
         }
 
         // 初始化Token1155合约
         static token1155Contract = () => {
-            return this.baseContract(erc1155TokenABI, erc1155TokenAddres);
+            return this.baseContract(erc1155TokenABI, this.erc1155TokenAddres);
         }
         // 初始化web3
         static initWeb3 = () => {
@@ -1826,6 +1833,28 @@ window.LayaBlock = (function (exports) {
         }
 
         /**
+         * 选择游戏/选择具体矿池
+         * @param game
+         */
+        static activeGame=(game)=>{
+            this.erc20TokenAddress=game.erc20TokenAddress;
+            this.erc1155TokenAddres=game.erc1155TokenAddres;
+            this.gameAddress=game.gameAddress;
+            this.erc20Token={
+                name: game.name,
+                symbol: game.symbol,
+                decimals:game.decimals,
+                scale:game.scale ,
+                approveAmount: game.approveAmount //授权金额
+            }
+
+        }
+
+        static getErc20Token=()=>{
+            return {...this.erc20Token}
+        }
+
+        /**
          * 获取矿山数据/ 游戏数据
          * @returns {*[]}
          */
@@ -1839,10 +1868,10 @@ window.LayaBlock = (function (exports) {
             });
         }
         /**
-         * 获取用户基础数据
+         * 获取用户首页挖矿基础数据
          * @returns {Promise<any>}
          */
-        static  getUserBase = async () => {
+        static  getUserMine = async () => {
             const version = await this.getGameVersion()
             const address = await this.getAccount()
             const history = await this.getGameHistory(version);
@@ -1851,7 +1880,7 @@ window.LayaBlock = (function (exports) {
             const contract = this.gameContract();
             const userGlobal = await contract.methods.getPersonalStats(version, address).call();
             const ethAmount = (userGlobal[2] / ethToken.decimals).toFixed(ethToken.scale)
-            const tokenAmount = (userGlobal[3] / ethToken.decimals).toFixed(erc20Token.scale)
+            const tokenAmount = (userGlobal[3] / ethToken.decimals).toFixed(this.erc20Token.scale)
             const assign = userGlobal[0]
             const amount = parseFloat(userGlobal[1])
             const rank = 11
@@ -1962,7 +1991,7 @@ window.LayaBlock = (function (exports) {
                 //eth 收益
                 let ethReward = parseFloat(data[0] / ethToken.decimals).toFixed(ethToken.scale)
                 //token 收益
-                let tokenReward = parseFloat(data[1] / erc20Token.decimals).toFixed(erc20Token.scale)
+                let tokenReward = parseFloat(data[1] / this.erc20Token.decimals).toFixed(this.erc20Token.scale)
                 //派出设备数
                 let machineNum = parseInt(data[2])
                 // true false
@@ -2031,7 +2060,7 @@ window.LayaBlock = (function (exports) {
          */
         static tokenApprove = async () => {
             const contract = this.tokenContract();
-            let amount = new BigNumber(erc20Token.approveAmount * erc20Token.decimals);
+            let amount = new BigNumber(this.erc20Token.approveAmount * this.erc20Token.decimals);
             let _amount = '0x' + amount.toString(16)
             const gasAmount = await contract.methods.approve(gameAddress, _amount).estimateGas({
                 from: await this.getAccount(),
@@ -2060,7 +2089,7 @@ window.LayaBlock = (function (exports) {
          */
         static  stakeToken = async (value) => {
             const contract = this.gameContract();
-            let amount = new BigNumber(value * erc20Token.decimals);
+            let amount = new BigNumber(value * this.erc20Token.decimals);
             let _amount = '0x' + amount.toString(16)
             const gasAmount = await contract.methods.stake(_amount).estimateGas({
                 from: await this.getAccount(),
@@ -2188,7 +2217,7 @@ window.LayaBlock = (function (exports) {
         static getTokenBalance = async () => {
             const contract = this.tokenContract();
             return contract.methods.balanceOf(await this.getAccount()).call().then(data => {
-                return parseFloat(data / erc20Token.decimals).toFixed(erc20Token.scale);
+                return parseFloat(data / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
             })
         }
 
@@ -2279,7 +2308,7 @@ window.LayaBlock = (function (exports) {
             return new Promise(function (resolve, reject) {
                 resolve({
                     id: data['id'],
-                    investment: parseFloat(data['investment'] / erc20Token.decimals).toFixed(erc20Token.scale)
+                    investment: parseFloat(data['investment'] / this.erc20Token.decimals).toFixed(this.erc20Token.scale)
                 })
             });
 
@@ -2403,14 +2432,56 @@ window.LayaBlock = (function (exports) {
         }
 
 
-    }
+        /**
+         * 用户基础数据
+         * @returns {Promise<void>}
+         */
+        static  getUserBase = async () => {
+            const results={
+                /**
+                 * 昵称
+                 */
+                nick:"第五敌人",
+                /**
+                 * 地址
+                 */
+                address: this.account,
+                /**
+                 * eth 数量
+                 */
+                ethAmount: await this.getEthBalance(),
+                /**
+                 * token 数量
+                 */
+                tokenAmount: await this.getTokenBalance(),
+                /**
+                 * token 名字
+                 */
+                tokenSymbol:this.erc20Token.symbol,
+
+                /**
+                 * 要求链接
+                 */
+                ref:exchangeUrl+"/#/?ref="+this.account,
+            }
+
+            return new Promise(function (resolve, reject) {
+                resolve(results)
+            });
+
+        }
+
+
+        }
     exports.blockChainUrl=blockChainUrl;
     exports.exchangeUrl = exchangeUrl;
     exports.ethToken = ethToken;
-    exports.erc20Token = erc20Token;
+    exports.erc20Token = LayaBlock.getErc20Token;
+    exports.activeGame=LayaBlock.activeGame;
     exports.getGameServer = LayaBlock.getGameServer;
     exports.getMineData = LayaBlock.getMineData;
     exports.getUserBase = LayaBlock.getUserBase;
+    exports.getUserMine=LayaBlock.getUserMine;
     exports.getUserMachine = LayaBlock.getUserMachine;
     exports.getUserIncome = LayaBlock.getUserIncome;
     exports.getUserIncomeDetail = LayaBlock.getUserIncomeDetail;

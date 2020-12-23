@@ -12,9 +12,16 @@ interface IGameServer {
     /**
      * 服务器token
      */
-    token: string;
+    symbol: string;
 
+    decimals: number,
+    scale: number,
+    approveAmount: number, //授权金额
+    erc20TokenAddress:string,
+    gameAddress:string,
+    erc1155TokenAddres:string
 }
+
 
 // 矿山数据/游戏数据
 interface IMine {
@@ -32,8 +39,38 @@ interface IMine {
     surplus: number,
 }
 
-//我的基础数据
+//首页我的基础数据
 interface IUserBase {
+    /**
+     * 昵称
+     */
+    nick?:string,
+    /**
+     * 地址
+     */
+    address: string,
+    /**
+     * eth 数量
+     */
+    ethAmount: number,
+    /**
+     * token 数量
+     */
+    tokenAmount: number,
+    /**
+     * token 名字
+     */
+    tokenSymbol:string,
+
+    /**
+     * 要求链接
+     */
+    ref:string,
+
+}
+
+//首页我的基础数据
+interface IUserMine {
     /**
      * 地址
      */
@@ -272,6 +309,12 @@ declare class LayaBlock {
     static getGameServer(): Promise<IGameServer[]>;
 
     /**
+     * 激活服务
+     * @param {IGameServer} game
+     */
+    static activeGame(game:IGameServer):void;
+
+    /**
      * 获取矿山数据/游戏数据
      * @returns {IMine}
      */
@@ -279,10 +322,10 @@ declare class LayaBlock {
 
 
     /**
-     * 获取用户基础数据
-     * @returns {Promise<IUserBase>}
+     * 获取用户首页挖矿基础数据
+     * @returns {Promise<IUserMine>}
      */
-    static getUserBase(): Promise<IUserBase>;
+    static getUserMine(): Promise<IUserMine>;
 
     /**
      * 我的设备NFT
@@ -407,6 +450,14 @@ declare class LayaBlock {
      * 某一期派出明细
      */
     static getPlayDetail(gameId: number): Promise<IPlayDetail[]>;
+
+
+
+    /**
+     * 获取用户基础数据
+     * @returns {Promise<IUserBase>}
+     */
+    static getUserBase(): Promise<IUserBase>;
 
     /**
      * 定时刷新设备数据，游戏页面加载完成调用

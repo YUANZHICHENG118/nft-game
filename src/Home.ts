@@ -12,16 +12,24 @@ export default class Home extends ui.HomeUI{
     private notiecPannel:NoticePannel
     private emailPannel:EmailPannel
     constructor() { super();}    
-    onEnable(): void {
+    onEnable (): void {
         // 初始化 web3
-        LayaBlock.initWeb3();   
-        //初始化界面     
-        this.initUI();
-        //初始化数据  
-        this.DataInit();
-        //注册事件
-        this.addEvt();
-        //this.testBlock();
+        LayaBlock.initWeb3();
+        // 模拟激活游戏(进入游戏选区操作)
+        LayaBlock.getGameServer().then((d:IGameServer[])=>{
+            LayaBlock.activeGame(d[0])
+            LayaBlock.getUserBase().then((d:IUserBase)=>{
+                console.log("userBase==",d)
+            })
+            //初始化界面
+            this.initUI();
+            //初始化数据
+            this.DataInit();
+            //注册事件
+            this.addEvt();
+            //this.testBlock();
+        })
+
     }
     initUI=()=>{
         //设备面板
@@ -46,7 +54,7 @@ export default class Home extends ui.HomeUI{
         })
 
         // 获取用户基础数据
-        LayaBlock.getUserBase().then((d:IUserBase)=>{
+        LayaBlock.getUserMine().then((d:IUserMine)=>{
             console.log('用户基础数据：address'+JSON.stringify(d))
             this.ethAmount_txt.text=d.ethAmount+''
             this.reward_txt.text=d.reward+''
@@ -122,13 +130,13 @@ export default class Home extends ui.HomeUI{
             case this.btnExchange:                
                 break;
             case this.btnRank:
-                LayaBlock.getRankTop().then((d:IRankTop[])=>{
+                LayaBlock.getRankTop10().then((d:IRankTop[])=>{
                     console.log(d);
                 })
                 break;
             case this.btnMe:
                 // 获取用户基础数据
-                LayaBlock.getUserBase().then((d:IUserBase)=>{
+                LayaBlock.getUserMine().then((d:IUserMine)=>{
                     console.log(d);
                 })
                 break;
@@ -208,7 +216,7 @@ export default class Home extends ui.HomeUI{
         // })
 
 
-        LayaBlock.getRankTop().then((d:IRankTop[])=>{
+        LayaBlock.getRankTop10().then((d:IRankTop[])=>{
             console.log("getRankTop=====",d)
         })
         LayaBlock.getMineData().then((d:IMine)=>{
@@ -225,7 +233,7 @@ export default class Home extends ui.HomeUI{
 
         LayaBlock.getGameServer().then((d:IGameServer[])=>{
             d.map(item=>{
-                console.log("token=====",item.token)
+                console.log("token=====",item.symbol)
             })
         })
 
