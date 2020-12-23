@@ -1987,19 +1987,26 @@ window.LayaBlock = (function (exports) {
             for (let i = 0; i <= version; i++) {
                 let income = {id: i + 1}
                 const data = await contract.methods.getVersionAward(version, address).call();
+                const record = await contract.methods.getRecord(version, address).call();
 
                 //eth 收益
-                let ethReward = parseFloat(data[0] / ethToken.decimals).toFixed(ethToken.scale)
+                let ethReward = parseFloat(data[0] / ethToken.decimals).toFixed(ethToken.scale);
                 //token 收益
-                let tokenReward = parseFloat(data[1] / this.erc20Token.decimals).toFixed(this.erc20Token.scale)
+                let tokenReward = parseFloat(data[1] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
                 //派出设备数
-                let machineNum = parseInt(data[2])
+                let machineNum = record["total"];
                 // true false
-                let receive = data[3]
+                let receive = record["drawStatus"];
+                income["ranking"] = address;
+
                 income["ethReward"] = ethReward;
                 income["tokenReward"] = tokenReward;
                 income["machineNum"] = machineNum;
                 income["receive"] = receive;
+
+                income["digGross"] = record["digGross"];
+                income["lastStraw"] = record["lastStraw"];
+                income["ranking"] = record["ranking"];
 
                 incomes.push(income)
             }
@@ -2012,10 +2019,10 @@ window.LayaBlock = (function (exports) {
          * 查询我的某期收益详情
          * @param version
          * @param address
+         * @param txId
          * @returns {Promise<void>}
          */
-        static  getUserIncomeDetail = async (version, address) => {
-
+        static  getUserIncomeDetail = async (version, address,txId) => {
 
             const data = [{
                 id: 1,
@@ -2025,8 +2032,7 @@ window.LayaBlock = (function (exports) {
                 mining: 100,
                 // 图片
                 img: 'https://nft-files.s3.us-east-2.amazonaws.com/1/1.png',
-                reward: 100, // 收益
-                txId: '0xooooo'
+                amount: 20
             }, {
                 id: 2,
                 // 载重
@@ -2035,8 +2041,7 @@ window.LayaBlock = (function (exports) {
                 mining: 100,
                 // 图片
                 img: 'https://nft-files.s3.us-east-2.amazonaws.com/2/2.png',
-                reward: 100, // 收益
-                txId: '0xbbbbb'
+                amount: 20
             }]
             return new Promise(function (resolve, reject) {
                 resolve(data)
@@ -2048,7 +2053,7 @@ window.LayaBlock = (function (exports) {
          */
         static  getTokenAllowance = async () => {
             const contract = this.tokenContract();
-            return contract.methods.allowance(await this.getAccount(), gameAddress).call().then(data => {
+            return contract.methods.allowance(await this.getAccount(), this.gameAddress).call().then(data => {
                 console.log("getTokenAllowance===", data)
                 return data > 0;
             })
@@ -2062,12 +2067,12 @@ window.LayaBlock = (function (exports) {
             const contract = this.tokenContract();
             let amount = new BigNumber(this.erc20Token.approveAmount * this.erc20Token.decimals);
             let _amount = '0x' + amount.toString(16)
-            const gasAmount = await contract.methods.approve(gameAddress, _amount).estimateGas({
+            const gasAmount = await contract.methods.approve(this.gameAddress, _amount).estimateGas({
                 from: await this.getAccount(),
                 value: 0
             });
 
-            return contract.methods.approve(gameAddress, _amount).send({
+            return contract.methods.approve(this.gameAddress, _amount).send({
                 from: await this.getAccount(),
                 value: 0,
                 gasLimit: gasAmount
@@ -2177,14 +2182,14 @@ window.LayaBlock = (function (exports) {
             const contract = this.token1155Contract();
             const data = '0x00'
 
-            const gasAmount = await contract.methods.safeBatchTransferFrom(await this.getAccount(), gameAddress, ids, amounts, data).estimateGas({
+            const gasAmount = await contract.methods.safeBatchTransferFrom(await this.getAccount(), this.gameAddress, ids, amounts, data).estimateGas({
                 from: await this.getAccount(),
-                to: gameAddress,
+                to: this.gameAddress,
                 value: 0,
             });
-            return contract.methods.safeBatchTransferFrom(await this.getAccount(), gameAddress, ids, amounts, data).send({
+            return contract.methods.safeBatchTransferFrom(await this.getAccount(), this.gameAddress, ids, amounts, data).send({
                 from: await this.getAccount(),
-                to: gameAddress,
+                to: this.gameAddress,
                 value: 0,
                 gasLimit: gasAmount
             }).then(data => {
@@ -2400,7 +2405,7 @@ window.LayaBlock = (function (exports) {
         /**
          * 获取某一期派出明细
          */
-        static  getPlayDetail = async (gameId) => {
+        static  getPlayDetail = async (gameId,address) => {
             const results = [{
                 //期数
                 gameId: gameId,

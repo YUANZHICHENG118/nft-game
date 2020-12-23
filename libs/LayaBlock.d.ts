@@ -149,20 +149,26 @@ interface IMachineSearch {
  * 我的收益
  */
 interface IIncome {
+
     id: number,//期数
+    address:string,//地址
     machineNum: number,//派出设备数
     reward: number, // 收益
     tokenReward: number,//token 收益
     ethReward: number,//eth 收益
+    digGross:number,//运走量
+    lastStraw:boolean,// 是否最后一击
+    ranking:number,//前10排名
     receive: boolean, // false未领取 true已领取
 
 
 }
 
 /**
- * 我的收益详情
+ * 我的收益详情/派出车辆详情
  */
 interface IIncomeDetail {
+    //汽车id
     id: number,
     // 载重
     load: number,
@@ -170,10 +176,8 @@ interface IIncomeDetail {
     mining: number,
     // 图片
     img: string,
-    reward: number, // 收益
-    tokenReward: number,//token 收益
-    ethReward: number,//eth 收益
-    txId: string
+    //数量
+    amount:number
 }
 
 /**
@@ -335,19 +339,6 @@ declare class LayaBlock {
     static getUserMachine(params?: IMachineSearch): Promise<IMachine[]>;
 
 
-    /**
-     * 我的收益
-     * @returns {Promise<IIncome[]>}
-     */
-    static getUserIncome(): Promise<IIncome[]>;
-
-    /**
-     * 我的收益详情
-     * @param {number} version 期数
-     * @param {string} address 地址
-     * @returns {Promise<IIncomeDetail[]>}
-     */
-    static getUserIncomeDetail(version: number, address: string): Promise<IIncomeDetail[]>;
 
     /**
      * erc20 是否已经授权
@@ -366,13 +357,6 @@ declare class LayaBlock {
      * @returns {Promise<IApprove | ITransactionError>}
      */
     static withdrawCapital(): Promise<ITransaction | ITransactionError>;
-
-    /**
-     * 提取收益
-     * @param {number} version 期数
-     * @returns {Promise<ITransaction | ITransactionError>}
-     */
-    static withdrawAward(version: number): Promise<ITransaction | ITransactionError>;
 
 
     /**
@@ -417,6 +401,13 @@ declare class LayaBlock {
      */
     static getUserStake(): Promise<IStake>;
 
+
+    /**
+     * 某一期派出明细
+     */
+    static getPlayDetail(gameId: number,address:string): Promise<IPlayDetail[]>;
+
+
     /**********************导航排名相关功能*********************************/
 
     /**
@@ -447,10 +438,6 @@ declare class LayaBlock {
      */
     static getLastStraw(): Promise<ILastStraw>;
 
-    /**
-     * 某一期派出明细
-     */
-    static getPlayDetail(gameId: number): Promise<IPlayDetail[]>;
 
 
   /**********************导航我的相关功能*********************************/
@@ -459,6 +446,30 @@ declare class LayaBlock {
      * @returns {Promise<IUserBase>}
      */
     static getUserBase(): Promise<IUserBase>;
+
+
+    /**
+     * 我的收益
+     * @returns {Promise<IIncome[]>}
+     */
+    static getUserIncome(): Promise<IIncome[]>;
+
+    /**
+     * 我的收益详情
+     * @param {number} version 期数
+     * @param {string} address 地址
+     * @param {txId} address 哈希
+     * @returns {Promise<IIncomeDetail[]>}
+     */
+    static getUserIncomeDetail(version: number, address: string,txId:string): Promise<IIncomeDetail[]>;
+
+    /**
+     * 提取收益
+     * @param {number} version 期数
+     * @returns {Promise<ITransaction | ITransactionError>}
+     */
+    static withdrawAward(version: number): Promise<ITransaction | ITransactionError>;
+
 
     /**
      * 定时刷新设备数据，游戏页面加载完成调用
