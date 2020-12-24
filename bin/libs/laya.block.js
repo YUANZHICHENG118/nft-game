@@ -1886,7 +1886,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 amounts&&amounts.map((item,index)=>{
                     for(let i=0;i<parseInt(item);i++){
                         let car=this.getMachineAttribute(ids[index]);
-                        let obj={id:parseInt(ids[index]),type:car.type,color:car.color};
+                        let obj={id:parseInt(ids[index]),type:car.type,color:car.color,nick:msg.body.nick||msg.body.address};
                         cars.push(obj)
                     }
                 })
