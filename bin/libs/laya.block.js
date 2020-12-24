@@ -1,7 +1,5 @@
-window.LayaBlock = (function (exports) {
+window.LayaBlock = (function (exports,Laya,LayaSocket) {
     'use strict';
-
-
 
 
 // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
@@ -167,18 +165,20 @@ window.LayaBlock = (function (exports) {
             decimals: Math.pow(10, 18),
             scale: 2,
             approveAmount: 100000, //授权金额
-            erc20TokenAddress:"0x67E26F27b2A632820FA736CfE18c54A331Fc7839",
-            gameAddress:"0x2EeD38c79191De257fD1Fba9cFa0d985F34C4D86",
-            erc1155TokenAddres:"0x2dD61d4350D7F7851BC1bC0673ea34c7e2e43837"
+            erc20TokenAddress: "0x67E26F27b2A632820FA736CfE18c54A331Fc7839",
+            gameAddress: "0x2EeD38c79191De257fD1Fba9cFa0d985F34C4D86",
+            erc1155TokenAddres: "0x2dD61d4350D7F7851BC1bC0673ea34c7e2e43837"
 
         }
-        ];
+    ];
+    const socketUrl = "ws://127.0.0.1/ws";
+
     //交易所地址
     const exchangeUrl = "https://app.cmblk.com";
     //区块链浏览器地址
-    const blockChainUrl="https://ropsten.etherscan.io";
+    const blockChainUrl = "https://ropsten.etherscan.io";
 
-    const defaultAddress="0x0000000000000000000000000000000000000000";
+    const defaultAddress = "0x0000000000000000000000000000000000000000";
 
     //游戏合约地址
     const gameABI = [
@@ -1747,17 +1747,26 @@ window.LayaBlock = (function (exports) {
 
     class LayaBlock {
         constructor() {
+            this.req = new Laya.HttpRequest();
             this.account = undefined;
-            this.erc20TokenAddress="";
-            this.erc1155TokenAddres="";
-            this.gameAddress="";
-            this.erc20Token={
+            this.erc20TokenAddress = "";
+            this.erc1155TokenAddres = "";
+            this.gameAddress = "";
+            this.erc20Token = {
                 name: 'Crypto Mine',
                 symbol: 'CM',
                 decimals: Math.pow(10, 18),
                 scale: 2,
                 approveAmount: 100000 //授权金额
             }
+            this.DIS={
+                type: "10", // 广播派车
+                subKey: "10",
+                socket: undefined,
+                heartTimer: undefined,
+                msgHandle: undefined
+            };
+            this.machineGo=()=>{}
             /**
              * MAINNET = 1,
              * ROPSTEN = 3,
@@ -1766,10 +1775,9 @@ window.LayaBlock = (function (exports) {
              * KOVAN = 42
              * @type {number}
              */
-            this.chainId=1
+            this.chainId = 1
 
         }
-
 
 
         //初始化合约
@@ -1793,7 +1801,7 @@ window.LayaBlock = (function (exports) {
         // 初始化web3
         static initWeb3 = () => {
             if (window.ethereum) {
-                this.chainId=parseInt(window.ethereum.chainId)
+                this.chainId = parseInt(window.ethereum.chainId)
                 window.web3 = new Web3(ethereum);
                 this.connectWallet();
             } else if (window.web3) {   // 老版 MetaMask Legacy dapp browsers...
@@ -1834,23 +1842,80 @@ window.LayaBlock = (function (exports) {
 
         /**
          * 选择游戏/选择具体矿池
+         * @param machineGo()发车
          * @param game
          */
-        static activeGame=(game)=>{
-            this.erc20TokenAddress=game.erc20TokenAddress;
-            this.erc1155TokenAddres=game.erc1155TokenAddres;
-            this.gameAddress=game.gameAddress;
-            this.erc20Token={
+        static activeGame = (game,machineGo) => {
+            this.req=new Laya.HttpRequest();
+            this.erc20TokenAddress = game.erc20TokenAddress;
+            this.erc1155TokenAddres = game.erc1155TokenAddres;
+            this.gameAddress = game.gameAddress;
+            this.machineGo=machineGo;
+            this.erc20Token = {
                 name: game.name,
                 symbol: game.symbol,
-                decimals:game.decimals,
-                scale:game.scale ,
+                decimals: game.decimals,
+                scale: game.scale,
                 approveAmount: game.approveAmount //授权金额
             }
 
+            this.DIS={
+                type: "10", // 广播派车
+                    subKey: "10",
+                    socket: undefined,
+                    heartTimer: undefined,
+                    msgHandle: this.disMsgHandle
+            };
+
+
+            // 连接
+            this.DIS.socket = new LayaSocket.Socket(
+                socketUrl,
+                {},
+                this.disConnectHandle
+            );
+        }
+        static  disMsgHandle=(msg)=> {
+
+            if(this.machineGo){
+                console.log("msg====",msg)
+                let ids=msg.body.minecartIds.split(",");
+                let amounts=msg.body.minecartNums.split(",");
+                let cars=[];
+                let that=this;
+                amounts&&amounts.map((item,index)=>{
+                    for(let i=0;i<parseInt(item);i++){
+                        let car=this.getMachineAttribute(ids[index]);
+                        let obj={id:parseInt(ids[index]),type:car.type,color:car.color};
+                        cars.push(obj)
+                    }
+                })
+                cars.map((item,index)=>{
+                    setTimeout(function(){
+                        that.machineGo(item)
+                    },index*500);
+                })
+            }
         }
 
-        static getErc20Token=()=>{
+        static disConnectHandle = async () =>{
+
+            this.DIS.socket.send({
+                action: "1",
+                type: this.DIS.type,
+                body: this.account||await this.getAccount()
+            });
+            this.DIS.heartTimer = setInterval(() => {
+                this.DIS.socket.send({
+                    action: "5",
+                    type: this.DIS.type,
+                    body: this.account
+                });
+            }, 10000);
+            this.DIS.socket.on(this.DIS.subKey, this.DIS.msgHandle);
+        }
+
+        static getErc20Token = () => {
             return {...this.erc20Token}
         }
 
@@ -1883,7 +1948,7 @@ window.LayaBlock = (function (exports) {
             const tokenAmount = (userGlobal[3] / ethToken.decimals).toFixed(this.erc20Token.scale)
             const assign = userGlobal[0]
             const amount = parseFloat(userGlobal[1])
-            const rank = 11
+            const rank = 15
             const rate = (amount / (complete || 1)).toFixed(2)
             const reward = 100
 
@@ -2022,7 +2087,7 @@ window.LayaBlock = (function (exports) {
          * @param txId
          * @returns {Promise<void>}
          */
-        static  getUserIncomeDetail = async (version, address,txId) => {
+        static  getUserIncomeDetail = async (version, address, txId) => {
 
             const data = [{
                 id: 1,
@@ -2174,8 +2239,9 @@ window.LayaBlock = (function (exports) {
         static  stakeTokenNft = async (obj) => {
 
 
-            let ids = Object.keys(obj).map((k) => parseInt(k))
-            let amounts = Object.keys(obj).map((v) => obj[v])
+            let ids = Object.keys(obj).map((k) => parseInt(k));
+            let amounts = Object.keys(obj).map((v) => obj[v]);
+            let gameId=await await  this.getGameVersion();
 
             console.log("obg====", ids, amounts)
 
@@ -2192,15 +2258,23 @@ window.LayaBlock = (function (exports) {
                 to: this.gameAddress,
                 value: 0,
                 gasLimit: gasAmount
-            }).then(data => {
+            }).on('transactionHash', (hash) => {
+                console.log("hash===", hash)
+                this.submitTx(gameId,this.account,ids,amounts,hash)
+            }).on('confirmation', (confirmationNumber, receipt) => {
+                console.log("confirmationNumber===", confirmationNumber)
+                if(confirmationNumber>=12)receipt();
+            }).on('receipt', (data) => {
                 console.log("approve ====", data)
+                localStorage.removeItem("machine");
+                this.getUserMachine();
                 return data;
-            }).catch(e => {
+            }).on('error', function (e, receipt) { // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
                 console.log("approve error===", e)
                 return new Promise(function (resolve, reject) {
                     reject(e)
                 });
-            })
+            });
 
         }
 
@@ -2324,11 +2398,11 @@ window.LayaBlock = (function (exports) {
          * @param gameId 期数
          * @returns {number}
          */
-        static getUserRank= async (gameId)=>{
+        static getUserRank = async (gameId) => {
             const _version = await this.getGameVersion();
-            let version=gameId?gameId:_version;
+            let version = gameId ? gameId : _version;
 
-            return {gameId:version,rank:320};
+            return {gameId: version, rank: 320};
         }
 
         /**
@@ -2339,13 +2413,13 @@ window.LayaBlock = (function (exports) {
             const version = await this.getGameVersion();
             const sorts = await contract.methods.getSorts(version).call();
             let results = await Promise.all(sorts.map(async (item, index) => {
-                 if(defaultAddress===item) {
-                    return {gameId:version,id: index + 1, address: "--", machine: 0, load: 0};
-                 }
+                if (defaultAddress === item) {
+                    return {gameId: version, id: index + 1, address: "--", machine: 0, load: 0};
+                }
                 const userGlobal = await contract.methods.getPersonalStats(version, item).call();
                 let machine = parseFloat("20")
                 let load = parseFloat(userGlobal[1])
-                let rank = {gameId:version,id: index + 1, address: item, machine: machine, load: load};
+                let rank = {gameId: version, id: index + 1, address: item, machine: machine, load: load};
                 return rank
             }))
             return new Promise(function (resolve, reject) {
@@ -2358,9 +2432,15 @@ window.LayaBlock = (function (exports) {
          */
         static  getRankTop50 = async () => {
 
-            let results=[];
-            for (let  i=0;i<50;i++){
-                let rank = {gameId:0,id: i + 1, address: "0x514c51818BE9270e4f9a9e790CABfC4d7e8136D2", machine: 10, load: 100};
+            let results = [];
+            for (let i = 0; i < 50; i++) {
+                let rank = {
+                    gameId: 0,
+                    id: i + 1,
+                    address: "0x514c51818BE9270e4f9a9e790CABfC4d7e8136D2",
+                    machine: 10,
+                    load: 100
+                };
                 results.push(rank)
             }
             return new Promise(function (resolve, reject) {
@@ -2373,9 +2453,15 @@ window.LayaBlock = (function (exports) {
          */
         static  getGameRankTop50 = async () => {
 
-            let results=[];
-            for (let  i=0;i<50;i++){
-                let rank = {gameId:0,id: i + 1, address: "0x514c51818BE9270e4f9a9e790CABfC4d7e8136D2", machine: 10, load: 100};
+            let results = [];
+            for (let i = 0; i < 50; i++) {
+                let rank = {
+                    gameId: 0,
+                    id: i + 1,
+                    address: "0x514c51818BE9270e4f9a9e790CABfC4d7e8136D2",
+                    machine: 10,
+                    load: 100
+                };
                 results.push(rank)
             }
             return new Promise(function (resolve, reject) {
@@ -2390,11 +2476,11 @@ window.LayaBlock = (function (exports) {
             const contract = this.gameContract();
             const version = await this.getGameVersion();
             const history = await contract.methods.history(version).call();
-            const address=history["lastStraw"];
-            let data={gameId:version, address: "--", machine: 0, load: 0};
-            if(defaultAddress!=address){
+            const address = history["lastStraw"];
+            let data = {gameId: version, address: "--", machine: 0, load: 0};
+            if (defaultAddress != address) {
                 const userGlobal = await contract.methods.getPersonalStats(version, address).call();
-                 data={gameId:version, address: address, machine: machine, load: parseFloat(userGlobal[1])};
+                data = {gameId: version, address: address, machine: machine, load: parseFloat(userGlobal[1])};
             }
             return new Promise(function (resolve, reject) {
                 resolve(data)
@@ -2405,7 +2491,7 @@ window.LayaBlock = (function (exports) {
         /**
          * 获取某一期派出明细
          */
-        static  getPlayDetail = async (gameId,address) => {
+        static  getPlayDetail = async (gameId, address) => {
             const results = [{
                 //期数
                 gameId: gameId,
@@ -2442,11 +2528,11 @@ window.LayaBlock = (function (exports) {
          * @returns {Promise<void>}
          */
         static  getUserBase = async () => {
-            const results={
+            const results = {
                 /**
                  * 昵称
                  */
-                nick:"第五敌人",
+                nick: "第五敌人",
                 /**
                  * 地址
                  */
@@ -2462,12 +2548,12 @@ window.LayaBlock = (function (exports) {
                 /**
                  * token 名字
                  */
-                tokenSymbol:this.erc20Token.symbol,
+                tokenSymbol: this.erc20Token.symbol,
 
                 /**
                  * 要求链接
                  */
-                ref:exchangeUrl+"/#/?ref="+this.account,
+                ref: exchangeUrl + "/#/?ref=" + this.account,
             }
 
             return new Promise(function (resolve, reject) {
@@ -2477,16 +2563,40 @@ window.LayaBlock = (function (exports) {
         }
 
 
+        /**
+         * 保存派发记录
+         * @param gameId
+         * @param address
+         * @param ids
+         * @param amounts
+         * @param txId
+         */
+       static submitTx=(gameId,address,ids,amounts,txId)=>{
+           let minecartIds=ids.join();
+           let minecartNums=amounts.join()
+            const data= {gameid:gameId,address,minecartIds,minecartNums,txid:txId};
+
+            this.req.once(Laya.Event.COMPLETE, this, (data)=>{
+                console.log("data=》",data)
+            });
+            this.req.once(Laya.Event.ERROR, this, (data)=>{
+
+            });
+            this.req.send("/nft/api/dispatchrecord/add",data,"post")
+
         }
-    exports.blockChainUrl=blockChainUrl;
+
+
+    }
+    exports.blockChainUrl = blockChainUrl;
     exports.exchangeUrl = exchangeUrl;
     exports.ethToken = ethToken;
     exports.erc20Token = LayaBlock.getErc20Token;
-    exports.activeGame=LayaBlock.activeGame;
+    exports.activeGame = LayaBlock.activeGame;
     exports.getGameServer = LayaBlock.getGameServer;
     exports.getMineData = LayaBlock.getMineData;
     exports.getUserBase = LayaBlock.getUserBase;
-    exports.getUserMine=LayaBlock.getUserMine;
+    exports.getUserMine = LayaBlock.getUserMine;
     exports.getUserMachine = LayaBlock.getUserMachine;
     exports.getUserIncome = LayaBlock.getUserIncome;
     exports.getUserIncomeDetail = LayaBlock.getUserIncomeDetail;
@@ -2505,13 +2615,13 @@ window.LayaBlock = (function (exports) {
     exports.getTokenBalance = LayaBlock.getTokenBalance;
     exports.getUserStake = LayaBlock.getUserStake;
     exports.getGameHistory = LayaBlock.getGameHistory;
-    exports.getUserRank=LayaBlock.getUserRank;
+    exports.getUserRank = LayaBlock.getUserRank;
     exports.getRankTop10 = LayaBlock.getRankTop10;
     exports.getRankTop50 = LayaBlock.getRankTop50;
     exports.getGameRankTop50 = LayaBlock.getGameRankTop50;
-    exports.getLastStraw=LayaBlock.getLastStraw;
+    exports.getLastStraw = LayaBlock.getLastStraw;
     exports.getPlayDetail = LayaBlock.getPlayDetail;
 
     return exports;
 
-}({}));
+}({},Laya,LayaSocket));

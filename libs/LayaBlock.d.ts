@@ -314,9 +314,10 @@ declare class LayaBlock {
 
     /**
      * 激活服务
+     * @params machineGo 车辆运动
      * @param {IGameServer} game
      */
-    static activeGame(game:IGameServer):void;
+    static activeGame(game:IGameServer,machineGo:any):void;
 
     /**
      * 获取矿山数据/游戏数据

@@ -26,7 +26,8 @@ export default class Home extends ui.HomeUI{
         LayaBlock.initWeb3();
         // 模拟激活游戏(进入游戏选区操作)
         LayaBlock.getGameServer().then((d:IGameServer[])=>{
-            LayaBlock.activeGame(d[0])
+            debugger
+            LayaBlock.activeGame(d[0],this.machineGo)
             LayaBlock.getUserBase().then((d:IUserBase)=>{
                 console.log("userBase==",d)
             })
@@ -127,7 +128,7 @@ export default class Home extends ui.HomeUI{
         this.emailPannel.loadData();
     }
     machineGo=(obj:any)=>{
-        obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}        
+       // obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}
         let aniMachine:AniMachine=new AniMachine() 
         aniMachine.obj=obj;       
         aniMachine.scale(-0.5,0.5)
