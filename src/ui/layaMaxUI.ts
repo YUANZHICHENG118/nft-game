@@ -58,6 +58,16 @@ export module ui {
         }
     }
     REG("ui.EmailUI",EmailUI);
+    export class ExchangePannelUI extends Scene {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ExchangePannel");
+        }
+    }
+    REG("ui.ExchangePannelUI",ExchangePannelUI);
     export class HelpPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;

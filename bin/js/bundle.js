@@ -76,6 +76,15 @@
         }
         ui.EmailUI = EmailUI;
         REG("ui.EmailUI", EmailUI);
+        class ExchangePannelUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ExchangePannel");
+            }
+        }
+        ui.ExchangePannelUI = ExchangePannelUI;
+        REG("ui.ExchangePannelUI", ExchangePannelUI);
         class HelpPannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -395,6 +404,18 @@
         }
     }
 
+    class ExchangePannel extends ui.ExchangePannelUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
     class HelpPannel extends ui.HelpPannelUI {
         constructor() { super(); }
         onEnable() {
@@ -509,6 +530,9 @@
                 this.mePannel = new MePannel();
                 this.addChild(this.mePannel);
                 this.mePannel.visible = false;
+                this.exChangePannel = new ExchangePannel();
+                this.addChild(this.exChangePannel);
+                this.exChangePannel.visible = false;
                 this.rankPannel = new RankPannel();
                 this.addChild(this.rankPannel);
                 this.rankPannel.visible = false;
@@ -569,7 +593,6 @@
                 this.emailPannel.loadData();
             };
             this.machineGo = (obj) => {
-                obj = { id: 1, type: (Math.random() * 3 + 1) | 0, color: (Math.random() * 6 + 1) | 0 };
                 let aniMachine = new AniMachine();
                 aniMachine.obj = obj;
                 aniMachine.scale(-0.5, 0.5);
@@ -637,7 +660,7 @@
         onEnable() {
             LayaBlock.initWeb3();
             LayaBlock.getGameServer().then((d) => {
-                LayaBlock.activeGame(d[0]);
+                LayaBlock.activeGame(d[0], this.machineGo);
                 LayaBlock.getUserBase().then((d) => {
                     console.log("userBase==", d);
                 });
@@ -659,6 +682,7 @@
                     this.devPannel.initList();
                     break;
                 case this.btnExchange:
+                    this.exChangePannel.visible = true;
                     break;
                 case this.btnRank:
                     this.rankPannel.visible = true;
