@@ -2469,7 +2469,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             const userGlobal = await contract.methods.getPersonalStats(version, address).call();
             let machine = parseFloat("20")
             let load = parseFloat(userGlobal[1])
-            let userRank = {gameId: version, id: 10000, address: address, machine: machine, load: load};
+            let userRank = {gameId: version, id: 10000, address: address, addressShort: this.addressSub(address), machine: machine, load: load};
             return new Promise(function(resolve, reject){
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
                     userRank.id=data&&data.data.myRank;
@@ -2593,7 +2593,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             let data = {gameId: version, address: "--", machine: 0, load: 0};
             if (defaultAddress != address) {
                 const userGlobal = await contract.methods.getPersonalStats(version, address).call();
-                data = {gameId: version, address: address, machine: machine, load: parseFloat(userGlobal[1])};
+                data = {gameId: version, address: address,
+                    addressShort: this.addressSub(address),
+                    machine: machine, load: parseFloat(userGlobal[1])};
             }
             return new Promise(function (resolve, reject) {
                 resolve(data)
