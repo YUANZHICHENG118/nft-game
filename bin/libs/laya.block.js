@@ -1962,6 +1962,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @returns {Promise<any>}
          */
         static  getUserMine = async () => {
+            let req= new Laya.HttpRequest();
             const version = await this.getGameVersion()
             const address = await this.getAccount()
             const history = await this.getGameHistory(version);
@@ -1973,23 +1974,33 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             const tokenAmount = (userGlobal[3] / ethToken.decimals).toFixed(this.erc20Token.scale)
             const assign = userGlobal[0]
             const amount = parseFloat(userGlobal[1])
-            const rank = 15
+            let rank = 15
             const rate = (amount / (complete || 1)).toFixed(2)
             const reward = 100
 
-            const data = {
-                address: address,
-                ethAmount: ethAmount,
-                tokenAmount: tokenAmount,
-                assign: assign,
-                amount: amount,
-                rank: rank,
-                rate: rate,
-                reward: reward
-            }
-            return new Promise(function (resolve, reject) {
-                resolve(data)
+
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    rank=data&&data.data.myRank;
+                    const _data = {
+                        address: address,
+                        ethAmount: ethAmount,
+                        tokenAmount: tokenAmount,
+                        assign: assign,
+                        amount: amount,
+                        rank: rank,
+                        rate: rate,
+                        reward: reward
+                    }
+
+                    resolve(_data)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/gamerecord/currRank",{gameid:version,address:address},"post","json")
             });
+
         }
 
         /**
@@ -2447,15 +2458,6 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 });
                 req.send(apiUrl+"/nft/api/gamerecord/currRank",{gameid:version,address:address},"post","json")
             });
-
-
-
-
-
-
-
-
-            return {gameId: version, rank: 320};
         }
 
         /**
