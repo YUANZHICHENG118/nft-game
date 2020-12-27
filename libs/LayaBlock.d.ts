@@ -294,6 +294,7 @@ interface IRank {
     id: number,
     //用户地址或昵称
     address: string,
+    addressShort:string,//简称
     //派出设备数量
     machine: number,
     //运走数量

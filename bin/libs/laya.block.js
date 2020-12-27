@@ -2483,6 +2483,14 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         }
 
         /**
+         * 地址截取
+         */
+        static addressSub=(address)=>{
+
+            return address.substring(0,3)+"***"+address.substring(address.length-3,address.length)
+
+        }
+        /**
          * 获取前10名
          */
         static  getRankTop10 = async () => {
@@ -2493,10 +2501,12 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 if (defaultAddress === item) {
                     return {gameId: version, id: index + 1, address: "--", machine: 0, load: 0};
                 }
+                const nick=await  this.getNick(item)
+
                 const userGlobal = await contract.methods.getPersonalStats(version, item).call();
                 let machine = parseFloat("20")
                 let load = parseFloat(userGlobal[1])
-                let rank = {gameId: version, id: index + 1, address: item, machine: machine, load: load};
+                let rank = {gameId: version, id: index + 1,address:item, addressShort:nick.nick|| this.addressSub(item), machine: machine, load: load};
                 return rank
             }))
             return new Promise(function (resolve, reject) {
@@ -2507,8 +2517,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         /**
          * 获取前50名
          */
-        static
-        getRankTop50 = async () => {
+        static getRankTop50 = async () => {
             let req= new Laya.HttpRequest();
             let version=this.version||await this.getGameVersion()
             return new Promise(function(resolve, reject){
@@ -2520,7 +2529,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                        let _rank = {
                             gameId: parseInt(item["gameid"]),
                             id: index + 1,
-                            address: item["nickname"]|| item["address"],
+
+                            address:  item["address"],
+                           addressShort:item["nickname"]|| this.addressSub(item["address"]),
                             machine: parseInt(item["miningNum"]),
                             load: parseInt(item["obtainNum"]),
                         }
@@ -2551,7 +2562,8 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                         let _rank = {
                             gameId: parseInt(item["gameid"]),
                             id: index + 1,
-                            address: item["nickname"]|| item["address"],
+                            address: item["address"],
+                            addressShort:item["nickname"]|| this.addressSub(item["address"]),
                             machine: parseInt(item["miningNum"]),
                             load: parseInt(item["obtainNum"]),
                         }
