@@ -154,8 +154,6 @@ export module ui {
 		public titleGroup0:Laya.Sprite;
 		public title_txt:Laya.Label;
 		public rankType2:Laya.Image;
-		public lastItem:ui.ItemRankUI;
-		public myItem:ui.ItemRankUI;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

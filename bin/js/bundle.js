@@ -487,8 +487,13 @@
         }
         setItem(sn, itemData) {
             this.load_txt.text = itemData.load;
-            this.address_txt.text = itemData.address;
-            if (sn <= 2) {
+            this.address_txt.text = itemData.addressShort;
+            if (sn == -1) {
+                this.snImg.visible = false;
+                this.sn_txt.visible = true;
+                this.bg.skin = 'gameimg/rankbg1.png';
+            }
+            else if (sn <= 2) {
                 this.snImg.visible = true;
                 this.sn_txt.visible = false;
                 this.snImg.skin = 'gameimg/sn' + (sn + 1) + '.png';
@@ -511,24 +516,32 @@
             this.sort = 'DESC';
             this.list = new List$2();
             this.hasInitList = false;
+            this.itemX = 30;
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.list.itemRender = ItemRank;
             this.list.repeatX = 1;
-            this.list.x = 30;
+            this.list.x = this.itemX;
             this.list.y = 290;
-            this.list.height = 800;
+            this.list.height = 1000;
             this.list.spaceX = 20;
-            this.list.spaceY = 20;
+            this.list.spaceY = 10;
             this.list.vScrollBarSkin = "";
             this.list.selectEnable = true;
             this.list.selectHandler = new Handler$1(this, this.onSelect);
             this.list.renderHandler = new Handler$1(this, this.updateItem);
             this.addChild(this.list);
+            this.lastItem = new ItemRank();
+            this.lastItem.x = this.itemX;
+            this.lastItem.y = 189;
+            this.addChild(this.lastItem);
+            this.myItem = new ItemRank();
+            this.myItem.x = this.itemX;
+            this.myItem.y = 1220;
+            this.addChild(this.myItem);
         }
         updateItem(cell, index) {
-            console.log('=====', this.listData[index]);
             cell.setItem(index, this.listData[index]);
         }
         onSelect(index) {
@@ -553,13 +566,29 @@
         }
         updateList() {
             this.loadData();
+            this.loadDataMe();
+            this.loadDataLast();
+        }
+        loadDataMe() {
+            LayaBlock.getUserRank().then((d) => {
+                console.log('me:::::', d, typeof d);
+                this.myItem.setItem(-1, d);
+                this.myItem.sn_txt.text = 'ME';
+            });
+        }
+        loadDataLast() {
+            LayaBlock.getLastStraw().then((d) => {
+                console.log('last:::::', d, typeof d);
+                this.lastItem.setItem(-1, d);
+                this.lastItem.sn_txt.text = 'LAST';
+            });
         }
         loadData() {
             LayaBlock.getRankTop10().then((d) => {
                 console.log(d, typeof d);
                 this.listData = [];
                 for (let i in d) {
-                    this.listData.push({ sn: i, load: d[i].load, address: d[i].address });
+                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
                 }
                 this.list.array = this.listData;
             });
