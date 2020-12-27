@@ -273,10 +273,7 @@ export default class Home extends ui.HomeUI{
             })
         })
 
-        NftApi.getGameLoadDec().then((d:IGameLoadDec)=>{
-            console.log("load dec zh=====",d.zh)
 
-        })
 
         // 获取用户地址
         LayaBlock.getAccount().then(d=>{

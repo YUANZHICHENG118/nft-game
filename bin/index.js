@@ -15,6 +15,5 @@ loadLib("libs/laya.particle.js")
 loadLib("libs/laya.socket.js")
 loadLib("libs/laya.block.js")
 
-loadLib("libs/nft.api.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

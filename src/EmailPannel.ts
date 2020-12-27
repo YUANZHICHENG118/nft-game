@@ -49,7 +49,7 @@ export default class EmailPannel extends ui.EmailUI {
 
     loadData=()=>{
         console.log('加载邮件',DataBus.account);
-        NftApi.getEmail(DataBus.account).then((d:IEmail[])=>{
+        LayaBlock.getEmail(DataBus.account).then((d:IEmail[])=>{
             console.log('d:',d)
             this.listData=[]
             for(let i in d){
