@@ -1918,7 +1918,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 cars.map((item,index)=>{
                     setTimeout(function(){
                         that.machineGo(item)
-                    },index*500);
+                    },index*1000);
                 })
             }
         }
@@ -2058,8 +2058,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 }
             })
 
-            //保存数据到缓存
-            localStorage.setItem("machine", JSON.stringify(data));
+            if(data.length>0){
+                //保存数据到缓存
+                localStorage.setItem("machine", JSON.stringify(data));
+            }
 
             return data;
 
@@ -2570,6 +2572,37 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * 获取某一期派出明细
          */
         static  getPlayDetail = async (gameId, address) => {
+
+            let req= new Laya.HttpRequest();
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    console.log("getPlayDetail===",data)
+                    const topAllArr=data&&data.data&&data.data.topAllArr;
+                    const rank=[];
+                    topAllArr&&topAllArr.map((item,index)=>{
+                        let _rank = {
+                            gameId: parseInt(item["gameid"]),
+                            id: index + 1,
+                            address: item["nickname"]|| item["address"],
+                            machine: parseInt(item["miningNum"]),
+                            load: parseInt(item["obtainNum"]),
+                        }
+                        rank.push(_rank);
+
+                    })
+                    resolve(rank)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/dispatchrecord/getRecords",{gameid:gameId,address:address},"get","json")
+            });
+
+
+
+
+
+
             const results = [{
                 //期数
                 gameId: gameId,
