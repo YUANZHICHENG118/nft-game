@@ -2078,6 +2078,26 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         }
 
         /**
+         * 计算某一组 运走能力
+         * @param ids
+         * @param amounts
+         * @returns {*}
+         */
+        static getMachinePower = (ids,amounts) => {
+
+            let load=0;
+            let mining=0;
+            let totalCars=amounts.reduce((a,b)=>a+b);
+            ids.map((item,index)=>{
+                let machine=this.getMachineAttribute(item);
+                load=load+(machine.load*amounts[index])
+                mining=mining+(machine.mining*amounts[index])
+            })
+
+           return {load:load>=mining?mining:load,mining,totalCars}
+        }
+
+        /**
          * 获取用户收益
          * @returns {Promise<any>}
          */
@@ -2574,63 +2594,40 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         static  getPlayDetail = async (gameId, address) => {
 
             let req= new Laya.HttpRequest();
+            let that=this;
             return new Promise(function(resolve, reject){
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
-                    console.log("getPlayDetail===",data)
-                    const topAllArr=data&&data.data&&data.data.topAllArr;
-                    const rank=[];
-                    topAllArr&&topAllArr.map((item,index)=>{
-                        let _rank = {
-                            gameId: parseInt(item["gameid"]),
-                            id: index + 1,
-                            address: item["nickname"]|| item["address"],
-                            machine: parseInt(item["miningNum"]),
-                            load: parseInt(item["obtainNum"]),
+                    const detail=data&&data.data;
+                    const results=[];
+                    detail&&detail.map((item,index)=>{
+                        let ids=item['minecartIds'].split(",");
+                        let amounts=item['minecartNums'].split(",");
+
+                        let power=that.getMachinePower(ids,amounts)
+                        let d={
+                            //期数
+                            gameId: item.gameid,
+                            //派出设备
+                            machineIds: ids,
+                            //派出设备对应的数量
+                            machineAmounts: amounts,
+                            //挖矿数量
+                            machine: power.mining,
+                            //运走数量
+                            load: power.load,
+                            txId: item["txid"]
                         }
-                        rank.push(_rank);
+                        results.push(d);
 
                     })
-                    resolve(rank)
+                    resolve(results)
                 });
                 req.once(Laya.Event.ERROR, this, (data)=>{
 
                 });
-                req.send(apiUrl+"/nft/api/dispatchrecord/getRecords",{gameid:gameId,address:address},"get","json")
+                req.send(apiUrl+"/nft/api/dispatchrecord/getRecords?gameid="+gameId+"&address="+address,"","get","json")
             });
 
-
-
-
-
-
-            const results = [{
-                //期数
-                gameId: gameId,
-                //派出设备
-                machineIds: [1, 5, 7],
-                //派出设备对应的数量
-                machineAmounts: [10, 2, 8],
-                //挖矿数量
-                machine: 10,
-                //运走数量
-                load: 5,
-                txId: '0xaaaaaaaaa'
-            }, {
-                //期数
-                gameId: gameId,
-                //派出设备
-                machineIds: [3, 8, 18],
-                //派出设备对应的数量
-                machineAmounts: [20, 6, 9],
-                //挖矿数量
-                machine: 100,
-                //运走数量
-                load: 50,
-                txId: '0xbbbbb'
-            }];
-            return new Promise(function (resolve, reject) {
-                resolve(results)
-            });
         }
 
 
