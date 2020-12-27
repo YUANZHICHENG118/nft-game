@@ -109,6 +109,11 @@ export module ui {
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
     export class ItemRankUI extends Scene {
+		public bg:Laya.Image;
+		public snImg:Laya.Image;
+		public load_txt:Laya.Label;
+		public sn_txt:Laya.Label;
+		public address_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -149,6 +154,8 @@ export module ui {
 		public titleGroup0:Laya.Sprite;
 		public title_txt:Laya.Label;
 		public rankType2:Laya.Image;
+		public lastItem:ui.ItemRankUI;
+		public myItem:ui.ItemRankUI;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

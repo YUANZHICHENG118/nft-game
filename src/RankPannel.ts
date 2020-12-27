@@ -1,6 +1,7 @@
 import ItemRank from "./ItemRank";
 import { ui } from "./ui/layaMaxUI";
 import List = Laya.List;
+import Handler = Laya.Handler;
 export default class RankPannel extends ui.RankPannelUI {
     private sort:'ASC'|'DESC'='DESC'; 
     private list: List = new List();    
@@ -10,14 +11,13 @@ export default class RankPannel extends ui.RankPannelUI {
     
     onEnable(): void {
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
-
         //创建列表
         this.list.itemRender = ItemRank;
-        this.list.repeatX = 4;
+        this.list.repeatX = 1;
         //this.list.repeatY = 4;
-        this.list.x = 50;
-        this.list.y = 423;
-        this.list.height=600;
+        this.list.x = 30;
+        this.list.y = 290;
+        this.list.height=800;
         this.list.spaceX=20;
         this.list.spaceY=20;
         //使用但隐藏滚动条
@@ -29,12 +29,12 @@ export default class RankPannel extends ui.RankPannelUI {
     }
 
     private updateItem(cell:ItemRank, index: number): void {
-        cell.setItem(cell.dataSource);
+        console.log('=====',this.listData[index])
+        cell.setItem(index,this.listData[index]);
     }
 
     private onSelect(index: number): void {
-        //laya.ui.js 3155行修改  if (true || this._selectedIndex != value) 
-        this.listData[index].selected=!this.listData[index].selected
+       this.listData[index].selected=!this.listData[index].selected
     }
 
     onDisable(): void {

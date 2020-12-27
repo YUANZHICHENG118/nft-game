@@ -103,15 +103,15 @@
         }
         ui.ItemEmailUI = ItemEmailUI;
         REG("ui.ItemEmailUI", ItemEmailUI);
-        class ItemRank0UI extends Scene {
+        class ItemRankUI extends Scene {
             constructor() { super(); }
             createChildren() {
                 super.createChildren();
-                this.loadScene("ItemRank0");
+                this.loadScene("ItemRank");
             }
         }
-        ui.ItemRank0UI = ItemRank0UI;
-        REG("ui.ItemRank0UI", ItemRank0UI);
+        ui.ItemRankUI = ItemRankUI;
+        REG("ui.ItemRankUI", ItemRankUI);
         class MePannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -368,7 +368,7 @@
             this.hasInitList = false;
             this.loadData = () => {
                 console.log('加载邮件', DataBus.account);
-                NftApi.getEmail(DataBus.account).then((d) => {
+                LayaBlock.getEmail(DataBus.account).then((d) => {
                     console.log('d:', d);
                     this.listData = [];
                     for (let i in d) {
@@ -460,7 +460,7 @@
         constructor() {
             super();
             this.loadData = () => {
-                NftApi.getNotice().then((d) => {
+                LayaBlock.getNotice().then((d) => {
                     console.log(d);
                     this.title_txt.text = d.title;
                     this.content_txt.text = d.content;
@@ -479,7 +479,32 @@
         }
     }
 
+    class ItemRank extends ui.ItemRankUI {
+        constructor() { super(); this.width = 750; this.height = 80; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        setItem(sn, itemData) {
+            this.load_txt.text = itemData.load;
+            this.address_txt.text = itemData.address;
+            if (sn <= 2) {
+                this.snImg.visible = true;
+                this.sn_txt.visible = false;
+                this.snImg.skin = 'gameimg/sn' + (sn + 1) + '.png';
+                this.bg.skin = 'gameimg/rankbg1.png';
+            }
+            else {
+                this.snImg.visible = false;
+                this.sn_txt.visible = true;
+                this.sn_txt.text = sn + 1 + '';
+                this.bg.skin = 'gameimg/rankbg0.png';
+            }
+        }
+    }
+
     var List$2 = Laya.List;
+    var Handler$1 = Laya.Handler;
     class RankPannel extends ui.RankPannelUI {
         constructor() {
             super();
@@ -489,6 +514,25 @@
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.list.itemRender = ItemRank;
+            this.list.repeatX = 1;
+            this.list.x = 30;
+            this.list.y = 290;
+            this.list.height = 800;
+            this.list.spaceX = 20;
+            this.list.spaceY = 20;
+            this.list.vScrollBarSkin = "";
+            this.list.selectEnable = true;
+            this.list.selectHandler = new Handler$1(this, this.onSelect);
+            this.list.renderHandler = new Handler$1(this, this.updateItem);
+            this.addChild(this.list);
+        }
+        updateItem(cell, index) {
+            console.log('=====', this.listData[index]);
+            cell.setItem(index, this.listData[index]);
+        }
+        onSelect(index) {
+            this.listData[index].selected = !this.listData[index].selected;
         }
         onDisable() {
         }
@@ -514,6 +558,9 @@
             LayaBlock.getRankTop10().then((d) => {
                 console.log(d, typeof d);
                 this.listData = [];
+                for (let i in d) {
+                    this.listData.push({ sn: i, load: d[i].load, address: d[i].address });
+                }
                 this.list.array = this.listData;
             });
         }
@@ -664,9 +711,6 @@
                     d.map(item => {
                         console.log("token=====", item.symbol);
                     });
-                });
-                NftApi.getGameLoadDec().then((d) => {
-                    console.log("load dec zh=====", d.zh);
                 });
                 LayaBlock.getAccount().then(d => {
                     console.log(d);
