@@ -124,7 +124,11 @@ export module ui {
     export class MePannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
-		public notie_txt:Laya.Label;
+		public nick_txt:Laya.Label;
+		public address_txt:Laya.Label;
+		public tokenAmount_txt:Laya.Label;
+		public ref_txt:Laya.Label;
+		public btnCopyRef:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

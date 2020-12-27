@@ -423,6 +423,20 @@
         constructor() { super(); }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.btnCopyRef.on(Laya.Event.CLICK, this, this.copyRef);
+        }
+        copyRef() {
+            eval('window.clipboardData.setData("text","hello")');
+        }
+        loadData() {
+            console.log('getUserBase');
+            LayaBlock.getUserBase().then((d) => {
+                console.log(d);
+                this.nick_txt.text = d.nick;
+                this.address_txt.text = d.address;
+                this.tokenAmount_txt.text = d.tokenAmount + '';
+                this.ref_txt.text = d.ref;
+            });
         }
         onDisable() {
         }
@@ -708,7 +722,6 @@
                     this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
                 });
                 LayaBlock.getUserMine().then((d) => {
-                    console.log('用户基础数据：address' + JSON.stringify(d));
                     this.ethAmount_txt.text = d.ethAmount + '';
                     this.reward_txt.text = d.reward + '';
                     this.rate_txt.text = d.rate * 100 + '%';
@@ -790,26 +803,6 @@
                         });
                     }
                 });
-                LayaBlock.getRankTop10().then((d) => {
-                    console.log("getRankTop=====", d);
-                });
-                LayaBlock.getMineData().then((d) => {
-                    console.log("getMineData=====", d);
-                });
-                LayaBlock.getUserBase().then((d) => {
-                    console.log("getUserBase=====", d);
-                });
-                LayaBlock.getUserStake().then((d) => {
-                    console.log("getUserStake=====", d);
-                });
-                LayaBlock.getGameServer().then((d) => {
-                    d.map(item => {
-                        console.log("token=====", item.symbol);
-                    });
-                });
-                LayaBlock.getAccount().then(d => {
-                    console.log(d);
-                });
             };
         }
         onEnable() {
@@ -845,9 +838,7 @@
                     break;
                 case this.btnMe:
                     this.mePannel.visible = true;
-                    LayaBlock.getUserMine().then((d) => {
-                        console.log(d);
-                    });
+                    this.mePannel.loadData();
                     break;
             }
         }

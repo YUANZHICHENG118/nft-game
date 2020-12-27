@@ -80,9 +80,8 @@ export default class Home extends ui.HomeUI{
             this.shan.scaleY=(d.surplus/d.total)*0.9+0.1
         })
 
-        // 获取用户基础数据
+        // 获取用户Mine数据
         LayaBlock.getUserMine().then((d:IUserMine)=>{
-            console.log('用户基础数据：address'+JSON.stringify(d))
             this.ethAmount_txt.text=d.ethAmount+''
             this.reward_txt.text=d.reward+''
             this.rate_txt.text=d.rate*100+'%'
@@ -172,9 +171,7 @@ export default class Home extends ui.HomeUI{
             case this.btnMe:
                 this.mePannel.visible=true
                 // 获取用户基础数据
-                LayaBlock.getUserMine().then((d:IUserMine)=>{
-                    console.log(d);
-                })
+                this.mePannel.loadData()
                 break;
         }
     }
@@ -252,33 +249,33 @@ export default class Home extends ui.HomeUI{
         // })
 
 
-        LayaBlock.getRankTop10().then((d:IRankTop[])=>{
-            console.log("getRankTop=====",d)
-        })
-        LayaBlock.getMineData().then((d:IMine)=>{
-            console.log("getMineData=====",d)
-        })
+        // LayaBlock.getRankTop10().then((d:IRankTop[])=>{
+        //     console.log("getRankTop=====",d)
+        // })
+        // LayaBlock.getMineData().then((d:IMine)=>{
+        //     console.log("getMineData=====",d)
+        // })
 
-        LayaBlock.getUserBase().then((d:IUserBase)=>{
-            console.log("getUserBase=====",d)
-        })
+        // LayaBlock.getUserBase().then((d:IUserBase)=>{
+        //     console.log("getUserBase=====",d)
+        // })
 
-        LayaBlock.getUserStake().then((d:IStake)=>{
-            console.log("getUserStake=====",d)
-        })
+        // LayaBlock.getUserStake().then((d:IStake)=>{
+        //     console.log("getUserStake=====",d)
+        // })
 
-        LayaBlock.getGameServer().then((d:IGameServer[])=>{
-            d.map(item=>{
-                console.log("token=====",item.symbol)
-            })
-        })
+        // LayaBlock.getGameServer().then((d:IGameServer[])=>{
+        //     d.map(item=>{
+        //         console.log("token=====",item.symbol)
+        //     })
+        // })
 
 
 
-        // 获取用户地址
-        LayaBlock.getAccount().then(d=>{
-            console.log(d);
-        })
+        // // 获取用户地址
+        // LayaBlock.getAccount().then(d=>{
+        //     console.log(d);
+        // })
     }
 
     onDisable(): void {
