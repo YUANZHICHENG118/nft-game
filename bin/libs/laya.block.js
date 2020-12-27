@@ -1,6 +1,12 @@
 window.LayaBlock = (function (exports,Laya,LayaSocket) {
     'use strict';
 
+    //加载时的描述
+    let gameLoadDec = {
+        zh:'公园2020年',
+        en:'abcd',
+        kr:'abcd'
+    };
 
 // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
 
@@ -157,6 +163,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
     ];
 
+    const dev=false;
     //服务器选区
     const gameServer = [
         {
@@ -171,8 +178,8 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
         }
     ];
-    const socketUrl = "ws://127.0.0.1/ws";
-
+    const socketUrl = dev?"ws://127.0.0.1/ws":"wss://api.cmblk.com/ws";
+    const apiUrl=dev?"":"https://api.cmblk.com";
     //交易所地址
     const exchangeUrl = "https://app.cmblk.com";
     //区块链浏览器地址
@@ -1747,11 +1754,11 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
     class LayaBlock {
         constructor() {
-            this.req = new Laya.HttpRequest();
             this.account = undefined;
             this.erc20TokenAddress = "";
             this.erc1155TokenAddres = "";
             this.gameAddress = "";
+            this.lan="zh-CN";
             this.erc20Token = {
                 name: 'Crypto Mine',
                 symbol: 'CM',
@@ -1779,6 +1786,24 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
         }
 
+        /**
+         * 设置语言
+         * @param lan
+         */
+        static setLanguage=(lan)=>{
+            this.lan=lan||"zh-CN";
+            localStorage.setItem("lan",lan);
+        }
+
+        /**
+         * 获取语言
+         * @param lan
+         */
+        static getLanguage=()=>{
+            let lan=this.lan||localStorage.getItem("lan")||"zh-CN";
+            return lan;
+
+        }
 
         //初始化合约
         static baseContract = (abi, address) => {
@@ -1845,12 +1870,12 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @param machineGo()发车
          * @param game
          */
-        static activeGame = (game,machineGo) => {
-            this.req=new Laya.HttpRequest();
+        static activeGame = async (game,machineGo) => {
             this.erc20TokenAddress = game.erc20TokenAddress;
             this.erc1155TokenAddres = game.erc1155TokenAddres;
             this.gameAddress = game.gameAddress;
             this.machineGo=machineGo;
+            this.version = await  this.getGameVersion();
             this.erc20Token = {
                 name: game.name,
                 symbol: game.symbol,
@@ -2399,8 +2424,36 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @returns {number}
          */
         static getUserRank = async (gameId) => {
+            const contract = this.gameContract();
+
             const _version = await this.getGameVersion();
             let version = gameId ? gameId : _version;
+            let address=this.account||await this.getAccount();
+
+            let req= new Laya.HttpRequest();
+
+            const userGlobal = await contract.methods.getPersonalStats(version, address).call();
+            let machine = parseFloat("20")
+            let load = parseFloat(userGlobal[1])
+            let userRank = {gameId: version, id: 10000, address: address, machine: machine, load: load};
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    userRank.id=data&&data.data.myRank;
+
+                    resolve(userRank)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/gamerecord/currRank",{gameid:version,address:address},"post","json")
+            });
+
+
+
+
+
+
+
 
             return {gameId: version, rank: 320};
         }
@@ -2430,43 +2483,66 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         /**
          * 获取前50名
          */
-        static  getRankTop50 = async () => {
+        static
+        getRankTop50 = async () => {
+            let req= new Laya.HttpRequest();
+            let version=this.version||await this.getGameVersion()
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
 
-            let results = [];
-            for (let i = 0; i < 50; i++) {
-                let rank = {
-                    gameId: 0,
-                    id: i + 1,
-                    address: "0x514c51818BE9270e4f9a9e790CABfC4d7e8136D2",
-                    machine: 10,
-                    load: 100
-                };
-                results.push(rank)
-            }
-            return new Promise(function (resolve, reject) {
-                resolve(results)
+                    const topCurrArr=data&&data.data&&data.data.topCurrArr;
+                    const rank=[];
+                    topCurrArr&&topCurrArr.map((item,index)=>{
+                       let _rank = {
+                            gameId: parseInt(item["gameid"]),
+                            id: index + 1,
+                            address: item["nickname"]|| item["address"],
+                            machine: parseInt(item["miningNum"]),
+                            load: parseInt(item["obtainNum"]),
+                        }
+                        rank.push(_rank);
+
+                    })
+                    resolve(rank)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/gamerecord/currRank",{gameid:version},"post","json")
             });
+
         }
 
         /**
          * 获取全网前50名
          */
         static  getGameRankTop50 = async () => {
+            let req= new Laya.HttpRequest();
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    console.log("getGameRankTop50===",data)
+                    const topAllArr=data&&data.data&&data.data.topAllArr;
+                    const rank=[];
+                    topAllArr&&topAllArr.map((item,index)=>{
+                        let _rank = {
+                            gameId: parseInt(item["gameid"]),
+                            id: index + 1,
+                            address: item["nickname"]|| item["address"],
+                            machine: parseInt(item["miningNum"]),
+                            load: parseInt(item["obtainNum"]),
+                        }
+                        rank.push(_rank);
 
-            let results = [];
-            for (let i = 0; i < 50; i++) {
-                let rank = {
-                    gameId: 0,
-                    id: i + 1,
-                    address: "0x514c51818BE9270e4f9a9e790CABfC4d7e8136D2",
-                    machine: 10,
-                    load: 100
-                };
-                results.push(rank)
-            }
-            return new Promise(function (resolve, reject) {
-                resolve(results)
+                    })
+                    resolve(rank)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/gamerecord/allRank",{},"post","json")
             });
+
+
         }
 
         /**
@@ -2528,15 +2604,17 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @returns {Promise<void>}
          */
         static  getUserBase = async () => {
+            const address=this.account||await this.getAccount();
+            const nick=await this.getNick(address)
             const results = {
                 /**
                  * 昵称
                  */
-                nick: "第五敌人",
+                nick: nick.nick ,
                 /**
                  * 地址
                  */
-                address: this.account,
+                address: address,
                 /**
                  * eth 数量
                  */
@@ -2553,7 +2631,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 /**
                  * 要求链接
                  */
-                ref: exchangeUrl + "/#/?ref=" + this.account,
+                ref: exchangeUrl + "/#/?ref=" + address,
             }
 
             return new Promise(function (resolve, reject) {
@@ -2575,22 +2653,196 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
            let minecartIds=ids.join();
            let minecartNums=amounts.join()
             const data= {gameid:gameId,address,minecartIds,minecartNums,txid:txId};
+            let req= new Laya.HttpRequest();
 
-            this.req.once(Laya.Event.COMPLETE, this, (data)=>{
+           req.once(Laya.Event.COMPLETE, this, (data)=>{
                 console.log("data=》",data)
             });
-            this.req.once(Laya.Event.ERROR, this, (data)=>{
+            req.once(Laya.Event.ERROR, this, (data)=>{
 
             });
-            this.req.send("/nft/api/dispatchrecord/add",data,"post")
+            req.send(apiUrl+"/nft/api/dispatchrecord/add",data,"post")
 
         }
 
 
+
+        /*************后台查询数据相关****************/
+
+        static getGameLoadDec=()=>{
+            return new Promise(function(resolve, reject){
+                resolve(gameLoadDec)
+            });
+        }
+
+        /**
+         * 获取nick
+         * @param address
+         * @returns {Promise<any>}
+         */
+        static getNick=(address)=>{
+
+            let req= new Laya.HttpRequest();
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    resolve(data&&data.data)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/user/nick/"+address,"","get","json")
+            });
+        }
+
+        /**
+         * 保存nick
+         * @param address
+         * @returns {Promise<any>}
+         */
+        static saveNick=(data)=>{
+            let req= new Laya.HttpRequest();
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    debugger
+                    resolve(data&&data.data)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/user/changeName",{address:data.address,nickname:data.nick},"post","json")
+            });
+        }
+
+        /**
+         * 获取最新公告
+         * @returns {Promise<any>}
+         */
+        static getNotice=async ()=>{
+            let req= new Laya.HttpRequest();
+            let address=this.account||await this.getAccount();
+            let lan=this.lan|| this.getLanguage();
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    const _data=data&&data.data&&data.data["records"][0];
+                    const title=_data["title"]||_data["content"].substring(0,20);
+                    const notice={title:title,content:_data["content"],time:new Date(_data["createTime"]).getTime()/1000}
+                    resolve(notice)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/messagerecord/getAnnouncementPage?current=1&size=1&address="+address,"","get","json",["language",lan])
+            });
+        }
+
+        /**
+         * 获取邮件
+         * @returns {Promise<any>}
+         */
+        static getEmail= async ()=>{
+            let req= new Laya.HttpRequest();
+            let address=this.account||await this.getAccount();
+            let lan=this.lan|| this.getLanguage();
+            return new Promise(function(resolve, reject){
+                req.once(Laya.Event.COMPLETE, this, (data)=>{
+                    const row=data&&data.data&&data.data["records"];
+                    const _data=[];
+                    row.map((item,index)=>{
+                        let _d={
+                            id:1,
+                            type:1,
+                            title:item["title"]||item["content"].substring(0,20),
+                            time:new Date(item["createTime"]).getTime()/1000,
+                            content:item["content"],
+                            del:item["status"]===30?1:0,//0 未删除 1 已删除
+                            read:item["status"]===10?0:item["status"]===20?1:-1, //0 未读 1 已读
+                            receive:1 // 0未领取 1 已领取
+                        };
+
+                        _data.push(_d);
+                    })
+
+                    resolve(_data)
+                });
+                req.once(Laya.Event.ERROR, this, (data)=>{
+
+                });
+                req.send(apiUrl+"/nft/api/messagerecord/getMessagePage?current=1&size=5&address="+address,"","get","json",["language",lan])
+            });
+
+            // const data=[{
+            //     id:1,
+            //     type:0,
+            //     title:"领取token",
+            //     time:1607050113,
+            //     content:"领取token内容",
+            //     del:0,//0 未删除 1 已删除
+            //     read:0, //0 未读 1 已读
+            //     receive:0 // 0未领取 1 已领取
+            // },{
+            //     id:2,
+            //     type:1,
+            //     title:"测试测试",
+            //     time:1607050113,
+            //     content:"测试测试",
+            //     del:1,//0 未删除 1 已删除
+            //     read:1, //0 未读 1 已读
+            //     receive:1 // 0未领取 1 已领取
+            // }]
+
+        }
+
+        /**
+         * 获取帮助数据
+         * @returns {Promise<any>}
+         */
+        static getHelp=()=>{
+            const data=[{
+                id:1,
+                title:'帮助文档测的',
+                time:1607050113,
+                content:'内容测试'
+            },{
+                id:1,
+                title:'帮助文档测的',
+                time:1607050113,
+                content:'内容测试'
+            }]
+            return new Promise(function(resolve, reject){
+                resolve(data)
+            });
+        }
+
+        /**
+         * 我的佣金明细
+         * @returns {Promise<any>}
+         */
+        static getCommission=()=>{
+            const data=[{
+                nick:'第二敌人',
+                address:'0xsssssssssss', // 地址
+                amount:100, //数量
+                txId:'', // 哈希
+                receive:0 // 0未领取 1 已领取
+            },{
+                nick:'第五敌人',
+                address:'0xsssssssssss', // 地址
+                amount:100, //数量
+                txId:'', // 哈希
+                receive:1 // 0未领取 1 已领取
+            }]
+            return new Promise(function(resolve, reject){
+                resolve(data)
+            });
+        }
+
     }
+    new LayaBlock();
     exports.blockChainUrl = blockChainUrl;
     exports.exchangeUrl = exchangeUrl;
     exports.ethToken = ethToken;
+    exports.setLanguage=LayaBlock.setLanguage;
+    exports.getLanguage=LayaBlock.getLanguage;
     exports.erc20Token = LayaBlock.getErc20Token;
     exports.activeGame = LayaBlock.activeGame;
     exports.getGameServer = LayaBlock.getGameServer;
@@ -2621,6 +2873,14 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
     exports.getGameRankTop50 = LayaBlock.getGameRankTop50;
     exports.getLastStraw = LayaBlock.getLastStraw;
     exports.getPlayDetail = LayaBlock.getPlayDetail;
+
+    exports.getGameLoadDec= LayaBlock.getGameLoadDec;
+    exports.getNick= LayaBlock.getNick;
+    exports.saveNick= LayaBlock.saveNick;
+    exports.getNotice= LayaBlock.getNotice;
+    exports.getEmail= LayaBlock.getEmail;
+    exports.getHelp= LayaBlock.getHelp;
+    exports.getCommission= LayaBlock.getCommission;
 
     return exports;
 

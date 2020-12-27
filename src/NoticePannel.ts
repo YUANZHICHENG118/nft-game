@@ -17,7 +17,7 @@ export default class NoticePannel extends ui.NoticeUI {
         this.visible=false;
     }
     loadData=()=>{
-        NftApi.getNotice().then((d:INotice)=>{
+        LayaBlock.getNotice().then((d:INotice)=>{
             console.log(d)
             this.title_txt.text=d.title;
             this.content_txt.text=d.content
