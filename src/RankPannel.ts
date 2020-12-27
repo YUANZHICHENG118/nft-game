@@ -6,10 +6,14 @@ export default class RankPannel extends ui.RankPannelUI {
     private sort:'ASC'|'DESC'='DESC'; 
     private list: List = new List();    
     private hasInitList:boolean=false;
-    private listData:Array<any>
+    private listData:Array<any>=[]
     private lastItem:ItemRank
     private myItem:ItemRank
     private itemX:number=30
+    private itemY0:number=189
+    private itemY1:number=290
+    private loading:boolean=false
+    private rankType:number=0
     constructor() { super(); }
     
     onEnable(): void {
@@ -19,7 +23,7 @@ export default class RankPannel extends ui.RankPannelUI {
         this.list.repeatX = 1;
         //this.list.repeatY = 4;
         this.list.x = this.itemX;
-        this.list.y = 290;
+        this.list.y = this.itemY1;
         this.list.height=1000;
         this.list.spaceX=20;
         this.list.spaceY=10;
@@ -28,18 +32,40 @@ export default class RankPannel extends ui.RankPannelUI {
         this.list.selectEnable = true;
         this.list.selectHandler = new Handler(this, this.onSelect);
         this.list.renderHandler = new Handler(this, this.updateItem);
+        this.list.array =this.listData
         this.addChild(this.list) 
 
         //最后一击
         this.lastItem=new ItemRank();
         this.lastItem.x=this.itemX;
-        this.lastItem.y=189;
+        this.lastItem.y=this.itemY0;
         this.addChild(this.lastItem)
         //我的排名
         this.myItem=new ItemRank();
         this.myItem.x=this.itemX;
         this.myItem.y=1220;
         this.addChild(this.myItem)
+
+        this.rankType0.on(Laya.Event.CLICK,this,this.rankTypeClick)
+        this.rankType1.on(Laya.Event.CLICK,this,this.rankTypeClick)
+        this.rankType2.on(Laya.Event.CLICK,this,this.rankTypeClick)
+    }
+
+    private rankTypeClick(e:Laya.Event):void{
+        if(this.loading==true){
+            return;
+        }
+        let curBtn:Laya.Image=e.currentTarget as Laya.Image        
+        let selectRankType=Number(curBtn.name.charAt(8))
+        if(this.rankType==selectRankType){
+            return
+        }else{
+            this.rankType=selectRankType
+        }
+        
+        this.rankType0.skin=this.rankType1.skin=this.rankType2.skin='gameimg/labBg0.png'
+        curBtn.skin='gameimg/labBg1.png'
+        this.updateList()
     }
 
     private updateItem(cell:ItemRank, index: number): void {
@@ -70,10 +96,26 @@ export default class RankPannel extends ui.RankPannelUI {
         this.updateList()
     }
 
-    updateList(){        
-        this.loadData()
-        this.loadDataMe()
-        this.loadDataLast()
+    updateList(){
+        console.log('rankType:',this.rankType);
+        this.loading=true
+        if(this.rankType==0){
+            this.loadData10()
+            this.loadDataMe()
+            this.loadDataLast()
+            this.myItem.visible=this.lastItem.visible=true
+            this.list.y=this.itemY1
+        }else if(this.rankType==1){
+            this.loadData50()
+            this.loadDataMe()
+            this.loadDataLast()
+            this.myItem.visible=this.lastItem.visible=true;
+            this.list.y=this.itemY1
+        }else if(this.rankType==2){
+            this.loadData100()
+            this.myItem.visible=this.lastItem.visible=false;
+            this.list.y=this.itemY0
+        }        
     }
     loadDataMe():void{  
         LayaBlock.getUserRank().then((d:IUserRank)=>{
@@ -91,7 +133,7 @@ export default class RankPannel extends ui.RankPannelUI {
         })
     }
 
-    loadData():void{        
+    loadData10():void{        
         LayaBlock.getRankTop10().then((d:IRankTop[])=>{
             console.log(d,typeof d)
             this.listData=[]
@@ -99,6 +141,31 @@ export default class RankPannel extends ui.RankPannelUI {
                 this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort})
             }
             this.list.array =this.listData
+            this.loading=false
+        })
+    }
+
+    loadData50():void{        
+        LayaBlock.getRankTop50().then((d:IRankTop[])=>{
+            console.log(d,typeof d)
+            this.listData=[]
+            for(let i in d){
+                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort})
+            }
+            this.list.array =this.listData
+            this.loading=false
+        })
+    }
+
+    loadData100():void{        
+        LayaBlock.getGameRankTop50().then((d:IRankTop[])=>{
+            console.log(d,typeof d)
+            this.listData=[]
+            for(let i in d){
+                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort})
+            }
+            this.list.array =this.listData
+            this.loading=false
         })
     }
 }

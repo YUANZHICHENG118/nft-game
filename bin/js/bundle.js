@@ -516,14 +516,19 @@
             this.sort = 'DESC';
             this.list = new List$2();
             this.hasInitList = false;
+            this.listData = [];
             this.itemX = 30;
+            this.itemY0 = 189;
+            this.itemY1 = 290;
+            this.loading = false;
+            this.rankType = 0;
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.list.itemRender = ItemRank;
             this.list.repeatX = 1;
             this.list.x = this.itemX;
-            this.list.y = 290;
+            this.list.y = this.itemY1;
             this.list.height = 1000;
             this.list.spaceX = 20;
             this.list.spaceY = 10;
@@ -531,15 +536,35 @@
             this.list.selectEnable = true;
             this.list.selectHandler = new Handler$1(this, this.onSelect);
             this.list.renderHandler = new Handler$1(this, this.updateItem);
+            this.list.array = this.listData;
             this.addChild(this.list);
             this.lastItem = new ItemRank();
             this.lastItem.x = this.itemX;
-            this.lastItem.y = 189;
+            this.lastItem.y = this.itemY0;
             this.addChild(this.lastItem);
             this.myItem = new ItemRank();
             this.myItem.x = this.itemX;
             this.myItem.y = 1220;
             this.addChild(this.myItem);
+            this.rankType0.on(Laya.Event.CLICK, this, this.rankTypeClick);
+            this.rankType1.on(Laya.Event.CLICK, this, this.rankTypeClick);
+            this.rankType2.on(Laya.Event.CLICK, this, this.rankTypeClick);
+        }
+        rankTypeClick(e) {
+            if (this.loading == true) {
+                return;
+            }
+            let curBtn = e.currentTarget;
+            let selectRankType = Number(curBtn.name.charAt(8));
+            if (this.rankType == selectRankType) {
+                return;
+            }
+            else {
+                this.rankType = selectRankType;
+            }
+            this.rankType0.skin = this.rankType1.skin = this.rankType2.skin = 'gameimg/labBg0.png';
+            curBtn.skin = 'gameimg/labBg1.png';
+            this.updateList();
         }
         updateItem(cell, index) {
             cell.setItem(index, this.listData[index]);
@@ -565,9 +590,27 @@
             this.updateList();
         }
         updateList() {
-            this.loadData();
-            this.loadDataMe();
-            this.loadDataLast();
+            console.log('rankType:', this.rankType);
+            this.loading = true;
+            if (this.rankType == 0) {
+                this.loadData10();
+                this.loadDataMe();
+                this.loadDataLast();
+                this.myItem.visible = this.lastItem.visible = true;
+                this.list.y = this.itemY1;
+            }
+            else if (this.rankType == 1) {
+                this.loadData50();
+                this.loadDataMe();
+                this.loadDataLast();
+                this.myItem.visible = this.lastItem.visible = true;
+                this.list.y = this.itemY1;
+            }
+            else if (this.rankType == 2) {
+                this.loadData100();
+                this.myItem.visible = this.lastItem.visible = false;
+                this.list.y = this.itemY0;
+            }
         }
         loadDataMe() {
             LayaBlock.getUserRank().then((d) => {
@@ -583,7 +626,7 @@
                 this.lastItem.sn_txt.text = 'LAST';
             });
         }
-        loadData() {
+        loadData10() {
             LayaBlock.getRankTop10().then((d) => {
                 console.log(d, typeof d);
                 this.listData = [];
@@ -591,6 +634,29 @@
                     this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
                 }
                 this.list.array = this.listData;
+                this.loading = false;
+            });
+        }
+        loadData50() {
+            LayaBlock.getRankTop50().then((d) => {
+                console.log(d, typeof d);
+                this.listData = [];
+                for (let i in d) {
+                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
+                }
+                this.list.array = this.listData;
+                this.loading = false;
+            });
+        }
+        loadData100() {
+            LayaBlock.getGameRankTop50().then((d) => {
+                console.log(d, typeof d);
+                this.listData = [];
+                for (let i in d) {
+                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
+                }
+                this.list.array = this.listData;
+                this.loading = false;
             });
         }
     }
