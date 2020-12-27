@@ -2520,7 +2520,8 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          */
         static getRankTop50 = async () => {
             let req= new Laya.HttpRequest();
-            let version=this.version||await this.getGameVersion()
+            let version=this.version||await this.getGameVersion();
+            let that=this;
             return new Promise(function(resolve, reject){
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
 
@@ -2532,7 +2533,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                             id: index + 1,
 
                             address:  item["address"],
-                           addressShort:item["nickname"]|| this.addressSub(item["address"]),
+                           addressShort:item["nickname"]|| that.addressSub(item["address"]),
                             machine: parseInt(item["miningNum"]),
                             load: parseInt(item["obtainNum"]),
                         }
@@ -2554,6 +2555,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          */
         static  getGameRankTop50 = async () => {
             let req= new Laya.HttpRequest();
+            let that=this;
             return new Promise(function(resolve, reject){
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
                     console.log("getGameRankTop50===",data)
@@ -2564,7 +2566,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                             gameId: parseInt(item["gameid"]),
                             id: index + 1,
                             address: item["address"],
-                            addressShort:item["nickname"]|| this.addressSub(item["address"]),
+                            addressShort:item["nickname"]|| that.addressSub(item["address"]),
                             machine: parseInt(item["miningNum"]),
                             load: parseInt(item["obtainNum"]),
                         }
