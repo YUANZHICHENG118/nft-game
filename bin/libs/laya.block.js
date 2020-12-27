@@ -178,7 +178,8 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
         }
     ];
-    const socketUrl = dev?"ws://127.0.0.1/ws":"wss://api.cmblk.com/ws";
+    //const socketUrl = dev?"ws://127.0.0.1/ws":"wss://api.cmblk.com/ws";
+    const socketUrl = "wss://api.cmblk.com/ws";
     const apiUrl=dev?"":"https://api.cmblk.com";
     //交易所地址
     const exchangeUrl = "https://app.cmblk.com";
