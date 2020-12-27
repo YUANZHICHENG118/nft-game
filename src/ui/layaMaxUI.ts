@@ -58,16 +58,6 @@ export module ui {
         }
     }
     REG("ui.EmailUI",EmailUI);
-    export class ExchangePannelUI extends Scene {
-		public devPanel:Laya.Sprite;
-		public btnClose:Laya.Sprite;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("ExchangePannel");
-        }
-    }
-    REG("ui.ExchangePannelUI",ExchangePannelUI);
     export class HelpPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
@@ -118,6 +108,14 @@ export module ui {
         }
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
+    export class ItemRank0UI extends Scene {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemRank0");
+        }
+    }
+    REG("ui.ItemRank0UI",ItemRank0UI);
     export class MePannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
@@ -146,7 +144,11 @@ export module ui {
     export class RankPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
+		public rankType0:Laya.Image;
+		public rankType1:Laya.Image;
+		public titleGroup0:Laya.Sprite;
 		public title_txt:Laya.Label;
+		public rankType2:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

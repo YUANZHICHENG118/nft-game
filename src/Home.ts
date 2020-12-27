@@ -2,7 +2,6 @@ import AniMachine from "./AniMachine";
 import DataBus from "./DataBus";
 import DevPannel from "./DevPannel";
 import EmailPannel from "./EmailPannel";
-import ExchangePannel from "./ExchangePannel";
 import GameEvent from "./GameEvent";
 import HelpPannel from "./HelpPannel";
 import MePannel from "./MePannel";
@@ -18,7 +17,6 @@ export default class Home extends ui.HomeUI{
     private emailPannel:EmailPannel
 
     private mePannel:MePannel
-    private exChangePannel:ExchangePannel
     private rankPannel:RankPannel
     private setPannel:SetPannel
     private helpPannel:HelpPannel
@@ -58,11 +56,7 @@ export default class Home extends ui.HomeUI{
         //我的面板
         this.mePannel=new MePannel()
         this.addChild(this.mePannel);        
-        this.mePannel.visible=false; 
-        //交易面板
-        this.exChangePannel=new ExchangePannel()
-        this.addChild(this.exChangePannel);        
-        this.exChangePannel.visible=false;           
+        this.mePannel.visible=false;       
         //排行面板
         this.rankPannel=new RankPannel()
         this.addChild(this.rankPannel);        
@@ -169,13 +163,11 @@ export default class Home extends ui.HomeUI{
                 this.devPannel.initList();
                 break;
             case this.btnExchange:  
-                this.exChangePannel.visible=true              
+                Laya.Browser.window.location.href = LayaBlock.exchangeUrl
                 break;
             case this.btnRank:
                 this.rankPannel.visible=true
-                LayaBlock.getRankTop10().then((d:IRankTop[])=>{
-                    console.log(d);
-                })
+                this.rankPannel.initList()                
                 break;
             case this.btnMe:
                 this.mePannel.visible=true

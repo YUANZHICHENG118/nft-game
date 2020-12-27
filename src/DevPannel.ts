@@ -88,6 +88,9 @@ export default class DevPannel extends ui.DevPannelUI {
         this.updateList()
     }
     public initList(){        
+        if(this.hasInitList==true){
+            return
+        }
         this.devTypeArr = [1,2,3];
         this.selectColorArr=[1,2,3,4,5,6];
         this.sort='DESC';

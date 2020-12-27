@@ -76,15 +76,6 @@
         }
         ui.EmailUI = EmailUI;
         REG("ui.EmailUI", EmailUI);
-        class ExchangePannelUI extends Scene {
-            constructor() { super(); }
-            createChildren() {
-                super.createChildren();
-                this.loadScene("ExchangePannel");
-            }
-        }
-        ui.ExchangePannelUI = ExchangePannelUI;
-        REG("ui.ExchangePannelUI", ExchangePannelUI);
         class HelpPannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -112,6 +103,15 @@
         }
         ui.ItemEmailUI = ItemEmailUI;
         REG("ui.ItemEmailUI", ItemEmailUI);
+        class ItemRank0UI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemRank0");
+            }
+        }
+        ui.ItemRank0UI = ItemRank0UI;
+        REG("ui.ItemRank0UI", ItemRank0UI);
         class MePannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -231,6 +231,9 @@
             this.updateList();
         }
         initList() {
+            if (this.hasInitList == true) {
+                return;
+            }
             this.devTypeArr = [1, 2, 3];
             this.selectColorArr = [1, 2, 3, 4, 5, 6];
             this.sort = 'DESC';
@@ -404,18 +407,6 @@
         }
     }
 
-    class ExchangePannel extends ui.ExchangePannelUI {
-        constructor() { super(); }
-        onEnable() {
-            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
-        }
-        onDisable() {
-        }
-        closeClick() {
-            this.visible = false;
-        }
-    }
-
     class HelpPannel extends ui.HelpPannelUI {
         constructor() { super(); }
         onEnable() {
@@ -488,8 +479,14 @@
         }
     }
 
+    var List$2 = Laya.List;
     class RankPannel extends ui.RankPannelUI {
-        constructor() { super(); }
+        constructor() {
+            super();
+            this.sort = 'DESC';
+            this.list = new List$2();
+            this.hasInitList = false;
+        }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
         }
@@ -497,6 +494,28 @@
         }
         closeClick() {
             this.visible = false;
+        }
+        initList() {
+            if (this.hasInitList == true) {
+                return;
+            }
+            this.hasInitList = true;
+            this.sort = 'DESC';
+            this.rankType0.skin = 'gameimg/labBg1.png';
+            this.rankType1.skin = 'gameimg/labBg0.png';
+            this.rankType2.skin = 'gameimg/labBg0.png';
+            this.sort = 'ASC';
+            this.updateList();
+        }
+        updateList() {
+            this.loadData();
+        }
+        loadData() {
+            LayaBlock.getRankTop10().then((d) => {
+                console.log(d, typeof d);
+                this.listData = [];
+                this.list.array = this.listData;
+            });
         }
     }
 
@@ -530,9 +549,6 @@
                 this.mePannel = new MePannel();
                 this.addChild(this.mePannel);
                 this.mePannel.visible = false;
-                this.exChangePannel = new ExchangePannel();
-                this.addChild(this.exChangePannel);
-                this.exChangePannel.visible = false;
                 this.rankPannel = new RankPannel();
                 this.addChild(this.rankPannel);
                 this.rankPannel.visible = false;
@@ -682,13 +698,11 @@
                     this.devPannel.initList();
                     break;
                 case this.btnExchange:
-                    this.exChangePannel.visible = true;
+                    Laya.Browser.window.location.href = LayaBlock.exchangeUrl;
                     break;
                 case this.btnRank:
                     this.rankPannel.visible = true;
-                    LayaBlock.getRankTop10().then((d) => {
-                        console.log(d);
-                    });
+                    this.rankPannel.initList();
                     break;
                 case this.btnMe:
                     this.mePannel.visible = true;
