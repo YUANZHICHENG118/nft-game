@@ -163,7 +163,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
     ];
 
-    const dev=false;
+    const dev=true;
     //服务器选区
     const gameServer = [
         {
