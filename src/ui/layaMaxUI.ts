@@ -108,14 +108,14 @@ export module ui {
         }
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
-    export class ItemRank0UI extends Scene {
+    export class ItemRankUI extends Scene {
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("ItemRank0");
+            this.loadScene("ItemRank");
         }
     }
-    REG("ui.ItemRank0UI",ItemRank0UI);
+    REG("ui.ItemRankUI",ItemRankUI);
     export class MePannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
