@@ -121,6 +121,18 @@ export module ui {
         }
     }
     REG("ui.ItemRankUI",ItemRankUI);
+    export class ItemReturnedUI extends Scene {
+		public bg:Laya.Image;
+		public reward_txt:Laya.Label;
+		public nick_txt:Laya.Label;
+		public address_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemReturned");
+        }
+    }
+    REG("ui.ItemReturnedUI",ItemReturnedUI);
     export class MePannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
@@ -129,6 +141,12 @@ export module ui {
 		public tokenAmount_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
+		public rankType0:Laya.Image;
+		public rankType1:Laya.Image;
+		public rankType2:Laya.Image;
+		public titleGroup0:Laya.Sprite;
+		public title_txt:Laya.Label;
+		public titleGroup1:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

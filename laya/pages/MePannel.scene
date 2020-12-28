@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":19,
-    "selecteID":24,
+    "selectedBox":2,
+    "selecteID":53,
     "searchKey":"View",
     "props":{"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":27,
+    "maxID":54,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -284,15 +284,282 @@
         },
         {
             "x":15,
+            "type":"Image",
+            "searchKey":"Image,rankType0,rankType0",
+            "props":{"y":35,"x":44,"var":"rankType0","skin":"gameimg/labBg1.png","name":"rankType0"},
+            "nodeParent":2,
+            "label":"rankType0",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":33,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":21,"x":14,"width":182,"text":"基本信息","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
+                    "nodeParent":33,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":36,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,rankType1,rankType1",
+            "props":{"y":34,"x":279,"var":"rankType1","skin":"gameimg/labBg0.png","sizeGrid":"rankType1","name":"rankType1"},
+            "nodeParent":2,
+            "label":"rankType1",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":34,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":21,"x":14,"width":182,"text":"我的收益","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
+                    "nodeParent":34,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":37,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,rankType2,rankType2",
+            "props":{"y":34,"x":507,"var":"rankType2","skin":"gameimg/labBg0.png","sizeGrid":"rankType1","name":"rankType2"},
+            "nodeParent":2,
+            "label":"rankType2",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":35,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":21,"x":14,"width":182,"text":"返佣明细","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
+                    "nodeParent":35,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":38,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"UIView",
+            "source":"ItemReturned.scene",
+            "searchKey":"UIView",
+            "props":{"y":229,"x":849},
+            "nodeParent":2,
+            "label":"UIView",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":40,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,titleGroup0",
+            "props":{"y":157,"x":859,"var":"titleGroup0"},
+            "nodeParent":2,
+            "label":"titleGroup0",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":41,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,title_txt",
+                    "props":{"y":0,"x":11,"width":111,"var":"title_txt","text":"排名","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":41,
+                    "label":"title_txt",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":42,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":0,"x":222,"width":111,"text":"账号","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":41,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":43,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":0,"x":434,"width":111,"text":"运走量","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":41,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":44,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,titleGroup1",
+            "props":{"y":178,"x":-682,"var":"titleGroup1"},
+            "nodeParent":2,
+            "label":"titleGroup1",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":45,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":0,"x":11,"width":111,"text":"设备","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":45,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":46,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":0,"x":222,"width":111,"text":"挖矿/载重","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":45,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":47,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":0,"x":434,"width":111,"text":"收益","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":45,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":48,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":0,"x":560,"width":111,"text":"txId","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "nodeParent":45,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":49,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":72.5,"x":0,"width":121,"texture":"machine/m1_3.png","height":65},
+                    "nodeParent":45,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":50,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
             "type":"Label",
             "searchKey":"Label",
-            "props":{"y":43,"x":49,"width":653,"text":"我的","styleSkin":"comp/label.png","height":40,"fontSize":36,"font":"Microsoft YaHei","color":"#ffd9bb","align":"center"},
+            "props":{"y":259,"x":-443,"width":130,"text":"10/100","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#ffdbbf","align":"center"},
             "nodeParent":2,
             "label":"Label",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":26,
+            "compId":51,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label",
+            "props":{"y":259,"x":-273,"width":130,"text":"100","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#ffdbbf","align":"center"},
+            "nodeParent":2,
+            "label":"Label",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":52,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label",
+            "props":{"y":259,"x":-141,"width":130,"text":"0x43**$3","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#ffdbbf","align":"center"},
+            "nodeParent":2,
+            "label":"Label",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":53,
             "child":[
                 ]
         }],

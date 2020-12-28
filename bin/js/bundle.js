@@ -112,6 +112,15 @@
         }
         ui.ItemRankUI = ItemRankUI;
         REG("ui.ItemRankUI", ItemRankUI);
+        class ItemReturnedUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemReturned");
+            }
+        }
+        ui.ItemReturnedUI = ItemReturnedUI;
+        REG("ui.ItemReturnedUI", ItemReturnedUI);
         class MePannelUI extends View {
             constructor() { super(); }
             createChildren() {
