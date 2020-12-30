@@ -98,6 +98,14 @@ export module ui {
         }
     }
     REG("ui.HomeUI",HomeUI);
+    export class ItemCommissionUI extends View {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemCommission");
+        }
+    }
+    REG("ui.ItemCommissionUI",ItemCommissionUI);
     export class ItemEmailUI extends View {
 		public title_txt:Laya.Label;
 		public notie_txt:Laya.Label;
@@ -108,6 +116,14 @@ export module ui {
         }
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
+    export class ItemProfitUI extends View {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemProfit");
+        }
+    }
+    REG("ui.ItemProfitUI",ItemProfitUI);
     export class ItemRankUI extends Scene {
 		public bg:Laya.Image;
 		public snImg:Laya.Image;
@@ -136,17 +152,17 @@ export module ui {
     export class MePannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
+		public btn0:Laya.Image;
+		public btn1:Laya.Image;
+		public btn2:Laya.Image;
+		public group0:Laya.Sprite;
 		public nick_txt:Laya.Label;
 		public address_txt:Laya.Label;
 		public tokenAmount_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
-		public rankType0:Laya.Image;
-		public rankType1:Laya.Image;
-		public rankType2:Laya.Image;
-		public titleGroup0:Laya.Sprite;
-		public title_txt:Laya.Label;
-		public titleGroup1:Laya.Sprite;
+		public group1:Laya.Sprite;
+		public group2:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -196,4 +212,14 @@ export module ui {
         }
     }
     REG("ui.SetPannelUI",SetPannelUI);
+}
+export module ui.prefab {
+    export class profitPannelUI extends Scene {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("prefab/profitPannel");
+        }
+    }
+    REG("ui.prefab.profitPannelUI",profitPannelUI);
 }

@@ -94,6 +94,15 @@
         }
         ui.HomeUI = HomeUI;
         REG("ui.HomeUI", HomeUI);
+        class ItemCommissionUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemCommission");
+            }
+        }
+        ui.ItemCommissionUI = ItemCommissionUI;
+        REG("ui.ItemCommissionUI", ItemCommissionUI);
         class ItemEmailUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -103,6 +112,15 @@
         }
         ui.ItemEmailUI = ItemEmailUI;
         REG("ui.ItemEmailUI", ItemEmailUI);
+        class ItemProfitUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemProfit");
+            }
+        }
+        ui.ItemProfitUI = ItemProfitUI;
+        REG("ui.ItemProfitUI", ItemProfitUI);
         class ItemRankUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -157,6 +175,20 @@
         }
         ui.SetPannelUI = SetPannelUI;
         REG("ui.SetPannelUI", SetPannelUI);
+    })(ui || (ui = {}));
+    (function (ui) {
+        var prefab;
+        (function (prefab) {
+            class profitPannelUI extends Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("prefab/profitPannel");
+                }
+            }
+            prefab.profitPannelUI = profitPannelUI;
+            REG("ui.prefab.profitPannelUI", profitPannelUI);
+        })(prefab = ui.prefab || (ui.prefab = {}));
     })(ui || (ui = {}));
 
     var List = Laya.List;
@@ -429,10 +461,48 @@
     }
 
     class MePannel extends ui.MePannelUI {
-        constructor() { super(); }
+        constructor() {
+            super();
+            this.loading = false;
+            this.btnType = 0;
+        }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnCopyRef.on(Laya.Event.CLICK, this, this.copyRef);
+            this.btn0.on(Laya.Event.CLICK, this, this.btnClick);
+            this.btn1.on(Laya.Event.CLICK, this, this.btnClick);
+            this.btn2.on(Laya.Event.CLICK, this, this.btnClick);
+            this.group0.visible = true;
+            this.group1.visible = this.group2.visible = false;
+        }
+        btnClick(e) {
+            if (this.loading == true) {
+            }
+            let curBtn = e.currentTarget;
+            let selectBtnType = Number(curBtn.name.charAt(3));
+            console.log(this.btnType, selectBtnType);
+            if (this.btnType == selectBtnType) {
+                return;
+            }
+            else {
+                this.btnType = selectBtnType;
+            }
+            this.btn0.skin = this.btn1.skin = this.btn2.skin = 'gameimg/labBg0.png';
+            curBtn.skin = 'gameimg/labBg1.png';
+            this.group0.visible = this.group1.visible = this.group2.visible = false;
+            this['show' + this.btnType]();
+        }
+        show0() {
+            console.log('show0');
+            this.group0.visible = true;
+        }
+        show1() {
+            console.log('show1');
+            this.group1.visible = true;
+        }
+        show2() {
+            console.log('show2');
+            this.group2.visible = true;
         }
         copyRef() {
             eval('window.clipboardData.setData("text","hello")');

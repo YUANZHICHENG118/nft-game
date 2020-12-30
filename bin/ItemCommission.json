@@ -1,0 +1,1 @@
+{"type":"View","props":{"width":700,"height":100},"compId":2,"child":[{"type":"ItemReturned","props":{"y":0,"x":0,"runtime":"ui.ItemReturnedUI"},"compId":3}],"loadList":["ItemReturned.scene"],"loadList3D":[]}
