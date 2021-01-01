@@ -108,7 +108,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.updateList()
     }
 
-    loadData(params:IMachineSearch):void{        
+    loadData(params:IMachineSearch):void{   
         LayaBlock.getUserMachine(params).then((d:IMachine[])=>{
             console.log(d,typeof d)
             this.listData=[]

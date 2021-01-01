@@ -72,7 +72,7 @@ class Main {
 
 	//主游戏界面加载完成后的回调函数
     onProgress(pro:number):void{
-		console.log("加载了总文件的:"+pro*100+"%");
+		//console.log("加载了总文件的:"+pro*100+"%");
 		this.progressBar.value=pro;
 		if(this.progressBar.value==1)
 		{
@@ -88,7 +88,7 @@ class Main {
 
 	//进度条发生变化的时候触发下面的方法
     onChange(value:number):void{
-		console.log("进度: "+Math.floor(value*100)+"%");
+		//console.log("进度: "+Math.floor(value*100)+"%");
 	}
 
 	//加载完成后的回调函数

@@ -24,18 +24,15 @@ export default class Home extends ui.HomeUI{
     onEnable (): void {
         // 初始化 web3
         LayaBlock.initWeb3();
-        // 模拟激活游戏(进入游戏选区操作)
-        LayaBlock.getGameServer().then((d:IGameServer[])=>{
-            LayaBlock.activeGame(d[0],this.machineGo)
-            //初始化界面
-            this.initUI();
-            //初始化数据
-            this.DataInit();
-            //注册事件
-            this.addEvt();
-            //this.testBlock();
-        })
-
+        console.log('★gameServer:',DataBus.gameServer)
+        LayaBlock.activeGame(DataBus.gameServer,this.machineGo)
+        //初始化界面
+        this.initUI();
+        //初始化数据
+        this.DataInit();
+        //注册事件
+        this.addEvt();
+        //this.testBlock();
     }
     initUI=()=>{
         //设备面板

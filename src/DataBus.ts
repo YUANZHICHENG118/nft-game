@@ -4,6 +4,7 @@ export default class DataBus extends Laya.EventDispatcher {
 
     private static instance:DataBus = null;
     public static account:string='';
+    public static gameServer:IGameServer
     
     constructor() { super(); }
 

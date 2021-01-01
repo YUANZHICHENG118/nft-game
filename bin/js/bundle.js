@@ -380,12 +380,26 @@
     class EntrancePannel extends ui.EntrancePannelUI {
         constructor() { super(); }
         onEnable() {
+            LayaBlock.getGameServer().then((d) => {
+                console.log('gameServer:', d);
+                this.gameServerList = d;
+                var labels = [];
+                for (let i in d) {
+                    labels.push(d[i].name);
+                }
+                this.serverCombo.labels = labels.join();
+                if (labels.length == 1) {
+                    this.serverCombo.selectedIndex = 0;
+                    this.enterGame();
+                }
+            });
             this.btnEnter.on(Laya.Event.CLICK, this, this.enterGame);
         }
         onDisable() {
         }
         enterGame() {
-            console.log('xxx99');
+            console.log('★==========', this.gameServerList[this.serverCombo.selectedIndex]);
+            DataBus.gameServer = this.gameServerList[this.serverCombo.selectedIndex];
             Laya.Scene.closeAll();
             Laya.Scene.open('Home.scene');
         }
@@ -1014,12 +1028,11 @@
         }
         onEnable() {
             LayaBlock.initWeb3();
-            LayaBlock.getGameServer().then((d) => {
-                LayaBlock.activeGame(d[0], this.machineGo);
-                this.initUI();
-                this.DataInit();
-                this.addEvt();
-            });
+            console.log('★gameServer:', DataBus.gameServer);
+            LayaBlock.activeGame(DataBus.gameServer, this.machineGo);
+            this.initUI();
+            this.DataInit();
+            this.addEvt();
         }
         onComplete() {
         }
@@ -1127,7 +1140,6 @@
             Laya.stage.addChild(this.progressBar);
         }
         onProgress(pro) {
-            console.log("加载了总文件的:" + pro * 100 + "%");
             this.progressBar.value = pro;
             if (this.progressBar.value == 1) {
                 this.progressBar.value = pro * 392 / 400;
@@ -1135,7 +1147,6 @@
             }
         }
         onChange(value) {
-            console.log("进度: " + Math.floor(value * 100) + "%");
         }
         onLoad() {
             console.log('onLoad');
