@@ -11,4 +11,6 @@
    <item name="gameimg/bg.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
    <item name="gameimg/bg2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=20,20,20,20" picType="0" scale="0"/>
    <item name="gameimg/btnbg3.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=20,30,20,30" picType="0" scale="0"/>
+   <item name="loading" type="" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="comp/combobox.png" type="ComboBox" compress="0" pack="0" quality="80" props="sizeGrid=0,76,0,47" picType="0" scale="0"/>
 </res>

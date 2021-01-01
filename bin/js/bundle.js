@@ -157,6 +157,15 @@
         }
         ui.RankPannelUI = RankPannelUI;
         REG("ui.RankPannelUI", RankPannelUI);
+        class ServerPannelUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ServerPannel");
+            }
+        }
+        ui.ServerPannelUI = ServerPannelUI;
+        REG("ui.ServerPannelUI", ServerPannelUI);
         class SetPannelUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -1065,6 +1074,7 @@
             Laya.stage.screenMode = GameConfig.screenMode;
             Laya.stage.alignV = GameConfig.alignV;
             Laya.stage.alignH = GameConfig.alignH;
+            Laya.stage.bgColor = "#e4d6c3";
             Laya.URL.exportSceneToJson = GameConfig.exportSceneToJson;
             if (GameConfig.debug || Laya.Utils.getQueryString("debug") == "true")
                 Laya.enableDebugPanel();
@@ -1073,10 +1083,56 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError(true);
+            var pro_res = [
+                { url: "res/atlas/loading.atlas", type: Laya.Loader.ATLAS }
+            ];
+            Laya.loader.load(pro_res, Laya.Handler.create(this, this.onProLoaded));
+        }
+        onProLoaded() {
+            this.progressShow();
+            var res = [
+                { url: "res/atlas/comp.atlas", type: Laya.Loader.ATLAS },
+                { url: "res/atlas/gameimg.atlas", type: Laya.Loader.ATLAS },
+                { url: "res/atlas/machine.atlas", type: Laya.Loader.ATLAS },
+                { url: "gameimg/bg.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/bg0.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/color.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/menuBarIcon.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/rankbg0.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/rankbg1.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/shanX.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/tu.png", type: Laya.Loader.IMAGE },
+                { url: "gameimg/videoImg.png", type: Laya.Loader.IMAGE }
+            ];
+            Laya.loader.load(res, null, Laya.Handler.create(this, this.onProgress, null, false));
+        }
+        progressShow() {
+            this.progressBar = new Laya.ProgressBar("loading/progress.png");
+            this.progressBar.width = 400;
+            this.progressBar.pos(175, 600);
+            this.progressBar.sizeGrid = "16,16,16,16";
+            this.progressBar.bar.pos(4, 4);
+            Laya.stage.addChild(this.progressBar);
+        }
+        onProgress(pro) {
+            console.log("加载了总文件的:" + pro * 100 + "%");
+            this.progressBar.value = pro;
+            if (this.progressBar.value == 1) {
+                this.progressBar.value = pro * 392 / 400;
+                Laya.timer.once(100, this, this.onLoad);
+            }
+        }
+        onChange(value) {
+            console.log("进度: " + Math.floor(value * 100) + "%");
+        }
+        onLoad() {
+            console.log('onLoad');
+            Laya.stage.removeChild(this.progressBar);
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
+            Laya.AtlasInfoManager.enable("fileconfig.json");
         }
         onConfigLoaded() {
             GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);

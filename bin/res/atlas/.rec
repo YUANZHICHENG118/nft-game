@@ -1,4 +1,5 @@
 D .
+R 9697524A bg.mp3
 R 6DF0B46A DuiGou.prefab
 D comp
 P 316AD948 btn_close.png
@@ -41,6 +42,7 @@ P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
 D gameimg
 R B3ACFED7 bg.png
+R 3C2BB3AC bg0.png
 P 2A01246C bg1.png
 P 81F47862 bg2.png
 P 150DFCF6 bg3.png
@@ -66,6 +68,7 @@ P F4446E0A dev3_1.png
 P 298B1902 dev3_2.png
 P 26739261 duigou1.png
 P B81D1C3F duigou2.png
+P B87307BB enter.png
 P BD56AF4A icon1.png
 P BBABA4DA icon2.png
 P C331C533 icon3.png
@@ -101,6 +104,9 @@ P 944E19F4 sun.png
 R 4EBE398A tu.png
 R B35ED087 videoImg.png
 P 694A575A zhishipai.png
+D loading
+P C05839CD progress$bar.png
+P B017E53E progress.png
 D machine
 P E49B0ED4 m1_1.png
 P 0D3A1215 m1_2.png
