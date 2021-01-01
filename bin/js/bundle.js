@@ -112,15 +112,15 @@
         }
         ui.ItemEmailUI = ItemEmailUI;
         REG("ui.ItemEmailUI", ItemEmailUI);
-        class ItemProfitUI extends View {
+        class ItemIncomeUI extends View {
             constructor() { super(); }
             createChildren() {
                 super.createChildren();
-                this.loadScene("ItemProfit");
+                this.loadScene("ItemIncome");
             }
         }
-        ui.ItemProfitUI = ItemProfitUI;
-        REG("ui.ItemProfitUI", ItemProfitUI);
+        ui.ItemIncomeUI = ItemIncomeUI;
+        REG("ui.ItemIncomeUI", ItemIncomeUI);
         class ItemRankUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -130,15 +130,6 @@
         }
         ui.ItemRankUI = ItemRankUI;
         REG("ui.ItemRankUI", ItemRankUI);
-        class ItemReturnedUI extends Scene {
-            constructor() { super(); }
-            createChildren() {
-                super.createChildren();
-                this.loadScene("ItemReturned");
-            }
-        }
-        ui.ItemReturnedUI = ItemReturnedUI;
-        REG("ui.ItemReturnedUI", ItemReturnedUI);
         class MePannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -460,11 +451,60 @@
         }
     }
 
+    class ItemCommission extends ui.ItemCommissionUI {
+        constructor() { super(); this.width = 660; this.height = 80; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        setItem(sn, itemData) {
+            this.nick_txt.text = itemData.nick;
+            this.address_txt.text = itemData.address;
+            this.amount_txt.text = itemData.amount;
+            if (itemData.receive) {
+                this.receive_txt.text = '已领取';
+                this.btnReceive.skin = 'gameimg/smallBtn1.png';
+            }
+            else {
+                this.receive_txt.text = '领取';
+                this.btnReceive.skin = 'gameimg/smallBtn0.png';
+            }
+        }
+    }
+
+    class ItemIncome extends ui.ItemIncomeUI {
+        constructor() { super(); this.width = 660; this.height = 80; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        setItem(sn, itemData) {
+            this.id_txt.text = itemData.id;
+            this.machineNum_txt.text = itemData.machineNum;
+            this.reward_txt.text = itemData.ethReward + '/' + itemData.tokenReward;
+            if (itemData.receive) {
+                this.receive_txt.text = '已领取';
+                this.btnReceive.skin = 'gameimg/smallBtn1.png';
+            }
+            else {
+                this.receive_txt.text = '领取';
+                this.btnReceive.skin = 'gameimg/smallBtn0.png';
+            }
+        }
+    }
+
+    var List$2 = Laya.List;
+    var Handler$1 = Laya.Handler;
     class MePannel extends ui.MePannelUI {
         constructor() {
             super();
-            this.loading = false;
+            this.clicked1 = false;
+            this.clicked2 = false;
             this.btnType = 0;
+            this.list1 = new List$2();
+            this.list2 = new List$2();
+            this.itemX = 0;
+            this.itemY = 42;
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
@@ -474,10 +514,46 @@
             this.btn2.on(Laya.Event.CLICK, this, this.btnClick);
             this.group0.visible = true;
             this.group1.visible = this.group2.visible = false;
+            this.list1.itemRender = ItemIncome;
+            this.list1.repeatX = 1;
+            this.list1.x = this.itemX;
+            this.list1.y = this.itemY;
+            this.list1.height = 1100;
+            this.list1.width = 688;
+            this.list1.spaceX = 0;
+            this.list1.spaceY = 5;
+            this.list1.vScrollBarSkin = "";
+            this.list1.selectEnable = true;
+            this.list1.selectHandler = new Handler$1(this, this.onSelect1);
+            this.list1.renderHandler = new Handler$1(this, this.updateItem1);
+            this.list1.array = this.listData1;
+            this.group1.addChild(this.list1);
+            this.list2.itemRender = ItemCommission;
+            this.list2.repeatX = 1;
+            this.list2.x = this.itemX;
+            this.list2.y = this.itemY;
+            this.list2.height = 1100;
+            this.list2.width = 688;
+            this.list2.spaceX = 0;
+            this.list2.spaceY = 5;
+            this.list2.vScrollBarSkin = "";
+            this.list2.selectEnable = true;
+            this.list2.selectHandler = new Handler$1(this, this.onSelect2);
+            this.list2.renderHandler = new Handler$1(this, this.updateItem2);
+            this.list2.array = this.listData2;
+            this.group2.addChild(this.list2);
+        }
+        updateItem1(cell, index) {
+            cell.setItem(index, this.listData1[index]);
+        }
+        onSelect1(index) {
+        }
+        updateItem2(cell, index) {
+            cell.setItem(index, this.listData2[index]);
+        }
+        onSelect2(index) {
         }
         btnClick(e) {
-            if (this.loading == true) {
-            }
             let curBtn = e.currentTarget;
             let selectBtnType = Number(curBtn.name.charAt(3));
             console.log(this.btnType, selectBtnType);
@@ -499,10 +575,39 @@
         show1() {
             console.log('show1');
             this.group1.visible = true;
+            if (this.clicked1 == false) {
+                this.loadData1();
+            }
         }
         show2() {
             console.log('show2');
             this.group2.visible = true;
+            if (this.clicked2 == false) {
+                this.loadData2();
+            }
+        }
+        loadData1() {
+            this.clicked1 = true;
+            LayaBlock.getUserIncome().then((d) => {
+                console.log('我的收益', d);
+                this.listData1 = [];
+                for (let i in d) {
+                    this.listData1.push(d[i]);
+                }
+                this.list1.array = this.listData1;
+            });
+        }
+        loadData2() {
+            this.clicked2 = true;
+            let address = '123';
+            LayaBlock.getCommission(address).then((d) => {
+                console.log('返佣数据', d);
+                this.listData2 = [];
+                for (let i in d) {
+                    this.listData2.push(d[i]);
+                }
+                this.list2.array = this.listData2;
+            });
         }
         copyRef() {
             eval('window.clipboardData.setData("text","hello")');
@@ -601,13 +706,13 @@
         }
     }
 
-    var List$2 = Laya.List;
-    var Handler$1 = Laya.Handler;
+    var List$3 = Laya.List;
+    var Handler$2 = Laya.Handler;
     class RankPannel extends ui.RankPannelUI {
         constructor() {
             super();
             this.sort = 'DESC';
-            this.list = new List$2();
+            this.list = new List$3();
             this.hasInitList = false;
             this.listData = [];
             this.itemX = 30;
@@ -627,8 +732,8 @@
             this.list.spaceY = 10;
             this.list.vScrollBarSkin = "";
             this.list.selectEnable = true;
-            this.list.selectHandler = new Handler$1(this, this.onSelect);
-            this.list.renderHandler = new Handler$1(this, this.updateItem);
+            this.list.selectHandler = new Handler$2(this, this.onSelect);
+            this.list.renderHandler = new Handler$2(this, this.updateItem);
             this.list.array = this.listData;
             this.addChild(this.list);
             this.lastItem = new ItemRank();

@@ -1,4 +1,4 @@
-// v1.8.5
+// v1.8.6
 const ideModuleDir = global.ideModuleDir;
 const workSpaceDir = global.workSpaceDir;
 
@@ -113,6 +113,9 @@ function readFile(path) {
 }
 
 gulp.task("modifyMinJs_WX", ["openData_WX"], function() {
+	if (config.openDataZone) {
+		return;
+	}
 	// 如果保留了平台文件，如果同时取消使用min类库，就会出现文件引用不正确的问题
 	if (config.keepPlatformFile) {
 		let fileJsPath = path.join(releaseDir, "game.js");
@@ -130,6 +133,9 @@ gulp.task("modifyMinJs_WX", ["openData_WX"], function() {
 });
 
 gulp.task("version_WX", ["modifyMinJs_WX"], function() {
+	if (config.openDataZone) {
+		return;
+	}
 	// 如果保留了平台文件，如果同时开启版本管理，就会出现文件引用不正确的问题
 	if (config.keepPlatformFile) {
 		let fileJsPath = path.join(releaseDir, "game.js");

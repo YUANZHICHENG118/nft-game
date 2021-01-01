@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":54,
+    "selectedBox":41,
+    "selecteID":76,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":72,
+    "maxID":78,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -363,13 +363,13 @@
                                 ]
                         }]
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,group1",
-            "props":{"y":151,"x":56,"var":"group1"},
+            "props":{"y":140,"x":30,"width":688,"var":"group1","height":42},
             "nodeParent":2,
             "label":"group1",
             "isOpen":true,
@@ -382,7 +382,7 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":0,"x":11,"width":111,"text":"收益","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":0,"width":111,"text":"期数","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
                     "label":"Label",
                     "isDirectory":false,
@@ -396,7 +396,7 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":0,"x":222,"width":111,"text":"账号","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":132,"width":111,"text":"派出设备","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
                     "label":"Label",
                     "isDirectory":false,
@@ -410,7 +410,7 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":0,"x":434,"width":111,"text":"运走量","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":279,"width":206,"text":"收益(eth/cm)","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
                     "label":"Label",
                     "isDirectory":false,
@@ -420,13 +420,13 @@
                     "child":[
                         ]
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,group2",
-            "props":{"y":150,"x":57,"width":545,"var":"group2","height":42},
+            "props":{"y":140,"x":30,"width":688,"var":"group2","height":42},
             "nodeParent":2,
             "label":"group2",
             "isOpen":true,
@@ -439,13 +439,13 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":0,"x":11,"width":111,"text":"返佣","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":0,"width":111,"text":"昵称","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":41,
                     "label":"Label",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":42,
+                    "compId":75,
                     "child":[
                         ]
                 },
@@ -453,13 +453,13 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":0,"x":222,"width":111,"text":"账号","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":132,"width":279,"text":"地址","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":41,
                     "label":"Label",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":43,
+                    "compId":76,
                     "child":[
                         ]
                 },
@@ -467,13 +467,13 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label",
-                    "props":{"y":0,"x":434,"width":111,"text":"运走量","styleSkin":"comp/label.png","height":42,"fontSize":36,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":410,"width":122,"text":"奖励","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":41,
                     "label":"Label",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":44,
+                    "compId":77,
                     "child":[
                         ]
                 }],

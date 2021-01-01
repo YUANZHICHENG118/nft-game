@@ -99,6 +99,11 @@ export module ui {
     }
     REG("ui.HomeUI",HomeUI);
     export class ItemCommissionUI extends View {
+		public address_txt:Laya.Label;
+		public amount_txt:Laya.Label;
+		public nick_txt:Laya.Label;
+		public btnReceive:Laya.Image;
+		public receive_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -116,14 +121,19 @@ export module ui {
         }
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
-    export class ItemProfitUI extends View {
+    export class ItemIncomeUI extends View {
+		public machineNum_txt:Laya.Label;
+		public reward_txt:Laya.Label;
+		public id_txt:Laya.Label;
+		public btnReceive:Laya.Image;
+		public receive_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("ItemProfit");
+            this.loadScene("ItemIncome");
         }
     }
-    REG("ui.ItemProfitUI",ItemProfitUI);
+    REG("ui.ItemIncomeUI",ItemIncomeUI);
     export class ItemRankUI extends Scene {
 		public bg:Laya.Image;
 		public snImg:Laya.Image;
@@ -137,18 +147,6 @@ export module ui {
         }
     }
     REG("ui.ItemRankUI",ItemRankUI);
-    export class ItemReturnedUI extends Scene {
-		public bg:Laya.Image;
-		public reward_txt:Laya.Label;
-		public nick_txt:Laya.Label;
-		public address_txt:Laya.Label;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("ItemReturned");
-        }
-    }
-    REG("ui.ItemReturnedUI",ItemReturnedUI);
     export class MePannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
