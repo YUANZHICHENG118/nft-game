@@ -8,11 +8,11 @@
 window.screenOrientation = "sensor_landscape";
 
 //-----libs-begin-----
-loadLib("libs/laya.socket.js")
 loadLib("libs/laya.core.js")
 loadLib("libs/laya.particle.js")
 loadLib("libs/laya.ui.js")
 loadLib("libs/laya.physics.js")
+loadLib("libs/laya.socket.js")
 loadLib("libs/laya.block.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

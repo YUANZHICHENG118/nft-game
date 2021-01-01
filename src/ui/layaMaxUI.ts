@@ -58,6 +58,17 @@ export module ui {
         }
     }
     REG("ui.EmailUI",EmailUI);
+    export class EntrancePannelUI extends Scene {
+		public serverCombo:Laya.ComboBox;
+		public btnEnter:Laya.Sprite;
+		public enter_txt:Laya.Text;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("EntrancePannel");
+        }
+    }
+    REG("ui.EntrancePannelUI",EntrancePannelUI);
     export class HelpPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
@@ -197,17 +208,6 @@ export module ui {
         }
     }
     REG("ui.RankPannelUI",RankPannelUI);
-    export class ServerPannelUI extends View {
-		public serverCombo:Laya.ComboBox;
-		public btnEnter:Laya.Sprite;
-		public enter_txt:Laya.Text;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("ServerPannel");
-        }
-    }
-    REG("ui.ServerPannelUI",ServerPannelUI);
     export class SetPannelUI extends Scene {
 		public btnClose:Laya.Sprite;
 		public music0:Laya.CheckBox;

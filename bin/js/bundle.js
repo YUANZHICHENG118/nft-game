@@ -76,6 +76,15 @@
         }
         ui.EmailUI = EmailUI;
         REG("ui.EmailUI", EmailUI);
+        class EntrancePannelUI extends Scene {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("EntrancePannel");
+            }
+        }
+        ui.EntrancePannelUI = EntrancePannelUI;
+        REG("ui.EntrancePannelUI", EntrancePannelUI);
         class HelpPannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -157,15 +166,6 @@
         }
         ui.RankPannelUI = RankPannelUI;
         REG("ui.RankPannelUI", RankPannelUI);
-        class ServerPannelUI extends View {
-            constructor() { super(); }
-            createChildren() {
-                super.createChildren();
-                this.loadScene("ServerPannel");
-            }
-        }
-        ui.ServerPannelUI = ServerPannelUI;
-        REG("ui.ServerPannelUI", ServerPannelUI);
         class SetPannelUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -376,6 +376,20 @@
     Item.WID = 147;
     Item.HEI = 134;
     Item.machinaWid = [[230, 123], [293, 209], [312, 133]];
+
+    class EntrancePannel extends ui.EntrancePannelUI {
+        constructor() { super(); }
+        onEnable() {
+            this.btnEnter.on(Laya.Event.CLICK, this, this.enterGame);
+        }
+        onDisable() {
+        }
+        enterGame() {
+            console.log('xxx99');
+            Laya.Scene.closeAll();
+            Laya.Scene.open('Home.scene');
+        }
+    }
 
     class AniMachine extends ui.AniMachineUI {
         constructor() {
@@ -1002,9 +1016,6 @@
             LayaBlock.initWeb3();
             LayaBlock.getGameServer().then((d) => {
                 LayaBlock.activeGame(d[0], this.machineGo);
-                LayaBlock.getUserBase().then((d) => {
-                    console.log("userBase==", d);
-                });
                 this.initUI();
                 this.DataInit();
                 this.addEvt();
@@ -1045,6 +1056,7 @@
         static init() {
             var reg = Laya.ClassUtils.regClass;
             reg("DevPannel.ts", DevPannel);
+            reg("EntrancePannel.ts", EntrancePannel);
             reg("Home.ts", Home);
         }
     }
@@ -1054,7 +1066,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
-    GameConfig.startScene = "Home.scene";
+    GameConfig.startScene = "EntrancePannel.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;
