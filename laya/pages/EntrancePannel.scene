@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":4,
+    "selecteID":7,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"EntrancePannel.ts","height":1334},
     "nodeParent":-1,
-    "maxID":7,
+    "maxID":9,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -32,7 +32,7 @@
             "x":15,
             "type":"ComboBox",
             "searchKey":"ComboBox,serverCombo",
-            "props":{"y":420,"x":188,"width":373,"var":"serverCombo","skin":"comp/combobox.png","labels":"server1,server2","labelSize":33,"labelFont":"Microsoft YaHei","labelColors":"#956b50,#956b50,#956b50","itemSize":33,"itemColors":"#956b50,#956b50,#956b50","height":70},
+            "props":{"y":530,"x":113,"width":523,"var":"serverCombo","skin":"comp/combobox.png","labels":"server1,server2","labelSize":33,"labelFont":"Microsoft YaHei","labelColors":"#956b50,#956b50,#956b50","itemSize":33,"itemColors":"#956b50,#956b50,#956b50","height":70},
             "nodeParent":2,
             "label":"serverCombo",
             "isDirectory":false,
@@ -46,7 +46,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,btnEnter",
-            "props":{"y":608,"x":215,"var":"btnEnter","texture":"gameimg/enter.png"},
+            "props":{"y":648,"x":215,"var":"btnEnter","texture":"gameimg/enter.png"},
             "nodeParent":2,
             "label":"btnEnter",
             "isOpen":true,
@@ -69,6 +69,34 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,info_txt",
+            "props":{"y":115,"x":75,"wordWrap":true,"width":600,"var":"info_txt","text":"...","leading":10,"height":138,"fontSize":32,"font":"Microsoft YaHei","color":"#5c3e13","bold":true,"align":"left"},
+            "nodeParent":2,
+            "label":"info_txt",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":7,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":262,"x":297,"texture":"gameimg/gold.png"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":8,
+            "child":[
+                ]
         }],
     "animations":[
         {

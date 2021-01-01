@@ -62,6 +62,7 @@ export module ui {
 		public serverCombo:Laya.ComboBox;
 		public btnEnter:Laya.Sprite;
 		public enter_txt:Laya.Text;
+		public info_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
