@@ -86,7 +86,7 @@ interface IGameServer {
     approveAmount: number, //授权金额
     erc20TokenAddress:string,
     gameAddress:string,
-    erc1155TokenAddres:string
+    erc1155TokenAddress:string
 }
 
 
