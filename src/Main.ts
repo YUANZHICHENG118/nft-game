@@ -47,8 +47,8 @@ class Main {
 		 {url:"gameimg/rankbg1.png",type:Laya.Loader.IMAGE},
 		 {url:"gameimg/shanX.png",type:Laya.Loader.IMAGE},
 		 {url:"gameimg/tu.png",type:Laya.Loader.IMAGE},
-		 {url:"gameimg/videoImg.png",type:Laya.Loader.IMAGE}
-         //{url:"res/atlas/bg.mp3",type:Laya.Loader.SOUND},
+		 {url:"gameimg/videoImg.png",type:Laya.Loader.IMAGE},
+         {url:"sound/bg.mp3",type:Laya.Loader.SOUND},
 		 //{url:"res/atlas/hit.wav",type:Laya.Loader.SOUND}
 		 //fileconfig.json
         ];
@@ -81,8 +81,7 @@ class Main {
 			//延迟1秒再显示游戏主页面
 			this.progressBar.value=pro*392/400;
 			Laya.timer.once(100,this,this.onLoad);
-			//this.progressBar.visible = false;
-			// laya.media.SoundManager.playMusic("res/atlas/bg.mp3",0);       
+			//this.progressBar.visible = false;     
 		}
 	}
 
@@ -93,13 +92,9 @@ class Main {
 
 	//加载完成后的回调函数
     onLoad():void{
-		console.log('onLoad')
-		//laya.media.SoundManager.playMusic("res/atlas/bg.mp3",0);   
 		//移除进度条
 		Laya.stage.removeChild(this.progressBar);   
-	   // 实例化游戏开始界面
-		//GameMain.GameStart = new GamStart(); //注意哦，这里的GameStart是静态属性，所以访问的时候不能用this了，只能用GameMain类，
-		//Laya.stage.addChild(GameMain.GameStart);
+		Laya.SoundManager.playMusic("sound/bg.mp3",0);
 		//激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
 		Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
 	}

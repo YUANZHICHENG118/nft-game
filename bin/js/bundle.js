@@ -1139,7 +1139,8 @@
                 { url: "gameimg/rankbg1.png", type: Laya.Loader.IMAGE },
                 { url: "gameimg/shanX.png", type: Laya.Loader.IMAGE },
                 { url: "gameimg/tu.png", type: Laya.Loader.IMAGE },
-                { url: "gameimg/videoImg.png", type: Laya.Loader.IMAGE }
+                { url: "gameimg/videoImg.png", type: Laya.Loader.IMAGE },
+                { url: "sound/bg.mp3", type: Laya.Loader.SOUND },
             ];
             Laya.loader.load(res, null, Laya.Handler.create(this, this.onProgress, null, false));
         }
@@ -1161,8 +1162,8 @@
         onChange(value) {
         }
         onLoad() {
-            console.log('onLoad');
             Laya.stage.removeChild(this.progressBar);
+            Laya.SoundManager.playMusic("sound/bg.mp3", 0);
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {

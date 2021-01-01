@@ -1,5 +1,4 @@
 D .
-R 9697524A bg.mp3
 R 6DF0B46A DuiGou.prefab
 D comp
 P 316AD948 btn_close.png
@@ -145,3 +144,5 @@ P 223549DE m3_c3.png
 P 7FAB8C62 m3_c4.png
 P 6E4893C1 m3_c5.png
 P E10E509F m3_c6.png
+D sound
+R 9697524A bg.mp3
