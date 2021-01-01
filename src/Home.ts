@@ -27,9 +27,6 @@ export default class Home extends ui.HomeUI{
         // 模拟激活游戏(进入游戏选区操作)
         LayaBlock.getGameServer().then((d:IGameServer[])=>{
             LayaBlock.activeGame(d[0],this.machineGo)
-            LayaBlock.getUserBase().then((d:IUserBase)=>{
-                console.log("userBase==",d)
-            })
             //初始化界面
             this.initUI();
             //初始化数据
