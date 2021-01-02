@@ -2293,10 +2293,11 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         /**
          * 质押erc1155 派出设备挖矿
          * @param {} obj  {17:5,18:6}
+         * @param ()=>void
          * @param {number[]} amounts
          * @returns {Promise<ITransaction>}
          */
-        static  stakeTokenNft = async (obj) => {
+        static  stakeTokenNft = async (obj,call) => {
 
 
             let ids = Object.keys(obj).map((k) => parseInt(k));
@@ -2320,10 +2321,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 gasLimit: gasAmount
             }).on('transactionHash', (hash) => {
                 console.log("hash===", hash)
+                if(call)call({transactionHash:hash})
                 this.submitTx(gameId,this.account,ids,amounts,hash)
-                return new Promise(function (resolve, reject) {
-                    resolve({transactionHash:hash})
-                });
+               return {transactionHash:hash}
             }).on('confirmation', (confirmationNumber, receipt) => {
                 console.log("confirmationNumber===", confirmationNumber)
                 if(confirmationNumber>=12)receipt();
@@ -2333,10 +2333,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 this.getUserMachine();
                 return data;
             }).on('error', function (e, receipt) { // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
-                console.log("approve error===", e)
-                return new Promise(function (resolve, reject) {
-                    reject(e)
-                });
+
+                return e;
+
             });
 
         }
