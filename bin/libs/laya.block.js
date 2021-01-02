@@ -1913,7 +1913,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 amounts&&amounts.map((item,index)=>{
                     for(let i=0;i<parseInt(item);i++){
                         let car=this.getMachineAttribute(ids[index]);
-                        let obj={id:parseInt(ids[index]),type:car.type,color:car.color,nick:msg.body.nick||msg.body.address};
+                        let obj={id:parseInt(ids[index]),type:car.type,color:car.color,nick:msg.body.nick||this.addressSub(msg.body.address)};
                         cars.push(obj)
                     }
                 })
@@ -2720,8 +2720,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         /*************后台查询数据相关****************/
 
         static getGameLoadDec=()=>{
+            let lan=this.getLanguage();
             return new Promise(function(resolve, reject){
-                resolve({dec:gameLoadDec[this.lan]})
+                resolve({dec:gameLoadDec[lan]})
             });
         }
 
