@@ -2321,6 +2321,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             }).on('transactionHash', (hash) => {
                 console.log("hash===", hash)
                 this.submitTx(gameId,this.account,ids,amounts,hash)
+                return new Promise(function (resolve, reject) {
+                    resolve({transactionHash:hash})
+                });
             }).on('confirmation', (confirmationNumber, receipt) => {
                 console.log("confirmationNumber===", confirmationNumber)
                 if(confirmationNumber>=12)receipt();
