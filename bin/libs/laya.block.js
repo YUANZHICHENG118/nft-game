@@ -1757,7 +1757,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         constructor() {
             this.account = undefined;
             this.erc20TokenAddress = "";
-            this.erc1155TokenAddres = "";
+            this.erc1155TokenAddress = "";
             this.gameAddress = "";
             this.lan="zh-CN";
             this.erc20Token = {
@@ -1822,7 +1822,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
         // 初始化Token1155合约
         static token1155Contract = () => {
-            return this.baseContract(erc1155TokenABI, this.erc1155TokenAddres);
+            return this.baseContract(erc1155TokenABI, this.erc1155TokenAddress);
         }
         // 初始化web3
         static initWeb3 = () => {
@@ -1873,7 +1873,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          */
         static activeGame = async (game,machineGo) => {
             this.erc20TokenAddress = game.erc20TokenAddress;
-            this.erc1155TokenAddres = game.erc1155TokenAddres;
+            this.erc1155TokenAddress = game.erc1155TokenAddress;
             this.gameAddress = game.gameAddress;
             this.machineGo=machineGo;
             this.version = await  this.getGameVersion();
@@ -2752,7 +2752,6 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             let req= new Laya.HttpRequest();
             return new Promise(function(resolve, reject){
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
-                    debugger
                     resolve(data&&data.data)
                 });
                 req.once(Laya.Event.ERROR, this, (data)=>{
