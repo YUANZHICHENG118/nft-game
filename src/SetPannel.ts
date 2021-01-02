@@ -6,6 +6,10 @@ export default class SetPannel extends ui.SetPannelUI {
         'zh-CN':0,
         'en-US':1,
         'kr':2,
+
+        0:'zh-CN',
+        1:'en-US',
+        2:'kr'
     }
     constructor() { super(); }
     
@@ -20,6 +24,7 @@ export default class SetPannel extends ui.SetPannelUI {
     init():void{
         let language:string=LayaBlock.getLanguage()
         this.languageRadioGroup.selectedIndex=this.config[language]
+        console.log('language',language,this.languageRadioGroup.selectedIndex)
         this.musicRadioGroup.selectedIndex=0
         this.soundRadioGroup.selectedIndex=0
         this.gas_txt.text='10.0'
@@ -43,6 +48,7 @@ export default class SetPannel extends ui.SetPannelUI {
 
     languageRadioGroupChange():void{
         console.log(this.languageRadioGroup.selectedIndex)
+
         LayaBlock.setLanguage(this.config[this.languageRadioGroup.selectedIndex])
         //广播语言更改事件
     }

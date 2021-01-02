@@ -949,6 +949,9 @@
                 'zh-CN': 0,
                 'en-US': 1,
                 'kr': 2,
+                0: 'zh-CN',
+                1: 'en-US',
+                2: 'kr'
             };
         }
         onEnable() {
@@ -961,6 +964,7 @@
         init() {
             let language = LayaBlock.getLanguage();
             this.languageRadioGroup.selectedIndex = this.config[language];
+            console.log('language', language, this.languageRadioGroup.selectedIndex);
             this.musicRadioGroup.selectedIndex = 0;
             this.soundRadioGroup.selectedIndex = 0;
             this.gas_txt.text = '10.0';
