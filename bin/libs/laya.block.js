@@ -3,7 +3,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
     //加载时的描述
     let gameLoadDec = {
-        zh:'公园2020年',
+        zh:'公元2020年2月22日，在uniswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
         en:'abcd',
         kr:'abcd'
     };
