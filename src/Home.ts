@@ -119,7 +119,8 @@ export default class Home extends ui.HomeUI{
         this.emailPannel.loadData();
     }
     machineGo=(obj:any)=>{
-       // obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}
+        //obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}
+        console.log('machineGo',obj)
         let aniMachine:AniMachine=new AniMachine() 
         aniMachine.obj=obj;       
         aniMachine.scale(-0.5,0.5)
@@ -145,8 +146,7 @@ export default class Home extends ui.HomeUI{
     {
         //console.log("LabelName:" + label);
     }
-    
-    
+        
     menuClick(e:Laya.Event):void{
         let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
         this.selectBg.x=curBtn.x

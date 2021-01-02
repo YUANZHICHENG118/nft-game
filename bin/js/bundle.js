@@ -1074,6 +1074,7 @@
                 this.emailPannel.loadData();
             };
             this.machineGo = (obj) => {
+                console.log('machineGo', obj);
                 let aniMachine = new AniMachine();
                 aniMachine.obj = obj;
                 aniMachine.scale(-0.5, 0.5);
