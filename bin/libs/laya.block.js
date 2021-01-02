@@ -2888,6 +2888,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             });
         }
 
+        static copy=(text)=>{
+
+        }
     }
     new LayaBlock();
     exports.blockChainUrl = blockChainUrl;
