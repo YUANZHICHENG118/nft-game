@@ -447,7 +447,7 @@ declare class LayaBlock {
      * @param {Object} obj {17:5,18:9}
      * @returns {Promise<ITransaction>}
      */
-    static stakeTokenNft(obj: Object): Promise<ITransaction>;
+    static stakeTokenNft(obj: Object): Promise<ITransaction| ITransactionError>;
 
 
     /**
