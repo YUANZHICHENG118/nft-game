@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":104,
+    "selectedBox":90,
+    "selecteID":92,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
-    "maxID":105,
+    "maxID":106,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -199,7 +199,8 @@
             "hasChild":false,
             "compId":19,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -264,16 +265,31 @@
             "props":{"y":21,"x":21,"width":704,"skin":"gameimg/numBg2.png","height":86},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":28,
             "child":[
                 {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":24,"x":30,"width":39,"texture":"gameimg/icon6.png","height":39},
+                    "nodeParent":28,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":105,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,gongGao_txt",
-                    "props":{"y":28,"x":54,"width":593,"var":"gongGao_txt","text":"公告","height":33,"fontSize":38,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "props":{"y":28,"x":88,"width":575,"var":"gongGao_txt","text":"公告","height":33,"fontSize":38,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                     "nodeParent":28,
                     "label":"gongGao_txt",
                     "isDirectory":false,
@@ -565,13 +581,14 @@
             "props":{"y":366,"x":-2},
             "nodeParent":2,
             "label":"Sprite",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":90,
             "child":[
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,shan",
                     "props":{"y":80,"x":201,"var":"shan","texture":"gameimg/shan.png","pivotY":150,"pivotX":100},
@@ -586,9 +603,10 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Animation",
                     "searchKey":"Animation",
-                    "props":{"y":58,"x":203,"source":"AniSmall.ani","autoPlay":true},
+                    "props":{"y":58,"x":203,"source":"AniSmall.ani","interval":80,"autoPlay":true},
                     "nodeParent":90,
                     "label":"Animation",
                     "isDirectory":false,
@@ -596,9 +614,11 @@
                     "hasChild":false,
                     "compId":95,
                     "child":[
-                        ]
+                        ],
+                    "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":41,"x":-17,"texture":"gameimg/tu.png","alpha":0.8},
