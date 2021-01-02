@@ -251,7 +251,9 @@
                 return;
             }
             console.log('obj', obj);
-            LayaBlock.stakeTokenNft(obj);
+            LayaBlock.stakeTokenNft(obj).then((d) => {
+                console.log('stakeTokenNft=====d:', d);
+            });
             this.closeClick();
             this.event(GameEvent.closePannel);
         }
@@ -1075,6 +1077,11 @@
             };
             this.machineGo = (obj) => {
                 console.log('machineGo', obj);
+                this.gongGao_txt.text = '玩家' + obj.nick + '派出车辆挖矿';
+                clearTimeout(this.timeoutGongGao);
+                this.timeoutGongGao = setTimeout(() => {
+                    this.gongGao_txt.text = '';
+                }, 10000);
                 let aniMachine = new AniMachine();
                 aniMachine.obj = obj;
                 aniMachine.scale(-0.5, 0.5);

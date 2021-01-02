@@ -20,6 +20,7 @@ export default class Home extends ui.HomeUI{
     private rankPannel:RankPannel
     private setPannel:SetPannel
     private helpPannel:HelpPannel
+    private timeoutGongGao:number
     constructor() { super();}    
     onEnable (): void {
         // 初始化 web3
@@ -121,6 +122,11 @@ export default class Home extends ui.HomeUI{
     machineGo=(obj:any)=>{
         //obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}
         console.log('machineGo',obj)
+        this.gongGao_txt.text='玩家'+obj.nick+'派出车辆挖矿'
+        clearTimeout(this.timeoutGongGao)
+        this.timeoutGongGao=setTimeout(() => {
+            this.gongGao_txt.text=''
+        }, 10000);
         let aniMachine:AniMachine=new AniMachine() 
         aniMachine.obj=obj;       
         aniMachine.scale(-0.5,0.5)
