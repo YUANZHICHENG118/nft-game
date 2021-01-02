@@ -10,19 +10,8 @@ interface IResult{
 
 // 游戏加载背景描述
 interface IGameLoadDec {
-    /**
-     * 中文
-     */
-    zh: string;
-    /**
-     * 英文
-     */
-    en: string;
 
-    /**
-     * 韩语
-     */
-    kr: string;
+    dec: string;
 
 }
 

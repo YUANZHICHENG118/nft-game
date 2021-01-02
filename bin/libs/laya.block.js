@@ -2721,7 +2721,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
         static getGameLoadDec=()=>{
             return new Promise(function(resolve, reject){
-                resolve(gameLoadDec[this.lan])
+                resolve({dec:gameLoadDec[this.lan]})
             });
         }
 
