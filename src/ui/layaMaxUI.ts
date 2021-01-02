@@ -46,22 +46,21 @@ export module ui {
         }
     }
     REG("ui.DevPannelUI",DevPannelUI);
-    export class EmailUI extends Dialog {
+    export class EmailPannelUI extends Dialog {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
-		public btnOk1:Laya.Image;
-		public btnOk2:Laya.Image;
+		public email_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("Email");
+            this.loadScene("EmailPannel");
         }
     }
-    REG("ui.EmailUI",EmailUI);
+    REG("ui.EmailPannelUI",EmailPannelUI);
     export class EntrancePannelUI extends Scene {
 		public serverCombo:Laya.ComboBox;
 		public btnEnter:Laya.Sprite;
-		public enter_txt:Laya.Text;
+		public start_txt:Laya.Text;
 		public info_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
@@ -84,6 +83,10 @@ export module ui {
     REG("ui.HelpPannelUI",HelpPannelUI);
     export class HomeUI extends Scene {
 		public selectBg:Laya.Sprite;
+		public nav1_txt:Laya.Label;
+		public nav2_txt:Laya.Label;
+		public nav3_txt:Laya.Label;
+		public nav4_txt:Laya.Label;
 		public btnDevice:Laya.Sprite;
 		public btnExchange:Laya.Sprite;
 		public btnRank:Laya.Sprite;
@@ -91,6 +94,7 @@ export module ui {
 		public btnSet:Laya.Sprite;
 		public btnHelp:Laya.Sprite;
 		public btnNotice:Laya.Sprite;
+		public notice_txt:Laya.Label;
 		public gongGao_txt:Laya.Label;
 		public test_btn:Laya.Sprite;
 		public mine_txt:Laya.Label;
@@ -102,7 +106,9 @@ export module ui {
 		public mount_mask:Laya.Sprite;
 		public shan:Laya.Sprite;
 		public btnEmail:Laya.Sprite;
+		public email_txt:Laya.Label;
 		public btnChat:Laya.Sprite;
+		public chat_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -172,7 +178,6 @@ export module ui {
 		public address_txt:Laya.Label;
 		public ethAmount_txt:Laya.Label;
 		public tokenAmount_txt:Laya.Label;
-		public tokenSymbol_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
 		public copy_txt:Laya.Label;
@@ -185,20 +190,22 @@ export module ui {
         }
     }
     REG("ui.MePannelUI",MePannelUI);
-    export class NoticeUI extends Scene {
+    export class NoticePannelUI extends Scene {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
 		public btnOk:Laya.Image;
+		public home_0_txt:Laya.Label;
 		public title_txt:Laya.Label;
+		public notice_txt:Laya.Label;
 		public content_txt:Laya.TextArea;
 		public time_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("Notice");
+            this.loadScene("NoticePannel");
         }
     }
-    REG("ui.NoticeUI",NoticeUI);
+    REG("ui.NoticePannelUI",NoticePannelUI);
     export class RankPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;

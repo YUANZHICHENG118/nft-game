@@ -4,6 +4,7 @@ import DevPannel from "./DevPannel";
 import EmailPannel from "./EmailPannel";
 import GameEvent from "./GameEvent";
 import HelpPannel from "./HelpPannel";
+import Langue from "./Langue";
 import MePannel from "./MePannel";
 import NoticePannel from "./NoticePannel";
 import RankPannel from "./RankPannel";
@@ -65,6 +66,8 @@ export default class Home extends ui.HomeUI{
         this.helpPannel=new HelpPannel()
         this.addChild(this.helpPannel);        
         this.helpPannel.visible=false;  
+
+        this.onLanguage()
     }
     DataInit=()=>{
         //获取矿山数据
@@ -91,15 +94,30 @@ export default class Home extends ui.HomeUI{
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnMe.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
-        this.devPannel.on(GameEvent.closePannel,this,this.closePannel)
+        this.devPannel.on(GameEvent.CLOSE_PANNEL,this,this.closePannel)
         this.btnNotice.on(Laya.Event.CLICK,this,this.showNoticePannel)
         this.btnEmail.on(Laya.Event.CLICK,this,this.showEmailPannel)
         this.btnHelp.on(Laya.Event.CLICK,this,this.showHelpPannel)
         this.btnSet.on(Laya.Event.CLICK,this,this.showSetPannel)
+        this.btnChat.on(Laya.Event.CLICK,this,this.btnChatClick)
+        this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.test_btn.on(Laya.Event.CLICK,this,this.test)     
     }
     test=()=>{
         this.machineGo({})
+    }
+    onLanguage=()=>{
+        //切换语言
+        //console.log('当前语言：',Langue.defaultLangue)
+        let arr=['notice','email','chat','nav1','nav2','nav3','nav4']
+        for(let i in arr){
+            let txtName:string=arr[i]
+            console.log(txtName+'_txt')
+            this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
+        }        
+    }
+    btnChatClick=()=>{
+        alert('敬请期待')
     }
     closePannel=()=>{
         this.selectBg.x=-300;

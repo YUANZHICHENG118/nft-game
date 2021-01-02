@@ -1,7 +1,10 @@
+import DataBus from "./DataBus";
+import GameEvent from "./GameEvent";
+import Langue from "./Langue";
 import { ui } from "./ui/layaMaxUI";
 
 export default class SetPannel extends ui.SetPannelUI {
-    
+    private dataBus:DataBus=DataBus.getDataBus()
     private config:object={
         'zh-CN':0,
         'en-US':1,
@@ -49,9 +52,11 @@ export default class SetPannel extends ui.SetPannelUI {
 
     languageRadioGroupChange():void{
         console.log(this.languageRadioGroup.selectedIndex)
-
-        LayaBlock.setLanguage(this.config[this.languageRadioGroup.selectedIndex])
+        let lang:string=this.config[this.languageRadioGroup.selectedIndex]
+        LayaBlock.setLanguage(lang)
+        Langue.setLanguage(lang)
         //广播语言更改事件
+        this.dataBus.event(GameEvent.LANGUAGE_CHANGE)
     }
 
     onDisable(): void {

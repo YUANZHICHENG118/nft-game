@@ -1,5 +1,7 @@
 export default class Langue extends Laya.EventDispatcher {
-    private static cn = {
+    public static defaultLangue={}
+    public static cn = {
+        start:'开始',
         ok: '确定',
         close: '关闭',
         notice: '公告',
@@ -36,7 +38,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav4_8: '复制'
 
     }
-    private static en = {
+    public static en = {
+        start:'start',
         ok: 'OK',
         close: 'Close',
         notice: 'Announcement',
@@ -72,7 +75,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav4_7: 'Invitation link',
         nav4_8: 'copy'
     }
-    private static kr = {
+    public static kr = {
+        start:'start',
         ok: '확인',
         close: '닫기',
         notice: '발표',
@@ -111,6 +115,16 @@ export default class Langue extends Laya.EventDispatcher {
 
     constructor() {
         super();
+    }
+
+    public static setLanguage(lang:string){
+        if(lang=='zh-CN'){
+            Langue.defaultLangue=Langue.cn
+        }else if(lang=='en-US'){
+            Langue.defaultLangue=Langue.en
+        }else if(lang=='kr'){
+            Langue.defaultLangue=Langue.kr
+        }
     }
 
 }

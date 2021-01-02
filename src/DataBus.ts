@@ -27,7 +27,7 @@ export default class DataBus extends Laya.EventDispatcher {
 
     public onGameData(data){   
         console.log('DataBus收到数据：',data); 
-        this.event(GameEvent.flag1,data)
+        this.event(GameEvent.FLAG1,data)
     }
 
     onDisable(): void {

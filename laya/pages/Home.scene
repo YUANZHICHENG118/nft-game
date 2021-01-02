@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":28,
-    "selecteID":47,
+    "selectedBox":7,
+    "selecteID":80,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
@@ -65,18 +65,19 @@
             "props":{"y":1171,"x":68.5,"texture":"gameimg/menuBarIcon.png"},
             "nodeParent":2,
             "label":"Sprite",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":7,
             "child":[
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":108,"x":17,"width":100,"text":"设备","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
+                    "searchKey":"Label,nav1_txt",
+                    "props":{"y":108,"x":17,"width":100,"var":"nav1_txt","text":"设备","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
                     "nodeParent":7,
-                    "label":"Label",
+                    "label":"nav1_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -85,11 +86,12 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":109,"x":181,"width":100,"text":"交易","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
+                    "searchKey":"Label,nav2_txt",
+                    "props":{"y":109,"x":181,"width":100,"var":"nav2_txt","text":"交易","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
                     "nodeParent":7,
-                    "label":"Label",
+                    "label":"nav2_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -98,11 +100,12 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":109,"x":355,"width":100,"text":"排行榜","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
+                    "searchKey":"Label,nav3_txt",
+                    "props":{"y":109,"x":355,"width":100,"var":"nav3_txt","text":"排行榜","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
                     "nodeParent":7,
-                    "label":"Label",
+                    "label":"nav3_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -111,11 +114,12 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":108,"x":513,"width":100,"text":"我的","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
+                    "searchKey":"Label,nav4_txt",
+                    "props":{"y":108,"x":513,"width":100,"var":"nav4_txt","text":"我的","strokeColor":"#360101","stroke":4,"height":28,"fontSize":24,"font":"Microsoft YaHei","color":"#ddad87","align":"center"},
                     "nodeParent":7,
-                    "label":"Label",
+                    "label":"nav4_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -137,7 +141,7 @@
             "compId":9,
             "child":[
                 ],
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -153,7 +157,7 @@
             "child":[
                 ],
             "$LOCKED":false,
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -169,7 +173,7 @@
             "child":[
                 ],
             "$LOCKED":false,
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -185,13 +189,13 @@
             "child":[
                 ],
             "$LOCKED":false,
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,btnSet",
-            "props":{"y":353,"x":631.5,"var":"btnSet","texture":"gameimg/btnSet.png"},
+            "props":{"y":289,"x":636,"var":"btnSet","texture":"gameimg/btnSet.png"},
             "nodeParent":2,
             "label":"btnSet",
             "isDirectory":false,
@@ -206,7 +210,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,btnHelp",
-            "props":{"y":242,"x":631.5,"var":"btnHelp","texture":"gameimg/btnHelp.png"},
+            "props":{"y":178,"x":635.5,"var":"btnHelp","texture":"gameimg/btnHelp.png"},
             "nodeParent":2,
             "label":"btnHelp",
             "isDirectory":false,
@@ -246,10 +250,10 @@
                 {
                     "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":18,"x":44,"width":82,"text":"公告","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "searchKey":"Label,notice_txt",
+                    "props":{"y":18,"x":44,"width":82,"var":"notice_txt","text":"公告","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                     "nodeParent":21,
-                    "label":"Label",
+                    "label":"notice_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -664,10 +668,10 @@
                 {
                     "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":18,"x":44,"width":82,"text":"邮件","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "searchKey":"Label,email_txt",
+                    "props":{"y":18,"x":44,"width":82,"var":"email_txt","text":"邮件","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                     "nodeParent":96,
-                    "label":"Label",
+                    "label":"email_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -680,7 +684,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,btnChat",
-            "props":{"y":172,"x":588.5,"var":"btnChat","texture":"gameimg/btnBg.png"},
+            "props":{"y":316,"x":20.5,"var":"btnChat","texture":"gameimg/btnBg.png"},
             "nodeParent":2,
             "label":"btnChat",
             "isOpen":true,
@@ -706,10 +710,10 @@
                 {
                     "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":18,"x":44,"width":82,"text":"聊天","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "searchKey":"Label,chat_txt",
+                    "props":{"y":18,"x":44,"width":82,"var":"chat_txt","text":"聊天","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                     "nodeParent":99,
-                    "label":"Label",
+                    "label":"chat_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,

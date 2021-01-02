@@ -76,7 +76,7 @@ export default class DevPannel extends ui.DevPannelUI {
 
         })
         this.closeClick()
-        this.event(GameEvent.closePannel)
+        this.event(GameEvent.LANGUAGE_CHANGE)
     }
     selectAllClick(e:Laya.Event){
         for(let i in this.listData){

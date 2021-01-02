@@ -1,4 +1,5 @@
 import DataBus from "./DataBus";
+import Langue from "./Langue";
 import { ui } from "./ui/layaMaxUI";
 
 export default class EntrancePannel extends ui.EntrancePannelUI {
@@ -27,12 +28,24 @@ export default class EntrancePannel extends ui.EntrancePannelUI {
                 d.dec='......'
             }
             this.info=d.dec
-
+            let lang:string=LayaBlock.getLanguage()
+            Langue.setLanguage(lang)
             console.log('game 描述：',d)
             Laya.timer.frameLoop(5,this,this.printWord)
+            this.onLanguage()
         })
         
         this.btnEnter.on(Laya.Event.CLICK,this,this.enterGame)        
+    }
+
+    onLanguage=()=>{
+        //切换语言
+        let arr=['start']
+        for(let i in arr){
+            let txtName:string=arr[i]
+            console.log(txtName+'_txt')
+            this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
+        }        
     }
 
     printWord():void{

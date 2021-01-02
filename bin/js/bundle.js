@@ -6,8 +6,9 @@
             super();
         }
     }
-    GameEvent.flag1 = "flag1";
-    GameEvent.closePannel = 'closePannel';
+    GameEvent.FLAG1 = "flag1";
+    GameEvent.CLOSE_PANNEL = 'closePannel';
+    GameEvent.LANGUAGE_CHANGE = 'languageChange';
 
     class DataBus extends Laya.EventDispatcher {
         constructor() {
@@ -26,7 +27,7 @@
         }
         onGameData(data) {
             console.log('DataBus收到数据：', data);
-            this.event(GameEvent.flag1, data);
+            this.event(GameEvent.FLAG1, data);
         }
         onDisable() {
         }
@@ -67,15 +68,15 @@
         }
         ui.DevPannelUI = DevPannelUI;
         REG("ui.DevPannelUI", DevPannelUI);
-        class EmailUI extends Dialog {
+        class EmailPannelUI extends Dialog {
             constructor() { super(); }
             createChildren() {
                 super.createChildren();
-                this.loadScene("Email");
+                this.loadScene("EmailPannel");
             }
         }
-        ui.EmailUI = EmailUI;
-        REG("ui.EmailUI", EmailUI);
+        ui.EmailPannelUI = EmailPannelUI;
+        REG("ui.EmailPannelUI", EmailPannelUI);
         class EntrancePannelUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -148,15 +149,15 @@
         }
         ui.MePannelUI = MePannelUI;
         REG("ui.MePannelUI", MePannelUI);
-        class NoticeUI extends Scene {
+        class NoticePannelUI extends Scene {
             constructor() { super(); }
             createChildren() {
                 super.createChildren();
-                this.loadScene("Notice");
+                this.loadScene("NoticePannel");
             }
         }
-        ui.NoticeUI = NoticeUI;
-        REG("ui.NoticeUI", NoticeUI);
+        ui.NoticePannelUI = NoticePannelUI;
+        REG("ui.NoticePannelUI", NoticePannelUI);
         class RankPannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -251,11 +252,13 @@
                 return;
             }
             console.log('obj', obj);
-            LayaBlock.stakeTokenNft(obj).then((d) => {
+            LayaBlock.stakeTokenNft(obj, (d) => { console.log("d------", d.message); }).then((d) => {
                 console.log('stakeTokenNft=====派车接口返回数据:', d);
+            }).catch((e) => {
+                console.log('error=====派车接口返回数据:', e.message);
             });
             this.closeClick();
-            this.event(GameEvent.closePannel);
+            this.event(GameEvent.LANGUAGE_CHANGE);
         }
         selectAllClick(e) {
             for (let i in this.listData) {
@@ -380,11 +383,148 @@
     Item.HEI = 134;
     Item.machinaWid = [[230, 123], [293, 209], [312, 133]];
 
+    class Langue extends Laya.EventDispatcher {
+        constructor() {
+            super();
+        }
+        static setLanguage(lang) {
+            if (lang == 'zh-CN') {
+                Langue.defaultLangue = Langue.cn;
+            }
+            else if (lang == 'en-US') {
+                Langue.defaultLangue = Langue.en;
+            }
+            else if (lang == 'kr') {
+                Langue.defaultLangue = Langue.kr;
+            }
+        }
+    }
+    Langue.defaultLangue = {};
+    Langue.cn = {
+        start: '开始',
+        ok: '确定',
+        close: '关闭',
+        notice: '公告',
+        email: '邮件',
+        chat: '聊天',
+        help: '帮助',
+        home_0: '我知道了',
+        home_1: '一键领取',
+        home_2: '一键读取',
+        nav1: '设备',
+        nav2: '交易',
+        nav3: '排行',
+        nav4: '我的',
+        nav1_1: '低',
+        nav1_2: '高',
+        nav1_3: '全选',
+        nav1_4: '自动匹配',
+        nav1_5: '总载重',
+        nav1_6: '总挖矿',
+        nav1_7: '预计收益',
+        nav1_8: '开始挖矿',
+        nav3_1: '当前',
+        nav3_2: '全网',
+        nav3_3: '排名',
+        nav3_4: '账号',
+        nav3_5: '运走量',
+        nav4_1: '基本信息',
+        nav4_2: '我的收益',
+        nav4_3: '返佣明细',
+        nav4_4: '昵称',
+        nav4_5: '我的地址',
+        nav4_6: '钱包',
+        nav4_7: '邀请链接',
+        nav4_8: '复制'
+    };
+    Langue.en = {
+        start: 'start',
+        ok: 'OK',
+        close: 'Close',
+        notice: 'Announcement',
+        email: 'Mail',
+        chat: 'Chat',
+        help: 'Help',
+        home_0: 'I got it',
+        home_1: 'One key to receive',
+        home_2: 'One-key reading',
+        nav1: 'device',
+        nav2: 'transaction',
+        nav3: 'ranking',
+        nav4: 'mine',
+        nav1_1: 'low',
+        nav1_2: 'High',
+        nav1_3: 'Select all',
+        nav1_4: 'Automatic matching',
+        nav1_5: 'total load',
+        nav1_6: 'Total mining',
+        nav1_7: 'Estimated income',
+        nav1_8: 'Start mining',
+        nav3_1: 'current',
+        nav3_2: 'full network',
+        nav3_3: 'rank',
+        nav3_4: 'Account',
+        nav3_5: 'shipping volume',
+        nav4_1: 'Basic Information',
+        nav4_2: 'My earnings',
+        nav4_3: 'Rebate details',
+        nav4_4: 'nickname',
+        nav4_5: 'My address',
+        nav4_6: 'Wallet',
+        nav4_7: 'Invitation link',
+        nav4_8: 'copy'
+    };
+    Langue.kr = {
+        start: 'start',
+        ok: '확인',
+        close: '닫기',
+        notice: '발표',
+        email: '우편',
+        chat: '채팅',
+        help: '도움말',
+        home_0: '알았어요',
+        home_1: '수신 할 하나의 열쇠',
+        home_2: '원키 읽기',
+        nav1: '장치',
+        nav2: '트랜잭션',
+        nav3: '순위',
+        nav4: '나의 것',
+        nav1_1: '낮은',
+        nav1_2: '높음',
+        nav1_3: '모두 선택',
+        nav1_4: '자동 일치',
+        nav1_5: '총 부하',
+        nav1_6: '총 채굴',
+        nav1_7: '예상 수입',
+        nav1_8: '채굴 시작',
+        nav3_1: '현재',
+        nav3_2: '전체 네트워크',
+        nav3_3: '순위',
+        nav3_4: '계정',
+        nav3_5: '배송량',
+        nav4_1: '기본 정보',
+        nav4_2: '내 수입',
+        nav4_3: '환급 내역',
+        nav4_4: '별명',
+        nav4_5: '내 주소',
+        nav4_6: '지갑',
+        nav4_7: '초대 링크',
+        nav4_8: '복사'
+    };
+
     class EntrancePannel extends ui.EntrancePannelUI {
         constructor() {
             super();
             this.info = '...';
             this.wordPos = 0;
+            this.onLanguage = () => {
+                let arr = ['start'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    console.log(txtName + '_txt');
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
         }
         onEnable() {
             LayaBlock.getGameServer().then((d) => {
@@ -404,8 +544,11 @@
                     d.dec = '......';
                 }
                 this.info = d.dec;
+                let lang = LayaBlock.getLanguage();
+                Langue.setLanguage(lang);
                 console.log('game 描述：', d);
                 Laya.timer.frameLoop(5, this, this.printWord);
+                this.onLanguage();
             });
             this.btnEnter.on(Laya.Event.CLICK, this, this.enterGame);
         }
@@ -451,30 +594,34 @@
     }
 
     var List$1 = Laya.List;
-    class EmailPannel extends ui.EmailUI {
+    class EmailPannel extends ui.EmailPannelUI {
         constructor() {
             super();
             this.list = new List$1();
-            this.hasInitList = false;
+            this.dataBus = DataBus.getDataBus();
+            this.onLanguage = () => {
+                let arr = ['email'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    console.log(txtName + '_txt');
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
             this.loadData = () => {
-                console.log('加载邮件', DataBus.account);
+                console.log('加载邮件参数：', DataBus.account);
                 LayaBlock.getEmail(DataBus.account).then((d) => {
-                    console.log('d:', d);
+                    console.log('邮件d:', d);
                     this.listData = [];
                     for (let i in d) {
                         this.listData.push({ id: d[i].id, title: d[i].title, time: d[i].time, content: d[i].content });
                     }
-                    console.log(this.listData);
                     this.list.array = this.listData;
                 });
             };
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
-            this.btnOk1.on(Laya.Event.CLICK, this, this.closeClick);
-            this.btnOk2.on(Laya.Event.CLICK, this, this.closeClick);
             this.list.itemRender = ItemEmail;
-            ;
             this.list.repeatX = 1;
             this.list.x = 45;
             this.list.y = 140;
@@ -484,7 +631,10 @@
             this.list.spaceY = 20;
             this.list.vScrollBarSkin = "";
             this.list.selectEnable = true;
+            this.list.array = [];
             this.addChild(this.list);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
         }
         updateItem(cell, index) {
         }
@@ -699,9 +849,8 @@
                     this.nick_txt.text = this.nick2_txt.text = d.nick;
                 }
                 this.address_txt.text = d.address;
-                this.ethAmount_txt.text = d.ethAmount + '';
-                this.tokenAmount_txt.text = d.tokenAmount + '';
-                this.tokenSymbol_txt.text = d.tokenSymbol + '';
+                this.ethAmount_txt.text = 'ETH:' + d.ethAmount;
+                this.tokenAmount_txt.text = d.tokenSymbol + ':' + d.tokenAmount;
                 this.ref_txt.text = d.ref;
                 this.nick2_txt;
             });
@@ -738,9 +887,18 @@
         return str;
     };
 
-    class NoticePannel extends ui.NoticeUI {
+    class NoticePannel extends ui.NoticePannelUI {
         constructor() {
             super();
+            this.dataBus = DataBus.getDataBus();
+            this.onLanguage = () => {
+                let arr = ['notice', 'home_0'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    console.log(txtName + '_txt');
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
             this.loadData = () => {
                 LayaBlock.getNotice().then((d) => {
                     console.log(d);
@@ -753,6 +911,8 @@
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnOk.on(Laya.Event.CLICK, this, this.closeClick);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
         }
         onDisable() {
         }
@@ -946,6 +1106,7 @@
     class SetPannel extends ui.SetPannelUI {
         constructor() {
             super();
+            this.dataBus = DataBus.getDataBus();
             this.config = {
                 'zh-CN': 0,
                 'en-US': 1,
@@ -989,7 +1150,10 @@
         }
         languageRadioGroupChange() {
             console.log(this.languageRadioGroup.selectedIndex);
-            LayaBlock.setLanguage(this.config[this.languageRadioGroup.selectedIndex]);
+            let lang = this.config[this.languageRadioGroup.selectedIndex];
+            LayaBlock.setLanguage(lang);
+            Langue.setLanguage(lang);
+            this.dataBus.event(GameEvent.LANGUAGE_CHANGE);
         }
         onDisable() {
         }
@@ -1025,6 +1189,7 @@
                 this.helpPannel = new HelpPannel();
                 this.addChild(this.helpPannel);
                 this.helpPannel.visible = false;
+                this.onLanguage();
             };
             this.DataInit = () => {
                 LayaBlock.getMineData().then((d) => {
@@ -1047,15 +1212,28 @@
                 this.btnExchange.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
                 this.btnRank.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
                 this.btnMe.on(Laya.Event.MOUSE_DOWN, this, this.menuClick);
-                this.devPannel.on(GameEvent.closePannel, this, this.closePannel);
+                this.devPannel.on(GameEvent.CLOSE_PANNEL, this, this.closePannel);
                 this.btnNotice.on(Laya.Event.CLICK, this, this.showNoticePannel);
                 this.btnEmail.on(Laya.Event.CLICK, this, this.showEmailPannel);
                 this.btnHelp.on(Laya.Event.CLICK, this, this.showHelpPannel);
                 this.btnSet.on(Laya.Event.CLICK, this, this.showSetPannel);
+                this.btnChat.on(Laya.Event.CLICK, this, this.btnChatClick);
+                this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
                 this.test_btn.on(Laya.Event.CLICK, this, this.test);
             };
             this.test = () => {
                 this.machineGo({});
+            };
+            this.onLanguage = () => {
+                let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    console.log(txtName + '_txt');
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
+            this.btnChatClick = () => {
+                alert('敬请期待');
             };
             this.closePannel = () => {
                 this.selectBg.x = -300;
