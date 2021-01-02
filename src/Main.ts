@@ -1,7 +1,8 @@
 import DataBus from "./DataBus";
 import GameConfig from "./GameConfig";
 class Main {
-	private progressBar:Laya.ProgressBar;  //进度条属性
+	private loadingPage:Laya.Sprite;
+	private loadingBar:Laya.Image;  //进度条
 	constructor() {
 		//根据IDE设置初始化引擎		
 		if (window["Laya3D"]) Laya3D.init(GameConfig.width, GameConfig.height);
@@ -58,42 +59,31 @@ class Main {
 
 	//显示开始游戏加载进度条
     progressShow():void{
-        //和text一样，需要先new一个进度条对象
-        this.progressBar = new Laya.ProgressBar("loading/progress.png");
-		this.progressBar.width = 400;
-        this.progressBar.pos(175,600);
-		this.progressBar.sizeGrid = "16,16,16,16";
-		this.progressBar.bar.pos(4,4)
-        //当进度条发生变化的时候，我们需要下面的方法来监听其变化
-        //this.progressBar.changeHandler = new Laya.Handler(this,this.onChange);
-        //添加进度条到舞台上
-        Laya.stage.addChild(this.progressBar);
+		this.loadingPage=new Laya.Sprite()
+		let loadingBg:Laya.Image=new Laya.Image("loading/loadingBg.png")
+		this.loadingBar=new Laya.Image('loading/loadingBar.png')
+		this.loadingBar.pos(359+18,544+141)
+		this.loadingBar.rotation=180
+
+		this.loadingPage.addChild(loadingBg)
+		this.loadingPage.addChild(this.loadingBar)
+        Laya.stage.addChild(this.loadingPage);
 	}
 
 	//主游戏界面加载完成后的回调函数
     onProgress(pro:number):void{
 		//console.log("加载了总文件的:"+pro*100+"%");
-		this.progressBar.value=pro;
-		if(this.progressBar.value==1)
+		this.loadingBar.scaleY=pro;
+		if(pro==1)
 		{
-			//游戏主页面资源加载完成后执行这里的代码
-			//console.log("游戏加载完成咯！！");
-			//延迟1秒再显示游戏主页面
-			this.progressBar.value=pro*392/400;
-			Laya.timer.once(100,this,this.onLoad);
-			//this.progressBar.visible = false;     
+			Laya.timer.once(10,this,this.onLoad);
 		}
-	}
-
-	//进度条发生变化的时候触发下面的方法
-    onChange(value:number):void{
-		//console.log("进度: "+Math.floor(value*100)+"%");
 	}
 
 	//加载完成后的回调函数
     onLoad():void{
 		//移除进度条
-		Laya.stage.removeChild(this.progressBar);   
+		Laya.stage.removeChild(this.loadingPage);   
 		Laya.SoundManager.playMusic("sound/bg.mp3",0);
 		//激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
 		Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);

@@ -211,10 +211,10 @@ export module ui {
     REG("ui.RankPannelUI",RankPannelUI);
     export class SetPannelUI extends Scene {
 		public btnClose:Laya.Sprite;
-		public music0:Laya.CheckBox;
-		public music1:Laya.CheckBox;
-		public sound0:Laya.CheckBox;
-		public sound1:Laya.CheckBox;
+		public musicRadioGroup:Laya.RadioGroup;
+		public soundRadioGroup:Laya.RadioGroup;
+		public languageRadioGroup:Laya.RadioGroup;
+		public gas_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

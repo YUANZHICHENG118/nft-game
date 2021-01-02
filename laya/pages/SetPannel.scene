@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":4,
+    "selectedBox":57,
+    "selecteID":74,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","height":1334,"color":"#ffdbbf"},
     "nodeParent":-1,
-    "maxID":68,
+    "maxID":75,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -143,29 +143,15 @@
                 },
                 {
                     "x":30,
-                    "type":"CheckBox",
-                    "searchKey":"CheckBox,music0",
-                    "props":{"y":15,"x":465,"var":"music0","skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"关"},
+                    "type":"RadioGroup",
+                    "searchKey":"RadioGroup,musicRadioGroup",
+                    "props":{"y":18,"x":240,"var":"musicRadioGroup","skin":"comp/radiogroup.png","scaleY":0.7,"scaleX":0.7,"labels":"开          ,关","labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf"},
                     "nodeParent":28,
-                    "label":"music0",
+                    "label":"musicRadioGroup",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":55,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"CheckBox",
-                    "searchKey":"CheckBox,music1",
-                    "props":{"y":15,"x":246,"var":"music1","skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"开"},
-                    "nodeParent":28,
-                    "label":"music1",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":56,
+                    "compId":68,
                     "child":[
                         ]
                 }]
@@ -213,29 +199,15 @@
                 },
                 {
                     "x":30,
-                    "type":"CheckBox",
-                    "searchKey":"CheckBox,sound0",
-                    "props":{"y":15,"x":465,"var":"sound0","skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"关"},
+                    "type":"RadioGroup",
+                    "searchKey":"RadioGroup,soundRadioGroup",
+                    "props":{"y":17,"x":241,"var":"soundRadioGroup","skin":"comp/radiogroup.png","scaleY":0.7,"scaleX":0.7,"labels":"开          ,关","labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf"},
                     "nodeParent":29,
-                    "label":"sound0",
+                    "label":"soundRadioGroup",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":33,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"CheckBox",
-                    "searchKey":"CheckBox,sound1",
-                    "props":{"y":15,"x":246,"var":"sound1","skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"开"},
-                    "nodeParent":29,
-                    "label":"sound1",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":54,
+                    "compId":70,
                     "child":[
                         ]
                 }]
@@ -310,43 +282,15 @@
                         },
                         {
                             "x":45,
-                            "type":"CheckBox",
-                            "searchKey":"CheckBox",
-                            "props":{"y":15,"x":259.5,"skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"English"},
+                            "type":"RadioGroup",
+                            "searchKey":"RadioGroup,languageRadioGroup",
+                            "props":{"y":16,"x":23,"var":"languageRadioGroup","skin":"comp/radiogroup.png","scaleY":0.7,"scaleX":0.7,"labels":"中文      ,English      ,한국어.","labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf"},
                             "nodeParent":62,
-                            "label":"CheckBox",
+                            "label":"languageRadioGroup",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
-                            "compId":65,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"CheckBox",
-                            "searchKey":"CheckBox",
-                            "props":{"y":15,"x":32,"skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"中文"},
-                            "nodeParent":62,
-                            "label":"CheckBox",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":66,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"CheckBox",
-                            "searchKey":"CheckBox",
-                            "props":{"y":15,"x":471,"skin":"comp/check_circle.png","scaleY":0.7,"scaleX":0.7,"labelSize":44,"labelPadding":"15,30,0,30","labelFont":"Microsoft YaHei","labelColors":"#ffdbbf,#ffdbbf,#ffdbbf","label":"한국어."},
-                            "nodeParent":62,
-                            "label":"CheckBox",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":67,
+                            "compId":73,
                             "child":[
                                 ]
                         }]
@@ -377,6 +321,20 @@
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":58,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,gas_txt",
+                    "props":{"y":19.5,"x":21.5,"width":653,"var":"gas_txt","text":"0","styleSkin":"comp/label.png","height":40,"fontSize":36,"font":"Microsoft YaHei","color":"#ffdbbf","align":"center"},
+                    "nodeParent":57,
+                    "label":"gas_txt",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":74,
                     "child":[
                         ]
                 }]

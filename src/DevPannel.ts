@@ -46,7 +46,9 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list.selectEnable = true;
         this.list.selectHandler = new Handler(this, this.onSelect);
         this.list.renderHandler = new Handler(this, this.updateItem);
-        this.addChild(this.list) 
+        this.addChild(this.list)
+        
+        this.stakeTokenNft_btn.disabled=false
     }
     stakeTokenNft(){
         var machineNum=0;

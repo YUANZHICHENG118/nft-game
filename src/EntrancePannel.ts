@@ -21,6 +21,12 @@ export default class EntrancePannel extends ui.EntrancePannelUI {
                 //this.enterGame();
             }
         })
+        //加载游戏描述
+        /*
+        LayaBlock.getGameLoadDec().then((d:IGameLoadDec)=>{
+            console.log('==============',d)
+        })
+        */
         this.btnEnter.on(Laya.Event.CLICK,this,this.enterGame)
         Laya.timer.frameLoop(5,this,this.printWord)
     }

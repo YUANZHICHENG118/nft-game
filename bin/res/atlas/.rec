@@ -105,8 +105,8 @@ R 4EBE398A tu.png
 R B35ED087 videoImg.png
 P 694A575A zhishipai.png
 D loading
-P C05839CD progress$bar.png
-P B017E53E progress.png
+P CC353EEB loadingBar.png
+R DD4A67E2 loadingBg.png
 D machine
 P E49B0ED4 m1_1.png
 P 0D3A1215 m1_2.png

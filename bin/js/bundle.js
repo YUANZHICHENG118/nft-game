@@ -229,6 +229,7 @@
             this.list.selectHandler = new Handler(this, this.onSelect);
             this.list.renderHandler = new Handler(this, this.updateItem);
             this.addChild(this.list);
+            this.stakeTokenNft_btn.disabled = false;
         }
         stakeTokenNft() {
             var machineNum = 0;
@@ -912,6 +913,18 @@
         constructor() { super(); }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.musicRadioGroup.on(Laya.Event.CHANGE, this, this.musicRadioGroupChange);
+            this.soundRadioGroup.on(Laya.Event.CHANGE, this, this.soundRadioGroupChange);
+            this.languageRadioGroup.on(Laya.Event.CHANGE, this, this.languageRadioGroupChange);
+        }
+        musicRadioGroupChange() {
+            console.log(this.musicRadioGroup.selectedIndex);
+        }
+        soundRadioGroupChange() {
+            console.log(this.soundRadioGroup.selectedIndex);
+        }
+        languageRadioGroupChange() {
+            console.log(this.languageRadioGroup.selectedIndex);
         }
         onDisable() {
         }
@@ -1145,24 +1158,23 @@
             Laya.loader.load(res, null, Laya.Handler.create(this, this.onProgress, null, false));
         }
         progressShow() {
-            this.progressBar = new Laya.ProgressBar("loading/progress.png");
-            this.progressBar.width = 400;
-            this.progressBar.pos(175, 600);
-            this.progressBar.sizeGrid = "16,16,16,16";
-            this.progressBar.bar.pos(4, 4);
-            Laya.stage.addChild(this.progressBar);
+            this.loadingPage = new Laya.Sprite();
+            let loadingBg = new Laya.Image("loading/loadingBg.png");
+            this.loadingBar = new Laya.Image('loading/loadingBar.png');
+            this.loadingBar.pos(359 + 18, 544 + 141);
+            this.loadingBar.rotation = 180;
+            this.loadingPage.addChild(loadingBg);
+            this.loadingPage.addChild(this.loadingBar);
+            Laya.stage.addChild(this.loadingPage);
         }
         onProgress(pro) {
-            this.progressBar.value = pro;
-            if (this.progressBar.value == 1) {
-                this.progressBar.value = pro * 392 / 400;
-                Laya.timer.once(100, this, this.onLoad);
+            this.loadingBar.scaleY = pro;
+            if (pro == 1) {
+                Laya.timer.once(10, this, this.onLoad);
             }
         }
-        onChange(value) {
-        }
         onLoad() {
-            Laya.stage.removeChild(this.progressBar);
+            Laya.stage.removeChild(this.loadingPage);
             Laya.SoundManager.playMusic("sound/bg.mp3", 0);
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
