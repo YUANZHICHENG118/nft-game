@@ -3,9 +3,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
     //加载时的描述
     let gameLoadDec = {
-        zh:'公元2020年2月22日，在uniswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
-        en:'abcd',
-        kr:'abcd'
+        'zh-CN':'公元2020年2月22日，在uniswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
+        'en-US':'abcd',
+        'kr':'abcd'
     };
 
 // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
@@ -1877,6 +1877,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             this.gameAddress = game.gameAddress;
             this.machineGo=machineGo;
             this.version = await  this.getGameVersion();
+            this.lan="zh-CN";
             this.erc20Token = {
                 name: game.name,
                 symbol: game.symbol,
@@ -2720,7 +2721,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
         static getGameLoadDec=()=>{
             return new Promise(function(resolve, reject){
-                resolve(gameLoadDec)
+                resolve(gameLoadDec[this.lan])
             });
         }
 
