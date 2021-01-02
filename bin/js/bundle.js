@@ -252,7 +252,7 @@
             }
             console.log('obj', obj);
             LayaBlock.stakeTokenNft(obj).then((d) => {
-                console.log('stakeTokenNft=====d:', d);
+                console.log('stakeTokenNft=====派车接口返回数据:', d);
             });
             this.closeClick();
             this.event(GameEvent.closePannel);
@@ -419,7 +419,6 @@
         onDisable() {
         }
         enterGame() {
-            console.log('★==========', this.gameServerList[this.serverCombo.selectedIndex]);
             Laya.timer.clearAll(this);
             DataBus.gameServer = this.gameServerList[this.serverCombo.selectedIndex];
             Laya.Scene.closeAll();
@@ -1125,7 +1124,6 @@
         }
         onEnable() {
             LayaBlock.initWeb3();
-            console.log('★gameServer:', DataBus.gameServer);
             LayaBlock.activeGame(DataBus.gameServer, this.machineGo);
             this.initUI();
             this.DataInit();
