@@ -3,7 +3,7 @@ import { ui } from "./ui/layaMaxUI";
 
 export default class EntrancePannel extends ui.EntrancePannelUI {
     private gameServerList:IGameServer[]
-    private info:string='公元2021年2月22日，在uniswap坐标  0x239298322处发现了一个金矿。  于是很多淘客们开始了挖矿致富。'
+    private info:string='...'
     private wordPos:number=0
     constructor() { super(); }
     
@@ -22,13 +22,12 @@ export default class EntrancePannel extends ui.EntrancePannelUI {
             }
         })
         //加载游戏描述
-        /*
         LayaBlock.getGameLoadDec().then((d:IGameLoadDec)=>{
-            console.log('==============',d)
+            this.info=d.dec
+            Laya.timer.frameLoop(5,this,this.printWord)
         })
-        */
-        this.btnEnter.on(Laya.Event.CLICK,this,this.enterGame)
-        Laya.timer.frameLoop(5,this,this.printWord)
+        
+        this.btnEnter.on(Laya.Event.CLICK,this,this.enterGame)        
     }
 
     printWord():void{

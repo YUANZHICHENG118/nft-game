@@ -381,7 +381,7 @@
     class EntrancePannel extends ui.EntrancePannelUI {
         constructor() {
             super();
-            this.info = '公元2021年2月22日，在uniswap坐标  0x239298322处发现了一个金矿。  于是很多淘客们开始了挖矿致富。';
+            this.info = '...';
             this.wordPos = 0;
         }
         onEnable() {
@@ -397,8 +397,11 @@
                     this.serverCombo.selectedIndex = 0;
                 }
             });
+            LayaBlock.getGameLoadDec().then((d) => {
+                this.info = d.dec;
+                Laya.timer.frameLoop(5, this, this.printWord);
+            });
             this.btnEnter.on(Laya.Event.CLICK, this, this.enterGame);
-            Laya.timer.frameLoop(5, this, this.printWord);
         }
         printWord() {
             this.wordPos++;
