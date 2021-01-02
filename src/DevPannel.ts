@@ -70,7 +70,7 @@ export default class DevPannel extends ui.DevPannelUI {
         }
         console.log('obj',obj);//{17: 2, 18: 2}
         LayaBlock.stakeTokenNft(obj).then((d:ITransaction)=>{
-            console.log('stakeTokenNft=====d:',d)
+            console.log('stakeTokenNft=====派车接口返回数据:',d)
         })
         this.closeClick()
         this.event(GameEvent.closePannel)

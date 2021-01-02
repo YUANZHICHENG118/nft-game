@@ -25,7 +25,6 @@ export default class Home extends ui.HomeUI{
     onEnable (): void {
         // 初始化 web3
         LayaBlock.initWeb3();
-        console.log('★gameServer:',DataBus.gameServer)
         LayaBlock.activeGame(DataBus.gameServer,this.machineGo)
         //初始化界面
         this.initUI();

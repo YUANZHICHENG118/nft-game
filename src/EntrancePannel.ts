@@ -47,7 +47,6 @@ export default class EntrancePannel extends ui.EntrancePannelUI {
     }
 
     enterGame():void{
-        console.log('★==========',this.gameServerList[this.serverCombo.selectedIndex])
         Laya.timer.clearAll(this)
         DataBus.gameServer=this.gameServerList[this.serverCombo.selectedIndex]
         Laya.Scene.closeAll()
