@@ -84,6 +84,11 @@ class Main {
 		//移除进度条
 		Laya.stage.removeChild(this.loadingPage);   
 		Laya.SoundManager.playMusic("sound/bg.mp3",0);
+		let musicFlag=Number(Laya.LocalStorage.getItem('musicFlag'))
+		if(musicFlag==1){
+			Laya.SoundManager.setMusicVolume(0)		
+		}
+		
 		//激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
 		Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
 	}

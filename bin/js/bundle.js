@@ -964,12 +964,12 @@
         init() {
             let language = LayaBlock.getLanguage();
             this.languageRadioGroup.selectedIndex = this.config[language];
-            console.log('language', language, this.languageRadioGroup.selectedIndex);
-            this.musicRadioGroup.selectedIndex = 0;
-            this.soundRadioGroup.selectedIndex = 0;
+            this.musicRadioGroup.selectedIndex = Number(Laya.LocalStorage.getItem('musicFlag'));
+            this.soundRadioGroup.selectedIndex = Number(Laya.LocalStorage.getItem('soundFlag'));
             this.gas_txt.text = '10.0';
         }
         musicRadioGroupChange() {
+            Laya.LocalStorage.setItem('musicFlag', this.musicRadioGroup.selectedIndex + '');
             if (this.musicRadioGroup.selectedIndex == 0) {
                 Laya.SoundManager.setMusicVolume(1);
             }
@@ -978,6 +978,7 @@
             }
         }
         soundRadioGroupChange() {
+            Laya.LocalStorage.setItem('soundFlag', this.soundRadioGroup.selectedIndex + '');
             if (this.soundRadioGroup.selectedIndex == 0) {
                 Laya.SoundManager.setSoundVolume(1);
             }
@@ -1240,6 +1241,10 @@
         onLoad() {
             Laya.stage.removeChild(this.loadingPage);
             Laya.SoundManager.playMusic("sound/bg.mp3", 0);
+            let musicFlag = Number(Laya.LocalStorage.getItem('musicFlag'));
+            if (musicFlag == 1) {
+                Laya.SoundManager.setMusicVolume(0);
+            }
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
