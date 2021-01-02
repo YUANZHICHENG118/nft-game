@@ -160,17 +160,22 @@ export module ui {
     }
     REG("ui.ItemRankUI",ItemRankUI);
     export class MePannelUI extends View {
-		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
 		public btn0:Laya.Image;
 		public btn1:Laya.Image;
 		public btn2:Laya.Image;
 		public group0:Laya.Sprite;
 		public nick_txt:Laya.Label;
+		public btnSetName:Laya.Sprite;
+		public setName_txt:Laya.Label;
+		public nick2_txt:Laya.TextInput;
 		public address_txt:Laya.Label;
+		public ethAmount_txt:Laya.Label;
 		public tokenAmount_txt:Laya.Label;
+		public tokenSymbol_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
+		public copy_txt:Laya.Label;
 		public group1:Laya.Sprite;
 		public group2:Laya.Sprite;
         constructor(){ super()}

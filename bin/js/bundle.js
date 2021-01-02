@@ -398,7 +398,11 @@
                 }
             });
             LayaBlock.getGameLoadDec().then((d) => {
+                if (d.dec == undefined) {
+                    d.dec = '......';
+                }
                 this.info = d.dec;
+                console.log('game 描述：', d);
                 Laya.timer.frameLoop(5, this, this.printWord);
             });
             this.btnEnter.on(Laya.Event.CLICK, this, this.enterGame);
@@ -560,8 +564,11 @@
             this.itemY = 42;
         }
         onEnable() {
+            this.nick2_txt.visible = this.btnSetName.visible = false;
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.btnCopyRef.on(Laya.Event.CLICK, this, this.copyRef);
+            this.btnSetName.on(Laya.Event.CLICK, this, this.btnSetNameClick);
+            this.nick_txt.on(Laya.Event.CLICK, this, this.nickClick);
             this.btn0.on(Laya.Event.CLICK, this, this.btnClick);
             this.btn1.on(Laya.Event.CLICK, this, this.btnClick);
             this.btn2.on(Laya.Event.CLICK, this, this.btnClick);
@@ -662,17 +669,40 @@
                 this.list2.array = this.listData2;
             });
         }
+        nickClick() {
+            this.nick2_txt.visible = this.btnSetName.visible = true;
+        }
+        btnSetNameClick() {
+            DataBus.userBase.nick = this.nick_txt.text = this.nick2_txt.text;
+            this.nick2_txt.visible = this.btnSetName.visible = false;
+            let nick = { nick: this.nick2_txt.text, address: DataBus.userBase.address };
+            LayaBlock.saveNick(nick).then((d) => {
+                console.log('d==', d);
+                if (Boolean(d) == false) {
+                    alert('保存失败');
+                }
+            });
+        }
         copyRef() {
-            eval('window.clipboardData.setData("text","hello")');
+            alert('调用复制函数');
         }
         loadData() {
-            console.log('getUserBase');
             LayaBlock.getUserBase().then((d) => {
-                console.log(d);
-                this.nick_txt.text = d.nick;
+                console.log('getUserBase', d);
+                DataBus.userBase = d;
+                if (d.nick == null || d.nick == '') {
+                    this.nick2_txt.text = '';
+                    this.nick2_txt.visible = this.btnSetName.visible = true;
+                }
+                else {
+                    this.nick_txt.text = this.nick2_txt.text = d.nick;
+                }
                 this.address_txt.text = d.address;
+                this.ethAmount_txt.text = d.ethAmount + '';
                 this.tokenAmount_txt.text = d.tokenAmount + '';
+                this.tokenSymbol_txt.text = d.tokenSymbol + '';
                 this.ref_txt.text = d.ref;
+                this.nick2_txt;
             });
         }
         onDisable() {
@@ -913,21 +943,47 @@
     }
 
     class SetPannel extends ui.SetPannelUI {
-        constructor() { super(); }
+        constructor() {
+            super();
+            this.config = {
+                'zh-CN': 0,
+                'en-US': 1,
+                'kr': 2,
+            };
+        }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
             this.musicRadioGroup.on(Laya.Event.CHANGE, this, this.musicRadioGroupChange);
             this.soundRadioGroup.on(Laya.Event.CHANGE, this, this.soundRadioGroupChange);
             this.languageRadioGroup.on(Laya.Event.CHANGE, this, this.languageRadioGroupChange);
+            this.init();
+        }
+        init() {
+            let language = LayaBlock.getLanguage();
+            this.languageRadioGroup.selectedIndex = this.config[language];
+            this.musicRadioGroup.selectedIndex = 0;
+            this.soundRadioGroup.selectedIndex = 0;
+            this.gas_txt.text = '10.0';
         }
         musicRadioGroupChange() {
-            console.log(this.musicRadioGroup.selectedIndex);
+            if (this.musicRadioGroup.selectedIndex == 0) {
+                Laya.SoundManager.setMusicVolume(1);
+            }
+            else {
+                Laya.SoundManager.setMusicVolume(0);
+            }
         }
         soundRadioGroupChange() {
-            console.log(this.soundRadioGroup.selectedIndex);
+            if (this.soundRadioGroup.selectedIndex == 0) {
+                Laya.SoundManager.setSoundVolume(1);
+            }
+            else {
+                Laya.SoundManager.setSoundVolume(0);
+            }
         }
         languageRadioGroupChange() {
             console.log(this.languageRadioGroup.selectedIndex);
+            LayaBlock.setLanguage(this.config[this.languageRadioGroup.selectedIndex]);
         }
         onDisable() {
         }
@@ -1137,6 +1193,7 @@
                 Laya.Stat.show();
             Laya.alertGlobalError(true);
             var pro_res = [
+                { url: "loading/loadingBg.png", type: Laya.Loader.IMAGE },
                 { url: "res/atlas/loading.atlas", type: Laya.Loader.ATLAS }
             ];
             Laya.loader.load(pro_res, Laya.Handler.create(this, this.onProLoaded));

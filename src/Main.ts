@@ -25,8 +25,7 @@ class Main {
 		
 		//进度条资源加载
         var pro_res:Array<any> = [
-            //{url:"res/loading/progress.png",type:Laya.Loader.IMAGE},   //进度条的图片资源位置和类型
-            //{url:"res/atlas/progress$bar.png",type:Laya.Loader.IMAGE}      //进度条的图片资源位置和类型       
+            {url:"loading/loadingBg.png",type:Laya.Loader.IMAGE},      //进度条的图片资源位置和类型       
             {url:"res/atlas/loading.atlas",type:Laya.Loader.ATLAS}       
         ];
         //加载完进度条后执行onProLoaded方法

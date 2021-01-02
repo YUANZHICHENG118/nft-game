@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":41,
-    "selecteID":82,
+    "selectedBox":6,
+    "selecteID":90,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":84,
+    "maxID":91,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -33,18 +33,17 @@
         {
             "x":15,
             "type":"Sprite",
-            "searchKey":"Sprite,devPanel",
-            "props":{"y":19,"x":20,"width":719,"var":"devPanel","height":1244},
+            "searchKey":"Sprite",
+            "props":{"y":19,"x":20,"width":719,"height":1244},
             "nodeParent":2,
-            "label":"devPanel",
-            "isOpen":true,
+            "label":"Sprite",
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":4,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":-1,"x":0,"width":710,"skin":"gameimg/pannel.png","height":1294},
@@ -58,7 +57,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,btnClose",
                     "props":{"y":-11,"x":686,"var":"btnClose","texture":"gameimg/btnClose.png"},
@@ -162,25 +160,27 @@
             "props":{"y":-1,"x":0,"var":"group0","presetID":1,"preset":"laya/pages/prefab/BaseInfo.prefab"},
             "nodeParent":2,
             "label":"group0",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":54,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":2,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":6,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"presetID":3,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -194,32 +194,78 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":4,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,nick_txt",
+                            "props":{"var":"nick_txt","presetID":4,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":6,
-                            "label":"Label(BaseInfo)",
+                            "label":"nick_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":12,
                             "child":[
                                 ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Sprite",
+                            "searchKey":"Sprite,btnSetName",
+                            "props":{"y":23,"x":490,"var":"btnSetName","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "nodeParent":6,
+                            "label":"btnSetName",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":87,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,setName_txt",
+                                    "props":{"y":12,"x":20,"var":"setName_txt","text":"设置","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                                    "nodeParent":87,
+                                    "label":"setName_txt",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":88,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"TextInput",
+                            "searchKey":"TextInput,nick2_txt",
+                            "props":{"y":100,"x":30,"width":608,"var":"nick2_txt","skin":"comp/textinput.png","height":70,"fontSize":28,"align":"center"},
+                            "nodeParent":6,
+                            "label":"nick2_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":90,
+                            "child":[
+                                ],
+                            "$HIDDEN":false
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":5,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":13,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"presetID":6,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -233,11 +279,12 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":7,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,address_txt",
+                            "props":{"var":"address_txt","presetID":7,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":13,
-                            "label":"Label(BaseInfo)",
+                            "label":"address_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -247,18 +294,20 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":8,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":16,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"presetID":9,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -272,32 +321,63 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,ethAmount_txt",
+                            "props":{"y":131,"x":30,"width":200,"var":"ethAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
                             "nodeParent":16,
-                            "label":"Label(BaseInfo)",
+                            "label":"ethAmount_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":18,
                             "child":[
                                 ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,tokenAmount_txt",
+                            "props":{"y":131,"x":237,"width":200,"var":"tokenAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "nodeParent":16,
+                            "label":"tokenAmount_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":84,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,tokenSymbol_txt",
+                            "props":{"y":131,"x":444,"width":200,"var":"tokenSymbol_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "nodeParent":16,
+                            "label":"tokenSymbol_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":85,
+                            "child":[
+                                ]
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":11,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":19,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"presetID":12,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -311,11 +391,12 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":13,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,ref_txt",
+                            "props":{"var":"ref_txt","presetID":13,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":19,
-                            "label":"Label(BaseInfo)",
+                            "label":"ref_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -324,32 +405,35 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
-                            "searchKey":"Sprite",
-                            "props":{"presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Sprite,btnCopyRef",
+                            "props":{"var":"btnCopyRef","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":19,
-                            "label":"Sprite(BaseInfo)",
-                            "isDirectory":false,
+                            "label":"btnCopyRef",
+                            "isOpen":true,
+                            "isDirectory":true,
                             "isAniNode":true,
-                            "hasChild":false,
+                            "hasChild":true,
                             "compId":23,
                             "child":[
-                                ]
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,copy_txt",
+                                    "props":{"y":12,"x":20,"var":"copy_txt","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                                    "nodeParent":23,
+                                    "label":"copy_txt",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":24,
+                                    "child":[
+                                        ]
+                                }]
                         },
                         {
-                            "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
-                            "nodeParent":19,
-                            "label":"Label(BaseInfo)",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":24,
-                            "child":[
-                                ]
-                        },
-                        {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"presetID":16,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -363,7 +447,7 @@
                                 ]
                         }]
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -372,14 +456,13 @@
             "props":{"y":140,"x":30,"width":688,"var":"group1","height":42},
             "nodeParent":2,
             "label":"group1",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":68,
             "child":[
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":0,"x":0,"width":111,"text":"期数","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
@@ -393,7 +476,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":0,"x":132,"width":111,"text":"派出设备","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
@@ -407,7 +489,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":0,"x":279,"width":206,"text":"收益(eth/cm)","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
@@ -429,14 +510,13 @@
             "props":{"y":140,"x":30,"width":688,"var":"group2","height":42},
             "nodeParent":2,
             "label":"group2",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":41,
             "child":[
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":0,"x":0,"width":111,"text":"昵称","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
@@ -450,7 +530,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":0,"x":150,"width":217,"text":"地址","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
@@ -464,7 +543,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":0,"x":384,"width":122,"text":"奖励","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
@@ -477,7 +555,7 @@
                     "child":[
                         ]
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         }],
     "animations":[
         {

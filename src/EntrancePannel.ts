@@ -23,7 +23,12 @@ export default class EntrancePannel extends ui.EntrancePannelUI {
         })
         //加载游戏描述
         LayaBlock.getGameLoadDec().then((d:IGameLoadDec)=>{
+            if(d.dec==undefined){
+                d.dec='......'
+            }
             this.info=d.dec
+
+            console.log('game 描述：',d)
             Laya.timer.frameLoop(5,this,this.printWord)
         })
         

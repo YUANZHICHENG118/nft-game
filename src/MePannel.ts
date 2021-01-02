@@ -1,3 +1,4 @@
+import DataBus from "./DataBus";
 import ItemCommission from "./ItemCommission";
 import ItemIncome from "./ItemIncome";
 import { ui } from "./ui/layaMaxUI";
@@ -18,8 +19,12 @@ export default class MePannel extends ui.MePannelUI {
     constructor() { super(); }
     
     onEnable(): void {
+        this.nick2_txt.visible=this.btnSetName.visible=false
+        
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.btnCopyRef.on(Laya.Event.CLICK,this,this.copyRef)
+        this.btnSetName.on(Laya.Event.CLICK,this,this.btnSetNameClick)
+        this.nick_txt.on(Laya.Event.CLICK,this,this.nickClick)
 
         this.btn0.on(Laya.Event.CLICK,this,this.btnClick)
         this.btn1.on(Laya.Event.CLICK,this,this.btnClick)
@@ -142,17 +147,42 @@ export default class MePannel extends ui.MePannelUI {
         })
     }
 
+    nickClick():void{
+        this.nick2_txt.visible=this.btnSetName.visible=true
+    }
+    btnSetNameClick():void{
+        //提交姓名
+        DataBus.userBase.nick=this.nick_txt.text=this.nick2_txt.text
+        this.nick2_txt.visible=this.btnSetName.visible=false
+        let nick:INick= {nick:this.nick2_txt.text, address:DataBus.userBase.address}
+        LayaBlock.saveNick(nick).then((d:IResult)=>{
+            console.log('d==',d)
+            if(Boolean(d)==false){
+                alert('保存失败')
+            }
+        })
+    }
     copyRef():void{
-        eval('window.clipboardData.setData("text","hello")');
+        alert('调用复制函数')
+        //eval('window.clipboardData.setData("text","hello")');
     }
     loadData():void{    
-        console.log('getUserBase')  
-        LayaBlock.getUserBase().then((d:IUserBase)=>{
-            console.log(d)
-            this.nick_txt.text=d.nick
+        LayaBlock.getUserBase().then((d:IUserBase)=>{            
+            console.log('getUserBase',d)
+            DataBus.userBase=d
+            if(d.nick==null || d.nick==''){
+                this.nick2_txt.text=''
+                this.nick2_txt.visible=this.btnSetName.visible=true
+            }else{
+                this.nick_txt.text=this.nick2_txt.text=d.nick
+            }            
             this.address_txt.text=d.address
+            this.ethAmount_txt.text=d.ethAmount+''
             this.tokenAmount_txt.text=d.tokenAmount+''
+            this.tokenSymbol_txt.text=d.tokenSymbol+''
             this.ref_txt.text=d.ref
+
+            this.nick2_txt
         })
     }
 
