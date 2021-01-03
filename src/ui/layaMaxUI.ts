@@ -203,6 +203,7 @@ export module ui {
 		public load_txt:Laya.Label;
 		public sn_txt:Laya.Label;
 		public address_txt:Laya.Label;
+		public btn:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

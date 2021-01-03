@@ -10,6 +10,7 @@
     GameEvent.CLOSE_PANNEL = 'closePannel';
     GameEvent.LANGUAGE_CHANGE = 'languageChange';
     GameEvent.DETAILE = 'detaile';
+    GameEvent.RANK_MORE = 'rankMore';
 
     class DataBus extends Laya.EventDispatcher {
         constructor() {
@@ -283,9 +284,9 @@
         nav6_1: '昵称',
         nav6_2: '地址',
         nav6_3: '奖励',
-        nav7_1: 'en设备详情：',
-        nav7_2: 'en载重/挖矿：',
-        nav7_3: 'en等级：'
+        nav7_1: '设备详情：',
+        nav7_2: '载重/挖矿：',
+        nav7_3: '等级：'
     };
     Langue.en = {
         start: 'start',
@@ -335,9 +336,9 @@
         nav6_2: '地址e',
         nav6_3: '奖励e',
         alert1: 'please ...',
-        nav7_1: '设备详情：',
-        nav7_2: '载重/挖矿：',
-        nav7_3: '等级：'
+        nav7_1: 'en设备详情：',
+        nav7_2: 'en载重/挖矿：',
+        nav7_3: 'en等级：'
     };
     Langue.kr = {
         start: 'start',
@@ -1157,10 +1158,13 @@
     class ItemRank extends ui.ItemRankUI {
         constructor() { super(); this.width = 750; this.height = 80; }
         onEnable() {
+            this.btn.on(Laya.Event.CLICK, this, this.btnClick);
         }
         onDisable() {
         }
         setItem(sn, itemData) {
+            this.sn = sn;
+            this.itemData = itemData;
             this.load_txt.text = itemData.load;
             this.address_txt.text = itemData.addressShort;
             if (sn == -1) {
@@ -1181,6 +1185,10 @@
                 this.bg.skin = 'gameimg/rankbg0.png';
             }
         }
+        btnClick(event) {
+            Laya.stage.event(GameEvent.RANK_MORE, this.itemData);
+            event.stopPropagation();
+        }
     }
 
     var List$4 = Laya.List;
@@ -1198,6 +1206,12 @@
             this.loading = false;
             this.rankType = 0;
             this.dataBus = DataBus.getDataBus();
+            this.onRankMore = (e) => {
+                console.log(e);
+                LayaBlock.getPlayDetail(e.gameId, e.address).then((d) => {
+                    console.log('rank more', d);
+                });
+            };
             this.onLanguage = () => {
                 let arr = ['nav3_0', 'nav3_1', 'nav3_2', 'nav3_3', 'nav3_4', 'nav3_5'];
                 for (let i in arr) {
@@ -1233,6 +1247,7 @@
             this.rankType1.on(Laya.Event.CLICK, this, this.rankTypeClick);
             this.rankType2.on(Laya.Event.CLICK, this, this.rankTypeClick);
             this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            Laya.stage.on(GameEvent.RANK_MORE, this, this.onRankMore);
             this.onLanguage();
         }
         rankTypeClick(e) {
@@ -1316,7 +1331,7 @@
                 console.log(d, typeof d);
                 this.listData = [];
                 for (let i in d) {
-                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
+                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort, address: d[i].address, gameId: d[i].gameId });
                 }
                 this.list.array = this.listData;
                 this.loading = false;
@@ -1327,7 +1342,7 @@
                 console.log(d, typeof d);
                 this.listData = [];
                 for (let i in d) {
-                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
+                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort, address: d[i].address, gameId: d[i].gameId });
                 }
                 this.list.array = this.listData;
                 this.loading = false;
@@ -1338,7 +1353,7 @@
                 console.log(d, typeof d);
                 this.listData = [];
                 for (let i in d) {
-                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort });
+                    this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort, address: d[i].address, gameId: d[i].gameId });
                 }
                 this.list.array = this.listData;
                 this.loading = false;

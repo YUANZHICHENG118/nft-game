@@ -54,9 +54,16 @@ export default class RankPannel extends ui.RankPannelUI {
         this.rankType1.on(Laya.Event.CLICK,this,this.rankTypeClick)
         this.rankType2.on(Laya.Event.CLICK,this,this.rankTypeClick)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
+        Laya.stage.on(GameEvent.RANK_MORE,this,this.onRankMore)
         this.onLanguage()
     }
 
+    onRankMore=(e:any)=>{
+        console.log(e)
+        LayaBlock.getPlayDetail(e.gameId,e.address).then((d:IPlayDetail[])=>{
+            console.log('rank more',d)
+        })
+    }
     onLanguage=()=>{
         let arr=['nav3_0','nav3_1','nav3_2','nav3_3','nav3_4','nav3_5']
         for(let i in arr){
@@ -152,7 +159,7 @@ export default class RankPannel extends ui.RankPannelUI {
             console.log(d,typeof d)
             this.listData=[]
             for(let i in d){
-                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort})
+                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort,address:d[i].address,gameId:d[i].gameId})
             }
             this.list.array =this.listData
             this.loading=false
@@ -164,7 +171,7 @@ export default class RankPannel extends ui.RankPannelUI {
             console.log(d,typeof d)
             this.listData=[]
             for(let i in d){
-                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort})
+                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort,address:d[i].address,gameId:d[i].gameId})
             }
             this.list.array =this.listData
             this.loading=false
@@ -176,7 +183,7 @@ export default class RankPannel extends ui.RankPannelUI {
             console.log(d,typeof d)
             this.listData=[]
             for(let i in d){
-                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort})
+                this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort,address:d[i].address,gameId:d[i].gameId})
             }
             this.list.array =this.listData
             this.loading=false
