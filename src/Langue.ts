@@ -48,9 +48,9 @@ export default class Langue extends Laya.EventDispatcher {
         nav6_2: '地址',
         nav6_3: '奖励',
 
-        nav7_1:'en设备详情：',
-        nav7_2:'en载重/挖矿：',
-        nav7_3:'en等级：'
+        nav7_1:'设备详情：',
+        nav7_2:'载重/挖矿：',
+        nav7_3:'等级：'
 
     }
     public static en = {
@@ -101,9 +101,9 @@ export default class Langue extends Laya.EventDispatcher {
         nav6_2: '地址e',
         nav6_3: '奖励e',
         alert1:'please ...',
-        nav7_1:'设备详情：',
-        nav7_2:'载重/挖矿：',
-        nav7_3:'等级：'
+        nav7_1:'en设备详情：',
+        nav7_2:'en载重/挖矿：',
+        nav7_3:'en等级：'
     }
     public static kr = {
         start:'start',
