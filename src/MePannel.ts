@@ -1,9 +1,12 @@
+import { ui } from "./ui/layaMaxUI";
+import GameEvent from "./GameEvent";
 import DataBus from "./DataBus";
+import Langue from "./Langue";
 import ItemCommission from "./ItemCommission";
 import ItemIncome from "./ItemIncome";
-import { ui } from "./ui/layaMaxUI";
 import List = Laya.List;
 import Handler = Laya.Handler;
+
 export default class MePannel extends ui.MePannelUI {
     private clicked1:boolean=false
     private clicked2:boolean=false
@@ -15,7 +18,7 @@ export default class MePannel extends ui.MePannelUI {
     
     private itemX:number=0
     private itemY:number=42
-
+    private dataBus:DataBus = DataBus.getDataBus(); 
     constructor() { super(); }
     
     onEnable(): void {
@@ -67,6 +70,16 @@ export default class MePannel extends ui.MePannelUI {
         this.list2.renderHandler = new Handler(this, this.updateItem2);
         this.list2.array =this.listData2
         this.group2.addChild(this.list2) 
+        this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
+        this.onLanguage()
+    }
+
+    onLanguage=()=>{
+        let arr=['nav4_1','nav4_2','nav4_3','nav4_4','nav4_4_1','nav4_5','nav4_6','nav4_7','nav4_8','nav5_1','nav5_2','nav5_3','nav6_1','nav6_2','nav6_3']
+        for(let i in arr){
+            let txtName:string=arr[i]
+            this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
+        }        
     }
 
     private updateItem1(cell:ItemIncome, index: number): void {

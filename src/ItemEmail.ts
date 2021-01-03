@@ -9,4 +9,7 @@ export default class ItemEmail extends ui.ItemEmailUI {
 
     onDisable(): void {
     }
+    setItem(sn:number,itemData:IEmail):void{
+        //this.title_txt.text=itemData.title
+    }
 }

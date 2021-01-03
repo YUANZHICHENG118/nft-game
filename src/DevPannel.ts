@@ -1,7 +1,12 @@
-import GameEvent from "./GameEvent";
 import { ui } from "./ui/layaMaxUI";
+import GameEvent from "./GameEvent";
+import DataBus from "./DataBus";
+import Langue from "./Langue";
+import Image = Laya.Image;
 import List = Laya.List;
 import Handler = Laya.Handler;
+import ItemDev from "./ItemDev";
+import DevDetail from "./DevDetail";
 export default class DevPannel extends ui.DevPannelUI {
     /** @prop {name:devType, tips:"整数类型示例", type:Int, default:1}*/
     private devTypeArr: Array<number> = [1,2,3];
@@ -12,6 +17,9 @@ export default class DevPannel extends ui.DevPannelUI {
     private list: List = new List();    
     private hasInitList:boolean=false;
     private listData:Array<any>
+    private listData0:Array<IMachine>
+    private dataBus:DataBus = DataBus.getDataBus(); 
+    private devDetail:DevDetail=new DevDetail();
     constructor() { super(); }
     
     onEnable(): void {
@@ -33,7 +41,7 @@ export default class DevPannel extends ui.DevPannelUI {
 
 
         //创建列表
-        this.list.itemRender = Item;
+        this.list.itemRender = ItemDev;
         this.list.repeatX = 4;
         //this.list.repeatY = 4;
         this.list.x = 50;
@@ -44,11 +52,31 @@ export default class DevPannel extends ui.DevPannelUI {
         //使用但隐藏滚动条
         this.list.vScrollBarSkin = "";
         this.list.selectEnable = true;
+        //this.list.mouseHandler=new Handler(this,this.onClickList)
         this.list.selectHandler = new Handler(this, this.onSelect);
         this.list.renderHandler = new Handler(this, this.updateItem);
         this.addChild(this.list)
         
         this.stakeTokenNft_btn.disabled=false
+        this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
+        this.onLanguage()
+        this.devDetail.visible=false
+        this.addChild(this.devDetail)
+        Laya.stage.on(GameEvent.DETAILE,this,this.onDetaile)
+    }
+
+    onDetaile=(e:number)=>{   
+        this.devDetail.visible=true;
+        let d:IMachine=this.listData0[e]
+        this.devDetail.setData(d)
+    }
+
+    onLanguage=()=>{
+        let arr=['nav1_3','nav1_4','nav1_5','nav1_6','nav1_7','nav1_8']
+        for(let i in arr){
+            let txtName:string=arr[i]
+            this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
+        }        
     }
     stakeTokenNft(){
         var machineNum=0;
@@ -65,7 +93,7 @@ export default class DevPannel extends ui.DevPannelUI {
             }
         }
         if(machineNum==0){
-            alert('您还没有选择设备呢')
+            alert(Langue.defaultLangue.alert1)
             return;
         }
         console.log('obj',obj);//{17: 2, 18: 2}
@@ -87,10 +115,10 @@ export default class DevPannel extends ui.DevPannelUI {
     public sortClick(){
         if(this.sort=='DESC'){
             this.sort='ASC'
-            this.sort_txt.text='低 → 高'
+            this.nav1_1_txt.text=Langue.defaultLangue['nav1_1']
         }else{
             this.sort='DESC'
-            this.sort_txt.text='高 → 低'
+            this.nav1_1_txt.text=Langue.defaultLangue['nav1_2']
         }
         this.updateList()
     }
@@ -109,7 +137,7 @@ export default class DevPannel extends ui.DevPannelUI {
             this.btnColorArr[i].alpha=1
         }
         this.sort='ASC'
-        this.sort_txt.text='低 → 高'
+        this.nav1_1_txt.text=Langue.defaultLangue['nav1_1']
         this.selectAll_btn.selected=false
         this.auto_btn.selected=false
         this.updateList()
@@ -117,7 +145,8 @@ export default class DevPannel extends ui.DevPannelUI {
 
     loadData(params:IMachineSearch):void{   
         LayaBlock.getUserMachine(params).then((d:IMachine[])=>{
-            console.log(d,typeof d)
+            console.log('设备列表：', d)
+            this.listData0=d
             this.listData=[]
             for(let i in d){
                 this.listData.push({id:d[i].id,type:d[i].type,color:d[i].color,selected:false})
@@ -126,13 +155,16 @@ export default class DevPannel extends ui.DevPannelUI {
         })
     }
 
-    private updateItem(cell:Item, index: number): void {
-        cell.setItem(cell.dataSource);
+    private updateItem(cell:ItemDev, index: number): void {
+        cell.setItem(index,this.listData[index]);
     }
 
     private onSelect(index: number): void {
-        //laya.ui.js 3155行修改  if (true || this._selectedIndex != value) 
         this.listData[index].selected=!this.listData[index].selected
+    }
+
+    private onClickList(e:Laya.Event):void{
+        console.log(e.type)
     }
     
     btnColorClick(e:Laya.Event){
@@ -180,40 +212,5 @@ export default class DevPannel extends ui.DevPannelUI {
     }
 
     onDisable(): void {
-    }
-}
-
-
-import Box = Laya.Box;
-import Image = Laya.Image;
-class Item extends Box {
-    public static WID: number = 147;
-    public static HEI: number = 134;
-
-    private img: Image;
-    private bg:Image;
-    
-    private static machinaWid:Array<Array<number>>=[[230,123],[293,209],[312,133]]
-
-    constructor(){
-        super();
-        this.size(Item.WID, Item.HEI);
-        this.bg=new Image('gameimg/bg1.png');
-        this.bg.size(Item.WID,Item.HEI)
-        this.addChild(this.bg);        
-        this.img = new Image();
-        this.img.x=10;
-        this.img.y=90;
-        this.addChild(this.img);
-    }
-
-    public setItem(itemData:any): void {
-        var __scale=(Item.WID-20)/Item.machinaWid[itemData.type-1][0]
-        var __y=0.5*(Item.HEI- Item.machinaWid[itemData.type-1][1]*__scale)
-        
-        this.img.scaleX=this.img.scaleY=__scale
-        this.img.y=__y;
-        this.img.skin ='machine/m'+itemData.type +'_'+itemData.color+'.png'; //"machine/m1_1.png"
-        this.bg.skin='gameimg/bg'+(itemData.selected? 2:1)+'.png'
     }
 }

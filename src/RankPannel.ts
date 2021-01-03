@@ -1,5 +1,8 @@
-import ItemRank from "./ItemRank";
 import { ui } from "./ui/layaMaxUI";
+import GameEvent from "./GameEvent";
+import DataBus from "./DataBus";
+import Langue from "./Langue";
+import ItemRank from "./ItemRank";
 import List = Laya.List;
 import Handler = Laya.Handler;
 export default class RankPannel extends ui.RankPannelUI {
@@ -14,6 +17,7 @@ export default class RankPannel extends ui.RankPannelUI {
     private itemY1:number=290
     private loading:boolean=false
     private rankType:number=0
+    private dataBus:DataBus = DataBus.getDataBus(); 
     constructor() { super(); }
     
     onEnable(): void {
@@ -49,6 +53,16 @@ export default class RankPannel extends ui.RankPannelUI {
         this.rankType0.on(Laya.Event.CLICK,this,this.rankTypeClick)
         this.rankType1.on(Laya.Event.CLICK,this,this.rankTypeClick)
         this.rankType2.on(Laya.Event.CLICK,this,this.rankTypeClick)
+        this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
+        this.onLanguage()
+    }
+
+    onLanguage=()=>{
+        let arr=['nav3_0','nav3_1','nav3_2','nav3_3','nav3_4','nav3_5']
+        for(let i in arr){
+            let txtName:string=arr[i]
+            this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
+        }        
     }
 
     private rankTypeClick(e:Laya.Event):void{

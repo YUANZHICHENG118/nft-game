@@ -1,0 +1,1 @@
+{"type":"View","props":{"width":660,"height":200},"compId":2,"child":[{"type":"Label","props":{"y":37,"x":54,"width":499,"var":"abc_txt","text":"label","height":41,"fontSize":33,"color":"#f6f6f6"},"compId":3}],"loadList":[],"loadList3D":[]}

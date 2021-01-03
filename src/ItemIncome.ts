@@ -1,3 +1,4 @@
+import Langue from "./Langue";
 import { ui } from "./ui/layaMaxUI";
 
 export default class ItemIncome extends ui.ItemIncomeUI {
@@ -14,10 +15,10 @@ export default class ItemIncome extends ui.ItemIncomeUI {
         this.machineNum_txt.text=itemData.machineNum
         this.reward_txt.text=itemData.ethReward+'/'+itemData.tokenReward
         if(itemData.receive){
-            this.receive_txt.text='已领取'
+            this.receive_txt.text=Langue.defaultLangue.nav5_5
             this.btnReceive.skin='gameimg/smallBtn1.png'
         }else{
-            this.receive_txt.text='领取'
+            this.receive_txt.text=Langue.defaultLangue.nav5_4
             this.btnReceive.skin='gameimg/smallBtn0.png'
         }
     }

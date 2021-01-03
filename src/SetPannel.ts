@@ -1,7 +1,7 @@
-import DataBus from "./DataBus";
-import GameEvent from "./GameEvent";
-import Langue from "./Langue";
 import { ui } from "./ui/layaMaxUI";
+import GameEvent from "./GameEvent";
+import DataBus from "./DataBus";
+import Langue from "./Langue";
 
 export default class SetPannel extends ui.SetPannelUI {
     private dataBus:DataBus=DataBus.getDataBus()
@@ -22,6 +22,16 @@ export default class SetPannel extends ui.SetPannelUI {
         this.soundRadioGroup.on(Laya.Event.CHANGE,this,this.soundRadioGroupChange)
         this.languageRadioGroup.on(Laya.Event.CHANGE,this,this.languageRadioGroupChange)
         this.init()
+        this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
+        this.onLanguage()
+    }
+
+    onLanguage=()=>{
+        let arr=[]
+        for(let i in arr){
+            let txtName:string=arr[i]
+            this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
+        }        
     }
     
     init():void{

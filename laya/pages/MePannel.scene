@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":68,
-    "selecteID":71,
+    "selectedBox":41,
+    "selecteID":83,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
@@ -79,18 +79,19 @@
             "props":{"y":34,"x":44,"var":"btn0","skin":"gameimg/labBg1.png","name":"btn0"},
             "nodeParent":2,
             "label":"btn0",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":33,
             "child":[
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":21,"x":14,"width":182,"text":"基本信息","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
+                    "searchKey":"Label,nav4_1_txt",
+                    "props":{"y":21,"x":14,"width":182,"var":"nav4_1_txt","text":"基本信息","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
                     "nodeParent":33,
-                    "label":"Label",
+                    "label":"nav4_1_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -106,18 +107,19 @@
             "props":{"y":33,"x":279,"var":"btn1","skin":"gameimg/labBg0.png","sizeGrid":"rankType1","name":"btn1"},
             "nodeParent":2,
             "label":"btn1",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":34,
             "child":[
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":21,"x":14,"width":182,"text":"我的收益","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
+                    "searchKey":"Label,nav4_2_txt",
+                    "props":{"y":21,"x":14,"width":182,"var":"nav4_2_txt","text":"我的收益","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
                     "nodeParent":34,
-                    "label":"Label",
+                    "label":"nav4_2_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -133,18 +135,19 @@
             "props":{"y":33,"x":507,"var":"btn2","skin":"gameimg/labBg0.png","sizeGrid":"rankType1","name":"btn2"},
             "nodeParent":2,
             "label":"btn2",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":35,
             "child":[
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":21,"x":14,"width":182,"text":"返佣明细","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
+                    "searchKey":"Label,nav4_3_txt",
+                    "props":{"y":21,"x":14,"width":182,"var":"nav4_3_txt","text":"返佣明细","styleSkin":"comp/label.png","strokeColor":"#4a1c01","stroke":2,"height":34,"fontSize":28,"font":"Microsoft YaHei","color":"#f4b37c","align":"center"},
                     "nodeParent":35,
-                    "label":"Label",
+                    "label":"nav4_3_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -160,14 +163,13 @@
             "props":{"y":-1,"x":0,"var":"group0","presetID":1,"preset":"laya/pages/prefab/BaseInfo.prefab"},
             "nodeParent":2,
             "label":"group0",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":54,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":2,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -180,12 +182,11 @@
                     "compId":6,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":3,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,nav4_4_txt",
+                            "props":{"var":"nav4_4_txt","presetID":3,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":6,
-                            "label":"Label(BaseInfo)",
+                            "label":"nav4_4_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -194,7 +195,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nick_txt",
                             "props":{"var":"nick_txt","presetID":4,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -208,7 +208,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,btnSetName",
                             "props":{"y":23,"x":490,"var":"btnSetName","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -221,12 +220,11 @@
                             "compId":87,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label,setName_txt",
-                                    "props":{"y":12,"x":20,"var":"setName_txt","text":"设置","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                                    "searchKey":"Label,nav4_4_1_txt",
+                                    "props":{"y":12,"x":0,"width":153,"var":"nav4_4_1_txt","text":"设置","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab","height":30},
                                     "nodeParent":87,
-                                    "label":"setName_txt",
+                                    "label":"nav4_4_1_txt",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
@@ -236,7 +234,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"TextInput",
                             "searchKey":"TextInput,nick2_txt",
                             "props":{"y":100,"x":30,"width":608,"var":"nick2_txt","skin":"comp/textinput.png","height":70,"fontSize":28,"align":"center"},
@@ -252,7 +249,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":5,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -265,12 +261,11 @@
                     "compId":13,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":6,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,nav4_5_txt",
+                            "props":{"var":"nav4_5_txt","presetID":6,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":13,
-                            "label":"Label(BaseInfo)",
+                            "label":"nav4_5_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -279,7 +274,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,address_txt",
                             "props":{"var":"address_txt","presetID":7,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -294,10 +288,9 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"presetID":8,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                    "props":{"y":603,"x":44,"presetID":8,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
                     "isOpen":true,
@@ -307,12 +300,11 @@
                     "compId":16,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":9,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,nav4_6_txt",
+                            "props":{"var":"nav4_6_txt","presetID":9,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":16,
-                            "label":"Label(BaseInfo)",
+                            "label":"nav4_6_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -321,7 +313,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,ethAmount_txt",
                             "props":{"y":131,"x":30,"width":280,"var":"ethAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
@@ -335,7 +326,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,tokenAmount_txt",
                             "props":{"y":131,"x":343,"width":280,"var":"tokenAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
@@ -350,7 +340,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":11,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -363,12 +352,11 @@
                     "compId":19,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"presetID":12,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "searchKey":"Label,nav4_7_txt",
+                            "props":{"var":"nav4_7_txt","presetID":12,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":19,
-                            "label":"Label(BaseInfo)",
+                            "label":"nav4_7_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -377,7 +365,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,ref_txt",
                             "props":{"var":"ref_txt","presetID":13,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -391,7 +378,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,btnCopyRef",
                             "props":{"var":"btnCopyRef","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -404,12 +390,11 @@
                             "compId":23,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label,copy_txt",
-                                    "props":{"y":12,"x":20,"var":"copy_txt","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                                    "searchKey":"Label,nav4_8_txt",
+                                    "props":{"y":12,"x":20,"var":"nav4_8_txt","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                                     "nodeParent":23,
-                                    "label":"copy_txt",
+                                    "label":"nav4_8_txt",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
@@ -419,7 +404,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"presetID":16,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -451,10 +435,10 @@
                 {
                     "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":0,"x":0,"width":111,"text":"期数","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "searchKey":"Label,nav5_1_txt",
+                    "props":{"y":0,"x":0,"width":111,"var":"nav5_1_txt","text":"期数","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
-                    "label":"Label",
+                    "label":"nav5_1_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -465,10 +449,10 @@
                 {
                     "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":0,"x":132,"width":111,"text":"派出设备","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "searchKey":"Label,nav5_2_txt",
+                    "props":{"y":0,"x":132,"width":111,"var":"nav5_2_txt","text":"派出设备","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
-                    "label":"Label",
+                    "label":"nav5_2_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -479,18 +463,19 @@
                 {
                     "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":0,"x":279,"width":206,"text":"收益(ETH/CM)","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "searchKey":"Label,nav5_3_txt",
+                    "props":{"y":0,"x":279,"width":206,"var":"nav5_3_txt","text":"收益(ETH/CM)","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
-                    "label":"Label",
+                    "label":"nav5_3_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":71,
                     "child":[
-                        ]
+                        ],
+                    "$HIDDEN":false
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -499,18 +484,19 @@
             "props":{"y":140,"x":30,"width":688,"var":"group2","height":42},
             "nodeParent":2,
             "label":"group2",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":41,
             "child":[
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":0,"x":0,"width":111,"text":"昵称","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "searchKey":"Label,nav6_1_txt",
+                    "props":{"y":0,"x":0,"width":111,"var":"nav6_1_txt","text":"昵称","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":41,
-                    "label":"Label",
+                    "label":"nav6_1_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -519,11 +505,12 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":0,"x":150,"width":217,"text":"地址","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "searchKey":"Label,nav6_2_txt",
+                    "props":{"y":0,"x":150,"width":217,"var":"nav6_2_txt","text":"地址","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":41,
-                    "label":"Label",
+                    "label":"nav6_2_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -532,11 +519,12 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":0,"x":384,"width":122,"text":"奖励","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "searchKey":"Label,nav6_3_txt",
+                    "props":{"y":0,"x":384,"width":122,"var":"nav6_3_txt","text":"奖励","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":41,
-                    "label":"Label",
+                    "label":"nav6_3_txt",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
@@ -544,7 +532,7 @@
                     "child":[
                         ]
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         }],
     "animations":[
         {

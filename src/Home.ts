@@ -35,7 +35,7 @@ export default class Home extends ui.HomeUI{
         this.addEvt();
         //this.testBlock();
     }
-    initUI=()=>{
+    initUI=()=>{        
         //设备面板
         this.devPannel=new DevPannel();
         this.addChild(this.devPannel);        
@@ -108,11 +108,11 @@ export default class Home extends ui.HomeUI{
     }
     onLanguage=()=>{
         //切换语言
+        this.gongGao_txt.text=Langue.defaultLangue.notice_0
         //console.log('当前语言：',Langue.defaultLangue)
         let arr=['notice','email','chat','nav1','nav2','nav3','nav4']
         for(let i in arr){
             let txtName:string=arr[i]
-            console.log(txtName+'_txt')
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
         }        
     }
@@ -124,6 +124,7 @@ export default class Home extends ui.HomeUI{
     }
     showHelpPannel=()=>{
         this.helpPannel.visible=true;
+        this.helpPannel.initData()
     }
     showSetPannel=()=>{
         this.setPannel.visible=true;
@@ -142,7 +143,7 @@ export default class Home extends ui.HomeUI{
         this.gongGao_txt.text='玩家'+obj.nick+'派出车辆挖矿'
         clearTimeout(this.timeoutGongGao)
         this.timeoutGongGao=setTimeout(() => {
-            this.gongGao_txt.text=''
+            this.gongGao_txt.text=Langue.defaultLangue.notice_0
         }, 10000);
         let aniMachine:AniMachine=new AniMachine() 
         aniMachine.obj=obj;       

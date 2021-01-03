@@ -1,3 +1,4 @@
+import Langue from "./Langue";
 import { ui } from "./ui/layaMaxUI";
 
 export default class ItemCommission extends ui.ItemCommissionUI {
@@ -14,10 +15,10 @@ export default class ItemCommission extends ui.ItemCommissionUI {
         this.address_txt.text=itemData.address
         this.amount_txt.text=itemData.amount
         if(itemData.receive){
-            this.receive_txt.text='已领取'
+            this.receive_txt.text=Langue.defaultLangue.nav5_5
             this.btnReceive.skin='gameimg/smallBtn1.png'
         }else{
-            this.receive_txt.text='领取'
+            this.receive_txt.text=Langue.defaultLangue.nav5_4
             this.btnReceive.skin='gameimg/smallBtn0.png'
         }
     }

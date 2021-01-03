@@ -1,9 +1,8 @@
 import { ui } from "./ui/layaMaxUI";
+import GameEvent from "./GameEvent";
+import DataBus from "./DataBus";
 import Util from "./Util";
 import Langue from "./Langue";
-import DataBus from "./DataBus";
-import GameEvent from "./GameEvent";
-
 
 export default class NoticePannel extends ui.NoticePannelUI {   
     private dataBus:DataBus = DataBus.getDataBus(); 
@@ -20,7 +19,6 @@ export default class NoticePannel extends ui.NoticePannelUI {
         let arr=['notice','home_0']
         for(let i in arr){
             let txtName:string=arr[i]
-            console.log(txtName+'_txt')
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
         }        
     }

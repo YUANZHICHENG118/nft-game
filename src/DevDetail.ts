@@ -1,9 +1,10 @@
-import { ui } from "./ui/layaMaxUI";
-import GameEvent from "./GameEvent";
 import DataBus from "./DataBus";
+import ItemEmail from "./ItemEmail";
+import { ui } from "./ui/layaMaxUI";
 import Langue from "./Langue";
+import GameEvent from "./GameEvent";
 
-export default class ExchangePannel extends ui.ExchangePannelUI {
+export default class DevDetail extends ui.DevDetailUI {
     private dataBus:DataBus = DataBus.getDataBus(); 
     constructor() { super(); }
     
@@ -12,9 +13,9 @@ export default class ExchangePannel extends ui.ExchangePannelUI {
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()
     }
-
+    
     onLanguage=()=>{
-        let arr=[]
+        let arr=['nav7_1','nav7_2','nav7_3']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
@@ -22,10 +23,16 @@ export default class ExchangePannel extends ui.ExchangePannelUI {
     }
 
     onDisable(): void {
-        
     }
 
     closeClick():void{
         this.visible=false;
+    }
+    setData(d:IMachine):void{
+        console.log('设备详情:',d)
+        this.machine.skin='machine/m'+d.type +'_'+d.color+'.png';
+        this.load_txt.text=d.load+'/'+d.mining
+        this.level_txt.text=d.level+''
+        this.remark_txt.text=d.remark
     }
 }

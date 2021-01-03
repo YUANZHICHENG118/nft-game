@@ -43,7 +43,6 @@ export default class EntrancePannel extends ui.EntrancePannelUI {
         let arr=['start']
         for(let i in arr){
             let txtName:string=arr[i]
-            console.log(txtName+'_txt')
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
         }        
     }

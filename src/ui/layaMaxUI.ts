@@ -22,6 +22,23 @@ export module ui {
         }
     }
     REG("ui.BlackBgUI",BlackBgUI);
+    export class DevDetailUI extends View {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+		public nav7_1_txt:Laya.Label;
+		public machine:Laya.Image;
+		public nav7_2_txt:Laya.Label;
+		public load_txt:Laya.Label;
+		public nav7_3_txt:Laya.Label;
+		public level_txt:Laya.Label;
+		public remark_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("DevDetail");
+        }
+    }
+    REG("ui.DevDetailUI",DevDetailUI);
     export class DevPannelUI extends Scene {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
@@ -29,15 +46,21 @@ export module ui {
 		public btnDev2:Laya.Image;
 		public btnDev3:Laya.Image;
 		public stakeTokenNft_btn:Laya.Image;
+		public nav1_8_txt:Laya.Label;
 		public sort_btn:Laya.Sprite;
-		public sort_txt:Laya.Label;
+		public nav1_1_txt:Laya.Label;
 		public color1:Laya.Sprite;
 		public color2:Laya.Sprite;
 		public color3:Laya.Sprite;
 		public color4:Laya.Sprite;
 		public color5:Laya.Sprite;
 		public color6:Laya.Sprite;
+		public nav1_4_txt:Laya.Label;
 		public auto_btn:Laya.CheckBox;
+		public nav1_5_txt:Laya.Label;
+		public nav1_6_txt:Laya.Label;
+		public nav1_7_txt:Laya.Label;
+		public nav1_3_txt:Laya.Label;
 		public selectAll_btn:Laya.CheckBox;
         constructor(){ super()}
         createChildren():void {
@@ -72,8 +95,8 @@ export module ui {
     export class HelpPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
-		public title_txt:Laya.Label;
-		public notie_txt:Laya.Label;
+		public help_txt:Laya.Label;
+		public btnVideo:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -129,6 +152,17 @@ export module ui {
         }
     }
     REG("ui.ItemCommissionUI",ItemCommissionUI);
+    export class ItemDevUI extends View {
+		public bg:Laya.Image;
+		public img:Laya.Image;
+		public btn:Laya.Sprite;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemDev");
+        }
+    }
+    REG("ui.ItemDevUI",ItemDevUI);
     export class ItemEmailUI extends View {
 		public title_txt:Laya.Label;
 		public notie_txt:Laya.Label;
@@ -139,6 +173,17 @@ export module ui {
         }
     }
     REG("ui.ItemEmailUI",ItemEmailUI);
+    export class ItemHelpUI extends View {
+		public title_txt:Laya.Label;
+		public content_txt:Laya.Label;
+		public time_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemHelp");
+        }
+    }
+    REG("ui.ItemHelpUI",ItemHelpUI);
     export class ItemIncomeUI extends View {
 		public machineNum_txt:Laya.Label;
 		public reward_txt:Laya.Label;
@@ -168,21 +213,34 @@ export module ui {
     export class MePannelUI extends View {
 		public btnClose:Laya.Sprite;
 		public btn0:Laya.Image;
+		public nav4_1_txt:Laya.Label;
 		public btn1:Laya.Image;
+		public nav4_2_txt:Laya.Label;
 		public btn2:Laya.Image;
+		public nav4_3_txt:Laya.Label;
 		public group0:Laya.Sprite;
+		public nav4_4_txt:Laya.Label;
 		public nick_txt:Laya.Label;
 		public btnSetName:Laya.Sprite;
-		public setName_txt:Laya.Label;
+		public nav4_4_1_txt:Laya.Label;
 		public nick2_txt:Laya.TextInput;
+		public nav4_5_txt:Laya.Label;
 		public address_txt:Laya.Label;
+		public nav4_6_txt:Laya.Label;
 		public ethAmount_txt:Laya.Label;
 		public tokenAmount_txt:Laya.Label;
+		public nav4_7_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
-		public copy_txt:Laya.Label;
+		public nav4_8_txt:Laya.Label;
 		public group1:Laya.Sprite;
+		public nav5_1_txt:Laya.Label;
+		public nav5_2_txt:Laya.Label;
+		public nav5_3_txt:Laya.Label;
 		public group2:Laya.Sprite;
+		public nav6_1_txt:Laya.Label;
+		public nav6_2_txt:Laya.Label;
+		public nav6_3_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -210,10 +268,15 @@ export module ui {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
 		public rankType0:Laya.Image;
+		public nav3_0_txt:Laya.Label;
 		public rankType1:Laya.Image;
+		public nav3_1_txt:Laya.Label;
 		public titleGroup0:Laya.Sprite;
-		public title_txt:Laya.Label;
+		public nav3_3_txt:Laya.Label;
+		public nav3_4_txt:Laya.Label;
+		public nav3_5_txt:Laya.Label;
 		public rankType2:Laya.Image;
+		public nav3_2_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

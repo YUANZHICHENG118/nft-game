@@ -9,6 +9,7 @@
     GameEvent.FLAG1 = "flag1";
     GameEvent.CLOSE_PANNEL = 'closePannel';
     GameEvent.LANGUAGE_CHANGE = 'languageChange';
+    GameEvent.DETAILE = 'detaile';
 
     class DataBus extends Laya.EventDispatcher {
         constructor() {
@@ -59,6 +60,15 @@
         }
         ui.BlackBgUI = BlackBgUI;
         REG("ui.BlackBgUI", BlackBgUI);
+        class DevDetailUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("DevDetail");
+            }
+        }
+        ui.DevDetailUI = DevDetailUI;
+        REG("ui.DevDetailUI", DevDetailUI);
         class DevPannelUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -113,6 +123,15 @@
         }
         ui.ItemCommissionUI = ItemCommissionUI;
         REG("ui.ItemCommissionUI", ItemCommissionUI);
+        class ItemDevUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemDev");
+            }
+        }
+        ui.ItemDevUI = ItemDevUI;
+        REG("ui.ItemDevUI", ItemDevUI);
         class ItemEmailUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -122,6 +141,15 @@
         }
         ui.ItemEmailUI = ItemEmailUI;
         REG("ui.ItemEmailUI", ItemEmailUI);
+        class ItemHelpUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemHelp");
+            }
+        }
+        ui.ItemHelpUI = ItemHelpUI;
+        REG("ui.ItemHelpUI", ItemHelpUI);
         class ItemIncomeUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -192,6 +220,243 @@
         })(prefab = ui.prefab || (ui.prefab = {}));
     })(ui || (ui = {}));
 
+    class Langue extends Laya.EventDispatcher {
+        constructor() {
+            super();
+        }
+        static setLanguage(lang) {
+            if (lang == 'zh-CN') {
+                Langue.defaultLangue = Langue.cn;
+            }
+            else if (lang == 'en-US') {
+                Langue.defaultLangue = Langue.en;
+            }
+            else if (lang == 'kr') {
+                Langue.defaultLangue = Langue.kr;
+            }
+        }
+    }
+    Langue.cn = {
+        start: '开始',
+        ok: '确定',
+        close: '关闭',
+        notice_0: '等待矿工派出设备',
+        notice: '公告',
+        email: '邮件',
+        chat: '聊天',
+        help: '帮助',
+        home_0: '我知道了',
+        home_1: '一键领取',
+        home_2: '一键读取',
+        nav1: '设备',
+        nav2: '交易',
+        nav3: '排行',
+        nav4: '我的',
+        nav1_1: '低 → 高',
+        nav1_2: '高 → 低',
+        nav1_3: '全选',
+        nav1_4: '自动匹配',
+        nav1_5: '总载重',
+        nav1_6: '总挖矿',
+        nav1_7: '预计收益',
+        nav1_8: '开始挖矿',
+        nav3_0: '当前TOP10',
+        nav3_1: '当前TOP50',
+        nav3_2: '全网TOP50',
+        nav3_3: '排名',
+        nav3_4: '账号',
+        nav3_5: '运走量',
+        nav4_1: '基本信息',
+        nav4_2: '我的收益',
+        nav4_3: '返佣明细',
+        nav4_4: '昵称',
+        nav4_4_1: '保存',
+        nav4_5: '我的地址',
+        nav4_6: '钱包',
+        nav4_7: '邀请链接',
+        nav4_8: '复制',
+        nav5_1: '期数',
+        nav5_2: '派出设备',
+        nav5_3: '收益(ETH/CM)',
+        nav5_4: '领取',
+        nav5_5: '未领取',
+        nav6_1: '昵称',
+        nav6_2: '地址',
+        nav6_3: '奖励',
+        nav7_1: 'en设备详情：',
+        nav7_2: 'en载重/挖矿：',
+        nav7_3: 'en等级：'
+    };
+    Langue.en = {
+        start: 'start',
+        ok: 'OK',
+        close: 'Close',
+        notice_0: 'wait...',
+        notice: 'Notice',
+        email: 'Mail',
+        chat: 'Chat',
+        help: 'Help',
+        home_0: 'I got it',
+        home_1: 'receive',
+        home_2: 'reading',
+        nav1: 'device',
+        nav2: 'transaction',
+        nav3: 'ranking',
+        nav4: 'mine',
+        nav1_1: 'low->High',
+        nav1_2: 'High->low',
+        nav1_3: 'Select all',
+        nav1_4: 'Automatic',
+        nav1_5: 'load',
+        nav1_6: 'mining',
+        nav1_7: 'income',
+        nav1_8: 'Start',
+        nav3_0: 'currentTOP10',
+        nav3_1: 'currentTOP50',
+        nav3_2: 'networkTOP50',
+        nav3_3: 'rank',
+        nav3_4: 'Account',
+        nav3_5: 'volume',
+        nav4_1: 'Basic',
+        nav4_2: 'My',
+        nav4_3: 'Rebate',
+        nav4_4: 'nickname',
+        nav4_4_1: 'save',
+        nav4_5: 'Address',
+        nav4_6: 'Wallet',
+        nav4_7: 'Invitation',
+        nav4_8: 'copy',
+        nav5_1: '期数e',
+        nav5_2: '派出设备e',
+        nav5_3: '收益(ETH/CM)e',
+        nav5_4: '领取e',
+        nav5_5: '未领取e',
+        nav6_1: '昵称e',
+        nav6_2: '地址e',
+        nav6_3: '奖励e',
+        alert1: 'please ...',
+        nav7_1: '设备详情：',
+        nav7_2: '载重/挖矿：',
+        nav7_3: '等级：'
+    };
+    Langue.kr = {
+        start: 'start',
+        ok: '확인',
+        close: '닫기',
+        notice: '발표',
+        notice_0: 'wait...',
+        email: '우편',
+        chat: '채팅',
+        help: '도움말',
+        home_0: '알았어요',
+        home_1: '수신 할 하나의 열쇠',
+        home_2: '원키 읽기',
+        nav1: '장치',
+        nav2: '트랜잭션',
+        nav3: '순위',
+        nav4: '나의 것',
+        nav1_1: '낮은',
+        nav1_2: '높음',
+        nav1_3: '모두 선택',
+        nav1_4: '자동 일치',
+        nav1_5: '총 부하',
+        nav1_6: '총 채굴',
+        nav1_7: '예상 수입',
+        nav1_8: '채굴 시작',
+        nav3_1: '현재',
+        nav3_2: '전체 네트워크',
+        nav3_3: '순위',
+        nav3_4: '계정',
+        nav3_5: '배송량',
+        nav4_1: '기본 정보',
+        nav4_2: '내 수입',
+        nav4_3: '환급 내역',
+        nav4_4: '별명',
+        nav4_4_1: 'save',
+        nav4_5: '내 주소',
+        nav4_6: '지갑',
+        nav4_7: '초대 링크',
+        nav4_8: '복사',
+        nav5_1: '期数',
+        nav5_2: '派出设备',
+        nav5_3: '收益(ETH/CM)',
+        nav5_4: '领取',
+        nav5_5: '未领取',
+        nav6_1: '昵称',
+        nav6_2: '地址',
+        nav6_3: '奖励',
+        alert1: 'please ...',
+        nav7_1: '设备详情：',
+        nav7_2: '载重/挖矿：',
+        nav7_3: '等级：'
+    };
+
+    class ItemDev extends ui.ItemDevUI {
+        constructor() {
+            super();
+            this.size(ItemDev.WID, ItemDev.HEI);
+        }
+        onEnable() {
+            this.btn.on(Laya.Event.CLICK, this, this.btnClick);
+        }
+        btnClick(event) {
+            Laya.stage.event(GameEvent.DETAILE, this.sn);
+            event.stopPropagation();
+        }
+        onDisable() {
+        }
+        setItem(sn, itemData) {
+            this.sn = sn;
+            var __scale = (ItemDev.WID - 20) / ItemDev.machinaWid[itemData.type - 1][0];
+            var __y = 0.5 * (ItemDev.HEI - ItemDev.machinaWid[itemData.type - 1][1] * __scale);
+            this.img.scaleX = this.img.scaleY = __scale;
+            this.img.y = __y;
+            this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
+            if (itemData.selected) {
+                this.bg.skin = 'gameimg/bg2.png';
+                this.btn.visible = true;
+            }
+            else {
+                this.bg.skin = 'gameimg/bg1.png';
+                this.btn.visible = false;
+            }
+        }
+    }
+    ItemDev.WID = 147;
+    ItemDev.HEI = 134;
+    ItemDev.machinaWid = [[230, 123], [293, 209], [312, 133]];
+
+    class DevDetail extends ui.DevDetailUI {
+        constructor() {
+            super();
+            this.dataBus = DataBus.getDataBus();
+            this.onLanguage = () => {
+                let arr = ['nav7_1', 'nav7_2', 'nav7_3'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
+        }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+        setData(d) {
+            console.log('设备详情:', d);
+            this.machine.skin = 'machine/m' + d.type + '_' + d.color + '.png';
+            this.load_txt.text = d.load + '/' + d.mining;
+            this.level_txt.text = d.level + '';
+            this.remark_txt.text = d.remark;
+        }
+    }
+
     var List = Laya.List;
     var Handler = Laya.Handler;
     class DevPannel extends ui.DevPannelUI {
@@ -204,6 +469,20 @@
             this.btnColorArr = [];
             this.list = new List();
             this.hasInitList = false;
+            this.dataBus = DataBus.getDataBus();
+            this.devDetail = new DevDetail();
+            this.onDetaile = (e) => {
+                this.devDetail.visible = true;
+                let d = this.listData0[e];
+                this.devDetail.setData(d);
+            };
+            this.onLanguage = () => {
+                let arr = ['nav1_3', 'nav1_4', 'nav1_5', 'nav1_6', 'nav1_7', 'nav1_8'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
         }
         onEnable() {
             this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
@@ -218,7 +497,7 @@
             }
             this.selectAll_btn.on(Laya.Event.CHANGE, this, this.selectAllClick);
             this.stakeTokenNft_btn.on(Laya.Event.CLICK, this, this.stakeTokenNft);
-            this.list.itemRender = Item;
+            this.list.itemRender = ItemDev;
             this.list.repeatX = 4;
             this.list.x = 50;
             this.list.y = 423;
@@ -231,6 +510,11 @@
             this.list.renderHandler = new Handler(this, this.updateItem);
             this.addChild(this.list);
             this.stakeTokenNft_btn.disabled = false;
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
+            this.devDetail.visible = false;
+            this.addChild(this.devDetail);
+            Laya.stage.on(GameEvent.DETAILE, this, this.onDetaile);
         }
         stakeTokenNft() {
             var machineNum = 0;
@@ -248,7 +532,7 @@
                 }
             }
             if (machineNum == 0) {
-                alert('您还没有选择设备呢');
+                alert(Langue.defaultLangue.alert1);
                 return;
             }
             console.log('obj', obj);
@@ -269,11 +553,11 @@
         sortClick() {
             if (this.sort == 'DESC') {
                 this.sort = 'ASC';
-                this.sort_txt.text = '低 → 高';
+                this.nav1_1_txt.text = Langue.defaultLangue['nav1_1'];
             }
             else {
                 this.sort = 'DESC';
-                this.sort_txt.text = '高 → 低';
+                this.nav1_1_txt.text = Langue.defaultLangue['nav1_2'];
             }
             this.updateList();
         }
@@ -292,14 +576,15 @@
                 this.btnColorArr[i].alpha = 1;
             }
             this.sort = 'ASC';
-            this.sort_txt.text = '低 → 高';
+            this.nav1_1_txt.text = Langue.defaultLangue['nav1_1'];
             this.selectAll_btn.selected = false;
             this.auto_btn.selected = false;
             this.updateList();
         }
         loadData(params) {
             LayaBlock.getUserMachine(params).then((d) => {
-                console.log(d, typeof d);
+                console.log('设备列表：', d);
+                this.listData0 = d;
                 this.listData = [];
                 for (let i in d) {
                     this.listData.push({ id: d[i].id, type: d[i].type, color: d[i].color, selected: false });
@@ -308,10 +593,13 @@
             });
         }
         updateItem(cell, index) {
-            cell.setItem(cell.dataSource);
+            cell.setItem(index, this.listData[index]);
         }
         onSelect(index) {
             this.listData[index].selected = !this.listData[index].selected;
+        }
+        onClickList(e) {
+            console.log(e.type);
         }
         btnColorClick(e) {
             let colorX = e.currentTarget;
@@ -356,161 +644,6 @@
         onDisable() {
         }
     }
-    var Box = Laya.Box;
-    var Image = Laya.Image;
-    class Item extends Box {
-        constructor() {
-            super();
-            this.size(Item.WID, Item.HEI);
-            this.bg = new Image('gameimg/bg1.png');
-            this.bg.size(Item.WID, Item.HEI);
-            this.addChild(this.bg);
-            this.img = new Image();
-            this.img.x = 10;
-            this.img.y = 90;
-            this.addChild(this.img);
-        }
-        setItem(itemData) {
-            var __scale = (Item.WID - 20) / Item.machinaWid[itemData.type - 1][0];
-            var __y = 0.5 * (Item.HEI - Item.machinaWid[itemData.type - 1][1] * __scale);
-            this.img.scaleX = this.img.scaleY = __scale;
-            this.img.y = __y;
-            this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
-            this.bg.skin = 'gameimg/bg' + (itemData.selected ? 2 : 1) + '.png';
-        }
-    }
-    Item.WID = 147;
-    Item.HEI = 134;
-    Item.machinaWid = [[230, 123], [293, 209], [312, 133]];
-
-    class Langue extends Laya.EventDispatcher {
-        constructor() {
-            super();
-        }
-        static setLanguage(lang) {
-            if (lang == 'zh-CN') {
-                Langue.defaultLangue = Langue.cn;
-            }
-            else if (lang == 'en-US') {
-                Langue.defaultLangue = Langue.en;
-            }
-            else if (lang == 'kr') {
-                Langue.defaultLangue = Langue.kr;
-            }
-        }
-    }
-    Langue.defaultLangue = {};
-    Langue.cn = {
-        start: '开始',
-        ok: '确定',
-        close: '关闭',
-        notice: '公告',
-        email: '邮件',
-        chat: '聊天',
-        help: '帮助',
-        home_0: '我知道了',
-        home_1: '一键领取',
-        home_2: '一键读取',
-        nav1: '设备',
-        nav2: '交易',
-        nav3: '排行',
-        nav4: '我的',
-        nav1_1: '低',
-        nav1_2: '高',
-        nav1_3: '全选',
-        nav1_4: '自动匹配',
-        nav1_5: '总载重',
-        nav1_6: '总挖矿',
-        nav1_7: '预计收益',
-        nav1_8: '开始挖矿',
-        nav3_1: '当前',
-        nav3_2: '全网',
-        nav3_3: '排名',
-        nav3_4: '账号',
-        nav3_5: '运走量',
-        nav4_1: '基本信息',
-        nav4_2: '我的收益',
-        nav4_3: '返佣明细',
-        nav4_4: '昵称',
-        nav4_5: '我的地址',
-        nav4_6: '钱包',
-        nav4_7: '邀请链接',
-        nav4_8: '复制'
-    };
-    Langue.en = {
-        start: 'start',
-        ok: 'OK',
-        close: 'Close',
-        notice: 'Announcement',
-        email: 'Mail',
-        chat: 'Chat',
-        help: 'Help',
-        home_0: 'I got it',
-        home_1: 'One key to receive',
-        home_2: 'One-key reading',
-        nav1: 'device',
-        nav2: 'transaction',
-        nav3: 'ranking',
-        nav4: 'mine',
-        nav1_1: 'low',
-        nav1_2: 'High',
-        nav1_3: 'Select all',
-        nav1_4: 'Automatic matching',
-        nav1_5: 'total load',
-        nav1_6: 'Total mining',
-        nav1_7: 'Estimated income',
-        nav1_8: 'Start mining',
-        nav3_1: 'current',
-        nav3_2: 'full network',
-        nav3_3: 'rank',
-        nav3_4: 'Account',
-        nav3_5: 'shipping volume',
-        nav4_1: 'Basic Information',
-        nav4_2: 'My earnings',
-        nav4_3: 'Rebate details',
-        nav4_4: 'nickname',
-        nav4_5: 'My address',
-        nav4_6: 'Wallet',
-        nav4_7: 'Invitation link',
-        nav4_8: 'copy'
-    };
-    Langue.kr = {
-        start: 'start',
-        ok: '확인',
-        close: '닫기',
-        notice: '발표',
-        email: '우편',
-        chat: '채팅',
-        help: '도움말',
-        home_0: '알았어요',
-        home_1: '수신 할 하나의 열쇠',
-        home_2: '원키 읽기',
-        nav1: '장치',
-        nav2: '트랜잭션',
-        nav3: '순위',
-        nav4: '나의 것',
-        nav1_1: '낮은',
-        nav1_2: '높음',
-        nav1_3: '모두 선택',
-        nav1_4: '자동 일치',
-        nav1_5: '총 부하',
-        nav1_6: '총 채굴',
-        nav1_7: '예상 수입',
-        nav1_8: '채굴 시작',
-        nav3_1: '현재',
-        nav3_2: '전체 네트워크',
-        nav3_3: '순위',
-        nav3_4: '계정',
-        nav3_5: '배송량',
-        nav4_1: '기본 정보',
-        nav4_2: '내 수입',
-        nav4_3: '환급 내역',
-        nav4_4: '별명',
-        nav4_5: '내 주소',
-        nav4_6: '지갑',
-        nav4_7: '초대 링크',
-        nav4_8: '복사'
-    };
 
     class EntrancePannel extends ui.EntrancePannelUI {
         constructor() {
@@ -521,7 +654,6 @@
                 let arr = ['start'];
                 for (let i in arr) {
                     let txtName = arr[i];
-                    console.log(txtName + '_txt');
                     this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
                 }
             };
@@ -591,8 +723,11 @@
         }
         onDisable() {
         }
+        setItem(sn, itemData) {
+        }
     }
 
+    var Handler$1 = Laya.Handler;
     var List$1 = Laya.List;
     class EmailPannel extends ui.EmailPannelUI {
         constructor() {
@@ -603,7 +738,6 @@
                 let arr = ['email'];
                 for (let i in arr) {
                     let txtName = arr[i];
-                    console.log(txtName + '_txt');
                     this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
                 }
             };
@@ -611,11 +745,7 @@
                 console.log('加载邮件参数：', DataBus.account);
                 LayaBlock.getEmail(DataBus.account).then((d) => {
                     console.log('邮件d:', d);
-                    this.listData = [];
-                    for (let i in d) {
-                        this.listData.push({ id: d[i].id, title: d[i].title, time: d[i].time, content: d[i].content });
-                    }
-                    this.list.array = this.listData;
+                    this.list.array = d;
                 });
             };
         }
@@ -632,11 +762,15 @@
             this.list.vScrollBarSkin = "";
             this.list.selectEnable = true;
             this.list.array = [];
+            this.list.selectHandler = new Handler$1(this, this.onSelect);
+            this.list.renderHandler = new Handler$1(this, this.updateItem);
             this.addChild(this.list);
             this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
             this.onLanguage();
+            this.loadData();
         }
         updateItem(cell, index) {
+            cell.setItem(index, this.listData[index]);
         }
         onSelect(index) {
         }
@@ -647,15 +781,130 @@
         }
     }
 
+    class Util {
+        constructor() {
+        }
+    }
+    Util.getDateStrFormat = (date, format = 'Y-M-D h:m:s') => {
+        format = format.replace('Y', date.getFullYear() + '');
+        format = format.replace('M', Util.format_0n(date.getMonth() + 1));
+        format = format.replace('D', Util.format_0n(date.getDate()));
+        format = format.replace('h', Util.format_0n(date.getHours()));
+        format = format.replace('m', Util.format_0n(date.getMinutes()));
+        format = format.replace('s', Util.format_0n(date.getSeconds()));
+        return format;
+    };
+    Util.getDateStrFormatByMs = (ms, format = 'Y-M-D h:m:s') => {
+        let date = new Date(ms);
+        return Util.getDateStrFormat(date, format);
+    };
+    Util.format_0n = (n) => {
+        let str = n + '';
+        if (n < 10) {
+            str = '0' + n;
+        }
+        return str;
+    };
+
+    class ItemHelp extends ui.ItemHelpUI {
+        constructor() { super(); this.width = 660; this.height = 220; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        setItem(sn, itemData) {
+            this.title_txt.text = itemData.title;
+            this.content_txt.text = itemData.content;
+            this.time_txt.text = Util.getDateStrFormatByMs(1000 * itemData.time);
+        }
+    }
+
+    var Handler$2 = Laya.Handler;
+    var List$2 = Laya.List;
     class HelpPannel extends ui.HelpPannelUI {
-        constructor() { super(); }
+        constructor() {
+            super();
+            this.list = new List$2();
+            this.dataBus = DataBus.getDataBus();
+            this.hasInit = false;
+            this.onLanguage = () => {
+                let arr = ['help'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
+            this.initData = () => {
+                if (this.hasInit == true) {
+                    return;
+                }
+                this.hasInit = true;
+                LayaBlock.getHelp().then((d) => {
+                    console.log('帮助接口返回==', d);
+                    this.listData = d;
+                    this.list.array = this.listData;
+                });
+            };
+        }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.btnVideo.on(Laya.Event.CLICK, this, this.btnVideoClick);
+            this.list.itemRender = ItemHelp;
+            this.list.repeatX = 1;
+            this.list.x = 45;
+            this.list.y = 428;
+            this.list.height = 848;
+            this.list.width = 660;
+            this.list.spaceX = 20;
+            this.list.spaceY = 20;
+            this.list.vScrollBarSkin = "";
+            this.list.selectEnable = true;
+            this.list.array = [];
+            this.list.selectHandler = new Handler$2(this, this.onSelect);
+            this.list.renderHandler = new Handler$2(this, this.updateItem);
+            this.addChild(this.list);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
+        }
+        updateItem(cell, index) {
+            cell.setItem(index, this.listData[index]);
+        }
+        onSelect(index) {
         }
         onDisable() {
         }
         closeClick() {
             this.visible = false;
+        }
+        btnVideoClick() {
+            Laya.Browser.window.location.href = 'video/1.mp4';
+        }
+        creatVideo() {
+            let divElement = Laya.Browser.createElement("div");
+            divElement.className = "div";
+            Laya.Browser.document.body.appendChild(divElement);
+            Laya.Utils.fitDOMElementInArea(divElement, this, 0, 0, Laya.stage.width, Laya.stage.height);
+            let videoElement = Laya.Browser.createElement("video");
+            videoElement.setAttribute("id", "myvideo");
+            this.videoElement = videoElement;
+            videoElement.controls = true;
+            videoElement.autoPlay = false;
+            videoElement.setAttribute("webkit-playsinline", true);
+            videoElement.setAttribute("playsinline", true);
+            videoElement.setAttribute("x5-video-player-type", 'h5');
+            videoElement.setAttribute("x-webkit-airplay", true);
+            videoElement.setAttribute("x5-video-orientation", "portrait");
+            videoElement.setAttribute('preload', 'auto');
+            videoElement.setAttribute('width', '100%');
+            videoElement.setAttribute('height', '40%');
+            videoElement.style.zInddex = Laya.Render.canvas.style.zIndex + 1;
+            videoElement.type = "vedio/mp4";
+            videoElement.src = "video/1.mp4";
+            videoElement.play();
+            divElement.appendChild(videoElement);
+            this.divElement = divElement;
+        }
+        videoEvent() {
         }
     }
 
@@ -670,11 +919,11 @@
             this.address_txt.text = itemData.address;
             this.amount_txt.text = itemData.amount;
             if (itemData.receive) {
-                this.receive_txt.text = '已领取';
+                this.receive_txt.text = Langue.defaultLangue.nav5_5;
                 this.btnReceive.skin = 'gameimg/smallBtn1.png';
             }
             else {
-                this.receive_txt.text = '领取';
+                this.receive_txt.text = Langue.defaultLangue.nav5_4;
                 this.btnReceive.skin = 'gameimg/smallBtn0.png';
             }
         }
@@ -691,28 +940,36 @@
             this.machineNum_txt.text = itemData.machineNum;
             this.reward_txt.text = itemData.ethReward + '/' + itemData.tokenReward;
             if (itemData.receive) {
-                this.receive_txt.text = '已领取';
+                this.receive_txt.text = Langue.defaultLangue.nav5_5;
                 this.btnReceive.skin = 'gameimg/smallBtn1.png';
             }
             else {
-                this.receive_txt.text = '领取';
+                this.receive_txt.text = Langue.defaultLangue.nav5_4;
                 this.btnReceive.skin = 'gameimg/smallBtn0.png';
             }
         }
     }
 
-    var List$2 = Laya.List;
-    var Handler$1 = Laya.Handler;
+    var List$3 = Laya.List;
+    var Handler$3 = Laya.Handler;
     class MePannel extends ui.MePannelUI {
         constructor() {
             super();
             this.clicked1 = false;
             this.clicked2 = false;
             this.btnType = 0;
-            this.list1 = new List$2();
-            this.list2 = new List$2();
+            this.list1 = new List$3();
+            this.list2 = new List$3();
             this.itemX = 0;
             this.itemY = 42;
+            this.dataBus = DataBus.getDataBus();
+            this.onLanguage = () => {
+                let arr = ['nav4_1', 'nav4_2', 'nav4_3', 'nav4_4', 'nav4_4_1', 'nav4_5', 'nav4_6', 'nav4_7', 'nav4_8', 'nav5_1', 'nav5_2', 'nav5_3', 'nav6_1', 'nav6_2', 'nav6_3'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
         }
         onEnable() {
             this.nick2_txt.visible = this.btnSetName.visible = false;
@@ -735,8 +992,8 @@
             this.list1.spaceY = 5;
             this.list1.vScrollBarSkin = "";
             this.list1.selectEnable = true;
-            this.list1.selectHandler = new Handler$1(this, this.onSelect1);
-            this.list1.renderHandler = new Handler$1(this, this.updateItem1);
+            this.list1.selectHandler = new Handler$3(this, this.onSelect1);
+            this.list1.renderHandler = new Handler$3(this, this.updateItem1);
             this.list1.array = this.listData1;
             this.group1.addChild(this.list1);
             this.list2.itemRender = ItemCommission;
@@ -749,10 +1006,12 @@
             this.list2.spaceY = 5;
             this.list2.vScrollBarSkin = "";
             this.list2.selectEnable = true;
-            this.list2.selectHandler = new Handler$1(this, this.onSelect2);
-            this.list2.renderHandler = new Handler$1(this, this.updateItem2);
+            this.list2.selectHandler = new Handler$3(this, this.onSelect2);
+            this.list2.renderHandler = new Handler$3(this, this.updateItem2);
             this.list2.array = this.listData2;
             this.group2.addChild(this.list2);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
         }
         updateItem1(cell, index) {
             cell.setItem(index, this.listData1[index]);
@@ -862,31 +1121,6 @@
         }
     }
 
-    class Util {
-        constructor() {
-        }
-    }
-    Util.getDateStrFormat = (date, format = 'Y-M-D h:m:s') => {
-        format = format.replace('Y', date.getFullYear() + '');
-        format = format.replace('M', Util.format_0n(date.getMonth() + 1));
-        format = format.replace('D', Util.format_0n(date.getDate()));
-        format = format.replace('h', Util.format_0n(date.getHours()));
-        format = format.replace('m', Util.format_0n(date.getMinutes()));
-        format = format.replace('s', Util.format_0n(date.getSeconds()));
-        return format;
-    };
-    Util.getDateStrFormatByMs = (ms, format = 'Y-M-D h:m:s') => {
-        let date = new Date(ms);
-        return Util.getDateStrFormat(date, format);
-    };
-    Util.format_0n = (n) => {
-        let str = n + '';
-        if (n < 10) {
-            str = '0' + n;
-        }
-        return str;
-    };
-
     class NoticePannel extends ui.NoticePannelUI {
         constructor() {
             super();
@@ -895,7 +1129,6 @@
                 let arr = ['notice', 'home_0'];
                 for (let i in arr) {
                     let txtName = arr[i];
-                    console.log(txtName + '_txt');
                     this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
                 }
             };
@@ -950,13 +1183,13 @@
         }
     }
 
-    var List$3 = Laya.List;
-    var Handler$2 = Laya.Handler;
+    var List$4 = Laya.List;
+    var Handler$4 = Laya.Handler;
     class RankPannel extends ui.RankPannelUI {
         constructor() {
             super();
             this.sort = 'DESC';
-            this.list = new List$3();
+            this.list = new List$4();
             this.hasInitList = false;
             this.listData = [];
             this.itemX = 30;
@@ -964,6 +1197,14 @@
             this.itemY1 = 290;
             this.loading = false;
             this.rankType = 0;
+            this.dataBus = DataBus.getDataBus();
+            this.onLanguage = () => {
+                let arr = ['nav3_0', 'nav3_1', 'nav3_2', 'nav3_3', 'nav3_4', 'nav3_5'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
@@ -976,8 +1217,8 @@
             this.list.spaceY = 10;
             this.list.vScrollBarSkin = "";
             this.list.selectEnable = true;
-            this.list.selectHandler = new Handler$2(this, this.onSelect);
-            this.list.renderHandler = new Handler$2(this, this.updateItem);
+            this.list.selectHandler = new Handler$4(this, this.onSelect);
+            this.list.renderHandler = new Handler$4(this, this.updateItem);
             this.list.array = this.listData;
             this.addChild(this.list);
             this.lastItem = new ItemRank();
@@ -991,6 +1232,8 @@
             this.rankType0.on(Laya.Event.CLICK, this, this.rankTypeClick);
             this.rankType1.on(Laya.Event.CLICK, this, this.rankTypeClick);
             this.rankType2.on(Laya.Event.CLICK, this, this.rankTypeClick);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
         }
         rankTypeClick(e) {
             if (this.loading == true) {
@@ -1115,6 +1358,13 @@
                 1: 'en-US',
                 2: 'kr'
             };
+            this.onLanguage = () => {
+                let arr = [];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
         }
         onEnable() {
             this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
@@ -1122,6 +1372,8 @@
             this.soundRadioGroup.on(Laya.Event.CHANGE, this, this.soundRadioGroupChange);
             this.languageRadioGroup.on(Laya.Event.CHANGE, this, this.languageRadioGroupChange);
             this.init();
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
         }
         init() {
             let language = LayaBlock.getLanguage();
@@ -1225,10 +1477,10 @@
                 this.machineGo({});
             };
             this.onLanguage = () => {
+                this.gongGao_txt.text = Langue.defaultLangue.notice_0;
                 let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4'];
                 for (let i in arr) {
                     let txtName = arr[i];
-                    console.log(txtName + '_txt');
                     this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
                 }
             };
@@ -1240,6 +1492,7 @@
             };
             this.showHelpPannel = () => {
                 this.helpPannel.visible = true;
+                this.helpPannel.initData();
             };
             this.showSetPannel = () => {
                 this.setPannel.visible = true;
@@ -1257,7 +1510,7 @@
                 this.gongGao_txt.text = '玩家' + obj.nick + '派出车辆挖矿';
                 clearTimeout(this.timeoutGongGao);
                 this.timeoutGongGao = setTimeout(() => {
-                    this.gongGao_txt.text = '';
+                    this.gongGao_txt.text = Langue.defaultLangue.notice_0;
                 }, 10000);
                 let aniMachine = new AniMachine();
                 aniMachine.obj = obj;

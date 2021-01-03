@@ -3,6 +3,8 @@ import ItemEmail from "./ItemEmail";
 import { ui } from "./ui/layaMaxUI";
 import Langue from "./Langue";
 import GameEvent from "./GameEvent";
+import Handler = Laya.Handler;
+
 import List = Laya.List;
 export default class EmailPannel extends ui.EmailPannelUI {
     private list:List = new List();    
@@ -12,7 +14,6 @@ export default class EmailPannel extends ui.EmailPannelUI {
     
     onEnable(): void {
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
-        
         //创建列表
         this.list.itemRender =ItemEmail;
         this.list.repeatX = 1;
@@ -27,29 +28,28 @@ export default class EmailPannel extends ui.EmailPannelUI {
         this.list.vScrollBarSkin = "";
         this.list.selectEnable = true;
         this.list.array =[]
-        //this.list.selectHandler = new Handler(this, this.onSelect);
-        //this.list.renderHandler = new Handler(this, this.updateItem);
+        this.list.selectHandler = new Handler(this, this.onSelect);
+        this.list.renderHandler = new Handler(this, this.updateItem);
         this.addChild(this.list) 
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()
+        this.loadData()
     }
 
     onLanguage=()=>{
         let arr=['email']
         for(let i in arr){
             let txtName:string=arr[i]
-            console.log(txtName+'_txt')
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
         }        
     }
 
     private updateItem(cell:ItemEmail, index: number): void {
-        //cell.setItem(cell.dataSource);
+        cell.setItem(index,this.listData[index]);
     }
 
     private onSelect(index: number): void {
-        //laya.ui.js 3155行修改  if (true || this._selectedIndex != value) 
-        //this.listData[index].selected=!this.listData[index].selected
+        
     }
 
     onDisable(): void {
@@ -63,11 +63,7 @@ export default class EmailPannel extends ui.EmailPannelUI {
         console.log('加载邮件参数：',DataBus.account);
         LayaBlock.getEmail(DataBus.account).then((d:IEmail[])=>{
             console.log('邮件d:',d)
-            this.listData=[]
-            for(let i in d){
-                this.listData.push({id:d[i].id,title:d[i].title,time:d[i].time,content:d[i].content})
-            }
-            this.list.array =this.listData
+            this.list.array =d
         })
     }
 }
