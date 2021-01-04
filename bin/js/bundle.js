@@ -187,6 +187,15 @@
         }
         ui.NoticePannelUI = NoticePannelUI;
         REG("ui.NoticePannelUI", NoticePannelUI);
+        class PlayDetailPannelUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("PlayDetailPannel");
+            }
+        }
+        ui.PlayDetailPannelUI = PlayDetailPannelUI;
+        REG("ui.PlayDetailPannelUI", PlayDetailPannelUI);
         class RankPannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -286,13 +295,16 @@
         nav6_3: '奖励',
         nav7_1: '设备详情：',
         nav7_2: '载重/挖矿：',
-        nav7_3: '等级：'
+        nav7_3: '等级：',
+        nav8_0: '派出记录',
+        nav8_1: '运走量',
+        nav8_2: '总挖矿',
     };
     Langue.en = {
         start: 'start',
         ok: 'OK',
         close: 'Close',
-        notice_0: 'wait...',
+        notice_0: 'Waiting for absenteeism',
         notice: 'Notice',
         email: 'Mail',
         chat: 'Chat',
@@ -306,15 +318,15 @@
         nav4: 'mine',
         nav1_1: 'low->High',
         nav1_2: 'High->low',
-        nav1_3: 'Select all',
+        nav1_3: 'All',
         nav1_4: 'Automatic',
         nav1_5: 'load',
         nav1_6: 'mining',
         nav1_7: 'income',
         nav1_8: 'Start',
-        nav3_0: 'currentTOP10',
-        nav3_1: 'currentTOP50',
-        nav3_2: 'networkTOP50',
+        nav3_0: 'TOP10',
+        nav3_1: 'TOP50',
+        nav3_2: 'AllTOP50',
         nav3_3: 'rank',
         nav3_4: 'Account',
         nav3_5: 'volume',
@@ -327,18 +339,21 @@
         nav4_6: 'Wallet',
         nav4_7: 'Invitation',
         nav4_8: 'copy',
-        nav5_1: '期数e',
-        nav5_2: '派出设备e',
-        nav5_3: '收益(ETH/CM)e',
-        nav5_4: '领取e',
-        nav5_5: '未领取e',
-        nav6_1: '昵称e',
-        nav6_2: '地址e',
-        nav6_3: '奖励e',
+        nav5_1: 'periods',
+        nav5_2: 'Send ',
+        nav5_3: 'income',
+        nav5_4: 'collect',
+        nav5_5: 'not received',
+        nav6_1: 'nick',
+        nav6_2: 'address',
+        nav6_3: 'reward ',
         alert1: 'please ...',
-        nav7_1: 'en设备详情：',
-        nav7_2: 'en载重/挖矿：',
-        nav7_3: 'en等级：'
+        nav7_1: 'details: ',
+        nav7_2: 'load/Mining:',
+        nav7_3: 'level:',
+        nav8_0: '派出记录',
+        nav8_1: '运走量',
+        nav8_2: '总挖矿',
     };
     Langue.kr = {
         start: 'start',
@@ -378,18 +393,21 @@
         nav4_6: '지갑',
         nav4_7: '초대 링크',
         nav4_8: '복사',
-        nav5_1: '期数',
-        nav5_2: '派出设备',
-        nav5_3: '收益(ETH/CM)',
-        nav5_4: '领取',
-        nav5_5: '未领取',
-        nav6_1: '昵称',
-        nav6_2: '地址',
-        nav6_3: '奖励',
-        alert1: 'please ...',
-        nav7_1: '设备详情：',
-        nav7_2: '载重/挖矿：',
-        nav7_3: '等级：'
+        nav5_1: '기수',
+        nav5_2: "파견 설비",
+        nav5_3: '수익(ETH/CM)',
+        nav5_4: "수령",
+        nav5_5: "미 수령",
+        nav6_1: "닉네임",
+        nav6_2: "주소",
+        nav6_3: "보상",
+        alert1: "please...",
+        nav7_1: '설비 상세 정보:',
+        nav7_2: "적재/채굴:",
+        nav7_3: "등급:",
+        nav8_0: '派出记录',
+        nav8_1: '运走量',
+        nav8_2: '总挖矿',
     };
 
     class ItemDev extends ui.ItemDevUI {
@@ -598,6 +616,24 @@
         }
         onSelect(index) {
             this.listData[index].selected = !this.listData[index].selected;
+            this.updateSum();
+        }
+        updateSum() {
+            let sumLoad = 0;
+            let sumMining = 0;
+            let total = 0;
+            for (var i in this.listData) {
+                if (this.listData[i].selected == true) {
+                    let id = this.listData[i].id;
+                    let obj = LayaBlock.selectMachine(id, true);
+                    sumLoad += obj.load;
+                    sumMining += obj.mining;
+                    total += obj.total;
+                }
+            }
+            this.sumLoad_txt.text = sumLoad + '';
+            this.sumMining_txt.text = sumMining + '';
+            this.total_txt.text = total + '';
         }
         onClickList(e) {
             console.log(e.type);

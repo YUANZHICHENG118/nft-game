@@ -50,7 +50,11 @@ export default class Langue extends Laya.EventDispatcher {
 
         nav7_1: '设备详情：',
         nav7_2: '载重/挖矿：',
-        nav7_3: '等级：'
+        nav7_3: '等级：',
+
+        nav8_0:'派出记录',
+        nav8_1: '运走量',
+        nav8_2: '总挖矿',
 
     }
     public static en = {
@@ -103,7 +107,11 @@ export default class Langue extends Laya.EventDispatcher {
         alert1: 'please ...',
         nav7_1: 'details: ',
         nav7_2: 'load/Mining:',
-        nav7_3: 'level:'
+        nav7_3: 'level:',
+        nav8_0:'派出记录',
+        nav8_1: '运走量',
+        nav8_2: '总挖矿',
+
     }
     public static kr = {
         start: 'start',
@@ -155,6 +163,9 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_1: '설비 상세 정보:',
         nav7_2: "적재/채굴:",
         nav7_3: "등급:",
+        nav8_0:'派出记录',
+        nav8_1: '运走量',
+        nav8_2: '总挖矿',
     }
 
     constructor() {
