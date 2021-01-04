@@ -2610,7 +2610,8 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
             //保存数据到缓存
             const machine = localStorage.getItem("machine");
-            let data = machine ? JSON.parse(machine) : await this.getNft1155();
+           // let data = machine ? JSON.parse(machine) : await this.getNft1155();
+            let data = await this.getNft1155();
             data.sort((a, b) => b.mining - a.mining)
             if (params) {
                 data = params['type'] ? data.filter(item => params.type.includes(item.type)) : data;
