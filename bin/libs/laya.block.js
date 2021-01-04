@@ -3,9 +3,16 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
     //加载时的描述
     let gameLoadDec = {
-        'zh-CN':'公元2020年2月22日，在uniswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
-        'en-US':'abcd',
-        'kr':'abcd'
+        'zh-CN':'公元2020年2月22日，在cmswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
+        'en-US':'On February 22nd, 2020, a gold deposit was discovered at the coordinate of cmswap. So many Taoke began to mine to get rich',
+        'kr':'서기 2020 년 2 월 22 일, cmswap 좌표 0 xldkk 0394 곳 에서 금광 을 발견 하 였 다.그 러 자 많은 방문객 들 이 광산 을 파고 부자 가 되 기 시작 했다.'
+    };
+
+    //设备规则
+    let machineRemark = {
+        'zh-CN':'规则描述规则描述规则描述规则描述规则描述规则描述',
+        'en-US':'Rule，Rule，Rule，Rule，Rule，Rule，',
+        'kr':'Rule，Rule，Rule，Rule，Rule，Rule，Rule，'
     };
 
 // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
@@ -170,11 +177,11 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             name: 'Crypto Mine',
             symbol: 'CM',
             decimals: Math.pow(10, 18),
-            scale: 2,
+            scale: 4,
             approveAmount: 100000, //授权金额
-            erc20TokenAddress: "0x67E26F27b2A632820FA736CfE18c54A331Fc7839",
-            gameAddress: "0x2EeD38c79191De257fD1Fba9cFa0d985F34C4D86",
-            erc1155TokenAddress: "0x2dD61d4350D7F7851BC1bC0673ea34c7e2e43837"
+            erc20TokenAddress: "0x4c543Fdc21d0F076FCEa4F92ce9BBCa70990FF6c",
+            gameAddress: "0xFb0eFEb05Bc05F32f03BB63227111747835e5033",
+            erc1155TokenAddress: "0xC5E887eA752eb452430c8D8bbD37E20b94621B41"
 
         }
     ];
@@ -194,28 +201,111 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "tokenAddress",
+                    "name": "MiningPoolAddress",
                     "type": "address"
                 },
                 {
                     "internalType": "address",
-                    "name": "pairAddress",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "erc1155Address",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address payable",
-                    "name": "_proAddress",
+                    "name": "token1155Address",
                     "type": "address"
                 }
             ],
-            "payable": false,
             "stateMutability": "nonpayable",
             "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256[2]",
+                    "name": "fee",
+                    "type": "uint256[2]"
+                }
+            ],
+            "name": "DeveloperFee",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "LastStraw",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Mining",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ObtainCar",
+            "type": "event"
         },
         {
             "anonymous": false,
@@ -240,38 +330,72 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             "anonymous": false,
             "inputs": [
                 {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sn",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "fertility",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "carry",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SetCarIndex",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                }
+            ],
+            "name": "UpdateRank",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
                     "indexed": true,
                     "internalType": "address",
                     "name": "userAddress",
                     "type": "address"
                 },
                 {
-                    "indexed": false,
+                    "indexed": true,
                     "internalType": "uint256",
-                    "name": "amount",
+                    "name": "_version",
                     "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[2]",
+                    "name": "amounts",
+                    "type": "uint256[2]"
                 }
             ],
-            "name": "Stake",
+            "name": "WithdrawAward",
             "type": "event"
         },
         {
-            "constant": true,
-            "inputs": [],
-            "name": "ERC1155",
-            "outputs": [
-                {
-                    "internalType": "contract IERC1155",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
             "inputs": [],
             "name": "LAST_STRAW_PERCNET",
             "outputs": [
@@ -281,12 +405,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [],
             "name": "ONE_DAY",
             "outputs": [
@@ -296,12 +418,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [],
             "name": "ORE_AMOUNT",
             "outputs": [
@@ -311,12 +431,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -332,12 +450,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -353,52 +469,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [],
-            "name": "START_TIME",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "avi",
-            "outputs": [
-                {
-                    "internalType": "uint256[18]",
-                    "name": "_carIds",
-                    "type": "uint256[18]"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "len",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "erc1155Amount",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -406,7 +480,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "name": "carIds",
+            "name": "carIndex",
             "outputs": [
                 {
                     "internalType": "uint256",
@@ -414,12 +488,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -431,6 +503,11 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             "outputs": [
                 {
                     "internalType": "uint256",
+                    "name": "sn",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
                     "name": "fertility",
                     "type": "uint256"
                 },
@@ -440,228 +517,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "cat",
-            "outputs": [
-                {
-                    "internalType": "uint256[18]",
-                    "name": "_carIds",
-                    "type": "uint256[18]"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "len",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "erc1155Amount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "quantity",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "cmToken",
-            "outputs": [
-                {
-                    "internalType": "contract IERC20",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "duration",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "carId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "len",
-                    "type": "uint256"
-                }
-            ],
-            "name": "findCarId",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_version",
-                    "type": "uint256"
-                }
-            ],
-            "name": "findRank",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getDigGross",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "_version",
-                    "type": "uint8"
-                },
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getPersonalStats",
-            "outputs": [
-                {
-                    "internalType": "uint256[6]",
-                    "name": "stats",
-                    "type": "uint256[6]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_version",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
-                }
-            ],
-            "name": "getRecord",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "drawStatus",
-                    "type": "bool"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "digGross",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "bool",
-                    "name": "lastStraw",
-                    "type": "bool"
-                },
-                {
-                    "internalType": "uint8",
-                    "name": "ranking",
-                    "type": "uint8"
-                },
-                {
-                    "internalType": "uint256[18]",
-                    "name": "carNum",
-                    "type": "uint256[18]"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "total",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -669,51 +528,70 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "name": "getSorts",
+            "name": "crown",
             "outputs": [
                 {
                     "internalType": "address[10]",
-                    "name": "",
+                    "name": "ranking",
                     "type": "address[10]"
+                },
+                {
+                    "internalType": "uint256[10]",
+                    "name": "digGross",
+                    "type": "uint256[10]"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
-                    "name": "_version",
+                    "name": "",
                     "type": "uint256"
-                },
-                {
-                    "internalType": "address",
-                    "name": "userAddress",
-                    "type": "address"
                 }
             ],
-            "name": "getVersionAward",
+            "name": "dailyOutput",
             "outputs": [
                 {
                     "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
+            "inputs": [],
+            "name": "determinate",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "usable",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "counts",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "len",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "token1155Amount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -731,7 +609,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "name": "getVersionCars",
+            "name": "getDepartCars",
             "outputs": [
                 {
                     "internalType": "uint256",
@@ -739,12 +617,116 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getGlobalStats",
+            "outputs": [
+                {
+                    "internalType": "uint256[5]",
+                    "name": "stats",
+                    "type": "uint256[5]"
+                },
+                {
+                    "internalType": "address",
+                    "name": "lastStrawUser",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getPersonalStats",
+            "outputs": [
+                {
+                    "internalType": "uint256[8]",
+                    "name": "stats",
+                    "type": "uint256[8]"
+                },
+                {
+                    "internalType": "bool[3]",
+                    "name": "stats2",
+                    "type": "bool[3]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "departs",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRanking",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getVersionAward",
+            "outputs": [
+                {
+                    "internalType": "uint256[2]",
+                    "name": "amounts",
+                    "type": "uint256[2]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -754,16 +736,6 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             ],
             "name": "history",
             "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "ethAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenAmount",
-                    "type": "uint256"
-                },
                 {
                     "internalType": "uint256",
                     "name": "complete",
@@ -780,33 +752,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "address"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "indexs",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
             "inputs": [],
             "name": "isOwner",
             "outputs": [
@@ -816,58 +765,48 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "bool"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": false,
-            "inputs": [],
-            "name": "obtainCar",
-            "outputs": [
+            "inputs": [
                 {
-                    "internalType": "uint256[]",
-                    "name": "",
-                    "type": "uint256[]"
+                    "internalType": "uint256",
+                    "name": "nonce",
+                    "type": "uint256"
                 },
                 {
-                    "internalType": "uint256[]",
-                    "name": "",
-                    "type": "uint256[]"
+                    "internalType": "uint256",
+                    "name": "expiry",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "allowed",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "v",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "s",
+                    "type": "bytes32"
                 }
             ],
-            "payable": false,
+            "name": "obtainCar",
+            "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "name": "obtainRecord",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
             "inputs": [
                 {
                     "internalType": "address",
@@ -903,12 +842,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "bytes4"
                 }
             ],
-            "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": false,
             "inputs": [
                 {
                     "internalType": "address",
@@ -944,12 +881,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "bytes4"
                 }
             ],
-            "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [],
             "name": "owner",
             "outputs": [
@@ -959,27 +894,47 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "address"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [],
-            "name": "pairSwap",
+            "name": "pool",
             "outputs": [
                 {
-                    "internalType": "contract PairSwap",
+                    "internalType": "contract MiningPool",
                     "name": "",
                     "type": "address"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rank",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -1008,28 +963,19 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "internalType": "bool",
                     "name": "lastStraw",
                     "type": "bool"
-                },
-                {
-                    "internalType": "uint8",
-                    "name": "ranking",
-                    "type": "uint8"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": false,
             "inputs": [],
             "name": "renounceOwnership",
             "outputs": [],
-            "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": false,
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -1052,14 +998,12 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256"
                 }
             ],
-            "name": "setId",
+            "name": "setCarIndex",
             "outputs": [],
-            "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": false,
             "inputs": [
                 {
                     "internalType": "uint256[]",
@@ -1082,55 +1026,31 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "type": "uint256[]"
                 }
             ],
-            "name": "setIds",
+            "name": "setCarIndexs",
             "outputs": [],
-            "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "",
+                    "name": "_version",
                     "type": "uint256"
                 }
             ],
-            "name": "sorts",
+            "name": "sortRank",
             "outputs": [
                 {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
+                    "internalType": "address[10]",
+                    "name": "ranking",
+                    "type": "address[10]"
                 }
             ],
-            "payable": false,
             "stateMutability": "view",
             "type": "function"
         },
         {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "stakeAmount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "stake",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "bytes4",
@@ -1144,6 +1064,1196 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                     "internalType": "bool",
                     "name": "",
                     "type": "bool"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "token1155",
+            "outputs": [
+                {
+                    "internalType": "contract IERC1155",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "version",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawAward",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ];
+    // erc20Token
+    const erc20TokenABI = [
+        {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
+            },
+            {
+                "internalType": "uint8",
+                "name": "decimals",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "initialBalance",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "chainId",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Approval",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "MintFinished",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Transfer",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DOMAIN_SEPARATOR",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "PERMIT_TYPEHASH",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "_nonces",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                }
+            ],
+            "name": "allowance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "decimals",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "subtractedValue",
+                    "type": "uint256"
+                }
+            ],
+            "name": "decreaseAllowance",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "finishMinting",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "addedValue",
+                    "type": "uint256"
+                }
+            ],
+            "name": "increaseAllowance",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "mint",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "mintingFinished",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "name",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "nonces",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "holder",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "nonce",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "expiry",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "v",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "r",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "s",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "permit",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "symbol",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalSupply",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transfer",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transferFrom",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "version",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+    //erc115Token
+    const erc1155TokenABI = [
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_symbol",
+                    "type": "string"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_proxyRegistryAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "_approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "ApprovalForAll",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "_ids",
+                    "type": "uint256[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256[]",
+                    "name": "_amounts",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "TransferBatch",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_from",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TransferSingle",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_uri",
+                    "type": "string"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "URI",
+            "type": "event"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "_owners",
+                    "type": "address[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_ids",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "balanceOfBatch",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_ids",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_quantities",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "batchMint",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_initialOwner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_initialSupply",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_uri",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "create",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "creators",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                }
+            ],
+            "name": "isApprovedForAll",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "isOperator",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isOwner",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_quantity",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "mint",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "name",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_ids",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_amounts",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "safeBatchTransferFrom",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "setApprovalForAll",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_newBaseMetadataURI",
+                    "type": "string"
+                }
+            ],
+            "name": "setBaseMetadataURI",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_ids",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "setCreator",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "_interfaceID",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "symbol",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenSupply",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "totalSupply",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
                 }
             ],
             "payable": false,
@@ -1167,582 +2277,26 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         },
         {
             "constant": true,
-            "inputs": [],
-            "name": "userCounter",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "name": "users",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "id",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "investment",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "version",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
             "inputs": [
                 {
                     "internalType": "uint256",
-                    "name": "_version",
+                    "name": "_id",
                     "type": "uint256"
                 }
             ],
-            "name": "withdrawAward",
-            "outputs": [],
+            "name": "uri",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
             "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "withdrawCapital",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
+            "stateMutability": "view",
             "type": "function"
         }
-    ];
-    // erc20Token
-    const erc20TokenABI = [
-        {
-            "inputs": [{"internalType": "string", "name": "name", "type": "string"}, {
-                "internalType": "string",
-                "name": "symbol",
-                "type": "string"
-            }, {"internalType": "address", "name": "minter_", "type": "address"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        }, {
-            "anonymous": false,
-            "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            }, {"indexed": true, "internalType": "address", "name": "spender", "type": "address"}, {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "value",
-                "type": "uint256"
-            }],
-            "name": "Approval",
-            "type": "event"
-        }, {
-            "anonymous": false,
-            "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            }, {"indexed": true, "internalType": "address", "name": "to", "type": "address"}, {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "value",
-                "type": "uint256"
-            }],
-            "name": "Transfer",
-            "type": "event"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
-                "internalType": "address",
-                "name": "spender",
-                "type": "address"
-            }],
-            "name": "allowance",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "spender", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }],
-            "name": "approve",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-            "name": "balanceOf",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "decimals",
-            "outputs": [{"internalType": "uint8", "name": "", "type": "uint8"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "spender", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "subtractedValue",
-                "type": "uint256"
-            }],
-            "name": "decreaseAllowance",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "spender", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "addedValue",
-                "type": "uint256"
-            }],
-            "name": "increaseAllowance",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "account", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }],
-            "name": "mint",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "minter",
-            "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "name",
-            "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "symbol",
-            "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "totalSupply",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "recipient", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }],
-            "name": "transfer",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "sender", "type": "address"}, {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-            }, {"internalType": "uint256", "name": "amount", "type": "uint256"}],
-            "name": "transferFrom",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }];
-    //erc115Token
-    const erc1155TokenABI = [
-        {
-            "inputs": [{"internalType": "string", "name": "_name", "type": "string"}, {
-                "internalType": "string",
-                "name": "_symbol",
-                "type": "string"
-            }, {"internalType": "address", "name": "_proxyRegistryAddress", "type": "address"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        }, {
-            "anonymous": false,
-            "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "_owner",
-                "type": "address"
-            }, {"indexed": true, "internalType": "address", "name": "_operator", "type": "address"}, {
-                "indexed": false,
-                "internalType": "bool",
-                "name": "_approved",
-                "type": "bool"
-            }],
-            "name": "ApprovalForAll",
-            "type": "event"
-        }, {
-            "anonymous": false,
-            "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "previousOwner",
-                "type": "address"
-            }, {"indexed": true, "internalType": "address", "name": "newOwner", "type": "address"}],
-            "name": "OwnershipTransferred",
-            "type": "event"
-        }, {
-            "anonymous": false,
-            "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "_operator",
-                "type": "address"
-            }, {"indexed": true, "internalType": "address", "name": "_from", "type": "address"}, {
-                "indexed": true,
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            }, {"indexed": false, "internalType": "uint256[]", "name": "_ids", "type": "uint256[]"}, {
-                "indexed": false,
-                "internalType": "uint256[]",
-                "name": "_amounts",
-                "type": "uint256[]"
-            }],
-            "name": "TransferBatch",
-            "type": "event"
-        }, {
-            "anonymous": false,
-            "inputs": [{
-                "indexed": true,
-                "internalType": "address",
-                "name": "_operator",
-                "type": "address"
-            }, {"indexed": true, "internalType": "address", "name": "_from", "type": "address"}, {
-                "indexed": true,
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            }, {"indexed": false, "internalType": "uint256", "name": "_id", "type": "uint256"}, {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "_amount",
-                "type": "uint256"
-            }],
-            "name": "TransferSingle",
-            "type": "event"
-        }, {
-            "anonymous": false,
-            "inputs": [{"indexed": false, "internalType": "string", "name": "_uri", "type": "string"}, {
-                "indexed": true,
-                "internalType": "uint256",
-                "name": "_id",
-                "type": "uint256"
-            }],
-            "name": "URI",
-            "type": "event"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "address", "name": "_owner", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "_id",
-                "type": "uint256"
-            }],
-            "name": "balanceOf",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{
-                "internalType": "address[]",
-                "name": "_owners",
-                "type": "address[]"
-            }, {"internalType": "uint256[]", "name": "_ids", "type": "uint256[]"}],
-            "name": "balanceOfBatch",
-            "outputs": [{"internalType": "uint256[]", "name": "", "type": "uint256[]"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "_to", "type": "address"}, {
-                "internalType": "uint256[]",
-                "name": "_ids",
-                "type": "uint256[]"
-            }, {"internalType": "uint256[]", "name": "_quantities", "type": "uint256[]"}, {
-                "internalType": "bytes",
-                "name": "_data",
-                "type": "bytes"
-            }],
-            "name": "batchMint",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{
-                "internalType": "address",
-                "name": "_initialOwner",
-                "type": "address"
-            }, {"internalType": "uint256", "name": "_initialSupply", "type": "uint256"}, {
-                "internalType": "string",
-                "name": "_uri",
-                "type": "string"
-            }, {"internalType": "bytes", "name": "_data", "type": "bytes"}],
-            "name": "create",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "name": "creators",
-            "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "address", "name": "_owner", "type": "address"}, {
-                "internalType": "address",
-                "name": "_operator",
-                "type": "address"
-            }],
-            "name": "isApprovedForAll",
-            "outputs": [{"internalType": "bool", "name": "isOperator", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "isOwner",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "_to", "type": "address"}, {
-                "internalType": "uint256",
-                "name": "_id",
-                "type": "uint256"
-            }, {"internalType": "uint256", "name": "_quantity", "type": "uint256"}, {
-                "internalType": "bytes",
-                "name": "_data",
-                "type": "bytes"
-            }],
-            "name": "mint",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "name",
-            "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "owner",
-            "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [],
-            "name": "renounceOwnership",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "_from", "type": "address"}, {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            }, {"internalType": "uint256[]", "name": "_ids", "type": "uint256[]"}, {
-                "internalType": "uint256[]",
-                "name": "_amounts",
-                "type": "uint256[]"
-            }, {"internalType": "bytes", "name": "_data", "type": "bytes"}],
-            "name": "safeBatchTransferFrom",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "_from", "type": "address"}, {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            }, {"internalType": "uint256", "name": "_id", "type": "uint256"}, {
-                "internalType": "uint256",
-                "name": "_amount",
-                "type": "uint256"
-            }, {"internalType": "bytes", "name": "_data", "type": "bytes"}],
-            "name": "safeTransferFrom",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "_operator", "type": "address"}, {
-                "internalType": "bool",
-                "name": "_approved",
-                "type": "bool"
-            }],
-            "name": "setApprovalForAll",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "string", "name": "_newBaseMetadataURI", "type": "string"}],
-            "name": "setBaseMetadataURI",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "_to", "type": "address"}, {
-                "internalType": "uint256[]",
-                "name": "_ids",
-                "type": "uint256[]"
-            }],
-            "name": "setCreator",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "bytes4", "name": "_interfaceID", "type": "bytes4"}],
-            "name": "supportsInterface",
-            "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [],
-            "name": "symbol",
-            "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "name": "tokenSupply",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "uint256", "name": "_id", "type": "uint256"}],
-            "name": "totalSupply",
-            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }, {
-            "constant": false,
-            "inputs": [{"internalType": "address", "name": "newOwner", "type": "address"}],
-            "name": "transferOwnership",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }, {
-            "constant": true,
-            "inputs": [{"internalType": "uint256", "name": "_id", "type": "uint256"}],
-            "name": "uri",
-            "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }]
+    ]
 
     const ethToken = {
         address: '',
@@ -1801,7 +2355,21 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @param lan
          */
         static getLanguage=()=>{
-            let lan=this.lan||localStorage.getItem("lan")||"zh-CN";
+
+            let lan=localStorage.getItem("lan")||this.lan;
+            if(null==lan){
+                var language = (navigator.browserLanguage || navigator.language).toLowerCase();
+                if(language.indexOf('zh')>-1){
+                    lan="zh-CN";
+                }else if(language.indexOf('en')>-1){
+                    lan="en-US";
+                }else if(language.indexOf('kr')>-1){
+                    lan="kr";
+                }else{
+                    lan="en-US";
+                }
+            }
+            this.lan=lan;
             return lan;
 
         }
@@ -1853,6 +2421,15 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                         console.error(err);
                     }
                 });
+
+            // 监听账号变化
+            ethereum.on('accountsChanged', function (data) {
+                console.log("accountsChanged",data[0])
+                this.account = data ? data[0] : undefined
+
+                //移除设备缓存数据
+                localStorage.removeItem("machine")
+            })
         }
 
 
@@ -1872,6 +2449,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @param game
          */
         static activeGame = async (game,machineGo) => {
+            this.selectData={load:0,mining:0,total:0}
             this.erc20TokenAddress = game.erc20TokenAddress;
             this.erc1155TokenAddress = game.erc1155TokenAddress;
             this.gameAddress = game.gameAddress;
@@ -1972,16 +2550,31 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
             const contract = this.gameContract();
             const userGlobal = await contract.methods.getPersonalStats(version, address).call();
-            const ethAmount = (userGlobal[2] / ethToken.decimals).toFixed(ethToken.scale)
-            const tokenAmount = (userGlobal[3] / ethToken.decimals).toFixed(this.erc20Token.scale)
-            const assign = userGlobal[0]
-            const amount = parseFloat(userGlobal[1])
-            let rank = 15
+            const ethAmount = (userGlobal["stats"][3] / ethToken.decimals).toFixed(ethToken.scale)
+            const tokenAmount = (userGlobal["stats"][2] / ethToken.decimals).toFixed(this.erc20Token.scale)
+            const assign = userGlobal["stats"][7]
+            const amount = parseFloat(userGlobal["stats"][1])
+            let rank = parseFloat(userGlobal["stats"][6])
             const rate = (amount / (complete || 1)).toFixed(2)
             const reward = 100
 
 
             return new Promise(function(resolve, reject){
+                if(rank<11){
+                    const _data = {
+                        address: address,
+                        ethAmount: ethAmount,
+                        tokenAmount: tokenAmount,
+                        assign: assign,
+                        amount: amount,
+                        rank: rank,
+                        rate: rate,
+                        reward: reward
+                    }
+
+                    resolve(_data)
+                    return;
+                }
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
                     rank=data&&data.data.myRank;
                     const _data = {
@@ -2011,6 +2604,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          * @returns {Promise<any>}
          */
         static getUserMachine = async (params) => {
+            let lan=this.getLanguage();
+
+            const rule=machineRemark[lan]
 
             //保存数据到缓存
             const machine = localStorage.getItem("machine");
@@ -2022,7 +2618,8 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 data = params['sort'] ? data.sort((a, b) => params['sort'] === "ASC" ? a.mining - b.mining : b.mining - a.mining) : data;
             }
             return new Promise(function (resolve, reject) {
-                resolve(data)
+                let _d=data.map(v=>{return {...v,remark:rule}})
+                resolve(_d)
             });
         }
 
@@ -2100,6 +2697,26 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         }
 
         /**
+         * 选择设备计算总挖矿 总运走 车辆总数
+         * @param id
+         * @param selected 选中/移除 true/false
+         * @returns {*}
+         */
+        static selectMachine = (machineId,selected) => {
+
+            let car= this.getMachineAttribute(machineId);
+            let _load=car.load>=car.mining?car.mining:car.load;
+            let load=selected?this.selectData.load+parseInt(_load):this.selectData.load-parseInt(_load);
+            let mining=selected?this.selectData.mining+parseInt(car.mining):this.selectData.mining-parseInt(car.mining);
+            let total=selected?this.selectData.total+1:this.selectData.total-1;
+
+           this.selectData={load,mining,total}
+
+
+            return {load:load,mining,total}
+        }
+
+        /**
          * 获取用户收益
          * @returns {Promise<any>}
          */
@@ -2111,17 +2728,18 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
             for (let i = 0; i <= version; i++) {
                 let income = {id: i + 1}
-                const data = await contract.methods.getVersionAward(version, address).call();
-                const record = await contract.methods.getRecord(version, address).call();
+                //const data = await contract.methods.getVersionAward(version, address).call();
+                const record = await contract.methods.getPersonalStats(version, address).call();
 
                 //eth 收益
-                let ethReward = parseFloat(data[0] / ethToken.decimals).toFixed(ethToken.scale);
+                let ethReward = parseFloat(record["stats"][3] / ethToken.decimals).toFixed(ethToken.scale);
                 //token 收益
-                let tokenReward = parseFloat(data[1] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
+                debugger
+                let tokenReward = parseFloat(record["stats"][2] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
                 //派出设备数
-                let machineNum = record["total"];
+                let machineNum = record["stats"][7];
                 // true false
-                let receive = record["drawStatus"];
+                let receive = record["stats2"][0];
                 income["ranking"] = address;
 
                 income["ethReward"] = ethReward;
@@ -2129,9 +2747,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 income["machineNum"] = machineNum;
                 income["receive"] = receive;
 
-                income["digGross"] = record["digGross"];
-                income["lastStraw"] = record["lastStraw"];
-                income["ranking"] = record["ranking"];
+                income["digGross"] = record["stats"][1];
+                income["lastStraw"] = record["stats2"][1];
+                income["ranking"] = record["stats"][6];
 
                 incomes.push(income)
             }
@@ -2471,7 +3089,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
 
             const userGlobal = await contract.methods.getPersonalStats(version, address).call();
             let machine = parseFloat("20")
-            let load = parseFloat(userGlobal[1])
+            let load = parseFloat(userGlobal["stats"][1])
             let userRank = {gameId: version, id: 10000, address: address, addressShort: this.addressSub(address), machine: machine, load: load};
             return new Promise(function(resolve, reject){
                 req.once(Laya.Event.COMPLETE, this, (data)=>{
@@ -2500,16 +3118,16 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         static  getRankTop10 = async () => {
             const contract = this.gameContract();
             const version = await this.getGameVersion();
-            const sorts = await contract.methods.getSorts(version).call();
+            const sorts = await contract.methods.sortRank(version).call();
             let results = await Promise.all(sorts.map(async (item, index) => {
                 if (defaultAddress === item) {
-                    return {gameId: version, id: index + 1, address: "--", machine: 0, load: 0};
+                    return {gameId: version, id: index + 1, address: "--",addressShort:"--", machine: 0, load: 0};
                 }
                 const nick=await  this.getNick(item)
 
                 const userGlobal = await contract.methods.getPersonalStats(version, item).call();
                 let machine = parseFloat("20")
-                let load = parseFloat(userGlobal[1])
+                let load = parseFloat(userGlobal["stats"][1])
                 let rank = {gameId: version, id: index + 1,address:item, addressShort:nick.nick|| this.addressSub(item), machine: machine, load: load};
                 return rank
             }))
@@ -2600,7 +3218,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 const userGlobal = await contract.methods.getPersonalStats(version, address).call();
                 data = {gameId: version, address: address,
                     addressShort: this.addressSub(address),
-                    machine: machine, load: parseFloat(userGlobal[1])};
+                    machine: machine, load: parseFloat(userGlobal["stats"][1])};
             }
             return new Promise(function (resolve, reject) {
                 resolve(data)
@@ -2662,7 +3280,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 /**
                  * 昵称
                  */
-                nick: nick.nick ,
+                nick: nick?nick.nick:"" ,
                 /**
                  * 地址
                  */
@@ -2936,6 +3554,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
     exports.getEmail= LayaBlock.getEmail;
     exports.getHelp= LayaBlock.getHelp;
     exports.getCommission= LayaBlock.getCommission;
+    exports.selectMachine=LayaBlock.selectMachine;
 
     return exports;
 

@@ -1,10 +1,10 @@
 export default class Langue extends Laya.EventDispatcher {
-    public static defaultLangue:any
+    public static defaultLangue: any
     public static cn = {
-        start:'开始',
+        start: '开始',
         ok: '确定',
         close: '关闭',
-        notice_0:'等待矿工派出设备',
+        notice_0: '等待矿工派出设备',
         notice: '公告',
         email: '邮件',
         chat: '聊天',
@@ -34,7 +34,7 @@ export default class Langue extends Laya.EventDispatcher {
         nav4_2: '我的收益',
         nav4_3: '返佣明细',
         nav4_4: '昵称',
-        nav4_4_1:'保存',
+        nav4_4_1: '保存',
         nav4_5: '我的地址',
         nav4_6: '钱包',
         nav4_7: '邀请链接',
@@ -48,16 +48,16 @@ export default class Langue extends Laya.EventDispatcher {
         nav6_2: '地址',
         nav6_3: '奖励',
 
-        nav7_1:'设备详情：',
-        nav7_2:'载重/挖矿：',
-        nav7_3:'等级：'
+        nav7_1: '设备详情：',
+        nav7_2: '载重/挖矿：',
+        nav7_3: '等级：'
 
     }
     public static en = {
-        start:'start',
+        start: 'start',
         ok: 'OK',
         close: 'Close',
-        notice_0:'wait...',
+        notice_0: 'Waiting for absenteeism',
         notice: 'Notice',
         email: 'Mail',
         chat: 'Chat',
@@ -71,15 +71,15 @@ export default class Langue extends Laya.EventDispatcher {
         nav4: 'mine',
         nav1_1: 'low->High',
         nav1_2: 'High->low',
-        nav1_3: 'Select all',
+        nav1_3: 'All',
         nav1_4: 'Automatic',
         nav1_5: 'load',
         nav1_6: 'mining',
         nav1_7: 'income',
         nav1_8: 'Start',
-        nav3_0: 'currentTOP10',
-        nav3_1: 'currentTOP50',
-        nav3_2: 'networkTOP50',
+        nav3_0: 'TOP10',
+        nav3_1: 'TOP50',
+        nav3_2: 'AllTOP50',
         nav3_3: 'rank',
         nav3_4: 'Account',
         nav3_5: 'volume',
@@ -87,30 +87,30 @@ export default class Langue extends Laya.EventDispatcher {
         nav4_2: 'My',
         nav4_3: 'Rebate',
         nav4_4: 'nickname',
-        nav4_4_1:'save',
+        nav4_4_1: 'save',
         nav4_5: 'Address',
         nav4_6: 'Wallet',
         nav4_7: 'Invitation',
         nav4_8: 'copy',
-        nav5_1: '期数e',
-        nav5_2: '派出设备e',
-        nav5_3: '收益(ETH/CM)e',
-        nav5_4: '领取e',
-        nav5_5: '未领取e',
-        nav6_1: '昵称e',
-        nav6_2: '地址e',
-        nav6_3: '奖励e',
-        alert1:'please ...',
-        nav7_1:'en设备详情：',
-        nav7_2:'en载重/挖矿：',
-        nav7_3:'en等级：'
+        nav5_1: 'periods',
+        nav5_2: 'Send ',
+        nav5_3: 'income',
+        nav5_4: 'collect',
+        nav5_5: 'not received',
+        nav6_1: 'nick',
+        nav6_2: 'address',
+        nav6_3: 'reward ',
+        alert1: 'please ...',
+        nav7_1: 'details: ',
+        nav7_2: 'load/Mining:',
+        nav7_3: 'level:'
     }
     public static kr = {
-        start:'start',
+        start: 'start',
         ok: '확인',
         close: '닫기',
         notice: '발표',
-        notice_0:'wait...',
+        notice_0: 'wait...',
         email: '우편',
         chat: '채팅',
         help: '도움말',
@@ -138,36 +138,36 @@ export default class Langue extends Laya.EventDispatcher {
         nav4_2: '내 수입',
         nav4_3: '환급 내역',
         nav4_4: '별명',
-        nav4_4_1:'save',
+        nav4_4_1: 'save',
         nav4_5: '내 주소',
         nav4_6: '지갑',
         nav4_7: '초대 링크',
         nav4_8: '복사',
-        nav5_1: '期数',
-        nav5_2: '派出设备',
-        nav5_3: '收益(ETH/CM)',
-        nav5_4: '领取',
-        nav5_5: '未领取',
-        nav6_1: '昵称',
-        nav6_2: '地址',
-        nav6_3: '奖励',
-        alert1:'please ...',
-        nav7_1:'设备详情：',
-        nav7_2:'载重/挖矿：',
-        nav7_3:'等级：'
+        nav5_1: '기수',
+        nav5_2: "파견 설비",
+        nav5_3: '수익(ETH/CM)',
+        nav5_4: "수령",
+        nav5_5: "미 수령",
+        nav6_1: "닉네임",
+        nav6_2: "주소",
+        nav6_3: "보상",
+        alert1: "please...",
+        nav7_1: '설비 상세 정보:',
+        nav7_2: "적재/채굴:",
+        nav7_3: "등급:",
     }
 
     constructor() {
         super();
     }
 
-    public static setLanguage(lang:string){
-        if(lang=='zh-CN'){
-            Langue.defaultLangue=Langue.cn
-        }else if(lang=='en-US'){
-            Langue.defaultLangue=Langue.en
-        }else if(lang=='kr'){
-            Langue.defaultLangue=Langue.kr
+    public static setLanguage(lang: string) {
+        if (lang == 'zh-CN') {
+            Langue.defaultLangue = Langue.cn
+        } else if (lang == 'en-US') {
+            Langue.defaultLangue = Langue.en
+        } else if (lang == 'kr') {
+            Langue.defaultLangue = Langue.kr
         }
     }
 

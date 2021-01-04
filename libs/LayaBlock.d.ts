@@ -339,6 +339,15 @@ interface IPlayDetail {
 }
 
 /**
+ * 选中数据
+ */
+interface ISelect{
+    load:number,
+    mining:number,
+    total:number,
+}
+
+/**
  * ETH区块链相关
  */
 declare class LayaBlock {
@@ -594,4 +603,11 @@ declare class LayaBlock {
     static getCommission(address:string):Promise<ICommission[]>
 
 
+    /**
+     * 选中设备返回数据
+     * @param {number} id
+     * @param {boolean} selected
+     * @returns {ISelect}
+     */
+    static selectMachine(id:number, selected:boolean):ISelect
 }
