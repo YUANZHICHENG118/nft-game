@@ -330,6 +330,7 @@ interface IPlayDetail {
     machineIds: number[]
     //派出设备对应的数量
     machineAmounts: number[]
+    totalAmount:number,
     //挖矿数量
     machine: number,
     //运走数量

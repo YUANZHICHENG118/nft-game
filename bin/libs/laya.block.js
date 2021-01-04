@@ -3249,6 +3249,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                             machineIds: ids,
                             //派出设备对应的数量
                             machineAmounts: amounts,
+                            totalAmount:amounts.reduce((n,m) => n + m),
                             //挖矿数量
                             machine: power.mining,
                             //运走数量
