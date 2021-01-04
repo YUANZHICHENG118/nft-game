@@ -161,6 +161,14 @@ export default class DevPannel extends ui.DevPannelUI {
 
     private onSelect(index: number): void {
         this.listData[index].selected=!this.listData[index].selected
+        /*
+        let id:number=this.listData0[index].id
+        if(this.listData[index].selected==true){
+            LayaBlock.selectMachine(id,true)
+        }else{
+            LayaBlock.selectMachine(id,false)
+        }
+        */
         this.updateSum()        
     }
 
@@ -172,6 +180,7 @@ export default class DevPannel extends ui.DevPannelUI {
             if(this.listData[i].selected==true){
                 let id=this.listData[i].id
                 let obj:ISelect=LayaBlock.selectMachine(id,true)
+                console.log('obj====',obj)
                 sumLoad+=obj.load
                 sumMining+=obj.mining
                 total+=obj.total

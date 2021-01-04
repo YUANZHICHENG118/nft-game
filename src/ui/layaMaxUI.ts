@@ -200,6 +200,18 @@ export module ui {
         }
     }
     REG("ui.ItemIncomeUI",ItemIncomeUI);
+    export class ItemPlayDetailUI extends View {
+		public bg:Laya.Image;
+		public load_txt:Laya.Label;
+		public machine_txt:Laya.Label;
+		public btn:Laya.Sprite;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemPlayDetail");
+        }
+    }
+    REG("ui.ItemPlayDetailUI",ItemPlayDetailUI);
     export class ItemRankUI extends Scene {
 		public bg:Laya.Image;
 		public snImg:Laya.Image;

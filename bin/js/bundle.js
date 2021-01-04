@@ -160,6 +160,15 @@
         }
         ui.ItemIncomeUI = ItemIncomeUI;
         REG("ui.ItemIncomeUI", ItemIncomeUI);
+        class ItemPlayDetailUI extends View {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("ItemPlayDetail");
+            }
+        }
+        ui.ItemPlayDetailUI = ItemPlayDetailUI;
+        REG("ui.ItemPlayDetailUI", ItemPlayDetailUI);
         class ItemRankUI extends Scene {
             constructor() { super(); }
             createChildren() {
@@ -266,9 +275,9 @@
         nav1_2: '高 → 低',
         nav1_3: '全选',
         nav1_4: '自动匹配',
-        nav1_5: '总载重',
-        nav1_6: '总挖矿',
-        nav1_7: '预计收益',
+        nav1_5: '总载重：',
+        nav1_6: '总挖矿：',
+        nav1_7: '总车辆：',
         nav1_8: '开始挖矿',
         nav3_0: '当前TOP10',
         nav3_1: '当前TOP50',
@@ -322,7 +331,7 @@
         nav1_4: 'Automatic',
         nav1_5: 'load',
         nav1_6: 'mining',
-        nav1_7: 'income',
+        nav1_7: '总车辆：',
         nav1_8: 'Start',
         nav3_0: 'TOP10',
         nav3_1: 'TOP50',
@@ -377,7 +386,7 @@
         nav1_4: '자동 일치',
         nav1_5: '총 부하',
         nav1_6: '총 채굴',
-        nav1_7: '예상 수입',
+        nav1_7: '总车辆',
         nav1_8: '채굴 시작',
         nav3_1: '현재',
         nav3_2: '전체 네트워크',
@@ -626,6 +635,7 @@
                 if (this.listData[i].selected == true) {
                     let id = this.listData[i].id;
                     let obj = LayaBlock.selectMachine(id, true);
+                    console.log('obj====', obj);
                     sumLoad += obj.load;
                     sumMining += obj.mining;
                     total += obj.total;
@@ -1227,13 +1237,75 @@
         }
     }
 
-    var List$4 = Laya.List;
+    class ItemPlayDetail extends ui.ItemPlayDetailUI {
+        constructor() { super(); this.width = 660; this.height = 80; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        setItem(sn, itemData) {
+        }
+    }
+
     var Handler$4 = Laya.Handler;
+    var List$4 = Laya.List;
+    class PlayDetaiPannel extends ui.PlayDetailPannelUI {
+        constructor() {
+            super();
+            this.list = new List$4();
+            this.dataBus = DataBus.getDataBus();
+            this.onLanguage = () => {
+                let arr = ['nav8_0', 'nav8_1', 'nav8_2'];
+                for (let i in arr) {
+                    let txtName = arr[i];
+                    this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
+                }
+            };
+            this.loadData = (e) => {
+                LayaBlock.getPlayDetail(e.gameId, e.address).then((d) => {
+                    console.log('派出详情参数：:', d);
+                    this.list.array = this.listData = d;
+                });
+            };
+        }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.list.itemRender = ItemPlayDetail;
+            this.list.repeatX = 1;
+            this.list.x = 45;
+            this.list.y = 140;
+            this.list.height = 1000;
+            this.list.width = 660;
+            this.list.spaceX = 20;
+            this.list.spaceY = 20;
+            this.list.vScrollBarSkin = "";
+            this.list.selectEnable = true;
+            this.list.array = [];
+            this.list.selectHandler = new Handler$4(this, this.onSelect);
+            this.list.renderHandler = new Handler$4(this, this.updateItem);
+            this.addChild(this.list);
+            this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
+            this.onLanguage();
+        }
+        updateItem(cell, index) {
+            cell.setItem(index, this.listData[index]);
+        }
+        onSelect(index) {
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.visible = false;
+        }
+    }
+
+    var List$5 = Laya.List;
+    var Handler$5 = Laya.Handler;
     class RankPannel extends ui.RankPannelUI {
         constructor() {
             super();
             this.sort = 'DESC';
-            this.list = new List$4();
+            this.list = new List$5();
             this.hasInitList = false;
             this.listData = [];
             this.itemX = 30;
@@ -1244,9 +1316,8 @@
             this.dataBus = DataBus.getDataBus();
             this.onRankMore = (e) => {
                 console.log(e);
-                LayaBlock.getPlayDetail(e.gameId, e.address).then((d) => {
-                    console.log('rank more', d);
-                });
+                this.playDetailPannel.loadData(e);
+                this.playDetailPannel.visible = true;
             };
             this.onLanguage = () => {
                 let arr = ['nav3_0', 'nav3_1', 'nav3_2', 'nav3_3', 'nav3_4', 'nav3_5'];
@@ -1267,8 +1338,8 @@
             this.list.spaceY = 10;
             this.list.vScrollBarSkin = "";
             this.list.selectEnable = true;
-            this.list.selectHandler = new Handler$4(this, this.onSelect);
-            this.list.renderHandler = new Handler$4(this, this.updateItem);
+            this.list.selectHandler = new Handler$5(this, this.onSelect);
+            this.list.renderHandler = new Handler$5(this, this.updateItem);
             this.list.array = this.listData;
             this.addChild(this.list);
             this.lastItem = new ItemRank();
@@ -1285,6 +1356,9 @@
             this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
             Laya.stage.on(GameEvent.RANK_MORE, this, this.onRankMore);
             this.onLanguage();
+            this.playDetailPannel = new PlayDetaiPannel();
+            this.playDetailPannel.visible = false;
+            this.addChild(this.playDetailPannel);
         }
         rankTypeClick(e) {
             if (this.loading == true) {

@@ -5,6 +5,7 @@ import Langue from "./Langue";
 import ItemRank from "./ItemRank";
 import List = Laya.List;
 import Handler = Laya.Handler;
+import PlayDetaiPannel from "./PlayDetaiPannel";
 export default class RankPannel extends ui.RankPannelUI {
     private sort:'ASC'|'DESC'='DESC'; 
     private list: List = new List();    
@@ -18,6 +19,7 @@ export default class RankPannel extends ui.RankPannelUI {
     private loading:boolean=false
     private rankType:number=0
     private dataBus:DataBus = DataBus.getDataBus(); 
+    private playDetailPannel:PlayDetaiPannel
     constructor() { super(); }
     
     onEnable(): void {
@@ -56,13 +58,16 @@ export default class RankPannel extends ui.RankPannelUI {
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         Laya.stage.on(GameEvent.RANK_MORE,this,this.onRankMore)
         this.onLanguage()
+
+        this.playDetailPannel=new PlayDetaiPannel()
+        this.playDetailPannel.visible=false
+        this.addChild(this.playDetailPannel)
     }
 
     onRankMore=(e:any)=>{
         console.log(e)
-        LayaBlock.getPlayDetail(e.gameId,e.address).then((d:IPlayDetail[])=>{
-            console.log('rank more',d)
-        })
+        this.playDetailPannel.loadData(e)
+        this.playDetailPannel.visible=true        
     }
     onLanguage=()=>{
         let arr=['nav3_0','nav3_1','nav3_2','nav3_3','nav3_4','nav3_5']
