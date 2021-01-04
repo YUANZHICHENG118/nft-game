@@ -161,6 +161,25 @@ export default class DevPannel extends ui.DevPannelUI {
 
     private onSelect(index: number): void {
         this.listData[index].selected=!this.listData[index].selected
+        this.updateSum()        
+    }
+
+    private updateSum(){        
+        let sumLoad:number=0
+        let sumMining:number=0
+        let total:number=0
+        for(var i in this.listData){
+            if(this.listData[i].selected==true){
+                let id=this.listData[i].id
+                let obj:ISelect=LayaBlock.selectMachine(id,true)
+                sumLoad+=obj.load
+                sumMining+=obj.mining
+                total+=obj.total
+            }
+        }
+        this.sumLoad_txt.text=sumLoad+''
+        this.sumMining_txt.text=sumMining+''
+        this.total_txt.text=total+''
     }
 
     private onClickList(e:Laya.Event):void{

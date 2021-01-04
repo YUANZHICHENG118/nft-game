@@ -58,8 +58,11 @@ export module ui {
 		public nav1_4_txt:Laya.Label;
 		public auto_btn:Laya.CheckBox;
 		public nav1_5_txt:Laya.Label;
+		public sumLoad_txt:Laya.Label;
 		public nav1_6_txt:Laya.Label;
+		public sumMining_txt:Laya.Label;
 		public nav1_7_txt:Laya.Label;
+		public total_txt:Laya.Label;
 		public nav1_3_txt:Laya.Label;
 		public selectAll_btn:Laya.CheckBox;
         constructor(){ super()}
@@ -265,6 +268,20 @@ export module ui {
         }
     }
     REG("ui.NoticePannelUI",NoticePannelUI);
+    export class PlayDetailPannelUI extends View {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+		public titleGroup0:Laya.Sprite;
+		public nav8_1_txt:Laya.Label;
+		public nav8_2_txt:Laya.Label;
+		public nav8_0_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("PlayDetailPannel");
+        }
+    }
+    REG("ui.PlayDetailPannelUI",PlayDetailPannelUI);
     export class RankPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
