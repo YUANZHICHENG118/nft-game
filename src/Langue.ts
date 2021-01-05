@@ -44,6 +44,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav5_3: '收益(ETH/CM)',
         nav5_4: '领取',
         nav5_5: '未领取',
+        nav5_6: '已发放',
+        nav5_7: '未发放',
         nav6_1: '昵称',
         nav6_2: '地址',
         nav6_3: '奖励',
@@ -53,8 +55,9 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_3: '等级：',
 
         nav8_0:'派出记录',
-        nav8_1: '运走量',
+        nav8_1: '总派出',
         nav8_2: '总挖矿',
+        nav8_3:'总运走'
 
     }
     public static en = {
@@ -101,6 +104,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav5_3: 'income',
         nav5_4: 'collect',
         nav5_5: 'not received',
+        nav5_6: '已发放',
+        nav5_7: '未发放',
         nav6_1: 'nick',
         nav6_2: 'address',
         nav6_3: 'reward ',
@@ -108,9 +113,10 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_1: 'details: ',
         nav7_2: 'load/Mining:',
         nav7_3: 'level:',
-        nav8_0:'派出记录',
-        nav8_1: '运走量',
-        nav8_2: '总挖矿',
+        nav8_0: 'e派出记录',
+        nav8_1: 'e总派出',
+        nav8_2: 'e总挖矿',
+        nav8_3: 'e总运走'
 
     }
     public static kr = {
@@ -156,6 +162,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav5_3: '수익(ETH/CM)',
         nav5_4: "수령",
         nav5_5: "미 수령",
+        nav5_6: '已发放',
+        nav5_7: '未发放',
         nav6_1: "닉네임",
         nav6_2: "주소",
         nav6_3: "보상",
@@ -164,8 +172,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_2: "적재/채굴:",
         nav7_3: "등급:",
         nav8_0:'派出记录',
-        nav8_1: '运走量',
-        nav8_2: '总挖矿',
+        nav8_2: 'e总挖矿',
+        nav8_3: 'e总运走'
     }
 
     constructor() {

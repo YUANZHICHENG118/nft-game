@@ -177,13 +177,12 @@ export default class DevPannel extends ui.DevPannelUI {
         let sumMining:number=0
         let total:number=0
         for(var i in this.listData){
+            console.log('i',i)
             if(this.listData[i].selected==true){
-                let id=this.listData[i].id
-                let obj:ISelect=LayaBlock.selectMachine(id,true)
-                console.log('obj====',obj)
-                sumLoad+=obj.load
-                sumMining+=obj.mining
-                total+=obj.total
+                console.log('---',i)
+                sumLoad+=this.listData0[i].load
+                sumMining+=this.listData0[i].mining
+                total+=1
             }
         }
         this.sumLoad_txt.text=sumLoad+''

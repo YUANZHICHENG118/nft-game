@@ -2735,7 +2735,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 //eth 收益
                 let ethReward = parseFloat(record["stats"][3] / ethToken.decimals).toFixed(ethToken.scale);
                 //token 收益
-                debugger
+                //debugger
                 let tokenReward = parseFloat(record["stats"][2] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
                 //派出设备数
                 let machineNum = record["stats"][7];

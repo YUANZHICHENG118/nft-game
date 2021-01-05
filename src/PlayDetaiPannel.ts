@@ -18,12 +18,12 @@ export default class PlayDetaiPannel extends ui.PlayDetailPannelUI {
         this.list.itemRender =ItemPlayDetail;
         this.list.repeatX = 1;
         //this.list.repeatY = 4;
-        this.list.x = 45;
-        this.list.y = 140;
-        this.list.height=1000;
-        this.list.width=660;
-        this.list.spaceX=20;
-        this.list.spaceY=20;
+        this.list.x = 30;
+        this.list.y = 190;
+        this.list.height=1100;
+        this.list.width=690;
+        this.list.spaceX=0;
+        this.list.spaceY=5;
         //使用但隐藏滚动条
         this.list.vScrollBarSkin = "";
         this.list.selectEnable = true;
@@ -36,7 +36,7 @@ export default class PlayDetaiPannel extends ui.PlayDetailPannelUI {
     }
 
     onLanguage=()=>{
-        let arr=['nav8_0','nav8_1','nav8_2']
+        let arr=['nav8_0','nav8_1','nav8_2','nav8_3']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
