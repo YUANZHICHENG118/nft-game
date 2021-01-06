@@ -2,7 +2,7 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":10,
+    "selecteID":41,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
@@ -353,13 +353,14 @@
             "props":{"y":114,"x":22,"width":191,"skin":"gameimg/numBg.png","height":49},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":34,
             "child":[
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":10,"x":11,"texture":"gameimg/icon1.png"},
@@ -373,6 +374,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,mine_txt",
                     "props":{"y":16,"x":47,"width":134,"var":"mine_txt","text":"0","height":22,"fontSize":22,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},

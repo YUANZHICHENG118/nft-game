@@ -86,9 +86,8 @@ export default class MePannel extends ui.MePannelUI {
     
     onList1More=(e:IIncome)=>{
         console.log(e)
-        alert('收益弹出什么呢？')
-        //this.playDetailPannel.loadData(e)
-        //this.playDetailPannel.visible=true        
+        this.playDetailPannel.loadData(e)
+        this.playDetailPannel.visible=true        
     }
 
     onList2More=(e:ICommission)=>{

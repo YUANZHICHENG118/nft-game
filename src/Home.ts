@@ -22,6 +22,7 @@ export default class Home extends ui.HomeUI{
     private setPannel:SetPannel
     private helpPannel:HelpPannel
     private timeoutGongGao:number
+    private timeoutOfLoadData:number
     constructor() { super();}    
     onEnable (): void {
         // 初始化 web3
@@ -30,7 +31,7 @@ export default class Home extends ui.HomeUI{
         //初始化界面
         this.initUI();
         //初始化数据
-        this.DataInit();
+        this.loadData();
         //注册事件
         this.addEvt();
         //this.testBlock();
@@ -68,8 +69,11 @@ export default class Home extends ui.HomeUI{
         this.helpPannel.visible=false;  
 
         this.onLanguage()
+        
     }
-    DataInit=()=>{
+    loadData=()=>{
+        clearTimeout(this.timeoutOfLoadData)
+        this.timeoutOfLoadData=setTimeout(this.loadData,5000);//5000ms 加载一次数据
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
             console.log(d,'矿山数据'+d.surplus+'/'+d.total)

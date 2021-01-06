@@ -299,7 +299,7 @@
         nav5_1: '期数',
         nav5_2: '派出设备',
         nav5_3: '收益(ETH/CM)',
-        nav5_4: '领取',
+        nav5_4: '已领取',
         nav5_5: '未领取',
         nav5_6: '已发放',
         nav5_7: '未发放',
@@ -358,8 +358,8 @@
         nav5_3: 'income',
         nav5_4: 'collect',
         nav5_5: 'not received',
-        nav5_6: '已发放',
-        nav5_7: '未发放',
+        nav5_6: 'issued',
+        nav5_7: 'Unreleased',
         nav6_1: 'nick',
         nav6_2: 'address',
         nav6_3: 'reward ',
@@ -367,10 +367,10 @@
         nav7_1: 'details: ',
         nav7_2: 'load/Mining:',
         nav7_3: 'level:',
-        nav8_0: 'e派出记录',
-        nav8_1: 'e总派出',
-        nav8_2: 'e总挖矿',
-        nav8_3: 'e总运走'
+        nav8_0: 'Dispatch record',
+        nav8_1: 'Always dispatched',
+        nav8_2: 'Total mining',
+        nav8_3: 'total transport'
     };
     Langue.kr = {
         start: 'start',
@@ -415,8 +415,8 @@
         nav5_3: '수익(ETH/CM)',
         nav5_4: "수령",
         nav5_5: "미 수령",
-        nav5_6: '已发放',
-        nav5_7: '未发放',
+        nav5_6: '발행 됨',
+        nav5_7: '출시되지 않음',
         nav6_1: "닉네임",
         nav6_2: "주소",
         nav6_3: "보상",
@@ -424,9 +424,10 @@
         nav7_1: '설비 상세 정보:',
         nav7_2: "적재/채굴:",
         nav7_3: "등급:",
-        nav8_0: '派出记录',
-        nav8_2: 'e总挖矿',
-        nav8_3: 'e总运走'
+        nav8_0: '파견 기록',
+        nav8_1: '항상 파견 됨',
+        nav8_2: '총 채굴',
+        nav8_3: '총 이동 거리'
     };
 
     class ItemDev extends ui.ItemDevUI {
@@ -635,7 +636,17 @@
         }
         onSelect(index) {
             this.listData[index].selected = !this.listData[index].selected;
-            this.updateSum();
+            let selectData = { load: 0, mining: 0, total: 0, realLoad: 0 };
+            let id = this.listData0[index].id;
+            if (this.listData[index].selected == true) {
+                selectData = LayaBlock.selectMachine(id, true);
+            }
+            else {
+                selectData = LayaBlock.selectMachine(id, false);
+            }
+            this.sumLoad_txt.text = selectData.realLoad.toString();
+            this.sumMining_txt.text = selectData.mining.toString();
+            this.total_txt.text = selectData.total.toString();
         }
         updateSum() {
             let sumLoad = 0;
@@ -998,7 +1009,7 @@
             this.btnReceive.on(Laya.Event.CLICK, this, this.btnReceiveClick);
         }
         btnReceiveClick() {
-            LayaBlock.withdrawAward(this.itemData.id).then((d) => {
+            LayaBlock.withdrawAward(this.itemData.gameId).then((d) => {
                 console.log('这个时候回到区块链交易，等交易完成改为已领取 同时变灰不可点击');
                 console.log('交易结果：', d);
             });
@@ -1011,7 +1022,7 @@
         }
         setItem(sn, itemData) {
             this.itemData = itemData;
-            this.id_txt.text = itemData.id + '';
+            this.id_txt.text = itemData.gameId + '';
             this.machineNum_txt.text = itemData.machineNum + '';
             this.reward_txt.text = itemData.ethReward + '/' + itemData.tokenReward;
             if (itemData.receive) {
@@ -1118,7 +1129,8 @@
             this.dataBus = DataBus.getDataBus();
             this.onList1More = (e) => {
                 console.log(e);
-                alert('收益弹出什么呢？');
+                this.playDetailPannel.loadData(e);
+                this.playDetailPannel.visible = true;
             };
             this.onList2More = (e) => {
                 console.log(e);
@@ -1617,7 +1629,9 @@
                 this.helpPannel.visible = false;
                 this.onLanguage();
             };
-            this.DataInit = () => {
+            this.loadData = () => {
+                clearTimeout(this.timeoutOfLoadData);
+                this.timeoutOfLoadData = setTimeout(this.loadData, 5000);
                 LayaBlock.getMineData().then((d) => {
                     console.log(d, '矿山数据' + d.surplus + '/' + d.total);
                     this.mine_txt.text = d.surplus + '/' + d.total;
@@ -1731,7 +1745,7 @@
             LayaBlock.initWeb3();
             LayaBlock.activeGame(DataBus.gameServer, this.machineGo);
             this.initUI();
-            this.DataInit();
+            this.loadData();
             this.addEvt();
         }
         onComplete() {

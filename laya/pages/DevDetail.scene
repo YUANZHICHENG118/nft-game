@@ -174,7 +174,7 @@
             "x":15,
             "type":"Label",
             "searchKey":"Label,remark_txt",
-            "props":{"y":424,"x":69,"width":613,"var":"remark_txt","text":"...","styleSkin":"comp/label.png","height":844,"fontSize":36,"font":"Microsoft YaHei","color":"#ffd9bb","align":"left"},
+            "props":{"y":424,"x":69,"wordWrap":true,"width":613,"var":"remark_txt","text":"...","styleSkin":"comp/label.png","leading":20,"height":844,"fontSize":36,"font":"Microsoft YaHei","color":"#ffd9bb","align":"left"},
             "nodeParent":2,
             "label":"remark_txt",
             "isDirectory":false,

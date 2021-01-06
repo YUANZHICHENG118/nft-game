@@ -12,7 +12,7 @@ export default class ItemIncome extends ui.ItemIncomeUI {
     }
 
     btnReceiveClick():void{
-        LayaBlock.withdrawAward(this.itemData.id).then((d:ITransaction)=>{
+        LayaBlock.withdrawAward(this.itemData.gameId).then((d:ITransaction)=>{
             console.log('这个时候回到区块链交易，等交易完成改为已领取 同时变灰不可点击');
             console.log('交易结果：',d)
         })
@@ -26,7 +26,7 @@ export default class ItemIncome extends ui.ItemIncomeUI {
     }
     public setItem(sn:number,itemData:IIncome): void {
         this.itemData=itemData
-        this.id_txt.text=itemData.id+''
+        this.id_txt.text=itemData.gameId+''
         this.machineNum_txt.text=itemData.machineNum+''
         this.reward_txt.text=itemData.ethReward+'/'+itemData.tokenReward
         if(itemData.receive){

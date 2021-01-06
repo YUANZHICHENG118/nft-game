@@ -58,7 +58,7 @@ export default class PlayDetaiPannel extends ui.PlayDetailPannelUI {
         this.visible=false;
     }
 
-    loadData=(e)=>{
+    loadData=(e:any)=>{
         LayaBlock.getPlayDetail(e.gameId,e.address).then((d:IPlayDetail[])=>{
             console.log('派出详情参数：:',d)
             this.list.array =this.listData=d
