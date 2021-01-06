@@ -206,7 +206,7 @@ interface IMachineSearch {
  */
 interface IIncome {
 
-    id: number,//期数
+    gameId: number,//期数
     address:string,//地址
     machineNum: number,//派出设备数
     reward: number, // 收益

@@ -1846,7 +1846,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             const incomes = [];
 
             for (let i = 0; i <= version; i++) {
-                let income = {id: i + 1}
+                let income = {gameId: i + 1}
                 //const data = await contract.methods.getVersionAward(version, address).call();
                 const record = await contract.methods.getPersonalStats(i, address).call();
 
