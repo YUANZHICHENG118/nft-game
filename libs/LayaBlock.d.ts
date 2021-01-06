@@ -215,10 +215,11 @@ interface IIncome {
     digGross:number,//运走量
     lastStraw:boolean,// 是否最后一击
     ranking:number,//前10排名
-    receive: boolean, // false未领取 true已领取
+    receive: boolean, // true 已领取 false 未领取
 
 
 }
+
 
 /**
  * 我的收益详情/派出车辆详情
@@ -304,6 +305,7 @@ interface ILastStraw {
     load: number,
     // hash
     txId?: string
+    blockNumber?:number
 }
 
 /**
@@ -341,11 +343,14 @@ interface IPlayDetail {
 
 /**
  * 选中数据
+ * load>=mining relaLoad=mining
+ * load<mining relaLoad=load
  */
 interface ISelect{
-    load:number,
-    mining:number,
-    total:number,
+    load:number,// 总共运走
+    mining:number,// 总挖矿
+    total:number, // 总车辆
+    realLoad:number// 实际运走
 }
 
 /**
@@ -393,9 +398,10 @@ declare class LayaBlock {
     /**
      * 激活服务
      * @params machineGo 车辆运动
+     * @params gameOverHandel 一局游戏结束/最后一击
      * @param {IGameServer} game
      */
-    static activeGame(game:IGameServer,machineGo:any):void;
+    static activeGame(game:IGameServer,machineGo:any,gameOverHandel?:(params:ILastStraw)=>void):void;
 
     /**
      * 获取矿山数据/游戏数据

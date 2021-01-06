@@ -161,15 +161,22 @@ export default class DevPannel extends ui.DevPannelUI {
 
     private onSelect(index: number): void {
         this.listData[index].selected=!this.listData[index].selected
-        /*
+
+
+
+        let selectData:ISelect={load:0,mining:0,total:0,realLoad:0}
         let id:number=this.listData0[index].id
         if(this.listData[index].selected==true){
-            LayaBlock.selectMachine(id,true)
+            selectData= LayaBlock.selectMachine(id,true)
         }else{
-            LayaBlock.selectMachine(id,false)
+            selectData= LayaBlock.selectMachine(id,false)
         }
-        */
-        this.updateSum()        
+
+        this.sumLoad_txt.text=selectData.realLoad.toString()
+        this.sumMining_txt.text=selectData.mining.toString()
+        this.total_txt.text=selectData.total.toString()
+
+        //this.updateSum()
     }
 
     private updateSum(){        
