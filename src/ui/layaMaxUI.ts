@@ -319,8 +319,14 @@ export module ui {
     REG("ui.RankPannelUI",RankPannelUI);
     export class SetPannelUI extends Scene {
 		public btnClose:Laya.Sprite;
+		public setTitle_txt:Laya.Label;
+		public musicSet_txt:Laya.Label;
+		public music_txt:Laya.Label;
 		public musicRadioGroup:Laya.RadioGroup;
+		public sound_txt:Laya.Label;
 		public soundRadioGroup:Laya.RadioGroup;
+		public gasSet_txt:Laya.Label;
+		public langSet_txt:Laya.Label;
 		public languageRadioGroup:Laya.RadioGroup;
 		public gas_txt:Laya.Label;
         constructor(){ super()}

@@ -57,8 +57,15 @@ export default class Langue extends Laya.EventDispatcher {
         nav8_0:'派出记录',
         nav8_1: '总派出',
         nav8_2: '总挖矿',
-        nav8_3:'总运走'
+        nav8_3:'总运走',
 
+        setTitle:'设置',
+        musicSet:'音效设置',
+        music:'音乐',
+        sound:'音效',
+        gasSet:'手续费',
+        langSet:'语言设置',
+        onOff:'开          ,关'
     }
     public static en = {
         start: 'start',
@@ -116,7 +123,14 @@ export default class Langue extends Laya.EventDispatcher {
         nav8_0:'Dispatch record',
         nav8_1:'Always dispatched',
         nav8_2:'Total mining',
-        nav8_3:'total transport'
+        nav8_3:'total transport',
+        setTitle:'e设置',
+        musicSet:'e音效设置',
+        music:'e音乐',
+        sound:'e音效',
+        gasSet:'e手续费',
+        langSet:'e语言设置',
+        onOff:'on         ,off'
 
     }
     public static kr = {
@@ -174,7 +188,14 @@ export default class Langue extends Laya.EventDispatcher {
         nav8_0 : '파견 기록',
         nav8_1 : '항상 파견 됨',
         nav8_2 : '총 채굴',
-        nav8_3 : '총 이동 거리'
+        nav8_3 : '총 이동 거리',
+        setTitle:'设置',
+        musicSet:'音效设置',
+        music:'音乐',
+        sound:'音效',
+        gasSet:'手续费',
+        langSet:'语言设置',
+        onOff:'开          ,关'
     }
 
     constructor() {

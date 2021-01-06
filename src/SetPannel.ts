@@ -27,11 +27,12 @@ export default class SetPannel extends ui.SetPannelUI {
     }
 
     onLanguage=()=>{
-        let arr=[]
+        let arr=['setTitle','musicSet','music','sound','gasSet','langSet']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
-        }        
+        }
+        this.musicRadioGroup.labels=this.soundRadioGroup.labels=Langue.defaultLangue.onOff
     }
     
     init():void{

@@ -66,10 +66,11 @@ export default class Home extends ui.HomeUI{
         //帮助面板
         this.helpPannel=new HelpPannel()
         this.addChild(this.helpPannel);        
-        this.helpPannel.visible=false;  
-
-        this.onLanguage()
-        
+        this.helpPannel.visible=false;
+        this.onLanguage()        
+    }
+    mainEnd=()=>{
+        alert('矿山挖完效果')        
     }
     loadData=()=>{
         clearTimeout(this.timeoutOfLoadData)
