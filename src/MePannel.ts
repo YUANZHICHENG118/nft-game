@@ -6,7 +6,7 @@ import ItemCommission from "./ItemCommission";
 import ItemIncome from "./ItemIncome";
 import List = Laya.List;
 import Handler = Laya.Handler;
-
+import PlayDetaiPannel from "./PlayDetaiPannel";
 export default class MePannel extends ui.MePannelUI {
     private clicked1:boolean=false
     private clicked2:boolean=false
@@ -18,6 +18,7 @@ export default class MePannel extends ui.MePannelUI {
     
     private itemX:number=0
     private itemY:number=42
+    private playDetailPannel:PlayDetaiPannel
     private dataBus:DataBus = DataBus.getDataBus(); 
     constructor() { super(); }
     
@@ -70,8 +71,31 @@ export default class MePannel extends ui.MePannelUI {
         this.list2.renderHandler = new Handler(this, this.updateItem2);
         this.list2.array =this.listData2
         this.group2.addChild(this.list2) 
+
+
+
+        this.playDetailPannel=new PlayDetaiPannel()
+        this.playDetailPannel.visible=false
+        this.addChild(this.playDetailPannel)
+
+        Laya.stage.on(GameEvent.INCOME_MORE,this,this.onList1More)
+        Laya.stage.on(GameEvent.COMMISSION_MORE,this,this.onList2More)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()
+    }
+    
+    onList1More=(e:IIncome)=>{
+        console.log(e)
+        alert('收益弹出什么呢？')
+        //this.playDetailPannel.loadData(e)
+        //this.playDetailPannel.visible=true        
+    }
+
+    onList2More=(e:ICommission)=>{
+        console.log(e)
+        alert('返佣弹出什么呢？')
+        //this.playDetailPannel.loadData(e)
+        //this.playDetailPannel.visible=true        
     }
 
     onLanguage=()=>{
@@ -139,11 +163,7 @@ export default class MePannel extends ui.MePannelUI {
         this.clicked1=true
         LayaBlock.getUserIncome().then((d:IIncome[])=>{
             console.log('我的收益',d)
-            this.listData1=[]
-            for(let i in d){
-                this.listData1.push(d[i])
-            }
-            this.list1.array =this.listData1            
+            this.list1.array =this.listData1=d            
         })
     }
 
@@ -152,11 +172,7 @@ export default class MePannel extends ui.MePannelUI {
         let address:string='123'
         LayaBlock.getCommission(address).then((d:ICommission[])=>{
             console.log('返佣数据',d)
-            this.listData2=[]
-            for(let i in d){
-                this.listData2.push(d[i])
-            }
-            this.list2.array =this.listData2            
+            this.list2.array =this.listData2=d         
         })
     }
 

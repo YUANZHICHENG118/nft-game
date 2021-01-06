@@ -146,6 +146,7 @@ export module ui {
 		public address_txt:Laya.Label;
 		public amount_txt:Laya.Label;
 		public nick_txt:Laya.Label;
+		public btn:Laya.Sprite;
 		public btnReceive:Laya.Image;
 		public receive_txt:Laya.Label;
         constructor(){ super()}
@@ -191,6 +192,7 @@ export module ui {
 		public machineNum_txt:Laya.Label;
 		public reward_txt:Laya.Label;
 		public id_txt:Laya.Label;
+		public btn:Laya.Sprite;
 		public btnReceive:Laya.Image;
 		public receive_txt:Laya.Label;
         constructor(){ super()}
@@ -200,6 +202,19 @@ export module ui {
         }
     }
     REG("ui.ItemIncomeUI",ItemIncomeUI);
+    export class ItemPlayDetailUI extends View {
+		public bg:Laya.Image;
+		public machineAmounts_txt:Laya.Label;
+		public machine_txt:Laya.Label;
+		public btn:Laya.Sprite;
+		public load_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("ItemPlayDetail");
+        }
+    }
+    REG("ui.ItemPlayDetailUI",ItemPlayDetailUI);
     export class ItemRankUI extends Scene {
 		public bg:Laya.Image;
 		public snImg:Laya.Image;
@@ -271,9 +286,9 @@ export module ui {
     export class PlayDetailPannelUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;
-		public titleGroup0:Laya.Sprite;
 		public nav8_1_txt:Laya.Label;
 		public nav8_2_txt:Laya.Label;
+		public nav8_3_txt:Laya.Label;
 		public nav8_0_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
