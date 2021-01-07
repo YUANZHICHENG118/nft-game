@@ -11,11 +11,17 @@ export default class ItemIncome extends ui.ItemIncomeUI {
         this.btnReceive.on(Laya.Event.CLICK,this,this.btnReceiveClick)
     }
 
-    btnReceiveClick():void{
-        LayaBlock.withdrawAward(this.itemData.gameId).then((d:ITransaction)=>{
-            console.log('这个时候回到区块链交易，等交易完成改为已领取 同时变灰不可点击');
+    btnReceiveClick(event):void{
+        console.log('=======',this.itemData.receive,this.btnReceive.disabled)
+        if(this.itemData.receive==false || this.btnReceive.disabled==true){
+            return
+        }
+        
+        this.btnReceive.disabled=true
+        LayaBlock.withdrawAward(this.itemData.gameId).then((d:ITransaction)=>{         
             console.log('交易结果：',d)
         })
+        event.stopPropagation();//阻止冒泡
     }
     btnClick(event):void{
         Laya.stage.event(GameEvent.INCOME_MORE,this.itemData);//发送事件，在devPannel里监听

@@ -1029,11 +1029,16 @@
             this.btn.on(Laya.Event.CLICK, this, this.btnClick);
             this.btnReceive.on(Laya.Event.CLICK, this, this.btnReceiveClick);
         }
-        btnReceiveClick() {
+        btnReceiveClick(event) {
+            console.log('=======', this.itemData.receive, this.btnReceive.disabled);
+            if (this.itemData.receive == false || this.btnReceive.disabled == true) {
+                return;
+            }
+            this.btnReceive.disabled = true;
             LayaBlock.withdrawAward(this.itemData.gameId).then((d) => {
-                console.log('这个时候回到区块链交易，等交易完成改为已领取 同时变灰不可点击');
                 console.log('交易结果：', d);
             });
+            event.stopPropagation();
         }
         btnClick(event) {
             Laya.stage.event(GameEvent.INCOME_MORE, this.itemData);
@@ -1658,7 +1663,6 @@
                 clearTimeout(this.timeoutOfLoadData);
                 this.timeoutOfLoadData = setTimeout(this.loadData, 5000);
                 LayaBlock.getMineData().then((d) => {
-                    console.log(d, '矿山数据' + d.surplus + '/' + d.total);
                     this.mine_txt.text = d.surplus + '/' + d.total;
                     this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
                 });
@@ -1719,7 +1723,6 @@
                 this.emailPannel.loadData();
             };
             this.machineGo = (obj) => {
-                console.log('machineGo', obj);
                 this.gongGao_txt.text = '玩家' + obj.nick + '派出车辆挖矿';
                 clearTimeout(this.timeoutGongGao);
                 this.timeoutGongGao = setTimeout(() => {
@@ -1742,25 +1745,18 @@
                 timeLine.on(Laya.Event.LABEL, this, this.onLabel);
             };
             this.testBlock = () => {
-                console.log('♥♥');
                 LayaBlock.getTokenBalance().then((d) => {
-                    console.log("token balance=====", d);
                 });
                 LayaBlock.getEthBalance().then((d) => {
-                    console.log("eth balance=====", d);
                 });
                 LayaBlock.getUserMachine().then((d) => {
                     d.map((item) => {
-                        console.log("getUserMachine====", item);
                     });
                 });
                 LayaBlock.getTokenAllowance().then((d) => {
-                    console.log("getTokenAllowance=====", d);
                     if (!d) {
                         LayaBlock.tokenApprove().then((d) => {
-                            console.log("tokenApprove=====", d.transactionHash);
                         }).catch((e) => {
-                            console.log("tokenApprove error=====", e);
                         });
                     }
                 });

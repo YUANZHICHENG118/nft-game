@@ -77,7 +77,7 @@ export default class Home extends ui.HomeUI{
         this.timeoutOfLoadData=setTimeout(this.loadData,5000);//5000ms 加载一次数据
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
-            console.log(d,'矿山数据'+d.surplus+'/'+d.total)
+            ////console.log(d,'矿山数据'+d.surplus+'/'+d.total)
             this.mine_txt.text=d.surplus+'/'+d.total
             this.shan.scaleY=(d.surplus/d.total)*0.9+0.1
         })
@@ -144,7 +144,7 @@ export default class Home extends ui.HomeUI{
     }
     machineGo=(obj:any)=>{
         //obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}
-        console.log('machineGo',obj)
+        ////console.log('machineGo',obj)
         this.gongGao_txt.text='玩家'+obj.nick+'派出车辆挖矿'
         clearTimeout(this.timeoutGongGao)
         this.timeoutGongGao=setTimeout(() => {
@@ -203,93 +203,93 @@ export default class Home extends ui.HomeUI{
      * 测试接口
      */
     testBlock=()=>{
-        console.log('♥♥')
+        ////console.log('♥♥')
         // 查询1155余额
         
         // 查询token 余额
         LayaBlock.getTokenBalance().then((d:number)=>{
-            console.log("token balance=====",d)
+            ////console.log("token balance=====",d)
         })
         // 查询eth 余额
         LayaBlock.getEthBalance().then((d:number)=>{
-            console.log("eth balance=====",d)
+            ////console.log("eth balance=====",d)
         })
 
         // 查询1155余额
         LayaBlock.getUserMachine().then((d:IMachine[])=>{
             d.map((item:IMachine)=>{
-                console.log("getUserMachine====",item)
+                ////console.log("getUserMachine====",item)
             })
         })
 
         // 查询是否授权 erc20 未授权进行授权事件触发
         LayaBlock.getTokenAllowance().then((d:boolean)=>{
-            console.log("getTokenAllowance=====",d)
+            ////console.log("getTokenAllowance=====",d)
             if(!d){
                 // 如果d为false 需要进行授权
                 LayaBlock.tokenApprove().then((d:IApprove)=>{
-                    console.log("tokenApprove=====",d.transactionHash)
+                    ////console.log("tokenApprove=====",d.transactionHash)
                 }).catch((e:ITransactionError)=>{
-                    console.log("tokenApprove error=====",e)
+                    ////console.log("tokenApprove error=====",e)
                 })
             }
         })
 
         //质押token
         // LayaBlock.stakeToken(100).then((d:ITransaction)=>{
-        //     console.log("stakeToken=====",d.transactionHash)
+        //     ////console.log("stakeToken=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
-        //     console.log("stakeToken error=====",e)
+        //     ////console.log("stakeToken error=====",e)
         // })
 
         //领取1155 nft
         // LayaBlock.receive1155().then((d:ITransaction)=>{
-        //     console.log("receive1155=====",d.transactionHash)
+        //     ////console.log("receive1155=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
-        //     console.log("receive11556 error=====",e)
+        //     ////console.log("receive11556 error=====",e)
         // })
 
         //转账1155
         // LayaBlock.stakeTokenNft([5,6],[10,17]).then((d:ITransaction)=>{
-        //     console.log("stakeTokenNft=====",d.transactionHash)
+        //     ////console.log("stakeTokenNft=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
-        //     console.log("stakeTokenNft error=====",e)
+        //     ////console.log("stakeTokenNft error=====",e)
         // })
 
         // //赎回本金
         // LayaBlock.withdrawCapital().then((d:ITransaction)=>{
-        //     console.log("withdrawCapital=====",d.transactionHash)
+        //     ////console.log("withdrawCapital=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
-        //     console.log("withdrawCapital error=====",e)
+        //     ////console.log("withdrawCapital error=====",e)
         // })
 
 
         // //赎回收益
         // LayaBlock.withdrawAward(1).then((d:ITransaction)=>{
-        //     console.log("withdrawAward=====",d.transactionHash)
+        //     ////console.log("withdrawAward=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
-        //     console.log("withdrawAward error=====",e)
+        //     ////console.log("withdrawAward error=====",e)
         // })
 
 
         // LayaBlock.getRankTop10().then((d:IRankTop[])=>{
-        //     console.log("getRankTop=====",d)
+        //     ////console.log("getRankTop=====",d)
         // })
         // LayaBlock.getMineData().then((d:IMine)=>{
-        //     console.log("getMineData=====",d)
+        //     ////console.log("getMineData=====",d)
         // })
 
         // LayaBlock.getUserBase().then((d:IUserBase)=>{
-        //     console.log("getUserBase=====",d)
+        //     ////console.log("getUserBase=====",d)
         // })
 
         // LayaBlock.getUserStake().then((d:IStake)=>{
-        //     console.log("getUserStake=====",d)
+        //     ////console.log("getUserStake=====",d)
         // })
 
         // LayaBlock.getGameServer().then((d:IGameServer[])=>{
         //     d.map(item=>{
-        //         console.log("token=====",item.symbol)
+        //         ////console.log("token=====",item.symbol)
         //     })
         // })
 
@@ -297,7 +297,7 @@ export default class Home extends ui.HomeUI{
 
         // // 获取用户地址
         // LayaBlock.getAccount().then(d=>{
-        //     console.log(d);
+        //     ////console.log(d);
         // })
     }
 
