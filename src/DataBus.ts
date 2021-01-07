@@ -1,3 +1,4 @@
+import DataLoading from "./DataLoading";
 import GameEvent from "./GameEvent";
 
 export default class DataBus extends Laya.EventDispatcher {
@@ -6,6 +7,8 @@ export default class DataBus extends Laya.EventDispatcher {
     public static account:string='';
     public static gameServer:IGameServer
     public static userBase:IUserBase
+    public dataLoading:DataLoading=new DataLoading();
+
     
     constructor() { super(); }
 
@@ -13,7 +16,7 @@ export default class DataBus extends Laya.EventDispatcher {
     {
         if(!this.instance)
         {
-            this.instance = new DataBus();                              
+            this.instance = new DataBus();                                         
         }
         return this.instance;
     }
@@ -31,5 +34,13 @@ export default class DataBus extends Laya.EventDispatcher {
     }
 
     onDisable(): void {
+    }
+
+    showLoading(){
+        this.dataLoading.popup(false,false)
+    }
+
+    hideLoading(){
+        this.dataLoading.close()
     }
 }

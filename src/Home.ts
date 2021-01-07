@@ -1,5 +1,6 @@
 import AniMachine from "./AniMachine";
 import DataBus from "./DataBus";
+import DataLoading from "./DataLoading";
 import DevPannel from "./DevPannel";
 import EmailPannel from "./EmailPannel";
 import GameEvent from "./GameEvent";

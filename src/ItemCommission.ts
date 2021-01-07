@@ -7,6 +7,7 @@ export default class ItemCommission extends ui.ItemCommissionUI {
     constructor() { super(); this.width=660;this.height=80;}
     
     onEnable(): void {
+        this.btn.visible=false;
         this.btn.on(Laya.Event.CLICK,this,this.btnClick)   
     }
 

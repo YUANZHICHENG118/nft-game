@@ -36,7 +36,8 @@ class Main {
 		this.progressShow();
         //预加载主游戏页面图片资源数组
         var res:Array<any> = [ 
-         {url:"res/atlas/comp.atlas",type:Laya.Loader.ATLAS},
+		 {url:"res/atlas/comp.atlas",type:Laya.Loader.ATLAS},
+		 {url:"res/atlas/loading.atlas",type:Laya.Loader.ATLAS},
 		 {url:"res/atlas/gameimg.atlas",type:Laya.Loader.ATLAS},
 		 {url:"res/atlas/machine.atlas",type:Laya.Loader.ATLAS},
 		 {url:"gameimg/bg.png",type:Laya.Loader.IMAGE},

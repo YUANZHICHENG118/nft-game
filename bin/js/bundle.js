@@ -1,44 +1,6 @@
 (function () {
     'use strict';
 
-    class GameEvent extends Laya.Script {
-        constructor() {
-            super();
-        }
-    }
-    GameEvent.FLAG1 = "flag1";
-    GameEvent.CLOSE_PANNEL = 'closePannel';
-    GameEvent.LANGUAGE_CHANGE = 'languageChange';
-    GameEvent.DETAILE = 'detaile';
-    GameEvent.RANK_MORE = 'rankMore';
-    GameEvent.COMMISSION_MORE = 'commissionMore';
-    GameEvent.INCOME_MORE = 'incomeMove';
-
-    class DataBus extends Laya.EventDispatcher {
-        constructor() {
-            super();
-        }
-        static getDataBus() {
-            if (!this.instance) {
-                this.instance = new DataBus();
-            }
-            return this.instance;
-        }
-        addEvt() {
-            Laya.stage.on('gameData', this, this.onGameData);
-        }
-        onEnable() {
-        }
-        onGameData(data) {
-            console.log('DataBus收到数据：', data);
-            this.event(GameEvent.FLAG1, data);
-        }
-        onDisable() {
-        }
-    }
-    DataBus.instance = null;
-    DataBus.account = '';
-
     var View = Laya.View;
     var Dialog = Laya.Dialog;
     var Scene = Laya.Scene;
@@ -63,6 +25,15 @@
         }
         ui.BlackBgUI = BlackBgUI;
         REG("ui.BlackBgUI", BlackBgUI);
+        class DataLoadingUI extends Dialog {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("DataLoading");
+            }
+        }
+        ui.DataLoadingUI = DataLoadingUI;
+        REG("ui.DataLoadingUI", DataLoadingUI);
         class DevDetailUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -240,6 +211,65 @@
             REG("ui.prefab.profitPannelUI", profitPannelUI);
         })(prefab = ui.prefab || (ui.prefab = {}));
     })(ui || (ui = {}));
+
+    class DataLoading extends ui.DataLoadingUI {
+        constructor() { super(); this.width = 750; this.height = 1334; }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onOpened() {
+            this.loading_ani.play(0, true);
+        }
+        onClosed() {
+            this.loading_ani.stop();
+        }
+    }
+
+    class GameEvent extends Laya.Script {
+        constructor() {
+            super();
+        }
+    }
+    GameEvent.FLAG1 = "flag1";
+    GameEvent.CLOSE_PANNEL = 'closePannel';
+    GameEvent.LANGUAGE_CHANGE = 'languageChange';
+    GameEvent.DETAILE = 'detaile';
+    GameEvent.RANK_MORE = 'rankMore';
+    GameEvent.COMMISSION_MORE = 'commissionMore';
+    GameEvent.INCOME_MORE = 'incomeMove';
+
+    class DataBus extends Laya.EventDispatcher {
+        constructor() {
+            super();
+            this.dataLoading = new DataLoading();
+        }
+        static getDataBus() {
+            if (!this.instance) {
+                this.instance = new DataBus();
+            }
+            return this.instance;
+        }
+        addEvt() {
+            Laya.stage.on('gameData', this, this.onGameData);
+        }
+        onEnable() {
+        }
+        onGameData(data) {
+            console.log('DataBus收到数据：', data);
+            this.event(GameEvent.FLAG1, data);
+        }
+        onDisable() {
+        }
+        showLoading() {
+            this.dataLoading.popup(false, false);
+        }
+        hideLoading() {
+            this.dataLoading.close();
+        }
+    }
+    DataBus.instance = null;
+    DataBus.account = '';
 
     class Langue extends Laya.EventDispatcher {
         constructor() {
@@ -642,7 +672,9 @@
             this.updateList();
         }
         loadData(params) {
+            this.dataBus.showLoading();
             LayaBlock.getUserMachine(params).then((d) => {
+                this.dataBus.hideLoading();
                 console.log('设备列表：', d);
                 this.listData0 = d;
                 this.listData = [];
@@ -999,6 +1031,7 @@
     class ItemCommission extends ui.ItemCommissionUI {
         constructor() { super(); this.width = 660; this.height = 80; }
         onEnable() {
+            this.btn.visible = false;
             this.btn.on(Laya.Event.CLICK, this, this.btnClick);
         }
         onDisable() {
@@ -1051,6 +1084,9 @@
             this.id_txt.text = itemData.gameId + '';
             this.machineNum_txt.text = itemData.machineNum + '';
             this.reward_txt.text = itemData.ethReward + '/' + itemData.tokenReward;
+            if (Number(itemData.ethReward) + Number(itemData.tokenReward) == 0) {
+                itemData.receive = false;
+            }
             if (itemData.receive) {
                 this.receive_txt.text = Langue.defaultLangue.nav5_5;
                 this.btnReceive.skin = 'gameimg/smallBtn1.png';
@@ -1656,8 +1692,8 @@
                 this.helpPannel.visible = false;
                 this.onLanguage();
             };
-            this.mainEnd = () => {
-                alert('矿山挖完效果');
+            this.mainEnd = (data) => {
+                console.log("矿山挖完效果===");
             };
             this.loadData = () => {
                 clearTimeout(this.timeoutOfLoadData);
@@ -1669,7 +1705,7 @@
                 LayaBlock.getUserMine().then((d) => {
                     this.ethAmount_txt.text = d.ethAmount + '';
                     this.reward_txt.text = d.reward + '';
-                    this.rate_txt.text = d.rate * 100 + '%';
+                    this.rate_txt.text = (d.rate * 100).toFixed(2) + '%';
                     this.rank_txt.text = d.rank + '';
                 });
                 LayaBlock.getAccount().then((d) => {
@@ -1764,7 +1800,7 @@
         }
         onEnable() {
             LayaBlock.initWeb3();
-            LayaBlock.activeGame(DataBus.gameServer, this.machineGo);
+            LayaBlock.activeGame(DataBus.gameServer, this.machineGo, this.mainEnd);
             this.initUI();
             this.loadData();
             this.addEvt();
@@ -1853,6 +1889,7 @@
             this.progressShow();
             var res = [
                 { url: "res/atlas/comp.atlas", type: Laya.Loader.ATLAS },
+                { url: "res/atlas/loading.atlas", type: Laya.Loader.ATLAS },
                 { url: "res/atlas/gameimg.atlas", type: Laya.Loader.ATLAS },
                 { url: "res/atlas/machine.atlas", type: Laya.Loader.ATLAS },
                 { url: "gameimg/bg.png", type: Laya.Loader.IMAGE },

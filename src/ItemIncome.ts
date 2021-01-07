@@ -35,6 +35,9 @@ export default class ItemIncome extends ui.ItemIncomeUI {
         this.id_txt.text=itemData.gameId+''
         this.machineNum_txt.text=itemData.machineNum+''
         this.reward_txt.text=itemData.ethReward+'/'+itemData.tokenReward
+        if(Number(itemData.ethReward)+Number(itemData.tokenReward)==0){
+            itemData.receive=false
+        }
         if(itemData.receive){
             this.receive_txt.text=Langue.defaultLangue.nav5_5
             this.btnReceive.skin='gameimg/smallBtn1.png'

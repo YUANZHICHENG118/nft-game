@@ -22,6 +22,15 @@ export module ui {
         }
     }
     REG("ui.BlackBgUI",BlackBgUI);
+    export class DataLoadingUI extends Dialog {
+		public loading_ani:Laya.Animation;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("DataLoading");
+        }
+    }
+    REG("ui.DataLoadingUI",DataLoadingUI);
     export class DevDetailUI extends View {
 		public devPanel:Laya.Sprite;
 		public btnClose:Laya.Sprite;

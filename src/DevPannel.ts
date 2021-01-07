@@ -144,7 +144,9 @@ export default class DevPannel extends ui.DevPannelUI {
     }
 
     loadData(params:IMachineSearch):void{   
+        this.dataBus.showLoading()
         LayaBlock.getUserMachine(params).then((d:IMachine[])=>{
+            this.dataBus.hideLoading()
             console.log('设备列表：', d)
             this.listData0=d
             this.listData=[]

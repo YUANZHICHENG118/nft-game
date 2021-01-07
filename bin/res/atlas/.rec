@@ -110,6 +110,16 @@ P 694A575A zhishipai.png
 D loading
 P CC353EEB loadingBar.png
 R 08D3AF45 loadingBg.png
+D loadingAni
+P 68B62D19 loading0001.png
+P 4137539F loading0002.png
+P E2032590 loading0003.png
+P 386FCA3B loading0004.png
+P 541F1D89 loading0005.png
+P 84ADD010 loading0006.png
+P B57393BC loading0007.png
+P 7B7ECCEA loading0008.png
+P CBD2182C loading0009.png
 D machine
 P E49B0ED4 m1_1.png
 P 0D3A1215 m1_2.png
