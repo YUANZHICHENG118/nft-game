@@ -58,7 +58,7 @@ window.LayaSocket = (function (exports) {
                     const result = JSON.parse(evt.data)
 
                     if(result["jsonrpc"]){
-                        result.type="topic";
+                        result.type="topicLog";
                         _this.onReceiver(result);
                         return ;
                     }

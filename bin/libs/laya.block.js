@@ -180,9 +180,11 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             scale: 4,
             approveAmount: 100000, //授权金额
             erc20TokenAddress: "0xC5e3C7ce3798B9b588633eF3d8d2A72f218C5a60",
-            gameAddress: "0x69BC2bcBF85ab51A4dbc90e53d14F9612e07F6cd",
+            gameAddress: "0x780957773fc5414Edc9d7193A7CAb0bA7c80fA8D",
             erc1155TokenAddress: "0xC5E887eA752eb452430c8D8bbD37E20b94621B41",
-            lastTopic:"0x15b934b983cb0cdb23fefd8cbdfc5c3ef4435ca0a853682c9e3cbbcff9a0cc65"
+            lastTopic:"0x15b934b983cb0cdb23fefd8cbdfc5c3ef4435ca0a853682c9e3cbbcff9a0cc65",
+            trxTopic:"0x4a39dc06d4c0dbc64b70af90fd698a233a518aa5d07e595d983b8c0526c8f7fb"
+
 
         }
     ];
@@ -1472,16 +1474,21 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
         static token1155Contract = () => {
             return this.baseContract(erc1155TokenABI, this.erc1155TokenAddress);
         }
+
+
+
         // 初始化web3
         static initWeb3 = () => {
             if (window.ethereum) {
                 this.chainId = parseInt(window.ethereum.chainId)
                 window.web3 = new Web3(ethereum);
+
                 this.connectWallet();
             } else if (window.web3) {   // 老版 MetaMask Legacy dapp browsers...
                 window.web3 = new Web3(web3.currentProvider);
             }
         }
+
 
 
         // 链接钱包
@@ -1533,6 +1540,11 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             this.erc20TokenAddress = game.erc20TokenAddress;
             this.erc1155TokenAddress = game.erc1155TokenAddress;
             this.lastTopic=game.lastTopic;
+            this.trxTopic=game.trxTopic;
+            //记录派发txid 防止重复推送
+            this.goTxId="0x00000000"
+            this.overTxId="0x00000000"
+
             this.gameAddress = game.gameAddress;
             this.machineGo=machineGo;
             this.gameOverHandel=gameOverHandel
@@ -1608,6 +1620,12 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             this.DIS.socket.on(this.DIS.subKey, this.DIS.msgHandle);
         }
 
+        static heartbeat =()=>{
+
+            this.GameSocket.send({"jsonrpc":"2.0", "id": 1, "method": "eth_subscribe",  "params": ["logs", {"address": this.gameAddress, "topics": [this.lastTopic]}]})
+
+            this.GameSocket.send({"jsonrpc":"2.0", "id": 1, "method": "eth_subscribe",  "params": ["logs", {"address": this.erc1155TokenAddress, "topics": [this.trxTopic]}]})
+        }
 
         /**
          * 监听区块链数据变化
@@ -1615,28 +1633,143 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
          */
         static disGameConnectHandle = async () =>{
 
-            this.GameSocket.send({"jsonrpc":"2.0", "id": 1, "method": "eth_subscribe",  "params": ["logs", {"address": this.gameAddress, "topics": [this.lastTopic]}]})
 
-            this.GameSocket.on("topic", async (data)=>{
+            this.heartbeat();
+
+            let that=this;
+            setInterval(() => {
+                that.heartbeat();
+            }, 10000);
+
+
+            this.GameSocket.on("topicLog", async (data)=>{
 
                 if(data&&data.params&&data.params.result){
-
                     const result=data.params.result;
-                    const txId=result.transactionHash;
-                    const address=result.topics[1].replace("000000000000000000000000","");
-                    const blockNumber=parseInt(result.blockNumber)
-                    const nick=await this.getNick(address)
-                    const load=0;
-                    const machine=0;
-                    const gameId=await this.getGameVersion()
 
-                    if(this.gameOverHandel){
-                        this.gameOverHandel({gameId,address:nick?nick:this.addressSub(address),load,machine,txId,blockNumber})
+                    if(result.topics[0].replace("000000000000000000000000","").toLowerCase()===this.lastTopic.toLowerCase()){
+                        this.gameOver(data)
+                    }
+
+                    if(result.topics[0].toLowerCase()===this.trxTopic.toLowerCase()&&result.topics[3].replace("000000000000000000000000","").toLowerCase()===this.gameAddress.toLowerCase()){
+                        this.go(data)
                     }
 
                 }
 
             });
+
+        }
+
+        /**
+         * 发车
+         */
+        static go=async (data)=>{
+
+            if(this.machineGo){
+
+                const result=data.params.result;
+                const blockData=data.params.result.data;
+                const txId=result.transactionHash;
+                const address=result.topics[1].replace("000000000000000000000000","");
+                const blockNumber=parseInt(result.blockNumber)
+                const nick=await this.getNick(address)
+
+
+                if(this.goTxId===txId){
+                    return ;
+                }
+
+                this.goTxId=txId;
+
+                let _dd= window.web3.eth.abi.decodeLog([
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "_operator",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "_from",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "_to",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256[]",
+                            "name": "_ids",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256[]",
+                            "name": "_amounts",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    blockData,
+                    [ this.account.replace("0x","0x000000000000000000000000"),this.account.replace("0x","0x000000000000000000000000"),this.gameAddress.replace("0x","0x000000000000000000000000")]);
+
+
+                console.log("_dd===",_dd)
+                let ids=_dd._ids;
+                let amounts=_dd._amounts;
+                let cars=[];
+                let that=this;
+                amounts&&amounts.map((item,index)=>{
+                    for(let i=0;i<parseInt(item);i++){
+                        let car=this.getMachineAttribute(ids[index]);
+                        let obj={id:parseInt(ids[index]),type:car.type,color:car.color,nick:nick?nick.nick:this.addressSub(_dd.from)};
+                        cars.push(obj)
+                    }
+                })
+                cars.map((item,index)=>{
+                    setTimeout(function(){
+                        that.machineGo(item)
+                    },index*1000);
+                })
+            }
+
+        }
+
+        /**
+         * 游戏结束
+         * @param data
+         */
+        static gameOver=async (data)=>{
+            const result=data.params.result;
+            const blockData=data.params.result.data;
+            const txId=result.transactionHash;
+            const address=result.topics[1].replace("000000000000000000000000","");
+            const blockNumber=parseInt(result.blockNumber)
+            const nick=await this.getNick(address)
+
+            if(this.overTxId===txId){
+                return ;
+            }
+
+            this.overTxId=txId;
+
+            let logData=blockData.replace("0x","");
+            let a=logData.substr(0*64,64)
+            let b=logData.substr(1*64,64)
+            let c=logData.substr(2*64,64)
+            let d=logData.substr(3*64,64)
+
+            const load=parseFloat(window.web3.utils.hexToNumberString("0x"+c))
+            const machine=parseFloat(window.web3.utils.hexToNumberString("0x"+b))
+            const gameId=parseFloat(window.web3.utils.hexToNumberString("0x"+a))
+            if(this.gameOverHandel){
+                this.gameOverHandel({gameId,address:nick?nick:this.addressSub(address),load,machine,txId,blockNumber})
+            }
+
         }
 
         static getErc20Token = () => {
@@ -1776,10 +1909,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 }
             })
 
-            if(data.length>0){
-                //保存数据到缓存
-                localStorage.setItem("machine", JSON.stringify(data));
-            }
+            // if(data.length>0){
+            //     //保存数据到缓存
+            //     localStorage.setItem("machine", JSON.stringify(data));
+            // }
 
             return data;
 
