@@ -27,7 +27,7 @@ export default class Home extends ui.HomeUI{
     onEnable (): void {
         // 初始化 web3
         LayaBlock.initWeb3();
-        LayaBlock.activeGame(DataBus.gameServer,this.machineGo)
+        LayaBlock.activeGame(DataBus.gameServer,this.machineGo,this.mainEnd)
         //初始化界面
         this.initUI();
         //初始化数据
@@ -69,8 +69,9 @@ export default class Home extends ui.HomeUI{
         this.helpPannel.visible=false;
         this.onLanguage()        
     }
-    mainEnd=()=>{
-        alert('矿山挖完效果')        
+    mainEnd=(data:ILastStraw)=>{
+        console.log("矿山挖完效果===")
+        //alert('矿山挖完效果')
     }
     loadData=()=>{
         clearTimeout(this.timeoutOfLoadData)
@@ -86,7 +87,7 @@ export default class Home extends ui.HomeUI{
         LayaBlock.getUserMine().then((d:IUserMine)=>{
             this.ethAmount_txt.text=d.ethAmount+''
             this.reward_txt.text=d.reward+''
-            this.rate_txt.text=d.rate*100+'%'
+            this.rate_txt.text=(d.rate*100).toFixed(2)+'%'
             this.rank_txt.text=d.rank+''
         })
 
