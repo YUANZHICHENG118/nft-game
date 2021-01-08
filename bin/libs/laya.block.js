@@ -2005,6 +2005,9 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 if(i===version){
                     income["status"] = false;
 
+                } else if(ethReward===0&&tokenReward===0){
+                    income["status"] = false;
+
                 }else{
                     income["status"] = !receive;
                 }
@@ -2013,6 +2016,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 incomes.unshift(income)
             }
             return new Promise(function (resolve, reject) {
+                console.log("===incomes",incomes)
                 resolve(incomes)
             });
         }
