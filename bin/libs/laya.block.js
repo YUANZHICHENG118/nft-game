@@ -2002,6 +2002,14 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 income["lastStraw"] = record["stats2"][1];
                 income["ranking"] = record["stats"][6];
 
+                if(i===version){
+                    income["status"] = false;
+
+                }else{
+                    income["status"] = !receive;
+                }
+
+
                 incomes.unshift(income)
             }
             return new Promise(function (resolve, reject) {

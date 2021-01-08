@@ -216,6 +216,7 @@ interface IIncome {
     lastStraw:boolean,// 是否最后一击
     ranking:number,//前10排名
     receive: boolean, // true 已领取 false 未领取
+    status:boolean ,// true 可领取 false 不可领取
 
 
 }
