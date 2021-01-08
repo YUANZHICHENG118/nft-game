@@ -83,6 +83,7 @@ export default class RankPannel extends ui.RankPannelUI {
         }
         let curBtn:Laya.Image=e.currentTarget as Laya.Image        
         let selectRankType=Number(curBtn.name.charAt(8))
+        console.log('---------',selectRankType,this.rankType)
         if(this.rankType==selectRankType){
             return
         }else{
@@ -125,16 +126,17 @@ export default class RankPannel extends ui.RankPannelUI {
     updateList(){
         console.log('rankType:',this.rankType);
         this.loading=true
+        
         if(this.rankType==0){
             this.loadData10()
-            this.loadDataMe()
-            this.loadDataLast()
+            //this.loadDataMe()
+            //this.loadDataLast()
             this.myItem.visible=this.lastItem.visible=true
             this.list.y=this.itemY1
         }else if(this.rankType==1){
-            this.loadData50()
+            //this.loadData50()
             this.loadDataMe()
-            this.loadDataLast()
+            //this.loadDataLast()
             this.myItem.visible=this.lastItem.visible=true;
             this.list.y=this.itemY1
         }else if(this.rankType==2){
@@ -143,25 +145,32 @@ export default class RankPannel extends ui.RankPannelUI {
             this.list.y=this.itemY0
         }        
     }
-    loadDataMe():void{  
+    loadDataMe():void{ 
+        this.dataBus.showLoading()
         LayaBlock.getUserRank().then((d:IUserRank)=>{
-            console.log('me:::::',d,typeof d)
+            this.dataBus.hideLoading()
+            this.loading=false
             this.myItem.setItem(-1,d)
             this.myItem.sn_txt.text='ME'
         })
     }
 
     loadDataLast():void{        
+        this.dataBus.showLoading()
         LayaBlock.getLastStraw().then((d:ILastStraw)=>{
-            console.log('last:::::',d,typeof d)
+            this.loading=false
+            this.dataBus.hideLoading()
+            this.loading=false
             this.lastItem.setItem(-1,d)
             this.lastItem.sn_txt.text='LAST'
         })
     }
 
     loadData10():void{        
+        this.dataBus.showLoading()
         LayaBlock.getRankTop10().then((d:IRankTop[])=>{
-            console.log(d,typeof d)
+            this.dataBus.hideLoading()
+            this.loading=false
             this.listData=[]
             for(let i in d){
                 this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort,address:d[i].address,gameId:d[i].gameId})
@@ -171,9 +180,11 @@ export default class RankPannel extends ui.RankPannelUI {
         })
     }
 
-    loadData50():void{        
+    loadData50():void{    
+        this.dataBus.showLoading()    
         LayaBlock.getRankTop50().then((d:IRankTop[])=>{
-            console.log(d,typeof d)
+            this.dataBus.hideLoading()
+            this.loading=false
             this.listData=[]
             for(let i in d){
                 this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort,address:d[i].address,gameId:d[i].gameId})
@@ -183,9 +194,11 @@ export default class RankPannel extends ui.RankPannelUI {
         })
     }
 
-    loadData100():void{        
+    loadData100():void{       
+        this.dataBus.showLoading() 
         LayaBlock.getGameRankTop50().then((d:IRankTop[])=>{
-            console.log(d,typeof d)
+            this.dataBus.hideLoading()
+            this.loading=false
             this.listData=[]
             for(let i in d){
                 this.listData.push({sn:i,load:d[i].load,addressShort:d[i].addressShort,address:d[i].address,gameId:d[i].gameId})

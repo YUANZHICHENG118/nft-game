@@ -349,7 +349,8 @@
         sound: '音效',
         gasSet: '手续费',
         langSet: '语言设置',
-        onOff: '开          ,关'
+        onOff: '开          ,关',
+        devTip: '设备就绪等待发车'
     };
     Langue.en = {
         start: 'start',
@@ -408,13 +409,14 @@
         nav8_1: 'Always dispatched',
         nav8_2: 'Total mining',
         nav8_3: 'total transport',
-        setTitle: 'e设置',
-        musicSet: 'e音效设置',
-        music: 'e音乐',
-        sound: 'e音效',
-        gasSet: 'e手续费',
-        langSet: 'e语言设置',
-        onOff: 'on         ,off'
+        setTitle: 'Setting',
+        musicSet: 'Music Setting',
+        music: 'Music',
+        sound: 'Sound',
+        gasSet: 'Gas',
+        langSet: 'Language',
+        onOff: 'on         ,off',
+        devTip: 'wait...'
     };
     Langue.kr = {
         start: 'start',
@@ -472,13 +474,14 @@
         nav8_1: '항상 파견 됨',
         nav8_2: '총 채굴',
         nav8_3: '총 이동 거리',
-        setTitle: '设置',
-        musicSet: '音效设置',
-        music: '音乐',
-        sound: '音效',
-        gasSet: '手续费',
-        langSet: '语言设置',
-        onOff: '开          ,关'
+        setTitle: '설정',
+        musicSet: '사 운 드 설정',
+        music: '음악',
+        sound: '사 운 드 효과',
+        gasSet: 'Gas',
+        langSet: '언어 설정',
+        onOff: '열다          ,관문',
+        devTip: 'wait...'
     };
 
     class ItemDev extends ui.ItemDevUI {
@@ -561,6 +564,7 @@
             this.hasInitList = false;
             this.dataBus = DataBus.getDataBus();
             this.devDetail = new DevDetail();
+            this.loading = false;
             this.onDetaile = (e) => {
                 this.devDetail.visible = true;
                 let d = this.listData0[e];
@@ -586,6 +590,7 @@
                 this.btnColorArr[i].on(Laya.Event.CLICK, this, this.btnColorClick);
             }
             this.selectAll_btn.on(Laya.Event.CHANGE, this, this.selectAllClick);
+            this.auto_btn.on(Laya.Event.CLICK, this, this.autoClick);
             this.stakeTokenNft_btn.on(Laya.Event.CLICK, this, this.stakeTokenNft);
             this.list.itemRender = ItemDev;
             this.list.repeatX = 4;
@@ -607,6 +612,9 @@
             Laya.stage.on(GameEvent.DETAILE, this, this.onDetaile);
         }
         stakeTokenNft() {
+            if (this.loading == true) {
+                return;
+            }
             var machineNum = 0;
             var obj = {};
             for (var i in this.listData) {
@@ -626,7 +634,9 @@
                 return;
             }
             console.log('obj', obj);
-            LayaBlock.stakeTokenNft(obj, (d) => { console.log("d------", d.message); }).then((d) => {
+            this.dataBus.showLoading();
+            this.loading = true;
+            LayaBlock.stakeTokenNft(obj, (d) => { console.log("d------", d.message); this.dataBus.hideLoading(); this.loading = false; }).then((d) => {
                 console.log('stakeTokenNft=====派车接口返回数据:', d);
             }).catch((e) => {
                 console.log('error=====派车接口返回数据:', e.message);
@@ -639,6 +649,10 @@
                 this.listData[i].selected = this.selectAll_btn.selected;
             }
             this.list.array = this.listData;
+            this.updateSum();
+        }
+        autoClick(e) {
+            this.updateSum();
         }
         sortClick() {
             if (this.sort == 'DESC') {
@@ -689,17 +703,7 @@
         }
         onSelect(index) {
             this.listData[index].selected = !this.listData[index].selected;
-            let selectData = { load: 0, mining: 0, total: 0, realLoad: 0 };
-            let id = this.listData0[index].id;
-            if (this.listData[index].selected == true) {
-                selectData = LayaBlock.selectMachine(id, true);
-            }
-            else {
-                selectData = LayaBlock.selectMachine(id, false);
-            }
-            this.sumLoad_txt.text = selectData.realLoad.toString();
-            this.sumMining_txt.text = selectData.mining.toString();
-            this.total_txt.text = selectData.total.toString();
+            this.updateSum();
         }
         updateSum() {
             let sumLoad = 0;
@@ -759,6 +763,12 @@
             this.loadData(params);
         }
         closeClick() {
+            let sumLoad = 0;
+            let sumMining = 0;
+            let total = 0;
+            this.sumLoad_txt.text = sumLoad + '';
+            this.sumMining_txt.text = sumMining + '';
+            this.total_txt.text = total + '';
             this.visible = false;
         }
         onDisable() {
@@ -1063,8 +1073,7 @@
             this.btnReceive.on(Laya.Event.CLICK, this, this.btnReceiveClick);
         }
         btnReceiveClick(event) {
-            console.log('=======', this.itemData.receive, this.btnReceive.disabled);
-            if (this.itemData.receive == false || this.btnReceive.disabled == true) {
+            if (this.itemData.status == false) {
                 return;
             }
             this.btnReceive.disabled = true;
@@ -1084,6 +1093,7 @@
             this.id_txt.text = itemData.gameId + '';
             this.machineNum_txt.text = itemData.machineNum + '';
             this.reward_txt.text = itemData.ethReward + '/' + itemData.tokenReward;
+            this.btnReceive.disabled = !itemData.status;
             if (Number(itemData.ethReward) + Number(itemData.tokenReward) == 0) {
                 itemData.receive = false;
             }
@@ -1186,11 +1196,11 @@
             this.btnType = 0;
             this.list1 = new List$4();
             this.list2 = new List$4();
+            this.loading = false;
             this.itemX = 0;
             this.itemY = 42;
             this.dataBus = DataBus.getDataBus();
             this.onList1More = (e) => {
-                console.log(e);
                 this.playDetailPannel.loadData(e);
                 this.playDetailPannel.visible = true;
             };
@@ -1279,18 +1289,15 @@
             this['show' + this.btnType]();
         }
         show0() {
-            console.log('show0');
             this.group0.visible = true;
         }
         show1() {
-            console.log('show1');
             this.group1.visible = true;
             if (this.clicked1 == false) {
                 this.loadData1();
             }
         }
         show2() {
-            console.log('show2');
             this.group2.visible = true;
             if (this.clicked2 == false) {
                 this.loadData2();
@@ -1298,16 +1305,23 @@
         }
         loadData1() {
             this.clicked1 = true;
+            this.dataBus.showLoading();
+            this.loading = true;
             LayaBlock.getUserIncome().then((d) => {
+                this.dataBus.hideLoading();
+                this.loading = false;
                 console.log('我的收益', d);
                 this.list1.array = this.listData1 = d;
             });
         }
         loadData2() {
             this.clicked2 = true;
-            let address = '123';
+            let address = DataBus.userBase.address;
+            this.dataBus.showLoading();
+            this.loading = true;
             LayaBlock.getCommission(address).then((d) => {
-                console.log('返佣数据', d);
+                this.dataBus.hideLoading();
+                this.loading = false;
                 this.list2.array = this.listData2 = d;
             });
         }
@@ -1329,8 +1343,11 @@
             alert('调用复制函数');
         }
         loadData() {
+            this.dataBus.showLoading();
+            this.loading = true;
             LayaBlock.getUserBase().then((d) => {
-                console.log('getUserBase', d);
+                this.dataBus.hideLoading();
+                this.loading = false;
                 DataBus.userBase = d;
                 if (d.nick == null || d.nick == '') {
                     this.nick2_txt.text = '';
@@ -1489,6 +1506,7 @@
             }
             let curBtn = e.currentTarget;
             let selectRankType = Number(curBtn.name.charAt(8));
+            console.log('---------', selectRankType, this.rankType);
             if (this.rankType == selectRankType) {
                 return;
             }
@@ -1527,15 +1545,11 @@
             this.loading = true;
             if (this.rankType == 0) {
                 this.loadData10();
-                this.loadDataMe();
-                this.loadDataLast();
                 this.myItem.visible = this.lastItem.visible = true;
                 this.list.y = this.itemY1;
             }
             else if (this.rankType == 1) {
-                this.loadData50();
                 this.loadDataMe();
-                this.loadDataLast();
                 this.myItem.visible = this.lastItem.visible = true;
                 this.list.y = this.itemY1;
             }
@@ -1546,22 +1560,29 @@
             }
         }
         loadDataMe() {
+            this.dataBus.showLoading();
             LayaBlock.getUserRank().then((d) => {
-                console.log('me:::::', d, typeof d);
+                this.dataBus.hideLoading();
+                this.loading = false;
                 this.myItem.setItem(-1, d);
                 this.myItem.sn_txt.text = 'ME';
             });
         }
         loadDataLast() {
+            this.dataBus.showLoading();
             LayaBlock.getLastStraw().then((d) => {
-                console.log('last:::::', d, typeof d);
+                this.loading = false;
+                this.dataBus.hideLoading();
+                this.loading = false;
                 this.lastItem.setItem(-1, d);
                 this.lastItem.sn_txt.text = 'LAST';
             });
         }
         loadData10() {
+            this.dataBus.showLoading();
             LayaBlock.getRankTop10().then((d) => {
-                console.log(d, typeof d);
+                this.dataBus.hideLoading();
+                this.loading = false;
                 this.listData = [];
                 for (let i in d) {
                     this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort, address: d[i].address, gameId: d[i].gameId });
@@ -1571,8 +1592,10 @@
             });
         }
         loadData50() {
+            this.dataBus.showLoading();
             LayaBlock.getRankTop50().then((d) => {
-                console.log(d, typeof d);
+                this.dataBus.hideLoading();
+                this.loading = false;
                 this.listData = [];
                 for (let i in d) {
                     this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort, address: d[i].address, gameId: d[i].gameId });
@@ -1582,8 +1605,10 @@
             });
         }
         loadData100() {
+            this.dataBus.showLoading();
             LayaBlock.getGameRankTop50().then((d) => {
-                console.log(d, typeof d);
+                this.dataBus.hideLoading();
+                this.loading = false;
                 this.listData = [];
                 for (let i in d) {
                     this.listData.push({ sn: i, load: d[i].load, addressShort: d[i].addressShort, address: d[i].address, gameId: d[i].gameId });
@@ -1731,7 +1756,7 @@
             };
             this.onLanguage = () => {
                 this.gongGao_txt.text = Langue.defaultLangue.notice_0;
-                let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4'];
+                let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4', 'devTip'];
                 for (let i in arr) {
                     let txtName = arr[i];
                     this[txtName + '_txt'].text = Langue.defaultLangue[txtName];

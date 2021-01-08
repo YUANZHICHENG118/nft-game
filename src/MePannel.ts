@@ -15,7 +15,7 @@ export default class MePannel extends ui.MePannelUI {
     private list2: List = new List();    
     private listData1:Array<any>
     private listData2:Array<any>
-    
+    private loading:boolean=false
     private itemX:number=0
     private itemY:number=42
     private playDetailPannel:PlayDetaiPannel
@@ -72,8 +72,6 @@ export default class MePannel extends ui.MePannelUI {
         this.list2.array =this.listData2
         this.group2.addChild(this.list2) 
 
-
-
         this.playDetailPannel=new PlayDetaiPannel()
         this.playDetailPannel.visible=false
         this.addChild(this.playDetailPannel)
@@ -85,7 +83,6 @@ export default class MePannel extends ui.MePannelUI {
     }
     
     onList1More=(e:IIncome)=>{
-        console.log(e)
         this.playDetailPannel.loadData(e)
         this.playDetailPannel.visible=true        
     }
@@ -138,12 +135,10 @@ export default class MePannel extends ui.MePannelUI {
     }
 
     show0():void{
-        console.log('show0')
         this.group0.visible=true
     }
 
     show1():void{
-        console.log('show1')
         this.group1.visible=true
         if(this.clicked1==false){
             this.loadData1()
@@ -151,7 +146,6 @@ export default class MePannel extends ui.MePannelUI {
     }
 
     show2():void{
-        console.log('show2')
         this.group2.visible=true
         if(this.clicked2==false){
             this.loadData2()
@@ -160,7 +154,9 @@ export default class MePannel extends ui.MePannelUI {
 
     loadData1():void{
         this.clicked1=true
+        this.dataBus.showLoading();this.loading=true;
         LayaBlock.getUserIncome().then((d:IIncome[])=>{
+            this.dataBus.hideLoading();this.loading=false
             console.log('我的收益',d)
             this.list1.array =this.listData1=d            
         })
@@ -168,9 +164,10 @@ export default class MePannel extends ui.MePannelUI {
 
     loadData2():void{
         this.clicked2=true
-        let address:string='123'
+        let address:string=DataBus.userBase.address
+        this.dataBus.showLoading();this.loading=true;
         LayaBlock.getCommission(address).then((d:ICommission[])=>{
-            console.log('返佣数据',d)
+            this.dataBus.hideLoading();this.loading=false;
             this.list2.array =this.listData2=d         
         })
     }
@@ -195,8 +192,9 @@ export default class MePannel extends ui.MePannelUI {
         //eval('window.clipboardData.setData("text","hello")');
     }
     loadData():void{    
-        LayaBlock.getUserBase().then((d:IUserBase)=>{            
-            console.log('getUserBase',d)
+        this.dataBus.showLoading();this.loading=true;
+        LayaBlock.getUserBase().then((d:IUserBase)=>{  
+            this.dataBus.hideLoading();this.loading=false;          
             DataBus.userBase=d
             if(d.nick==null || d.nick==''){
                 this.nick2_txt.text=''
