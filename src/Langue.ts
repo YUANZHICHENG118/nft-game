@@ -54,18 +54,18 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_2: '载重/挖矿：',
         nav7_3: '等级：',
 
-        nav8_0:'派出记录',
+        nav8_0: '派出记录',
         nav8_1: '总派出',
         nav8_2: '总挖矿',
-        nav8_3:'总运走',
+        nav8_3: '总运走',
 
-        setTitle:'设置',
-        musicSet:'音效设置',
-        music:'音乐',
-        sound:'音效',
-        gasSet:'手续费',
-        langSet:'语言设置',
-        onOff:'开          ,关'
+        setTitle: '设置',
+        musicSet: '音效设置',
+        music: '音乐',
+        sound: '音效',
+        gasSet: '手续费',
+        langSet: '语言设置',
+        onOff: '开          ,关'
     }
     public static en = {
         start: 'start',
@@ -111,8 +111,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav5_3: 'income',
         nav5_4: 'collect',
         nav5_5: 'not received',
-        nav5_6:'issued',
-        nav5_7:'Unreleased',
+        nav5_6: 'issued',
+        nav5_7: 'Unreleased',
         nav6_1: 'nick',
         nav6_2: 'address',
         nav6_3: 'reward ',
@@ -120,17 +120,17 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_1: 'details: ',
         nav7_2: 'load/Mining:',
         nav7_3: 'level:',
-        nav8_0:'Dispatch record',
-        nav8_1:'Always dispatched',
-        nav8_2:'Total mining',
-        nav8_3:'total transport',
-        setTitle:'e设置',
-        musicSet:'e音效设置',
-        music:'e音乐',
-        sound:'e音效',
-        gasSet:'e手续费',
-        langSet:'e语言设置',
-        onOff:'on         ,off'
+        nav8_0: 'Dispatch record',
+        nav8_1: 'Always dispatched',
+        nav8_2: 'Total mining',
+        nav8_3: 'total transport',
+        setTitle: 'Setting',
+        musicSet: 'Music Setting',
+        music: 'Music',
+        sound: 'Sound',
+        gasSet: 'Gas',
+        langSet: 'Language',
+        onOff: 'on         ,off'
 
     }
     public static kr = {
@@ -176,8 +176,8 @@ export default class Langue extends Laya.EventDispatcher {
         nav5_3: '수익(ETH/CM)',
         nav5_4: "수령",
         nav5_5: "미 수령",
-        nav5_6 : '발행 됨',
-        nav5_7 : '출시되지 않음',
+        nav5_6: '발행 됨',
+        nav5_7: '출시되지 않음',
         nav6_1: "닉네임",
         nav6_2: "주소",
         nav6_3: "보상",
@@ -185,17 +185,17 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_1: '설비 상세 정보:',
         nav7_2: "적재/채굴:",
         nav7_3: "등급:",
-        nav8_0 : '파견 기록',
-        nav8_1 : '항상 파견 됨',
-        nav8_2 : '총 채굴',
-        nav8_3 : '총 이동 거리',
-        setTitle:'设置',
-        musicSet:'音效设置',
-        music:'音乐',
-        sound:'音效',
-        gasSet:'手续费',
-        langSet:'语言设置',
-        onOff:'开          ,关'
+        nav8_0: '파견 기록',
+        nav8_1: '항상 파견 됨',
+        nav8_2: '총 채굴',
+        nav8_3: '총 이동 거리',
+        setTitle: '설정',
+        musicSet: '사 운 드 설정',
+        music: '음악',
+        sound: '사 운 드 효과',
+        gasSet: 'Gas',
+        langSet: '언어 설정',
+        onOff: '열다          ,관문'
     }
 
     constructor() {

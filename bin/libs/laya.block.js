@@ -180,7 +180,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             scale: 4,
             approveAmount: 100000, //授权金额
             erc20TokenAddress: "0xC5e3C7ce3798B9b588633eF3d8d2A72f218C5a60",
-            gameAddress: "0x780957773fc5414Edc9d7193A7CAb0bA7c80fA8D",
+            gameAddress: "0xa99344538Ba7758D656ad2fb50148Ff26D84FF8B",
             erc1155TokenAddress: "0xC5E887eA752eb452430c8D8bbD37E20b94621B41",
             lastTopic:"0x15b934b983cb0cdb23fefd8cbdfc5c3ef4435ca0a853682c9e3cbbcff9a0cc65",
             trxTopic:"0x4a39dc06d4c0dbc64b70af90fd698a233a518aa5d07e595d983b8c0526c8f7fb"
