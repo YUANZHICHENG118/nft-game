@@ -605,10 +605,9 @@ declare class LayaBlock {
 
     /**
      * 获取返佣明细
-     * @param {string} address
      * @returns {Promise<ICommission[]>}
      */
-    static getCommission(address:string):Promise<ICommission[]>
+    static getCommission():Promise<ICommission[]>
 
 
     /**
