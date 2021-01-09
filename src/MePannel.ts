@@ -164,9 +164,8 @@ export default class MePannel extends ui.MePannelUI {
 
     loadData2():void{
         this.clicked2=true
-        let address:string=DataBus.userBase.address
         this.dataBus.showLoading();this.loading=true;
-        LayaBlock.getCommission(address).then((d:ICommission[])=>{
+        LayaBlock.getCommission().then((d:ICommission[])=>{
             this.dataBus.hideLoading();this.loading=false;
             this.list2.array =this.listData2=d         
         })

@@ -117,10 +117,13 @@ export default class DevPannel extends ui.DevPannelUI {
             this.listData[i].selected=this.selectAll_btn.selected
         }
         this.list.array =this.listData
-        this.updateSum()
+
+        this.listData&&this.listData.map(item=>{
+            this.updateSum(item)
+        })
     }
-    autoClick(e:Laya.Event){        
-        this.updateSum()
+    autoClick(e:Laya.Event){
+        console.log("自动匹配")
     }
     public sortClick(){
         if(this.sort=='DESC'){
@@ -173,38 +176,35 @@ export default class DevPannel extends ui.DevPannelUI {
 
     private onSelect(index: number): void {
         this.listData[index].selected=!this.listData[index].selected
-        /*
+
+        this.updateSum(this.listData[index])
+    }
+
+    private updateSum(car:any){
+        // let sumLoad:number=0
+        // let sumMining:number=0
+        // let total:number=0
+        // for(var i in this.listData){
+        //     console.log('i',i)
+        //     if(this.listData[i].selected==true){
+        //         console.log('---',i)
+        //         sumLoad+=this.listData0[i].load
+        //         sumMining+=this.listData0[i].mining
+        //         total+=1
+        //     }
+        // }
+
         let selectData:ISelect={load:0,mining:0,total:0,realLoad:0}
-        let id:number=this.listData0[index].id
-        if(this.listData[index].selected==true){
+        let id:number=car.id
+        if(car.selected==true){
             selectData= LayaBlock.selectMachine(id,true)
         }else{
             selectData= LayaBlock.selectMachine(id,false)
         }
 
-        this.sumLoad_txt.text=selectData.realLoad.toString()
-        this.sumMining_txt.text=selectData.mining.toString()
-        this.total_txt.text=selectData.total.toString()
-        */
-        this.updateSum()
-    }
-
-    private updateSum(){        
-        let sumLoad:number=0
-        let sumMining:number=0
-        let total:number=0
-        for(var i in this.listData){
-            console.log('i',i)
-            if(this.listData[i].selected==true){
-                console.log('---',i)
-                sumLoad+=this.listData0[i].load
-                sumMining+=this.listData0[i].mining
-                total+=1
-            }
-        }
-        this.sumLoad_txt.text=sumLoad+''
-        this.sumMining_txt.text=sumMining+''
-        this.total_txt.text=total+''
+        this.sumLoad_txt.text=selectData.realLoad.toString()+""
+        this.sumMining_txt.text=selectData.mining.toString()+""
+        this.total_txt.text=selectData.total.toString()+""
     }
 
     private onClickList(e:Laya.Event):void{
