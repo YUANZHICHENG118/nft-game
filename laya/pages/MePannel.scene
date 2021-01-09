@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":41,
+    "selectedBox":68,
+    "selecteID":71,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
@@ -450,7 +450,7 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav5_2_txt",
-                    "props":{"y":0,"x":132,"width":111,"var":"nav5_2_txt","text":"派出设备","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":118,"width":111,"var":"nav5_2_txt","text":"派出设备","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
                     "label":"nav5_2_txt",
                     "isDirectory":false,
@@ -464,7 +464,7 @@
                     "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav5_3_txt",
-                    "props":{"y":0,"x":279,"width":206,"var":"nav5_3_txt","text":"收益(ETH/CM)","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
+                    "props":{"y":0,"x":265,"width":206,"var":"nav5_3_txt","text":"收益(ETH/CM)","styleSkin":"comp/label.png","height":42,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"center"},
                     "nodeParent":68,
                     "label":"nav5_3_txt",
                     "isDirectory":false,
@@ -475,7 +475,7 @@
                         ],
                     "$HIDDEN":false
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -532,7 +532,7 @@
                     "child":[
                         ]
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         }],
     "animations":[
         {

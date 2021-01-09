@@ -20,6 +20,7 @@ export default class DevPannel extends ui.DevPannelUI {
     private listData0:Array<IMachine>
     private dataBus:DataBus = DataBus.getDataBus(); 
     private devDetail:DevDetail=new DevDetail();
+    private loading:boolean=false;
     constructor() { super(); }
     
     onEnable(): void {
@@ -37,6 +38,7 @@ export default class DevPannel extends ui.DevPannelUI {
             this.btnColorArr[i].on(Laya.Event.CLICK,this,this.btnColorClick)
         }
         this.selectAll_btn.on(Laya.Event.CHANGE,this,this.selectAllClick)
+        this.auto_btn.on(Laya.Event.CLICK,this,this.autoClick)
         this.stakeTokenNft_btn.on(Laya.Event.CLICK,this,this.stakeTokenNft)
 
 
@@ -79,6 +81,9 @@ export default class DevPannel extends ui.DevPannelUI {
         }        
     }
     stakeTokenNft(){
+        if(this.loading==true){
+            return;
+        }
         var machineNum=0;
         var obj:object={}
         for(var i in this.listData){
@@ -97,11 +102,12 @@ export default class DevPannel extends ui.DevPannelUI {
             return;
         }
         console.log('obj',obj);//{17: 2, 18: 2}
-        LayaBlock.stakeTokenNft(obj,(d:ITransactionError)=>{console.log("d------",d.message)}).then((d:ITransaction)=>{
+
+        this.dataBus.showLoading();this.loading=true;
+        LayaBlock.stakeTokenNft(obj,(d:ITransactionError)=>{console.log("d------",d.message);this.dataBus.hideLoading();this.loading=false;}).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
         }).catch((e:ITransactionError)=>{
             console.log('error=====派车接口返回数据:',e.message)
-
         })
         this.closeClick()
         this.event(GameEvent.LANGUAGE_CHANGE)
@@ -111,6 +117,10 @@ export default class DevPannel extends ui.DevPannelUI {
             this.listData[i].selected=this.selectAll_btn.selected
         }
         this.list.array =this.listData
+        this.updateSum()
+    }
+    autoClick(e:Laya.Event){        
+        this.updateSum()
     }
     public sortClick(){
         if(this.sort=='DESC'){
@@ -163,9 +173,7 @@ export default class DevPannel extends ui.DevPannelUI {
 
     private onSelect(index: number): void {
         this.listData[index].selected=!this.listData[index].selected
-
-
-
+        /*
         let selectData:ISelect={load:0,mining:0,total:0,realLoad:0}
         let id:number=this.listData0[index].id
         if(this.listData[index].selected==true){
@@ -177,8 +185,8 @@ export default class DevPannel extends ui.DevPannelUI {
         this.sumLoad_txt.text=selectData.realLoad.toString()
         this.sumMining_txt.text=selectData.mining.toString()
         this.total_txt.text=selectData.total.toString()
-
-        //this.updateSum()
+        */
+        this.updateSum()
     }
 
     private updateSum(){        
@@ -244,6 +252,13 @@ export default class DevPannel extends ui.DevPannelUI {
     }
 
     closeClick():void{
+        let sumLoad:number=0
+        let sumMining:number=0
+        let total:number=0
+        this.sumLoad_txt.text=sumLoad+''
+        this.sumMining_txt.text=sumMining+''
+        this.total_txt.text=total+''
+
         this.visible=false;
     }
 

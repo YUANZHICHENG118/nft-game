@@ -144,6 +144,8 @@ export module ui {
 		public email_txt:Laya.Label;
 		public btnChat:Laya.Sprite;
 		public chat_txt:Laya.Label;
+		public devTip:Laya.Image;
+		public devTip_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

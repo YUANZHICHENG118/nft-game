@@ -12,8 +12,7 @@ export default class ItemIncome extends ui.ItemIncomeUI {
     }
 
     btnReceiveClick(event):void{
-        console.log('=======',this.itemData.receive,this.btnReceive.disabled)
-        if(this.itemData.receive==false || this.btnReceive.disabled==true){
+        if(this.itemData.status==false){
             return
         }
         
@@ -35,6 +34,7 @@ export default class ItemIncome extends ui.ItemIncomeUI {
         this.id_txt.text=itemData.gameId+''
         this.machineNum_txt.text=itemData.machineNum+''
         this.reward_txt.text=itemData.ethReward+'/'+itemData.tokenReward
+        this.btnReceive.disabled=!itemData.status
         if(Number(itemData.ethReward)+Number(itemData.tokenReward)==0){
             itemData.receive=false
         }

@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":41,
+    "selecteID":110,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
-    "maxID":106,
+    "maxID":114,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -720,6 +720,62 @@
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":101,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,devTip",
+            "props":{"y":1000.5,"x":23,"width":493,"var":"devTip","skin":"gameimg/bg1.png","height":83},
+            "nodeParent":2,
+            "label":"devTip",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":110,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":9,"x":76,"width":406,"skin":"gameimg/bg2.png","height":65},
+                    "nodeParent":110,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":113,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":20,"x":17,"width":49,"texture":"gameimg/icon6.png","height":45},
+                    "nodeParent":110,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":111,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,devTip_txt",
+                    "props":{"y":24,"x":77,"width":405,"var":"devTip_txt","text":"设备就绪等待发车","height":44,"fontSize":30,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "nodeParent":110,
+                    "label":"devTip_txt",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":106,
                     "child":[
                         ]
                 }]

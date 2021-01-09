@@ -117,7 +117,7 @@ export default class Home extends ui.HomeUI{
         //切换语言
         this.gongGao_txt.text=Langue.defaultLangue.notice_0
         //console.log('当前语言：',Langue.defaultLangue)
-        let arr=['notice','email','chat','nav1','nav2','nav3','nav4']
+        let arr=['notice','email','chat','nav1','nav2','nav3','nav4','devTip']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
