@@ -1772,11 +1772,12 @@
 	        };
 	        this.mainEnd = (data) => {
 	            this.boom();
-	            return;
-	            console.log("矿山挖完效果===");
 	            let lastHitPannel = new LastHitPannel();
 	            lastHitPannel.data = data;
-	            lastHitPannel.popup(false, true);
+	            setTimeout(() => {
+	                Laya.Tween.to(this.booms, { alpha: 0 }, 1000);
+	                lastHitPannel.popup(false, true);
+	            }, 3500);
 	        };
 	        this.boom = () => {
 	            console.log('boom=======');
@@ -1788,7 +1789,7 @@
 	        };
 	        this.boomRun = () => {
 	            this.boomLoopId++;
-	            if (this.boomLoopId % 5 == 0 && this.stoneNum < 50) {
+	            if (this.boomLoopId % 2 == 0 && this.stoneNum < 50) {
 	                this.stoneNum++;
 	                var stone = new Stone();
 	                this.booms.addChild(stone);

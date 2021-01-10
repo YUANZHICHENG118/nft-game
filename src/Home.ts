@@ -88,12 +88,13 @@ export default class Home extends ui.HomeUI{
     }
     mainEnd=(data:ILastStraw)=>{
         this.boom();
-        return
-        console.log("矿山挖完效果===")
+        
         let lastHitPannel:LastHitPannel=new LastHitPannel();
         lastHitPannel.data=data
-        lastHitPannel.popup(false,true)
-        
+        setTimeout(() => {
+            Laya.Tween.to(this.booms, { alpha: 0 }, 1000);
+            lastHitPannel.popup(false,true)
+        }, 3000);        
     }
     boom=()=>{     
         console.log('boom=======')
@@ -106,7 +107,7 @@ export default class Home extends ui.HomeUI{
     }
     boomRun=()=>{        
         this.boomLoopId++
-        if(this.boomLoopId%5==0 && this.stoneNum<50){
+        if(this.boomLoopId%2==0 && this.stoneNum<50){
             this.stoneNum++
             var stone:Stone=new Stone();
             this.booms.addChild(stone)
