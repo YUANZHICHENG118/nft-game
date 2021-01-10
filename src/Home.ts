@@ -25,6 +25,9 @@ export default class Home extends ui.HomeUI{
     private helpPannel:HelpPannel
     private timeoutGongGao:number
     private timeoutOfLoadData:number
+    private stoneNum:number=0
+    private booms:Laya.Sprite=new Laya.Sprite()
+    private boomLoopId:number=0
     constructor() { super();}    
     onEnable (): void {
         // 初始化 web3
@@ -71,7 +74,7 @@ export default class Home extends ui.HomeUI{
         this.helpPannel=new HelpPannel()
         this.addChild(this.helpPannel);        
         this.helpPannel.visible=false;
-        this.onLanguage()        
+        this.onLanguage()
     }
     showWaitTip=()=>{
         this.waitTip.visible=true;
@@ -82,11 +85,34 @@ export default class Home extends ui.HomeUI{
         this.aniWait.stop()
     }
     mainEnd=(data:ILastStraw)=>{
+        this.boom();
+        return
         console.log("矿山挖完效果===")
         let lastHitPannel:LastHitPannel=new LastHitPannel();
         lastHitPannel.data=data
         lastHitPannel.popup(false,true)
-
+        
+    }
+    boom=()=>{     
+        console.log('boom=======')
+        //运行爆炸   
+        Laya.timer.frameLoop(1,this,this.boomRun)
+        this.booms.x=216;
+        this.booms.y=418;
+        this.addChild(this.booms)
+    }
+    boomRun=()=>{        
+        this.boomLoopId++
+        if(this.boomLoopId%5==0 && this.stoneNum<40){
+            this.stoneNum++
+            var stone:Stone=new Stone();
+            this.booms.addChild(stone)
+            console.log('++++')
+        }
+        for(let i:number=0;i<this.stoneNum;i++){
+            var stone:Stone=this.booms.getChildAt(i) as Stone
+            stone.update();
+        }
     }
     loadData=()=>{
         clearTimeout(this.timeoutOfLoadData)
@@ -136,6 +162,16 @@ export default class Home extends ui.HomeUI{
         }
 
         this.mainEnd(lastStraw)
+
+        /*
+        let setting=Laya.loader.getRes('PartGold.part');
+        let partGold:Laya.Particle2D=new Laya.Particle2D(setting);
+        partGold.texture=Laya.loader.getRes('gameimg/icon1.png')
+        partGold.x=350;
+        partGold.y=500;
+        this.addChild(partGold)
+        partGold.play()
+        */
     }
     onLanguage=()=>{
         //切换语言
@@ -327,5 +363,31 @@ export default class Home extends ui.HomeUI{
     }
 
     onDisable(): void {
+    }
+}
+
+
+import Image = Laya.Image;
+class Stone extends Image {
+    private vx: number=0;
+    private vy: number=0;
+    private maxY:number=50;//地面位置Y
+    static G:number=2;
+    constructor(){
+        super();
+        this.skin='gameimg/icon1.png'
+        this.vx=Math.random()*20-10;
+        this.vy=-Math.random()*10-10;
+        this.maxY=Math.random()*50+10;//每个粒子落地点不同
+        this.scaleX=this.scaleY=Math.random()*0.4+0.1;
+    }
+
+    public update(): void {        
+        if(this.y>this.maxY){
+            return
+        }
+        this.x+=this.vx;
+        this.vy+=Stone.G
+        this.y+=this.vy
     }
 }

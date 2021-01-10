@@ -1732,6 +1732,9 @@
         constructor() {
             super();
             this.dataBus = DataBus.getDataBus();
+            this.stoneNum = 0;
+            this.booms = new Laya.Sprite();
+            this.boomLoopId = 0;
             this.initUI = () => {
                 this.waitTip.visible = false;
                 this.devPannel = new DevPannel();
@@ -1767,10 +1770,32 @@
                 this.aniWait.stop();
             };
             this.mainEnd = (data) => {
+                this.boom();
+                return;
                 console.log("矿山挖完效果===");
                 let lastHitPannel = new LastHitPannel();
                 lastHitPannel.data = data;
                 lastHitPannel.popup(false, true);
+            };
+            this.boom = () => {
+                console.log('boom=======');
+                Laya.timer.frameLoop(1, this, this.boomRun);
+                this.booms.x = 216;
+                this.booms.y = 418;
+                this.addChild(this.booms);
+            };
+            this.boomRun = () => {
+                this.boomLoopId++;
+                if (this.boomLoopId % 5 == 0 && this.stoneNum < 40) {
+                    this.stoneNum++;
+                    var stone = new Stone();
+                    this.booms.addChild(stone);
+                    console.log('++++');
+                }
+                for (let i = 0; i < this.stoneNum; i++) {
+                    var stone = this.booms.getChildAt(i);
+                    stone.update();
+                }
             };
             this.loadData = () => {
                 clearTimeout(this.timeoutOfLoadData);
@@ -1919,6 +1944,29 @@
         onDisable() {
         }
     }
+    var Image = Laya.Image;
+    class Stone extends Image {
+        constructor() {
+            super();
+            this.vx = 0;
+            this.vy = 0;
+            this.maxY = 50;
+            this.skin = 'gameimg/icon1.png';
+            this.vx = Math.random() * 20 - 10;
+            this.vy = -Math.random() * 10 - 10;
+            this.maxY = Math.random() * 50 + 10;
+            this.scaleX = this.scaleY = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            if (this.y > this.maxY) {
+                return;
+            }
+            this.x += this.vx;
+            this.vy += Stone.G;
+            this.y += this.vy;
+        }
+    }
+    Stone.G = 2;
 
     class GameConfig {
         constructor() {

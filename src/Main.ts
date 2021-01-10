@@ -49,7 +49,7 @@ class Main {
 		 {url:"gameimg/shanX.png",type:Laya.Loader.IMAGE},
 		 {url:"gameimg/tu.png",type:Laya.Loader.IMAGE},
 		 {url:"gameimg/videoImg.png",type:Laya.Loader.IMAGE},
-         {url:"sound/bg.mp3",type:Laya.Loader.SOUND},
+		 {url:"sound/bg.mp3",type:Laya.Loader.SOUND},
 		 //{url:"res/atlas/hit.wav",type:Laya.Loader.SOUND}
 		 //fileconfig.json
         ];
