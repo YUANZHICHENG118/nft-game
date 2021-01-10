@@ -659,6 +659,8 @@
 	        }).then((d) => {
 	            console.log('stakeTokenNft=====派车接口返回数据:', d);
 	        }).catch((e) => {
+	            this.dataBus.hideLoading();
+	            this.loading = false;
 	            console.log('error=====派车接口返回数据:', e.message);
 	        });
 	        this.closeClick();
@@ -1060,7 +1062,7 @@
 	    constructor() { super(); this.width = 750; this.height = 1334; }
 	    onEnable() {
 	        this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
-	        this.msg_txt.text = this.data.gameId + Langue.defaultLangue.lastHit;
+	        this.msg_txt.text = this.data.address + Langue.defaultLangue.lastHit;
 	        this.verify_txt.text = Langue.defaultLangue.verify;
 	        this.close_txt.text = Langue.defaultLangue.close;
 	        this.btnVerify.on(Laya.Event.CLICK, this, this.gotoVerify);
@@ -1789,7 +1791,7 @@
 	        };
 	        this.boomRun = () => {
 	            this.boomLoopId++;
-	            if (this.boomLoopId % 2 == 0 && this.stoneNum < 50) {
+	            if (this.boomLoopId % 1 == 0 && this.stoneNum < 80) {
 	                this.stoneNum++;
 	                var stone = new Stone();
 	                this.booms.addChild(stone);

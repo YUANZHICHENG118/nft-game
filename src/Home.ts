@@ -107,7 +107,7 @@ export default class Home extends ui.HomeUI{
     }
     boomRun=()=>{        
         this.boomLoopId++
-        if(this.boomLoopId%2==0 && this.stoneNum<50){
+        if(this.boomLoopId%1==0 && this.stoneNum<80){
             this.stoneNum++
             var stone:Stone=new Stone();
             this.booms.addChild(stone)
