@@ -7,7 +7,7 @@ export default class LastHitPannel extends ui.LastHitPannelUI {
     
     onEnable(): void {
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
-        this.msg_txt.text=this.data.gameId+Langue.defaultLangue.lastHit
+        this.msg_txt.text=this.data.address+Langue.defaultLangue.lastHit
         this.verify_txt.text=Langue.defaultLangue.verify
         this.close_txt.text=Langue.defaultLangue.close
         this.btnVerify.on(Laya.Event.CLICK,this,this.gotoVerify)

@@ -112,6 +112,8 @@ export default class DevPannel extends ui.DevPannelUI {
         }).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
         }).catch((e:ITransactionError)=>{
+            this.dataBus.hideLoading()
+            this.loading=false;
             console.log('error=====派车接口返回数据:',e.message)
         })
         this.closeClick()

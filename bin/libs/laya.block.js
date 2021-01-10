@@ -1767,7 +1767,10 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
             const machine=parseFloat(window.web3.utils.hexToNumberString("0x"+b))
             const gameId=parseFloat(window.web3.utils.hexToNumberString("0x"+a))
             if(this.gameOverHandel){
-                this.gameOverHandel({gameId,address:nick?nick:this.addressSub(address),load,machine,txId,blockNumber})
+                setTimeout(()=>{
+                    this.gameOverHandel({gameId,address:nick?nick.nick:this.addressSub(address),load,machine,txId,blockNumber})
+                },10000)
+
             }
 
         }
@@ -2201,6 +2204,7 @@ window.LayaBlock = (function (exports,Laya,LayaSocket) {
                 gasLimit: gasAmount
             }).on('transactionHash', (hash) => {
                 console.log("hash===", hash)
+                this.selectData={load:0,mining:0,total:0,realLoad:0}
                 if(call)call({transactionHash:hash})
                 this.submitTx(gameId,this.account,ids,amounts,hash)
                return {transactionHash:hash}
