@@ -104,7 +104,12 @@ export default class DevPannel extends ui.DevPannelUI {
         console.log('obj',obj);//{17: 2, 18: 2}
 
         this.dataBus.showLoading();this.loading=true;
-        LayaBlock.stakeTokenNft(obj,(d:ITransactionError)=>{console.log("d------",d.message);this.dataBus.hideLoading();this.loading=false;}).then((d:ITransaction)=>{
+        LayaBlock.stakeTokenNft(obj,(d:ITransactionError)=>{
+            console.log("d------",d.message);
+            this.dataBus.hideLoading();
+            this.loading=false;
+            this.event('showWaitTip');//home里监听
+        }).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
         }).catch((e:ITransactionError)=>{
             console.log('error=====派车接口返回数据:',e.message)

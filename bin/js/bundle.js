@@ -151,6 +151,15 @@
         }
         ui.ItemRankUI = ItemRankUI;
         REG("ui.ItemRankUI", ItemRankUI);
+        class LastHitPannelUI extends Dialog {
+            constructor() { super(); }
+            createChildren() {
+                super.createChildren();
+                this.loadScene("LastHitPannel");
+            }
+        }
+        ui.LastHitPannelUI = LastHitPannelUI;
+        REG("ui.LastHitPannelUI", LastHitPannelUI);
         class MePannelUI extends View {
             constructor() { super(); }
             createChildren() {
@@ -350,7 +359,9 @@
         gasSet: '手续费',
         langSet: '语言设置',
         onOff: '开          ,关',
-        devTip: '设备就绪等待发车'
+        waitTip: '设备就绪等待发车',
+        verify: '验证',
+        lastHit: '完成了最后一击'
     };
     Langue.en = {
         start: 'start',
@@ -416,7 +427,9 @@
         gasSet: 'Gas',
         langSet: 'Language',
         onOff: 'on         ,off',
-        devTip: 'wait...'
+        waitTip: 'wait...',
+        verify: 'verify',
+        lastHit: '完成了最后一击'
     };
     Langue.kr = {
         start: 'start',
@@ -481,7 +494,9 @@
         gasSet: 'Gas',
         langSet: '언어 설정',
         onOff: '열다          ,관문',
-        devTip: 'wait...'
+        waitTip: 'wait...',
+        verify: 'verify',
+        lastHit: '完成了最后一击'
     };
 
     class ItemDev extends ui.ItemDevUI {
@@ -636,7 +651,12 @@
             console.log('obj', obj);
             this.dataBus.showLoading();
             this.loading = true;
-            LayaBlock.stakeTokenNft(obj, (d) => { console.log("d------", d.message); this.dataBus.hideLoading(); this.loading = false; }).then((d) => {
+            LayaBlock.stakeTokenNft(obj, (d) => {
+                console.log("d------", d.message);
+                this.dataBus.hideLoading();
+                this.loading = false;
+                this.event('showWaitTip');
+            }).then((d) => {
                 console.log('stakeTokenNft=====派车接口返回数据:', d);
             }).catch((e) => {
                 console.log('error=====派车接口返回数据:', e.message);
@@ -649,10 +669,12 @@
                 this.listData[i].selected = this.selectAll_btn.selected;
             }
             this.list.array = this.listData;
-            this.updateSum();
+            this.listData && this.listData.map(item => {
+                this.updateSum(item);
+            });
         }
         autoClick(e) {
-            this.updateSum();
+            console.log("自动匹配");
         }
         sortClick() {
             if (this.sort == 'DESC') {
@@ -703,24 +725,20 @@
         }
         onSelect(index) {
             this.listData[index].selected = !this.listData[index].selected;
-            this.updateSum();
+            this.updateSum(this.listData[index]);
         }
-        updateSum() {
-            let sumLoad = 0;
-            let sumMining = 0;
-            let total = 0;
-            for (var i in this.listData) {
-                console.log('i', i);
-                if (this.listData[i].selected == true) {
-                    console.log('---', i);
-                    sumLoad += this.listData0[i].load;
-                    sumMining += this.listData0[i].mining;
-                    total += 1;
-                }
+        updateSum(car) {
+            let selectData = { load: 0, mining: 0, total: 0, realLoad: 0 };
+            let id = car.id;
+            if (car.selected == true) {
+                selectData = LayaBlock.selectMachine(id, true);
             }
-            this.sumLoad_txt.text = sumLoad + '';
-            this.sumMining_txt.text = sumMining + '';
-            this.total_txt.text = total + '';
+            else {
+                selectData = LayaBlock.selectMachine(id, false);
+            }
+            this.sumLoad_txt.text = selectData.realLoad.toString() + "";
+            this.sumMining_txt.text = selectData.mining.toString() + "";
+            this.total_txt.text = selectData.total.toString() + "";
         }
         onClickList(e) {
             console.log(e.type);
@@ -1038,6 +1056,28 @@
         }
     }
 
+    class LastHitPannel extends ui.LastHitPannelUI {
+        constructor() { super(); this.width = 750; this.height = 1334; }
+        onEnable() {
+            this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+            this.msg_txt.text = this.data.gameId + Langue.defaultLangue.lastHit;
+            this.verify_txt.text = Langue.defaultLangue.verify;
+            this.close_txt.text = Langue.defaultLangue.close;
+            this.btnVerify.on(Laya.Event.CLICK, this, this.gotoVerify);
+        }
+        onDisable() {
+        }
+        closeClick() {
+            this.close();
+        }
+        onClosed() {
+            this.destroy();
+        }
+        gotoVerify() {
+            Laya.Browser.window.location.href = LayaBlock.exchangeUrl;
+        }
+    }
+
     class ItemCommission extends ui.ItemCommissionUI {
         constructor() { super(); this.width = 660; this.height = 80; }
         onEnable() {
@@ -1316,10 +1356,9 @@
         }
         loadData2() {
             this.clicked2 = true;
-            let address = DataBus.userBase.address;
             this.dataBus.showLoading();
             this.loading = true;
-            LayaBlock.getCommission(address).then((d) => {
+            LayaBlock.getCommission().then((d) => {
                 this.dataBus.hideLoading();
                 this.loading = false;
                 this.list2.array = this.listData2 = d;
@@ -1694,9 +1733,11 @@
             super();
             this.dataBus = DataBus.getDataBus();
             this.initUI = () => {
+                this.waitTip.visible = false;
                 this.devPannel = new DevPannel();
                 this.addChild(this.devPannel);
                 this.devPannel.visible = false;
+                this.devPannel.on('showWaitTip', this, this.showWaitTip);
                 this.notiecPannel = new NoticePannel();
                 this.addChild(this.notiecPannel);
                 this.notiecPannel.visible = false;
@@ -1717,8 +1758,19 @@
                 this.helpPannel.visible = false;
                 this.onLanguage();
             };
+            this.showWaitTip = () => {
+                this.waitTip.visible = true;
+                this.aniWait.play();
+            };
+            this.hideWaitTip = () => {
+                this.waitTip.visible = false;
+                this.aniWait.stop();
+            };
             this.mainEnd = (data) => {
                 console.log("矿山挖完效果===");
+                let lastHitPannel = new LastHitPannel();
+                lastHitPannel.data = data;
+                lastHitPannel.popup(false, true);
             };
             this.loadData = () => {
                 clearTimeout(this.timeoutOfLoadData);
@@ -1752,11 +1804,19 @@
                 this.test_btn.on(Laya.Event.CLICK, this, this.test);
             };
             this.test = () => {
-                this.machineGo({});
+                let lastStraw = {
+                    gameId: 123214,
+                    address: 'tom',
+                    machine: 99,
+                    load: 99,
+                    txId: 'ui43409834fd',
+                    blockNumber: 5445
+                };
+                this.mainEnd(lastStraw);
             };
             this.onLanguage = () => {
                 this.gongGao_txt.text = Langue.defaultLangue.notice_0;
-                let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4', 'devTip'];
+                let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4', 'waitTip'];
                 for (let i in arr) {
                     let txtName = arr[i];
                     this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
@@ -1784,6 +1844,7 @@
                 this.emailPannel.loadData();
             };
             this.machineGo = (obj) => {
+                this.hideWaitTip();
                 this.gongGao_txt.text = '玩家' + obj.nick + '派出车辆挖矿';
                 clearTimeout(this.timeoutGongGao);
                 this.timeoutGongGao = setTimeout(() => {

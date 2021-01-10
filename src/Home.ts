@@ -6,6 +6,7 @@ import EmailPannel from "./EmailPannel";
 import GameEvent from "./GameEvent";
 import HelpPannel from "./HelpPannel";
 import Langue from "./Langue";
+import LastHitPannel from "./LastHitPannel";
 import MePannel from "./MePannel";
 import NoticePannel from "./NoticePannel";
 import RankPannel from "./RankPannel";
@@ -38,10 +39,12 @@ export default class Home extends ui.HomeUI{
         //this.testBlock();
     }
     initUI=()=>{        
+        this.waitTip.visible=false
         //设备面板
         this.devPannel=new DevPannel();
         this.addChild(this.devPannel);        
         this.devPannel.visible=false;
+        this.devPannel.on('showWaitTip',this,this.showWaitTip)
         //公告面板
         this.notiecPannel=new NoticePannel()
         this.addChild(this.notiecPannel);        
@@ -70,9 +73,20 @@ export default class Home extends ui.HomeUI{
         this.helpPannel.visible=false;
         this.onLanguage()        
     }
+    showWaitTip=()=>{
+        this.waitTip.visible=true;
+        this.aniWait.play()        
+    }
+    hideWaitTip=()=>{
+        this.waitTip.visible=false;
+        this.aniWait.stop()
+    }
     mainEnd=(data:ILastStraw)=>{
         console.log("矿山挖完效果===")
-        //alert('矿山挖完效果')
+        let lastHitPannel:LastHitPannel=new LastHitPannel();
+        lastHitPannel.data=data
+        lastHitPannel.popup(false,true)
+
     }
     loadData=()=>{
         clearTimeout(this.timeoutOfLoadData)
@@ -111,17 +125,27 @@ export default class Home extends ui.HomeUI{
         this.test_btn.on(Laya.Event.CLICK,this,this.test)     
     }
     test=()=>{
-        this.machineGo({})
+        //this.machineGo({})
+        let lastStraw:ILastStraw= {
+            gameId:123214,
+            address:'tom',
+            machine: 99,
+            load: 99,
+            txId: 'ui43409834fd',
+            blockNumber:5445
+        }
+
+        this.mainEnd(lastStraw)
     }
     onLanguage=()=>{
         //切换语言
         this.gongGao_txt.text=Langue.defaultLangue.notice_0
         //console.log('当前语言：',Langue.defaultLangue)
-        let arr=['notice','email','chat','nav1','nav2','nav3','nav4','devTip']
+        let arr=['notice','email','chat','nav1','nav2','nav3','nav4','waitTip']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
-        }        
+        }
     }
     btnChatClick=()=>{
         alert('敬请期待')
@@ -145,8 +169,7 @@ export default class Home extends ui.HomeUI{
         this.emailPannel.loadData();
     }
     machineGo=(obj:any)=>{
-        //obj={id:1,type:(Math.random()*3+1)|0,color:(Math.random()*6+1)|0}
-        ////console.log('machineGo',obj)
+        this.hideWaitTip()
         this.gongGao_txt.text='玩家'+obj.nick+'派出车辆挖矿'
         clearTimeout(this.timeoutGongGao)
         this.timeoutGongGao=setTimeout(() => {

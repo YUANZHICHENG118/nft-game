@@ -66,7 +66,9 @@ export default class Langue extends Laya.EventDispatcher {
         gasSet: '手续费',
         langSet: '语言设置',
         onOff: '开          ,关',
-        devTip:'设备就绪等待发车'        
+        waitTip:'设备就绪等待发车',
+        verify:'验证',
+        lastHit:'完成了最后一击'
     }
     public static en = {
         start: 'start',
@@ -132,8 +134,9 @@ export default class Langue extends Laya.EventDispatcher {
         gasSet: 'Gas',
         langSet: 'Language',
         onOff: 'on         ,off',
-        devTip:'wait...'
-
+        waitTip:'wait...',
+        verify:'verify',
+        lastHit:'完成了最后一击'
     }
     public static kr = {
         start: 'start',
@@ -198,7 +201,9 @@ export default class Langue extends Laya.EventDispatcher {
         gasSet: 'Gas',
         langSet: '언어 설정',
         onOff: '열다          ,관문',
-        devTip:'wait...'
+        waitTip:'wait...',
+        verify:'verify',
+        lastHit:'完成了最后一击'
     }
 
     constructor() {

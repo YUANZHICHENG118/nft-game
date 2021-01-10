@@ -1,5 +1,6 @@
 D .
 R 6DF0B46A DuiGou.prefab
+R 39B957DA texture.png
 D comp
 P 316AD948 btn_close.png
 P 5B258D17 button.png
@@ -40,6 +41,7 @@ P 5FD17798 vscroll.png
 P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
 D gameimg
+P EBEA83A8 arrow.png
 R B3ACFED7 bg.png
 R 3C2BB3AC bg0.png
 P 2A01246C bg1.png
@@ -104,8 +106,10 @@ P 72F933DB sn1.png
 P C0AB7164 sn2.png
 P 7347A47B sn3.png
 P 944E19F4 sun.png
+P 78C853EE tipBg.png
 R 4EBE398A tu.png
 R B35ED087 videoImg.png
+P D94DF122 yuan.png
 P 694A575A zhishipai.png
 D loading
 P CC353EEB loadingBar.png

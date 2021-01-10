@@ -144,8 +144,9 @@ export module ui {
 		public email_txt:Laya.Label;
 		public btnChat:Laya.Sprite;
 		public chat_txt:Laya.Label;
-		public devTip:Laya.Image;
-		public devTip_txt:Laya.Label;
+		public waitTip:Laya.Sprite;
+		public aniWait:Laya.Animation;
+		public waitTip_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -240,6 +241,20 @@ export module ui {
         }
     }
     REG("ui.ItemRankUI",ItemRankUI);
+    export class LastHitPannelUI extends Dialog {
+		public devPanel:Laya.Sprite;
+		public btnVerify:Laya.Image;
+		public verify_txt:Laya.Label;
+		public msg_txt:Laya.Label;
+		public btnClose:Laya.Image;
+		public close_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("LastHitPannel");
+        }
+    }
+    REG("ui.LastHitPannelUI",LastHitPannelUI);
     export class MePannelUI extends View {
 		public btnClose:Laya.Sprite;
 		public btn0:Laya.Image;
