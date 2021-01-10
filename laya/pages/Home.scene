@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":90,
-    "selecteID":91,
+    "selectedBox":126,
+    "selecteID":125,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
@@ -728,13 +728,14 @@
             "props":{"y":860,"x":0,"var":"waitTip"},
             "nodeParent":2,
             "label":"waitTip",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":126,
             "child":[
                 {
+                    "x":30,
                     "type":"Animation",
                     "searchKey":"Animation,aniWait",
                     "props":{"x":64,"var":"aniWait","source":"AniArrowWait.ani"},
@@ -748,6 +749,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":83,"texture":"gameimg/tipBg.png"},
@@ -760,9 +762,10 @@
                     "compId":125,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,waitTip_txt",
-                            "props":{"y":24,"x":13,"width":334,"var":"waitTip_txt","text":"设备就绪等待发车","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                            "props":{"y":24,"x":13,"width":334,"var":"waitTip_txt","text":"设备就绪等待发车","height":24,"fontSize":24,"font":"Microsoft YaHei","color":"#6b3904","align":"center"},
                             "nodeParent":125,
                             "label":"waitTip_txt",
                             "isDirectory":false,

@@ -1777,7 +1777,7 @@
 	            setTimeout(() => {
 	                Laya.Tween.to(this.booms, { alpha: 0 }, 1000);
 	                lastHitPannel.popup(false, true);
-	            }, 3500);
+	            }, 3000);
 	        };
 	        this.boom = () => {
 	            console.log('boom=======');
