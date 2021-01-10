@@ -42,12 +42,13 @@ P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
 D gameimg
 P EBEA83A8 arrow.png
-R B3ACFED7 bg.png
+R 7A899642 bg.png
 R 3C2BB3AC bg0.png
 P 2A01246C bg1.png
 P 81F47862 bg2.png
 P 150DFCF6 bg3.png
 P 95C8B207 bg4.png
+P B1838A7A bird.png
 P 8476929A btn2.png
 P CB57D570 btnBg.png
 P 10C19BFB btnbg3.png

@@ -117,6 +117,8 @@ export module ui {
     }
     REG("ui.HelpPannelUI",HelpPannelUI);
     export class HomeUI extends Scene {
+		public cloud0:Laya.Sprite;
+		public bird:Laya.Sprite;
 		public selectBg:Laya.Sprite;
 		public nav1_txt:Laya.Label;
 		public nav2_txt:Laya.Label;

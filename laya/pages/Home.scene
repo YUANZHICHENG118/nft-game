@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":132,
+    "selectedBox":90,
+    "selecteID":91,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
-    "maxID":133,
+    "maxID":135,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -21,12 +21,38 @@
             "props":{"y":0,"x":0,"texture":"gameimg/bg.png"},
             "nodeParent":2,
             "label":"Sprite",
-            "isDirectory":false,
+            "isOpen":false,
+            "isDirectory":true,
             "isAniNode":true,
-            "hasChild":false,
+            "hasChild":true,
             "compId":5,
             "child":[
-                ],
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite,cloud0",
+                    "props":{"y":140,"x":14,"var":"cloud0","texture":"gameimg/cloud1.png"},
+                    "nodeParent":5,
+                    "label":"cloud0",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":133,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite,bird",
+                    "props":{"y":300,"x":667,"var":"bird","texture":"gameimg/bird.png"},
+                    "nodeParent":5,
+                    "label":"bird",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":134,
+                    "child":[
+                        ]
+                }],
             "$HIDDEN":false
         },
         {
@@ -41,7 +67,8 @@
             "hasChild":false,
             "compId":6,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -56,7 +83,8 @@
             "hasChild":false,
             "compId":8,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -557,16 +585,17 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
-            "props":{"y":366,"x":-2},
+            "props":{"y":366,"x":-2,"width":497,"rotation":0,"height":126},
             "nodeParent":2,
             "label":"Sprite",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":90,
             "child":[
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,shan",
                     "props":{"y":80,"x":201,"var":"shan","texture":"gameimg/shan.png","pivotY":150,"pivotX":100},
@@ -581,6 +610,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Animation",
                     "searchKey":"Animation",
                     "props":{"y":58,"x":203,"source":"AniSmall.ani","interval":80,"autoPlay":true},
@@ -595,6 +625,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":41,"x":-17,"texture":"gameimg/tu.png","alpha":0.8},

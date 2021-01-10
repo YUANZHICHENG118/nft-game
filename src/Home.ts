@@ -75,6 +75,8 @@ export default class Home extends ui.HomeUI{
         this.addChild(this.helpPannel);        
         this.helpPannel.visible=false;
         this.onLanguage()
+
+        this.cloud0.alpha=Math.random()
     }
     showWaitTip=()=>{
         this.waitTip.visible=true;
@@ -97,17 +99,17 @@ export default class Home extends ui.HomeUI{
         console.log('boom=======')
         //运行爆炸   
         Laya.timer.frameLoop(1,this,this.boomRun)
+        Stone.dy=-this.shan.scaleY*169
         this.booms.x=216;
-        this.booms.y=418;
-        this.addChild(this.booms)
+        this.booms.y=440+Stone.dy;        
+        this.addChildAt(this.booms,2)
     }
     boomRun=()=>{        
         this.boomLoopId++
-        if(this.boomLoopId%5==0 && this.stoneNum<40){
+        if(this.boomLoopId%5==0 && this.stoneNum<50){
             this.stoneNum++
             var stone:Stone=new Stone();
             this.booms.addChild(stone)
-            console.log('++++')
         }
         for(let i:number=0;i<this.stoneNum;i++){
             var stone:Stone=this.booms.getChildAt(i) as Stone
@@ -149,6 +151,23 @@ export default class Home extends ui.HomeUI{
         this.btnChat.on(Laya.Event.CLICK,this,this.btnChatClick)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.test_btn.on(Laya.Event.CLICK,this,this.test)     
+        Laya.timer.frameLoop(3,this,this.run)
+    }
+    run=()=>{
+        this.cloud0.x+=1;
+        if(this.cloud0.x> 800){
+            this.cloud0.x=-200
+            this.cloud0.y=140+Math.random()*50;
+            this.cloud0.scaleY=Math.random()*0.5+0.5;
+            this.cloud0.alpha=Math.random()
+        }
+
+        this.bird.x-=2
+        if(this.bird.x<-200){
+            this.bird.x=750
+            this.bird.y=300+Math.random()*100
+        }
+        
     }
     test=()=>{
         //this.machineGo({})
@@ -373,12 +392,14 @@ class Stone extends Image {
     private vy: number=0;
     private maxY:number=50;//地面位置Y
     static G:number=2;
+    static dy:number=0;//爆炸点偏移值
     constructor(){
         super();
         this.skin='gameimg/icon1.png'
         this.vx=Math.random()*20-10;
         this.vy=-Math.random()*10-10;
-        this.maxY=Math.random()*50+10;//每个粒子落地点不同
+        this.x=Math.random()*100-50;
+        this.maxY=Math.random()*50+10-Stone.dy;//每个粒子落地点不同
         this.scaleX=this.scaleY=Math.random()*0.4+0.1;
     }
 

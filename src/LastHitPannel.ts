@@ -22,6 +22,6 @@ export default class LastHitPannel extends ui.LastHitPannelUI {
         this.destroy();
     }
     gotoVerify():void{
-        Laya.Browser.window.location.href = LayaBlock.exchangeUrl
+        Laya.Browser.window.location.href = LayaBlock.blockChainUrl+'/tx/'+this.data.txId
     }
 }
