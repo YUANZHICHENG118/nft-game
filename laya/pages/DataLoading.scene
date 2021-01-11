@@ -18,7 +18,7 @@
             "x":15,
             "type":"Animation",
             "searchKey":"Animation,loading_ani",
-            "props":{"y":538,"x":238,"var":"loading_ani","source":"DataLoading.ani","autoPlay":true},
+            "props":{"y":538,"x":275,"var":"loading_ani","source":"DataLoading.ani","autoPlay":true},
             "nodeParent":2,
             "label":"loading_ani",
             "isDirectory":false,

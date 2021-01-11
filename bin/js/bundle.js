@@ -1738,6 +1738,7 @@
 	        this.booms = new Laya.Sprite();
 	        this.boomLoopId = 0;
 	        this.initUI = () => {
+	            this.test_btn.visible = false;
 	            this.waitTip.visible = false;
 	            this.devPannel = new DevPannel();
 	            this.addChild(this.devPannel);

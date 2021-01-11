@@ -41,7 +41,8 @@ export default class Home extends ui.HomeUI{
         this.addEvt();
         //this.testBlock();
     }
-    initUI=()=>{        
+    initUI=()=>{     
+        this.test_btn.visible=false;   
         this.waitTip.visible=false
         //设备面板
         this.devPannel=new DevPannel();

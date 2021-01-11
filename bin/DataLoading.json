@@ -1,1 +1,1 @@
-{"type":"Dialog","props":{"width":750,"height":1334},"compId":2,"child":[{"type":"Animation","props":{"y":538,"x":238,"var":"loading_ani","source":"DataLoading.ani","autoPlay":true},"compId":4}],"loadList":["DataLoading.ani"],"loadList3D":[]}
+{"type":"Dialog","props":{"width":750,"height":1334},"compId":2,"child":[{"type":"Animation","props":{"y":538,"x":275,"var":"loading_ani","source":"DataLoading.ani","autoPlay":true},"compId":4}],"loadList":["DataLoading.ani"],"loadList3D":[]}
