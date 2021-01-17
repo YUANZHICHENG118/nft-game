@@ -26,6 +26,7 @@
             top: 0;
             left: 0;
             z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
         }
         #videoBg{
             background: rgba(0, 0, 0, 0.8);
@@ -35,11 +36,7 @@
         }
         #guideVideo{
             display: block;
-            width: 80%;
-            height: 50%;
-            position: absolute;
-            left: 10%;
-            top: 10%;    
+            margin: auto; 
         }
         .show{
             display: block;
@@ -52,9 +49,9 @@
 
 <body>
     <input id="copy_target" type="" value="" style="opacity: 0;">
-    <div id="videoWrap" class="hide">
-        <div id="videoBg" onclick="videoStop()"></div>
-        <video id="guideVideo" controls  src="video/1.mp4"></video>
+    <div id="videoWrap" onclick="videoStop()" class="hide">
+        <!-- <div id="videoBg" ></div> -->
+        <video id="guideVideo" onclick="videoClick(event)" controls  src="video/1.mp4"></video>
     </div>
 
 
@@ -75,6 +72,12 @@
     }
     
     function showGuideVideo(){
+        console.log(layaCanvas.width,layaCanvas.height);
+        //ele.style.fontSize="80px";　
+        guideVideo.style.width=layaCanvas.width*0.8+'px';
+        guideVideo.style.height=layaCanvas.width*0.5+'px';
+        guideVideo.style.marginTop=(layaCanvas.height-layaCanvas.width*0.5)*0.3+'px'
+
         guideVideo.src='video/1.mp4'
         guideVideo.play();
         videoWrap.className="show";
@@ -83,6 +86,11 @@
     function videoStop(){
         guideVideo.src=''
         videoWrap.className="hide";
+    }
+
+    function videoClick(e){
+        var oEvent = e || event;
+        oEvent.cancelBubble = true;
     }
 </script>
 <script type="text/javascript">
