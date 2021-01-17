@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":68,
-    "selecteID":71,
+    "selectedBox":19,
+    "selecteID":23,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
@@ -163,13 +163,14 @@
             "props":{"y":-1,"x":0,"var":"group0","presetID":1,"preset":"laya/pages/prefab/BaseInfo.prefab"},
             "nodeParent":2,
             "label":"group0",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":54,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":2,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -182,6 +183,7 @@
                     "compId":6,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nav4_4_txt",
                             "props":{"var":"nav4_4_txt","presetID":3,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -195,6 +197,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nick_txt",
                             "props":{"var":"nick_txt","presetID":4,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -208,6 +211,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,btnSetName",
                             "props":{"y":23,"x":490,"var":"btnSetName","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -220,6 +224,7 @@
                             "compId":87,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,nav4_4_1_txt",
                                     "props":{"y":12,"x":0,"width":153,"var":"nav4_4_1_txt","text":"设置","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab","height":30},
@@ -234,6 +239,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"TextInput",
                             "searchKey":"TextInput,nick2_txt",
                             "props":{"y":100,"x":30,"width":608,"var":"nick2_txt","skin":"comp/textinput.png","height":70,"fontSize":28,"align":"center"},
@@ -249,6 +255,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":5,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -261,6 +268,7 @@
                     "compId":13,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nav4_5_txt",
                             "props":{"var":"nav4_5_txt","presetID":6,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -274,6 +282,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,address_txt",
                             "props":{"var":"address_txt","presetID":7,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -288,6 +297,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":603,"x":44,"presetID":8,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -300,6 +310,7 @@
                     "compId":16,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nav4_6_txt",
                             "props":{"var":"nav4_6_txt","presetID":9,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -313,6 +324,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,ethAmount_txt",
                             "props":{"y":131,"x":30,"width":280,"var":"ethAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
@@ -326,6 +338,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,tokenAmount_txt",
                             "props":{"y":131,"x":343,"width":280,"var":"tokenAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
@@ -340,6 +353,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"presetID":11,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -352,6 +366,7 @@
                     "compId":19,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nav4_7_txt",
                             "props":{"var":"nav4_7_txt","presetID":12,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -365,6 +380,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,ref_txt",
                             "props":{"var":"ref_txt","presetID":13,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -378,6 +394,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,btnCopyRef",
                             "props":{"var":"btnCopyRef","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -390,6 +407,7 @@
                             "compId":23,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,nav4_8_txt",
                                     "props":{"y":12,"x":20,"var":"nav4_8_txt","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -404,6 +422,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"presetID":16,"preset":"laya/pages/prefab/BaseInfo.prefab"},
@@ -417,7 +436,7 @@
                                 ]
                         }]
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -475,7 +494,7 @@
                         ],
                     "$HIDDEN":false
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,

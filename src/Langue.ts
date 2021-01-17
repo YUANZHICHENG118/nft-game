@@ -68,7 +68,8 @@ export default class Langue extends Laya.EventDispatcher {
         onOff: '开          ,关',
         waitTip:'设备就绪等待发车',
         verify:'验证',
-        lastHit:'完成了最后一击'
+        lastHit:'完成了最后一击',
+        copySuccess:'复制成功'
     }
     public static en = {
         start: 'start',
@@ -136,7 +137,8 @@ export default class Langue extends Laya.EventDispatcher {
         onOff: 'on         ,off',
         waitTip:'wait...',
         verify:'verify',
-        lastHit:'完成了最后一击'
+        lastHit:'完成了最后一击',
+        copySuccess:'success'
     }
     public static kr = {
         start: 'start',
@@ -203,7 +205,8 @@ export default class Langue extends Laya.EventDispatcher {
         onOff: '열다          ,관문',
         waitTip:'wait...',
         verify:'verify',
-        lastHit:'完成了最后一击'
+        lastHit:'完成了最后一击',
+        copySuccess:'success'
     }
 
     constructor() {

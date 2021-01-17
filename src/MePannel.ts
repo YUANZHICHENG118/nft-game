@@ -187,8 +187,8 @@ export default class MePannel extends ui.MePannelUI {
         })
     }
     copyRef():void{
-        alert('调用复制函数')
-        //eval('window.clipboardData.setData("text","hello")');
+        eval('copy("'+DataBus.userBase.ref+'")');
+        this.dataBus.showToast(Langue.defaultLangue.copySuccess)
     }
     loadData():void{    
         this.dataBus.showLoading();this.loading=true;

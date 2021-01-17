@@ -1,5 +1,6 @@
 import DataLoading from "./DataLoading";
 import GameEvent from "./GameEvent";
+import { ui } from "./ui/layaMaxUI";
 
 export default class DataBus extends Laya.EventDispatcher {
 
@@ -8,6 +9,8 @@ export default class DataBus extends Laya.EventDispatcher {
     public static gameServer:IGameServer
     public static userBase:IUserBase
     public dataLoading:DataLoading=new DataLoading();
+    public toast:ui.ToastUI=new ui.ToastUI()
+     
 
     
     constructor() { super(); }
@@ -42,5 +45,13 @@ export default class DataBus extends Laya.EventDispatcher {
 
     hideLoading(){
         this.dataLoading.close()
+    }
+
+    showToast(msg:string){
+        this.toast.tip_txt.text=msg;
+        this.toast.popup(false,false);
+        setTimeout(() => {
+            this.toast.close()
+        }, 1000);
     }
 }

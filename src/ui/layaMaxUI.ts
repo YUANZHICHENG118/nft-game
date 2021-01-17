@@ -364,6 +364,15 @@ export module ui {
         }
     }
     REG("ui.SetPannelUI",SetPannelUI);
+    export class ToastUI extends Dialog {
+		public tip_txt:Laya.Text;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("Toast");
+        }
+    }
+    REG("ui.ToastUI",ToastUI);
 }
 export module ui.prefab {
     export class profitPannelUI extends Scene {

@@ -18,6 +18,23 @@
 </head>
 
 <body>
+    <input id="copy_target" type="hidden" value="">
+    <script type="text/javascript">
+		function copy(str){
+			copy_target.value=str
+		    copy_target.focus();
+			copy_target.select();
+			try{
+			    if(document.execCommand('copy', false, null)){
+			    	console.log('success')
+			    } else{
+			        console.log('fail')
+			    }
+			} catch(err){
+			    console.log('fail')
+			}
+		}
+	</script>
 <script type="text/javascript">
    var apiHost="http://127.0.0.1:8080";
 </script>

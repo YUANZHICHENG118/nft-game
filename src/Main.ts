@@ -14,6 +14,10 @@ class Main {
 		Laya.stage.alignV = GameConfig.alignV;
 		Laya.stage.alignH = GameConfig.alignH;
 		Laya.stage.bgColor = "#e4d6c3";
+
+		UIConfig.popupBgAlpha = 0;
+		UIConfig.closeDialogOnSide = false;
+
 		//兼容微信不支持加载scene后缀场景
 		Laya.URL.exportSceneToJson = GameConfig.exportSceneToJson;
 
