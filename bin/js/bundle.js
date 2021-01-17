@@ -1047,7 +1047,7 @@
             this.visible = false;
         }
         btnVideoClick() {
-            Laya.Browser.window.location.href = 'video/1.mp4';
+            eval('showGuideVideo()');
         }
         creatVideo() {
             let divElement = Laya.Browser.createElement("div");
@@ -2026,7 +2026,7 @@
     GameConfig.scaleMode = "showall";
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
-    GameConfig.alignH = "left";
+    GameConfig.alignH = "center";
     GameConfig.startScene = "EntrancePannel.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;

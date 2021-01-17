@@ -75,7 +75,8 @@ export default class HelpPannel extends ui.HelpPannelUI {
     }
 
     btnVideoClick(){
-        Laya.Browser.window.location.href = 'video/1.mp4'
+        eval('showGuideVideo()')        
+        //Laya.Browser.window.location.href = 'video/1.mp4'
     }
     creatVideo(){
         let divElement = Laya.Browser.createElement("div");
