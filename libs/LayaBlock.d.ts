@@ -119,9 +119,19 @@ interface IUserBase {
     tokenSymbol:string,
 
     /**
-     * 要求链接
+     * 邀请链接
      */
     ref:string,
+
+    // eth icon url 路径
+    ethIcon:string,
+    // token icon url 路径
+    tokenIcon:string,
+
+    /**
+     * 邀请链接说明
+     */
+    remark:string,
 
 }
 
@@ -362,6 +372,10 @@ declare class LayaBlock {
     static currentAccount: string;
 
     static ethToken: object;
+    /**
+     * 交易nft 链接
+     */
+    static exchangeNFTUrl:string;
 
     /**
      * 交易连接地址
