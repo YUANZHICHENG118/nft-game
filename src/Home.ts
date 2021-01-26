@@ -131,7 +131,7 @@ export default class Home extends ui.HomeUI{
         // 获取用户Mine数据
         LayaBlock.getUserMine().then((d:IUserMine)=>{
             this.ethAmount_txt.text=d.ethAmount+''
-            this.reward_txt.text=d.reward+''
+            this.reward_txt.text='$'+d.reward+''
             this.rate_txt.text=(d.rate*100).toFixed(2)+'%'
             this.rank_txt.text=d.rank+''
         })
