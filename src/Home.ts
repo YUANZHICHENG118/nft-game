@@ -28,6 +28,7 @@ export default class Home extends ui.HomeUI{
     private stoneNum:number=0
     private booms:Laya.Sprite=new Laya.Sprite()
     private boomLoopId:number=0
+    private hideTip:number=0
     constructor() { super();}    
     onEnable (): void {
         // 初始化 web3
@@ -42,6 +43,7 @@ export default class Home extends ui.HomeUI{
         //this.testBlock();
     }
     initUI=()=>{     
+        this.tip_mc.x=1000;
         this.test_btn.visible=false;   
         this.waitTip.visible=false
         //设备面板
@@ -49,6 +51,7 @@ export default class Home extends ui.HomeUI{
         this.addChild(this.devPannel);        
         this.devPannel.visible=false;
         this.devPannel.on('showWaitTip',this,this.showWaitTip)
+
         //公告面板
         this.notiecPannel=new NoticePannel()
         this.addChild(this.notiecPannel);        
@@ -78,6 +81,7 @@ export default class Home extends ui.HomeUI{
         this.onLanguage()
 
         this.cloud0.alpha=Math.random()
+
     }
     showWaitTip=()=>{
         this.waitTip.visible=true;
@@ -124,12 +128,15 @@ export default class Home extends ui.HomeUI{
         //获取矿山数据
         LayaBlock.getMineData().then((d:IMine)=>{
             ////console.log(d,'矿山数据'+d.surplus+'/'+d.total)
+            DataBus.mine=d;
             this.mine_txt.text=d.surplus+'/'+d.total
+            this.mineProgress.scaleX=1-(0.13+(d.surplus/d.total)*0.87)
             this.shan.scaleY=(d.surplus/d.total)*0.9+0.1
         })
 
         // 获取用户Mine数据
         LayaBlock.getUserMine().then((d:IUserMine)=>{
+            DataBus.userMine=d;
             this.ethAmount_txt.text=d.ethAmount+''
             this.reward_txt.text='$'+d.reward+''
             this.rate_txt.text=(d.rate*100).toFixed(2)+'%'
@@ -141,6 +148,13 @@ export default class Home extends ui.HomeUI{
         })
     }
     addEvt=()=>{
+        this.mine_mc.on(Laya.Event.CLICK,this,this.mineClick)
+        this.ethAmount_mc.on(Laya.Event.CLICK,this,this.ethAmountClick)
+        this.rank_mc.on(Laya.Event.CLICK,this,this.rankClick)
+        this.rate_mc.on(Laya.Event.CLICK,this,this.rateClick)
+        this.reward_mc.on(Laya.Event.CLICK,this,this.rewardClick)
+        this.on(Laya.Event.CLICK,this,this.thisClick)
+
         this.btnDevice.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnExchange.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
         this.btnRank.on(Laya.Event.MOUSE_DOWN,this,this.menuClick)
@@ -154,6 +168,11 @@ export default class Home extends ui.HomeUI{
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.test_btn.on(Laya.Event.CLICK,this,this.test)     
         Laya.timer.frameLoop(3,this,this.run)
+    }
+    thisClick=()=>{
+        if(this.tip_mc.x<1000){
+            this.tip_mc.x=1000
+        }
     }
     run=()=>{
         this.cloud0.x+=1;
@@ -257,6 +276,52 @@ export default class Home extends ui.HomeUI{
     {
         //console.log("LabelName:" + label);
     }
+
+    mineClick(e:Laya.Event):void{
+        clearTimeout(this.hideTip)
+        this.hideTip=setTimeout(() => {
+            this.tip_mc.x=1000
+        }, 3000)
+        this.tip_mc.x=59
+        this.tip_txt.text=Langue.defaultLangue.t1+'：'+DataBus.mine.total+'\n'+Langue.defaultLangue.t2+'：'+(DataBus.mine.total-DataBus.mine.surplus)+'\n'+Langue.defaultLangue.t3+'：'+DataBus.mine.surplus
+        e.stopPropagation()
+    }
+    ethAmountClick(e:Laya.Event):void{
+        clearTimeout(this.hideTip)
+        this.hideTip=setTimeout(() => {
+            this.tip_mc.x=1000
+        }, 3000)
+        this.tip_mc.x=this.ethAmount_mc.x
+        this.tip_txt.text=Langue.defaultLangue.t4+'：'+DataBus.userMine.ethAmount+'\n'+Langue.defaultLangue.t5+'：'+DataBus.userMine.tokenAmount
+        e.stopPropagation()
+    }
+    rankClick(e:Laya.Event):void{
+        clearTimeout(this.hideTip)
+        this.hideTip=setTimeout(() => {
+            this.tip_mc.x=1000
+        }, 3000)
+        this.tip_mc.x=this.rank_mc.x
+        this.tip_txt.text=Langue.defaultLangue.t6+'：'+DataBus.userMine.amount+'\n'+Langue.defaultLangue.t7+'：'+DataBus.userMine.rank
+        e.stopPropagation()
+    }
+    rateClick(e:Laya.Event):void{
+        clearTimeout(this.hideTip)
+        this.hideTip=setTimeout(() => {
+            this.tip_mc.x=1000
+        }, 3000)
+        this.tip_mc.x=this.rate_mc.x
+        this.tip_txt.text=Langue.defaultLangue.t6+'：'+DataBus.userMine.amount+'\n'+Langue.defaultLangue.t8+'：'+DataBus.userMine.rate
+        e.stopPropagation()
+    }
+    rewardClick(e:Laya.Event):void{
+        clearTimeout(this.hideTip)
+        this.hideTip=setTimeout(() => {
+            this.tip_mc.x=1000
+        }, 3000)
+        this.tip_mc.x=571
+        this.tip_txt.text=Langue.defaultLangue.t9+'：'+DataBus.userMine.reward+'$'
+        e.stopPropagation()
+    }
         
     menuClick(e:Laya.Event):void{
         let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
@@ -318,7 +383,7 @@ export default class Home extends ui.HomeUI{
         })
 
         //质押token
-        // LayaBlock.stakeToken(100).then((d:ITransaction)=>{
+        // LayaBlock.stakeToken(3000).then((d:ITransaction)=>{
         //     ////console.log("stakeToken=====",d.transactionHash)
         // }).catch((e:ITransactionError)=>{
         //     ////console.log("stakeToken error=====",e)

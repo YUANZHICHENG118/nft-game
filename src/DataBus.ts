@@ -6,8 +6,11 @@ export default class DataBus extends Laya.EventDispatcher {
 
     private static instance:DataBus = null;
     public static account:string='';
-    public static gameServer:IGameServer
-    public static userBase:IUserBase
+    public static gameServer:IGameServer;
+    public static userBase:IUserBase;
+    public static mine:IMine;
+    public static userMine:IUserMine;
+    
     public dataLoading:DataLoading=new DataLoading();
     public toast:ui.ToastUI=new ui.ToastUI()
      

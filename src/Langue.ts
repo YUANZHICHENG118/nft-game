@@ -70,7 +70,16 @@ export default class Langue extends Laya.EventDispatcher {
         waitTip:'设备就绪等待发车',
         verify:'验证',
         lastHit:'完成了最后一击',
-        copySuccess:'复制成功'
+        copySuccess:'复制成功',
+        t1:'总矿量',
+        t2:'已挖矿',
+        t3:'剩余矿量',
+        t4:'预计收益（ETH）',
+        t5:'预计收益（CM）',
+        t6:'我的运走量',
+        t7:'我的排名',
+        t8:'我的占比',
+        t9:'预计收益',
     }
     public static en = {
         start: 'start',
@@ -140,7 +149,16 @@ export default class Langue extends Laya.EventDispatcher {
         waitTip:'Preparing for mining',
         verify:'verify',
         lastHit:'完成了最后一击',
-        copySuccess:'success'
+        copySuccess:'success',
+        t1:'总矿量',
+        t2:'已挖矿',
+        t3:'剩余矿量',
+        t4:'预计收益（ETH）',
+        t5:'预计收益（CM）',
+        t6:'我的运走量',
+        t7:'我的排名',
+        t8:'我的占比',
+        t9:'预计收益',
     }
     public static kr = {
         start: 'start',
@@ -212,7 +230,16 @@ export default class Langue extends Laya.EventDispatcher {
         waitTip:'마이닝 준비중',
         verify:'verify',
         lastHit:'完成了最后一击',
-        copySuccess:'success'
+        copySuccess:'success',
+        t1:'总矿量',
+        t2:'已挖矿',
+        t3:'剩余矿量',
+        t4:'预计收益（ETH）',
+        t5:'预计收益（CM）',
+        t6:'我的运走量',
+        t7:'我的排名',
+        t8:'我的占比',
+        t9:'预计收益',
     }
 
     constructor() {

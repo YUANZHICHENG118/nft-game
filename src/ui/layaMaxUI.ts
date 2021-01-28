@@ -134,10 +134,16 @@ export module ui {
 		public notice_txt:Laya.Label;
 		public gongGao_txt:Laya.Label;
 		public test_btn:Laya.Sprite;
+		public mine_mc:Laya.Image;
+		public mineProgress:Laya.Image;
 		public mine_txt:Laya.Label;
+		public ethAmount_mc:Laya.Image;
 		public ethAmount_txt:Laya.Label;
+		public rank_mc:Laya.Image;
 		public rank_txt:Laya.Label;
+		public rate_mc:Laya.Image;
 		public rate_txt:Laya.Label;
+		public reward_mc:Laya.Image;
 		public reward_txt:Laya.Label;
 		public machines:Laya.Sprite;
 		public mount_mask:Laya.Sprite;
@@ -149,6 +155,8 @@ export module ui {
 		public waitTip:Laya.Sprite;
 		public aniWait:Laya.Animation;
 		public waitTip_txt:Laya.Label;
+		public tip_mc:Laya.Image;
+		public tip_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
