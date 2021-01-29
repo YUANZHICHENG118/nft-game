@@ -48,6 +48,11 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             content: 'cm价格是由市场交易池里的资金决定的。'
         },{
             id: 6,
+            title: '排行榜额外奖励规则?',
+            time: 1607050113,
+            content: '第1名：10% 第1名：5% 第3名：3% 第4-10名：1%，完成最后一击：5%'
+        },{
+            id: 7,
             title: '什么是最后一击?',
             time: 1607050113,
             content: '每一期的矿山开启后挖出最后一个矿的用户得到最后一击奖励。最后一击的奖励是总矿量的5%'
@@ -79,9 +84,14 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             Content: 'cm the price is determined by the funds in the market trading pool. '
         },{
             id: 6,
+            Title: 'extra reward rules for leaderboard?',
+            time: 1607050113,
+            Content: '1st place: 10%, 1st place: 5%, 3rd place: 3%, 4th-10th place: 1%, finish last hit: 5%'
+        },{
+            id: 7,
             Title: 'what is the last blow?',
             time: 1607050113,
-            Content: 'after the mine of each phase is opened, the user who digs the last mine gets the last hit reward. The reward for the last strike is 5% of the total mine output.'
+            Content: 'after the mine of each phase is opened, the user who digs the last mine gets the last hit reward. The reward for the last strike is 5% of the total mine output. '
         }],
         kr:[{
             id: 1,
@@ -110,6 +120,11 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             content: 'CM토큰의 가격은 마켓의 cm/eth풀의 자금에 의해 결정됩니다. 50,000,000/풀의 ETH개수= cm토큰 가격'
         },{
             id: 6,
+        title: "랭 킹 추가 보상 규칙 은?",
+        time: 1607050113,
+        content: '1 위: 10% 1 위: 5% 3 위: 3% 4 - 10 위: 1%, 마무리 일 격: 5%'
+},{
+            id: 7,
             title: '마지막 일격이란 무었이에요?',
             time: 1607050113,
             content: '매회차 광산 오픈후 마지막 마이닝을 진행한 유저가 마지막 일격의 보너스를 받습니다. 마지막 일격의 보너스는 총 보너스의 5%입니다.'
