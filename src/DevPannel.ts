@@ -7,6 +7,7 @@ import List = Laya.List;
 import Handler = Laya.Handler;
 import ItemDev from "./ItemDev";
 import DevDetail from "./DevDetail";
+import TipPannel from "./TipPannel";
 export default class DevPannel extends ui.DevPannelUI {
     /** @prop {name:devType, tips:"整数类型示例", type:Int, default:1}*/
     private devTypeArr: Array<number> = [1,2,3];
@@ -101,8 +102,6 @@ export default class DevPannel extends ui.DevPannelUI {
             alert(Langue.defaultLangue.alert1)
             return;
         }
-        console.log('obj',obj);//{17: 2, 18: 2}
-
         this.dataBus.showLoading();this.loading=true;
         LayaBlock.stakeTokenNft(obj,(d:ITransactionError)=>{
             console.log("d------",d.message);
@@ -111,6 +110,11 @@ export default class DevPannel extends ui.DevPannelUI {
             this.event('showWaitTip');//home里监听
         }).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
+            //这个对象如果返回 status=0x1
+            if(d.status==true){                
+               // Laya.SoundManager.playSound("sound/machine.mp3",0);
+            }
+            
         }).catch((e:ITransactionError)=>{
             this.dataBus.hideLoading()
             this.loading=false;
@@ -174,6 +178,15 @@ export default class DevPannel extends ui.DevPannelUI {
                 this.listData.push({id:d[i].id,type:d[i].type,color:d[i].color,selected:false})
             }
             this.list.array =this.listData
+            if(this.listData.length==0){
+                let tipPannel:TipPannel=new TipPannel();
+                tipPannel.msg=Langue.defaultLangue.t10
+                tipPannel.ok=Langue.defaultLangue.t11
+                tipPannel.todo=()=>{
+                    Laya.Browser.window.location.href = LayaBlock.exchangeUrl
+                }
+                tipPannel.popup(false,true)
+            }
         })
     }
 

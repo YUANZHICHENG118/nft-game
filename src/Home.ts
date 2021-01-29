@@ -244,6 +244,15 @@ export default class Home extends ui.HomeUI{
         this.emailPannel.visible=true;
         this.emailPannel.loadData();
     }
+    mineSoundPlay=()=>{
+        //播放设备声音
+        Laya.SoundManager.playSound("sound/machine.mp3",0);
+    }
+    
+    coinSoundPlay=()=>{
+        //播放金币声音
+        Laya.SoundManager.playSound("sound/coin.mp3",0);
+    }
     machineGo=(obj:any)=>{
         this.hideWaitTip()
         this.gongGao_txt.text='玩家'+obj.nick+'派出车辆挖矿'

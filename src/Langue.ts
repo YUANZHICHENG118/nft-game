@@ -80,6 +80,8 @@ export default class Langue extends Laya.EventDispatcher {
         t7:'我的排名',
         t8:'我的占比',
         t9:'预计收益',
+        t10:'需要获取设备挖矿赚钱ETH',
+        t11:'获取'
     }
     public static en = {
         start: 'start',

@@ -372,6 +372,20 @@ export module ui {
         }
     }
     REG("ui.SetPannelUI",SetPannelUI);
+    export class TipPannelUI extends Dialog {
+		public devPanel:Laya.Sprite;
+		public btnOk:Laya.Image;
+		public ok_txt:Laya.Label;
+		public msg_txt:Laya.Label;
+		public btnClose:Laya.Image;
+		public close_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("TipPannel");
+        }
+    }
+    REG("ui.TipPannelUI",TipPannelUI);
     export class ToastUI extends Dialog {
 		public tip_txt:Laya.Text;
         constructor(){ super()}

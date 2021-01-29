@@ -33,7 +33,8 @@ export default class ItemIncome extends ui.ItemIncomeUI {
         this.itemData=itemData
         this.id_txt.text=itemData.gameId+''
         this.machineNum_txt.text=itemData.machineNum+''
-        this.reward_txt.text=itemData.ethReward+'/'+itemData.tokenReward
+        this.reward_txt.text=itemData.ethReward+''
+        //this.reward_txt.text=itemData.ethReward+'/'+itemData.tokenReward
         this.btnReceive.disabled=!itemData.status
         if(Number(itemData.ethReward)+Number(itemData.tokenReward)==0){
             itemData.receive=false

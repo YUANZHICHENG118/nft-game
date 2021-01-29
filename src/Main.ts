@@ -15,7 +15,7 @@ class Main {
 		Laya.stage.alignH = GameConfig.alignH;
 		Laya.stage.bgColor = "#e4d6c3";
 
-		UIConfig.popupBgAlpha = 0;
+		UIConfig.popupBgAlpha = 0.2;
 		UIConfig.closeDialogOnSide = false;
 
 		//兼容微信不支持加载scene后缀场景
@@ -54,6 +54,8 @@ class Main {
 		 {url:"gameimg/tu.png",type:Laya.Loader.IMAGE},
 		 {url:"gameimg/videoImg.png",type:Laya.Loader.IMAGE},
 		 {url:"sound/bg.mp3",type:Laya.Loader.SOUND},
+		 {url:"sound/coin.mp3",type:Laya.Loader.SOUND},
+		 {url:"sound/machine.mp3",type:Laya.Loader.SOUND},
 		 //{url:"res/atlas/hit.wav",type:Laya.Loader.SOUND}
 		 //fileconfig.json
         ];

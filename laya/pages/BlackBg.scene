@@ -21,6 +21,7 @@
             "props":{"y":0,"x":0,"alpha":0.7},
             "nodeParent":2,
             "label":"Sprite",
+            "isOpen":null,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
