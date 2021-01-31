@@ -414,9 +414,11 @@ declare class LayaBlock {
      * 激活服务
      * @params machineGo 车辆运动
      * @params gameOverHandel 一局游戏结束/最后一击
+     * @param coinSoundPlay 挖矿成功音效
+     * @param mineSoundPlay 发车音效
      * @param {IGameServer} game
      */
-    static activeGame(game:IGameServer,machineGo:any,gameOverHandel?:(params:ILastStraw)=>void):void;
+    static activeGame(game:IGameServer,machineGo:any,gameOverHandel?:(params:ILastStraw)=>void,coinSoundPlay?:()=>void,meachineSound?:()=>void):void;
 
     /**
      * 获取矿山数据/游戏数据

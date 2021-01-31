@@ -29,11 +29,11 @@ export default class Home extends ui.HomeUI{
     private booms:Laya.Sprite=new Laya.Sprite()
     private boomLoopId:number=0
     private hideTip:number=0
-    constructor() { super();}    
+    constructor() { super();}
     onEnable (): void {
         // 初始化 web3
         LayaBlock.initWeb3();
-        LayaBlock.activeGame(DataBus.gameServer,this.machineGo,this.mainEnd)
+        LayaBlock.activeGame(DataBus.gameServer,this.machineGo,this.mainEnd,this.coinSoundPlay,this.mineSoundPlay)
         //初始化界面
         this.initUI();
         //初始化数据
@@ -42,41 +42,41 @@ export default class Home extends ui.HomeUI{
         this.addEvt();
         //this.testBlock();
     }
-    initUI=()=>{     
+    initUI=()=>{
         this.tip_mc.x=1000;
-        this.test_btn.visible=false;   
+        this.test_btn.visible=false;
         this.waitTip.visible=false
         //设备面板
         this.devPannel=new DevPannel();
-        this.addChild(this.devPannel);        
+        this.addChild(this.devPannel);
         this.devPannel.visible=false;
         this.devPannel.on('showWaitTip',this,this.showWaitTip)
 
         //公告面板
         this.notiecPannel=new NoticePannel()
-        this.addChild(this.notiecPannel);        
+        this.addChild(this.notiecPannel);
         this.notiecPannel.visible=false;
         //邮件面板
         this.emailPannel=new EmailPannel()
-        this.addChild(this.emailPannel);        
-        this.emailPannel.visible=false;  
+        this.addChild(this.emailPannel);
+        this.emailPannel.visible=false;
         //我的面板
         this.mePannel=new MePannel()
-        this.addChild(this.mePannel);        
-        this.mePannel.visible=false;       
+        this.addChild(this.mePannel);
+        this.mePannel.visible=false;
         //排行面板
         this.rankPannel=new RankPannel()
-        this.addChild(this.rankPannel);        
-        this.rankPannel.visible=false;  
+        this.addChild(this.rankPannel);
+        this.rankPannel.visible=false;
 
         //设置面板
         this.setPannel=new SetPannel()
-        this.addChild(this.setPannel);        
-        this.setPannel.visible=false;  
+        this.addChild(this.setPannel);
+        this.setPannel.visible=false;
 
         //帮助面板
         this.helpPannel=new HelpPannel()
-        this.addChild(this.helpPannel);        
+        this.addChild(this.helpPannel);
         this.helpPannel.visible=false;
         this.onLanguage()
 
@@ -85,7 +85,7 @@ export default class Home extends ui.HomeUI{
     }
     showWaitTip=()=>{
         this.waitTip.visible=true;
-        this.aniWait.play()        
+        this.aniWait.play()
     }
     hideWaitTip=()=>{
         this.waitTip.visible=false;
@@ -93,24 +93,24 @@ export default class Home extends ui.HomeUI{
     }
     mainEnd=(data:ILastStraw)=>{
         this.boom();
-        
+
         let lastHitPannel:LastHitPannel=new LastHitPannel();
         lastHitPannel.data=data
         setTimeout(() => {
             Laya.Tween.to(this.booms, { alpha: 0 }, 1000);
             lastHitPannel.popup(false,true)
-        }, 3000);        
+        }, 3000);
     }
-    boom=()=>{     
+    boom=()=>{
         console.log('boom=======')
-        //运行爆炸   
+        //运行爆炸
         Laya.timer.frameLoop(1,this,this.boomRun)
         Stone.dy=-this.shan.scaleY*169
         this.booms.x=216;
-        this.booms.y=440+Stone.dy;        
+        this.booms.y=440+Stone.dy;
         this.addChildAt(this.booms,2)
     }
-    boomRun=()=>{        
+    boomRun=()=>{
         this.boomLoopId++
         if(this.boomLoopId%1==0 && this.stoneNum<80){
             this.stoneNum++
@@ -166,7 +166,7 @@ export default class Home extends ui.HomeUI{
         this.btnSet.on(Laya.Event.CLICK,this,this.showSetPannel)
         this.btnChat.on(Laya.Event.CLICK,this,this.btnChatClick)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
-        this.test_btn.on(Laya.Event.CLICK,this,this.test)     
+        this.test_btn.on(Laya.Event.CLICK,this,this.test)
         Laya.timer.frameLoop(3,this,this.run)
     }
     thisClick=()=>{
@@ -188,7 +188,7 @@ export default class Home extends ui.HomeUI{
             this.bird.x=750
             this.bird.y=300+Math.random()*100
         }
-        
+
     }
     test=()=>{
         //this.machineGo({})
@@ -246,12 +246,12 @@ export default class Home extends ui.HomeUI{
     }
     mineSoundPlay=()=>{
         //播放设备声音
-        Laya.SoundManager.playSound("sound/machine.mp3",0);
+        Laya.SoundManager.playSound("sound/machine.mp3",1);
     }
-    
+
     coinSoundPlay=()=>{
         //播放金币声音
-        Laya.SoundManager.playSound("sound/coin.mp3",0);
+        Laya.SoundManager.playSound("sound/coin.mp3",1);
     }
     machineGo=(obj:any)=>{
         this.hideWaitTip()
@@ -260,11 +260,11 @@ export default class Home extends ui.HomeUI{
         this.timeoutGongGao=setTimeout(() => {
             this.gongGao_txt.text=Langue.defaultLangue.notice_0
         }, 10000);
-        let aniMachine:AniMachine=new AniMachine() 
-        aniMachine.obj=obj;       
+        let aniMachine:AniMachine=new AniMachine()
+        aniMachine.obj=obj;
         aniMachine.scale(-0.5,0.5)
         aniMachine.pos(-100,1200)
-        this.machines.addChild(aniMachine);        
+        this.machines.addChild(aniMachine);
         let timeLine:TimeLine = new TimeLine();
         let dy=30;
         timeLine.addLabel("road1",0).to(aniMachine,{x:900, y:814+dy},4000,null,0)   //右侧出洞
@@ -331,7 +331,7 @@ export default class Home extends ui.HomeUI{
         this.tip_txt.text=Langue.defaultLangue.t9+'：'+DataBus.userMine.reward+'$'
         e.stopPropagation()
     }
-        
+
     menuClick(e:Laya.Event):void{
         let curBtn:Laya.Sprite=e.currentTarget as Laya.Sprite;
         this.selectBg.x=curBtn.x
@@ -340,12 +340,12 @@ export default class Home extends ui.HomeUI{
                 this.devPannel.visible=true;
                 this.devPannel.initList();
                 break;
-            case this.btnExchange:  
+            case this.btnExchange:
                 Laya.Browser.window.location.href = LayaBlock.exchangeUrl
                 break;
             case this.btnRank:
                 this.rankPannel.visible=true
-                this.rankPannel.initList()                
+                this.rankPannel.initList()
                 break;
             case this.btnMe:
                 this.mePannel.visible=true
@@ -361,7 +361,7 @@ export default class Home extends ui.HomeUI{
     testBlock=()=>{
         ////console.log('♥♥')
         // 查询1155余额
-        
+
         // 查询token 余额
         LayaBlock.getTokenBalance().then((d:number)=>{
             ////console.log("token balance=====",d)
@@ -479,7 +479,7 @@ class Stone extends Image {
         this.scaleX=this.scaleY=Math.random()*0.4+0.1;
     }
 
-    public update(): void {        
+    public update(): void {
         if(this.y>this.maxY){
             return
         }

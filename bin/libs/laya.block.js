@@ -20,110 +20,110 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         'en-US': 'For every cm token purchased by users who use this link, you will get a profit of about $1.3',
         'kr': '아래 링크로 접속하는 유저가 매 1개의 CM토큰 구매시 0.3 설비의 배당을 받을수 있습니다.'
     };
-    const help={
-        'zh-CN':[{
+    const help = {
+        'zh-CN': [{
             id: 1,
             title: '如何获取挖矿设备?',
             time: 1607050113,
             content: '1.持有CM代币，每天将随机发放设备。2.在市场中通过交易购买设备。3.通过推荐用户获得设备。'
-        },{
+        }, {
             id: 2,
             title: '如何获取CM?',
             time: 1607050113,
             content: 'CM可以在市场中用ETH进行购买'
-        },{
+        }, {
             id: 3,
             title: '怎么交易CM?',
             time: 1607050113,
             content: '可以在市场中自由交易'
-        },{
+        }, {
             id: 4,
             title: '怎么交易挖矿设备?',
             time: 1607050113,
             content: '在市场中挂单交易'
-        },{
+        }, {
             id: 5,
             title: 'CM价格是怎么形成的?',
             time: 1607050113,
             content: 'cm价格是由市场交易池里的资金决定的。'
-        },{
+        }, {
             id: 6,
             title: '排行榜额外奖励规则?',
             time: 1607050113,
             content: '第1名：10% 第1名：5% 第3名：3% 第4-10名：1%，完成最后一击：5%'
-        },{
+        }, {
             id: 7,
             title: '什么是最后一击?',
             time: 1607050113,
             content: '每一期的矿山开启后挖出最后一个矿的用户得到最后一击奖励。最后一击的奖励是总矿量的5%'
         }],
-        'en-US':[{
+        'en-US': [{
             id: 1,
             Title: 'how to get mining equipment?',
             time: 1607050113,
             Content: '1. Holding cm token, the equipment will be distributed randomly every day. 2. Purchase equipment through transaction in the market. 3. Get the device by recommending users. '
-        },{
+        }, {
             id: 2,
             Title: 'how to get cm?',
             time: 1607050113,
             Content: 'cm can be purchased with eth in the market'
-        },{
+        }, {
             id: 3,
             Title: 'how to trade cm?',
             time: 1607050113,
             Content: 'you can trade freely in the market'
-        },{
+        }, {
             id: 4,
             Title: 'how to trade mining equipment?',
             time: 1607050113,
             Content: 'register transaction in the market'
-        },{
+        }, {
             id: 5,
             Title: 'how is cm price formed?',
             time: 1607050113,
             Content: 'cm the price is determined by the funds in the market trading pool. '
-        },{
+        }, {
             id: 6,
             Title: 'extra reward rules for leaderboard?',
             time: 1607050113,
             Content: '1st place: 10%, 1st place: 5%, 3rd place: 3%, 4th-10th place: 1%, finish last hit: 5%'
-        },{
+        }, {
             id: 7,
             Title: 'what is the last blow?',
             time: 1607050113,
             Content: 'after the mine of each phase is opened, the user who digs the last mine gets the last hit reward. The reward for the last strike is 5% of the total mine output. '
         }],
-        kr:[{
+        kr: [{
             id: 1,
             title: '마이닝 설비는 어디서 구하나요?',
             time: 1607050113,
             content: '1.CM 토큰을 보유하고 있으면 매일 랜덤의 설비를 발급합니다.2.마켓에서 구매합니다.3.추처인 자격으로 유저를 추천하면 발급받습니다.'
-        },{
+        }, {
             id: 2,
             title: 'CM 토큰은 어디서 구하나요?',
             time: 1607050113,
             content: '마켓에서 이더리움으로 CM을 구매할수 있습니다.'
-        },{
+        }, {
             id: 3,
             title: 'CM 토큰은 어떻게 거래하나요?',
             time: 1607050113,
             content: '마켓에서 자유롭게 거래 가능합니다.'
-        },{
+        }, {
             id: 4,
             title: '마이닝 설비는 어떻게 거래하나요?',
             time: 1607050113,
             content: '마켓에 주문을 걸어 거래합니다.'
-        },{
+        }, {
             id: 5,
             title: 'CM 토큰의 가격은 어떻게 형성된거죠?',
             time: 1607050113,
             content: 'CM토큰의 가격은 마켓의 cm/eth풀의 자금에 의해 결정됩니다. 50,000,000/풀의 ETH개수= cm토큰 가격'
-        },{
+        }, {
             id: 6,
-        title: "랭 킹 추가 보상 규칙 은?",
-        time: 1607050113,
-        content: '1 위: 10% 1 위: 5% 3 위: 3% 4 - 10 위: 1%, 마무리 일 격: 5%'
-},{
+            title: "랭 킹 추가 보상 규칙 은?",
+            time: 1607050113,
+            content: '1 위: 10% 1 위: 5% 3 위: 3% 4 - 10 위: 1%, 마무리 일 격: 5%'
+        }, {
             id: 7,
             title: '마지막 일격이란 무었이에요?',
             time: 1607050113,
@@ -2083,9 +2083,11 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         /**
          * 选择游戏/选择具体矿池
          * @param machineGo()发车
+         * @param coinSoundPlay 挖矿成功播放币掉落音效
+         * @param mineSoundPlay 设备出发音效
          * @param game
          */
-        static activeGame = async (game, machineGo, gameOverHandel) => {
+        static activeGame = async (game, machineGo, gameOverHandel, coinSoundPlay, mineSoundPlay) => {
             this.selectData = {load: 0, mining: 0, total: 0, realLoad: 0}
             this.erc20TokenAddress = game.erc20TokenAddress;
             this.erc1155TokenAddress = game.erc1155TokenAddress;
@@ -2097,6 +2099,8 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
             this.gameAddress = game.gameAddress;
             this.machineGo = machineGo;
+            this.coinSoundPlay = coinSoundPlay;
+            this.mineSoundPlay = mineSoundPlay;
             this.gameOverHandel = gameOverHandel
             //this.version = await  this.getGameVersion();
             this.lan = "zh-CN";
@@ -2118,11 +2122,11 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
 
             // 连接矿车推送
-            this.DIS.socket = new LayaSocket.Socket(
-                socketUrl,
-                {},
-                this.disConnectHandle
-            );
+            // this.DIS.socket = new LayaSocket.Socket(
+            //     socketUrl,
+            //     {},
+            //     this.disConnectHandle
+            // );
 
             this.GameSocket = new LayaSocket.Socket(
                 socketInfuraUrl,
@@ -2303,11 +2307,27 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                         cars.push(obj)
                     }
                 })
+
                 cars.map((item, index) => {
                     setTimeout(function () {
                         that.machineGo(item)
                     }, index * 1000);
                 })
+
+
+                setTimeout(() => {
+                    if (that.mineSoundPlay) that.mineSoundPlay();
+                }, 1100)
+
+
+                const _address = await this.getAccount()
+
+                if (address.toLowerCase() === _address.toLowerCase()) {
+                    setTimeout(() => {
+                        if (that.coinSoundPlay) that.coinSoundPlay();
+                    }, 10000)
+
+                }
             }
 
         }
@@ -3177,13 +3197,13 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 tokenSymbol: this.erc20Token.symbol,
 
                 ethIcon: exchangeUrl + "/images/ETH-icon.png",
-                tokenIcon: exchangeUrl + "/images/"+this.erc20Token.symbol.toUpperCase()+"-icon.png",
+                tokenIcon: exchangeUrl + "/images/" + this.erc20Token.symbol.toUpperCase() + "-icon.png",
 
                 /**
                  * 邀请链接
                  */
                 ref: exchangeUrl + "/#/swap?ref=" + address,
-                remark:investRemark[lan]
+                remark: investRemark[lan]
             }
 
             return new Promise(function (resolve, reject) {
@@ -3394,7 +3414,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
     exports.blockChainUrl = blockChainUrl;
     exports.exchangeUrl = exchangeUrl;
     exports.ethToken = ethToken;
-    exports.exchangeNFTUrl=exchangeNFTUrl;
+    exports.exchangeNFTUrl = exchangeNFTUrl;
     exports.setLanguage = LayaBlock.setLanguage;
     exports.getLanguage = LayaBlock.getLanguage;
     exports.erc20Token = LayaBlock.getErc20Token;
