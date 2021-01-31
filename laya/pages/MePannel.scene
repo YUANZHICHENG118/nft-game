@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":35,
+    "selectedBox":16,
+    "selecteID":95,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":91,
+    "maxID":96,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -329,7 +329,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,ethAmount_txt",
-                            "props":{"y":131,"x":30,"width":280,"var":"ethAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "props":{"y":131,"x":76,"width":234,"var":"ethAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
                             "nodeParent":16,
                             "label":"ethAmount_txt",
                             "isDirectory":false,
@@ -343,13 +343,41 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,tokenAmount_txt",
-                            "props":{"y":131,"x":343,"width":280,"var":"tokenAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "props":{"y":131,"x":396,"width":227,"var":"tokenAmount_txt","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
                             "nodeParent":16,
                             "label":"tokenAmount_txt",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":84,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,ethIcon",
+                            "props":{"y":127,"x":27,"width":30,"var":"ethIcon","skin":"gameimg/ETH.png","height":30},
+                            "nodeParent":16,
+                            "label":"ethIcon",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":94,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,tokenIcon",
+                            "props":{"y":127,"x":347,"width":30,"var":"tokenIcon","skin":"gameimg/CM.png","height":30},
+                            "nodeParent":16,
+                            "label":"tokenIcon",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":95,
                             "child":[
                                 ]
                         }]
@@ -437,6 +465,48 @@
                             "child":[
                                 ]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,tip_mc",
+                    "props":{"y":836,"x":325,"width":371,"var":"tip_mc","skin":"gameimg/bg2.png","height":163},
+                    "nodeParent":54,
+                    "label":"tip_mc",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":91,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,tip_txt",
+                            "props":{"y":12,"x":9,"wordWrap":true,"width":352,"var":"tip_txt","text":"...","leading":10,"height":139,"fontSize":20,"font":"Microsoft YaHei","color":"#f4d7b6","align":"left"},
+                            "nodeParent":91,
+                            "label":"tip_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":92,
+                            "child":[
+                                ]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite,btnWen1",
+                    "props":{"y":844,"x":244,"width":58,"var":"btnWen1","texture":"gameimg/btnHelp.png","height":57},
+                    "nodeParent":54,
+                    "label":"btnWen1",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":93,
+                    "child":[
+                        ]
                 }],
             "$HIDDEN":false
         },

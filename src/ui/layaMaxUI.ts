@@ -41,6 +41,10 @@ export module ui {
 		public nav7_3_txt:Laya.Label;
 		public level_txt:Laya.Label;
 		public remark_txt:Laya.Label;
+		public nav7_2_1_txt:Laya.Label;
+		public mining_txt:Laya.Label;
+		public btnExchange:Laya.Image;
+		public nav7_4_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -284,10 +288,15 @@ export module ui {
 		public nav4_6_txt:Laya.Label;
 		public ethAmount_txt:Laya.Label;
 		public tokenAmount_txt:Laya.Label;
+		public ethIcon:Laya.Image;
+		public tokenIcon:Laya.Image;
 		public nav4_7_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
 		public nav4_8_txt:Laya.Label;
+		public tip_mc:Laya.Image;
+		public tip_txt:Laya.Label;
+		public btnWen1:Laya.Sprite;
 		public group1:Laya.Sprite;
 		public nav5_1_txt:Laya.Label;
 		public nav5_2_txt:Laya.Label;
@@ -365,6 +374,7 @@ export module ui {
 		public langSet_txt:Laya.Label;
 		public languageRadioGroup:Laya.RadioGroup;
 		public gas_txt:Laya.Label;
+		public languageCombo:Laya.ComboBox;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

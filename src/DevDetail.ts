@@ -11,15 +11,18 @@ export default class DevDetail extends ui.DevDetailUI {
     onEnable(): void {
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
+        this.btnExchange.on(Laya.Event.CLICK,this,this.exchange)
         this.onLanguage()
     }
-    
+    exchange=()=>{
+        Laya.Browser.window.location.href = LayaBlock.exchangeUrl
+    }
     onLanguage=()=>{
-        let arr=['nav7_1','nav7_2','nav7_3']
+        let arr=['nav7_1','nav7_2','nav7_2_1','nav7_3']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
-        }        
+        }
     }
 
     onDisable(): void {
@@ -31,7 +34,8 @@ export default class DevDetail extends ui.DevDetailUI {
     setData(d:IMachine):void{
         console.log('设备详情:',d)
         this.machine.skin='machine/m'+d.type +'_'+d.color+'.png';
-        this.load_txt.text=d.load+'/'+d.mining
+        this.load_txt.text=d.mining+''
+        this.mining_txt.text=d.mining+''
         this.level_txt.text=d.level+''
         this.remark_txt.text=d.remark
     }

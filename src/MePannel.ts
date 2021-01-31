@@ -22,7 +22,12 @@ export default class MePannel extends ui.MePannelUI {
     private dataBus:DataBus = DataBus.getDataBus(); 
     constructor() { super(); }
     
+    public setIcon():void{
+        //this.tokenIcon.skin=DataBus.userBase.tokenIcon;
+        //this.ethIcon.skin=DataBus.userBase.ethIcon;
+    }
     onEnable(): void {
+        this.on(Laya.Event.CLICK,this,this.thisClick)
         this.nick2_txt.visible=this.btnSetName.visible=false
         
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
@@ -33,6 +38,8 @@ export default class MePannel extends ui.MePannelUI {
         this.btn0.on(Laya.Event.CLICK,this,this.btnClick)
         this.btn1.on(Laya.Event.CLICK,this,this.btnClick)
         this.btn2.on(Laya.Event.CLICK,this,this.btnClick)
+        this.btnWen1.on(Laya.Event.CLICK,this,this.btnWenClick)
+        this.tip_mc.x=1000;
         this.group0.visible=true
         this.group1.visible=this.group2.visible=false
 
@@ -79,9 +86,19 @@ export default class MePannel extends ui.MePannelUI {
         Laya.stage.on(GameEvent.INCOME_MORE,this,this.onList1More)
         Laya.stage.on(GameEvent.COMMISSION_MORE,this,this.onList2More)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
-        this.onLanguage()
+        this.onLanguage()        
     }
     
+    btnWenClick=(e:Laya.Event)=>{
+        this.tip_mc.x=325;
+        this.tip_txt.text=DataBus.userBase.remark
+        e.stopPropagation()
+    }
+    thisClick=()=>{
+        if(this.tip_mc.x<1000){
+            this.tip_mc.x=1000
+        }
+    }
     onList1More=(e:IIncome)=>{
         this.playDetailPannel.loadData(e)
         this.playDetailPannel.visible=true        

@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":44,
+    "selecteID":75,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","height":1334,"color":"#ffdbbf"},
     "nodeParent":-1,
-    "maxID":75,
+    "maxID":76,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -244,7 +244,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
-            "props":{"y":709,"x":26},
+            "props":{"y":1369,"x":20},
             "nodeParent":2,
             "label":"Sprite",
             "isOpen":true,
@@ -338,6 +338,20 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"ComboBox",
+            "searchKey":"ComboBox,languageCombo",
+            "props":{"y":718,"x":27,"width":695,"var":"languageCombo","skin":"comp/combobox.png","labelSize":33,"labelPadding":"20,20,20,33","labelFont":"Microsoft YaHei","labelColors":"#956b50,#956b50,#956b50","itemSize":33,"itemColors":"#956b50,#956b50,#956b50","height":70},
+            "nodeParent":2,
+            "label":"languageCombo",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":75,
+            "child":[
+                ]
         }],
     "animations":[
         {

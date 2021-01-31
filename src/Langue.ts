@@ -54,6 +54,7 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_2: '载重：',
         nav7_2_1:'挖矿：',
         nav7_3: '等级：',
+        nav7_4: '交易',
 
         nav8_0: '派出记录',
         nav8_1: '总派出',
@@ -137,6 +138,7 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_2: 'Load:',
         nav7_2_1: 'Mining:',
         nav7_3: 'level:',
+        nav7_4: '交易',
         nav8_0: 'Dispatch record',
         nav8_1: 'Always dispatched',
         nav8_2: 'Total mining',
@@ -218,6 +220,7 @@ export default class Langue extends Laya.EventDispatcher {
         nav7_2: "적재량:",
         nav7_2_1: '마이닝:',
         nav7_3: "등급:",
+        nav7_4: '交易',
         nav8_0: '파견 기록',
         nav8_1: '항상 파견 됨',
         nav8_2: '총 채굴',

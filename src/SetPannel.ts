@@ -20,7 +20,9 @@ export default class SetPannel extends ui.SetPannelUI {
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.musicRadioGroup.on(Laya.Event.CHANGE,this,this.musicRadioGroupChange)
         this.soundRadioGroup.on(Laya.Event.CHANGE,this,this.soundRadioGroupChange)
-        this.languageRadioGroup.on(Laya.Event.CHANGE,this,this.languageRadioGroupChange)
+        this.languageRadioGroup.visible=false;
+        //this.languageRadioGroup.on(Laya.Event.CHANGE,this,this.languageRadioGroupChange)
+        this.languageCombo.on(Laya.Event.CHANGE,this,this.languageRadioGroupChange)
         this.init()
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()
@@ -41,6 +43,10 @@ export default class SetPannel extends ui.SetPannelUI {
         this.musicRadioGroup.selectedIndex=Number(Laya.LocalStorage.getItem('musicFlag'))
         this.soundRadioGroup.selectedIndex=Number(Laya.LocalStorage.getItem('soundFlag'))
         this.gas_txt.text='10.0'
+
+        var labels:Array<string>=['中文','English','한국어']
+        this.languageCombo.labels=labels.join()
+        this.languageCombo.selectedIndex=this.config[language]
     }
 
     musicRadioGroupChange():void{
@@ -63,7 +69,8 @@ export default class SetPannel extends ui.SetPannelUI {
 
     languageRadioGroupChange():void{
         console.log(this.languageRadioGroup.selectedIndex)
-        let lang:string=this.config[this.languageRadioGroup.selectedIndex]
+        //let lang:string=this.config[this.languageRadioGroup.selectedIndex]
+        let lang:string=this.config[this.languageCombo.selectedIndex]
         LayaBlock.setLanguage(lang)
         Langue.setLanguage(lang)
         //广播语言更改事件

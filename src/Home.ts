@@ -143,6 +143,13 @@ export default class Home extends ui.HomeUI{
             this.rank_txt.text=d.rank+''
         })
 
+        /*
+        LayaBlock.getUserBase().then((d:IUserBase)=>{
+            DataBus.userBase=d
+            this.mePannel.setIcon();
+        })
+        */
+
         LayaBlock.getAccount().then((d:string)=>{
             DataBus.account=d;
         })
