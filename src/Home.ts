@@ -129,7 +129,7 @@ export default class Home extends ui.HomeUI{
         LayaBlock.getMineData().then((d:IMine)=>{
             ////console.log(d,'矿山数据'+d.surplus+'/'+d.total)
             DataBus.mine=d;
-            this.mine_txt.text=d.surplus+'/'+d.total
+            this.mine_txt.text=(d.surplus/d.total*100).toFixed(2)+'%'
             this.mineProgress.scaleX=1-(0.13+(d.surplus/d.total)*0.87)
             this.shan.scaleY=(d.surplus/d.total)*0.9+0.1
         })

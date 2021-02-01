@@ -24,18 +24,20 @@ export default class ItemDev extends ui.ItemDevUI {
 
     public setItem(sn:number,itemData:any): void {
         this.sn=sn
-        var __scale=(ItemDev.WID-20)/ItemDev.machinaWid[itemData.type-1][0]
+        var __scale=(ItemDev.WID-40)/ItemDev.machinaWid[itemData.type-1][0]
         var __y=0.5*(ItemDev.HEI- ItemDev.machinaWid[itemData.type-1][1]*__scale)
         
         this.img.scaleX=this.img.scaleY=__scale
         this.img.y=__y;
+        this.img.x=20;
         this.img.skin ='machine/m'+itemData.type +'_'+itemData.color+'.png'; //"machine/m1_1.png"
+        this.bg.skin='gameimg/border'+itemData.color+'.png'
 
         if(itemData.selected){
-            this.bg.skin='gameimg/bg2.png'
+            //this.bg.skin='gameimg/bg2.png'
             this.btn.visible=true
         }else{
-            this.bg.skin='gameimg/bg1.png'
+            //this.bg.skin='gameimg/bg1.png'
             this.btn.visible=false
         }        
     }

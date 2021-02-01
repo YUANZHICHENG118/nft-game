@@ -7,6 +7,7 @@ export default class ItemRank extends ui.ItemRankUI{
     constructor() { super(); this.width=750;this.height=80;}
     
     onEnable(): void {
+        this.sn_txt.visible=this.snImg.visible=false;
         this.btn.on(Laya.Event.CLICK,this,this.btnClick)     
     }
 

@@ -580,17 +580,17 @@
 	    }
 	    setItem(sn, itemData) {
 	        this.sn = sn;
-	        var __scale = (ItemDev.WID - 20) / ItemDev.machinaWid[itemData.type - 1][0];
+	        var __scale = (ItemDev.WID - 40) / ItemDev.machinaWid[itemData.type - 1][0];
 	        var __y = 0.5 * (ItemDev.HEI - ItemDev.machinaWid[itemData.type - 1][1] * __scale);
 	        this.img.scaleX = this.img.scaleY = __scale;
 	        this.img.y = __y;
+	        this.img.x = 20;
 	        this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
+	        this.bg.skin = 'gameimg/border' + itemData.color + '.png';
 	        if (itemData.selected) {
-	            this.bg.skin = 'gameimg/bg2.png';
 	            this.btn.visible = true;
 	        }
 	        else {
-	            this.bg.skin = 'gameimg/bg1.png';
 	            this.btn.visible = false;
 	        }
 	    }
@@ -607,7 +607,7 @@
 	            Laya.Browser.window.location.href = LayaBlock.exchangeUrl;
 	        };
 	        this.onLanguage = () => {
-	            let arr = ['nav7_1', 'nav7_2', 'nav7_2_1', 'nav7_3'];
+	            let arr = ['nav7_1', 'nav7_2', 'nav7_2_1', 'nav7_3', 'nav7_4'];
 	            for (let i in arr) {
 	                let txtName = arr[i];
 	                this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
@@ -1039,31 +1039,6 @@
 	    }
 	}
 
-	class Util {
-	    constructor() {
-	    }
-	}
-	Util.getDateStrFormat = (date, format = 'Y-M-D h:m:s') => {
-	    format = format.replace('Y', date.getFullYear() + '');
-	    format = format.replace('M', Util.format_0n(date.getMonth() + 1));
-	    format = format.replace('D', Util.format_0n(date.getDate()));
-	    format = format.replace('h', Util.format_0n(date.getHours()));
-	    format = format.replace('m', Util.format_0n(date.getMinutes()));
-	    format = format.replace('s', Util.format_0n(date.getSeconds()));
-	    return format;
-	};
-	Util.getDateStrFormatByMs = (ms, format = 'Y-M-D h:m:s') => {
-	    let date = new Date(ms);
-	    return Util.getDateStrFormat(date, format);
-	};
-	Util.format_0n = (n) => {
-	    let str = n + '';
-	    if (n < 10) {
-	        str = '0' + n;
-	    }
-	    return str;
-	};
-
 	class ItemHelp extends ui.ItemHelpUI {
 	    constructor() { super(); this.width = 660; this.height = 220; }
 	    onEnable() {
@@ -1073,7 +1048,6 @@
 	    setItem(sn, itemData) {
 	        this.title_txt.text = itemData.title;
 	        this.content_txt.text = itemData.content;
-	        this.time_txt.text = Util.getDateStrFormatByMs(1000 * itemData.time);
 	    }
 	}
 
@@ -1535,6 +1509,31 @@
 	    }
 	}
 
+	class Util {
+	    constructor() {
+	    }
+	}
+	Util.getDateStrFormat = (date, format = 'Y-M-D h:m:s') => {
+	    format = format.replace('Y', date.getFullYear() + '');
+	    format = format.replace('M', Util.format_0n(date.getMonth() + 1));
+	    format = format.replace('D', Util.format_0n(date.getDate()));
+	    format = format.replace('h', Util.format_0n(date.getHours()));
+	    format = format.replace('m', Util.format_0n(date.getMinutes()));
+	    format = format.replace('s', Util.format_0n(date.getSeconds()));
+	    return format;
+	};
+	Util.getDateStrFormatByMs = (ms, format = 'Y-M-D h:m:s') => {
+	    let date = new Date(ms);
+	    return Util.getDateStrFormat(date, format);
+	};
+	Util.format_0n = (n) => {
+	    let str = n + '';
+	    if (n < 10) {
+	        str = '0' + n;
+	    }
+	    return str;
+	};
+
 	class NoticePannel extends ui.NoticePannelUI {
 	    constructor() {
 	        super();
@@ -1571,6 +1570,7 @@
 	class ItemRank extends ui.ItemRankUI {
 	    constructor() { super(); this.width = 750; this.height = 80; }
 	    onEnable() {
+	        this.sn_txt.visible = this.snImg.visible = false;
 	        this.btn.on(Laya.Event.CLICK, this, this.btnClick);
 	    }
 	    onDisable() {
@@ -1710,11 +1710,13 @@
 	        this.loading = true;
 	        if (this.rankType == 0) {
 	            this.loadData10();
+	            this.loadDataMe();
+	            this.loadDataLast();
 	            this.myItem.visible = this.lastItem.visible = true;
 	            this.list.y = this.itemY1;
 	        }
 	        else if (this.rankType == 1) {
-	            this.loadDataMe();
+	            this.loadData50();
 	            this.myItem.visible = this.lastItem.visible = true;
 	            this.list.y = this.itemY1;
 	        }
@@ -1937,7 +1939,7 @@
 	            this.timeoutOfLoadData = setTimeout(this.loadData, 5000);
 	            LayaBlock.getMineData().then((d) => {
 	                DataBus.mine = d;
-	                this.mine_txt.text = d.surplus + '/' + d.total;
+	                this.mine_txt.text = (d.surplus / d.total * 100).toFixed(2) + '%';
 	                this.mineProgress.scaleX = 1 - (0.13 + (d.surplus / d.total) * 0.87);
 	                this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
 	            });

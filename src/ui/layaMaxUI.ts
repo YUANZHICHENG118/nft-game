@@ -206,7 +206,6 @@ export module ui {
     export class ItemHelpUI extends View {
 		public title_txt:Laya.Label;
 		public content_txt:Laya.Label;
-		public time_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

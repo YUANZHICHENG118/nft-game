@@ -343,7 +343,7 @@
             "x":15,
             "type":"ComboBox",
             "searchKey":"ComboBox,languageCombo",
-            "props":{"y":718,"x":27,"width":695,"var":"languageCombo","skin":"comp/combobox.png","labelSize":33,"labelPadding":"20,20,20,33","labelFont":"Microsoft YaHei","labelColors":"#956b50,#956b50,#956b50","itemSize":33,"itemColors":"#956b50,#956b50,#956b50","height":70},
+            "props":{"y":718,"x":27,"width":695,"var":"languageCombo","skin":"comp/combobox.png","labelSize":33,"labelPadding":"20,20,20,33","labelFont":"Microsoft YaHei","labelColors":"#956b50,#956b50,#956b50","itemSize":33,"itemColors":"#956b50,#ffffff,#956b50","height":70},
             "nodeParent":2,
             "label":"languageCombo",
             "isDirectory":false,

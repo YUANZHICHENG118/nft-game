@@ -15,4 +15,5 @@
    <item name="comp/combobox.png" type="ComboBox" compress="0" pack="0" quality="80" props="sizeGrid=0,76,0,47" picType="0" scale="0"/>
    <item name="comp/textinput.png" type="TextInput" compress="0" pack="0" quality="80" props="sizeGrid=11,20,11,20" picType="0" scale="0"/>
    <item name="gameimg/numProgress.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=10,10,10,10" picType="0" scale="0"/>
+   <item name="gameimg/border1.png" type="Sprite" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
 </res>

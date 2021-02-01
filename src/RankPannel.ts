@@ -129,13 +129,13 @@ export default class RankPannel extends ui.RankPannelUI {
         
         if(this.rankType==0){
             this.loadData10()
-            //this.loadDataMe()
-            //this.loadDataLast()
+            this.loadDataMe()
+            this.loadDataLast()
             this.myItem.visible=this.lastItem.visible=true
             this.list.y=this.itemY1
         }else if(this.rankType==1){
-            //this.loadData50()
-            this.loadDataMe()
+            this.loadData50()
+            //this.loadDataMe()
             //this.loadDataLast()
             this.myItem.visible=this.lastItem.visible=true;
             this.list.y=this.itemY1
@@ -157,6 +157,7 @@ export default class RankPannel extends ui.RankPannelUI {
 
     loadDataLast():void{        
         this.dataBus.showLoading()
+
         LayaBlock.getLastStraw().then((d:ILastStraw)=>{
             this.loading=false
             this.dataBus.hideLoading()

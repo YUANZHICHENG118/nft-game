@@ -49,7 +49,14 @@ P 81F47862 bg2.png
 P 150DFCF6 bg3.png
 P 95C8B207 bg4.png
 P B1838A7A bird.png
+P 44E42FE6 border1.png
+P 807EB605 border2.png
+P 9C6FDD7C border3.png
+P CAEFCBF5 border4.png
+P 02258F1E border5.png
+P 471584B7 border6.png
 P 8476929A btn2.png
+P F69BEE66 btn3.png
 P CB57D570 btnBg.png
 P 10C19BFB btnbg3.png
 P E2367A20 btnBg4.png
@@ -91,7 +98,7 @@ R 4DDFB887 menuBarIcon.png
 P 89FCA272 more.png
 P 34037AEB numBg.png
 P 3BF9C01D numBg2.png
-P 54511074 numProgress.png
+P 6B1D58DA numProgress.png
 P 3D1FFBCC pannel.png
 P 5119C47F playBtn.png
 R 4531A46A rankbg0.png

@@ -15,6 +15,6 @@ export default class ItemHelp extends ui.ItemHelpUI {
     public setItem(sn:number,itemData:IHelp): void {
         this.title_txt.text=itemData.title
         this.content_txt.text=itemData.content
-        this.time_txt.text=Util.getDateStrFormatByMs(1000*itemData.time)
+        //this.time_txt.text=Util.getDateStrFormatByMs(1000*itemData.time)
     }
 }
