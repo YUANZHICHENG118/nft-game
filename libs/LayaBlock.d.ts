@@ -95,7 +95,7 @@ interface IMine {
     surplus: number,
 }
 
-//首页我的基础数据
+//我的基础数据
 interface IUserBase {
     /**
      * 昵称

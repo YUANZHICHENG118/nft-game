@@ -5,9 +5,9 @@ import Langue from "./Langue";
 import GameEvent from "./GameEvent";
 
 export default class DevDetail extends ui.DevDetailUI {
-    private dataBus:DataBus = DataBus.getDataBus(); 
+    private dataBus:DataBus = DataBus.getDataBus();
     constructor() { super(); }
-    
+
     onEnable(): void {
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
@@ -18,7 +18,7 @@ export default class DevDetail extends ui.DevDetailUI {
         Laya.Browser.window.location.href = LayaBlock.exchangeUrl
     }
     onLanguage=()=>{
-        let arr=['nav7_1','nav7_2','nav7_2_1','nav7_3']
+        let arr=['nav7_1','nav7_2','nav7_2_1','nav7_3','nav7_4']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
