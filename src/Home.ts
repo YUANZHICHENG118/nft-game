@@ -348,7 +348,8 @@ export default class Home extends ui.HomeUI{
                 this.devPannel.initList();
                 break;
             case this.btnExchange:
-                Laya.Browser.window.location.href = LayaBlock.exchangeUrl
+                //Laya.Browser.window.location.href = LayaBlock.exchangeUrl
+                eval('f1()')
                 break;
             case this.btnRank:
                 this.rankPannel.visible=true
