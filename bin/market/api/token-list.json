@@ -1,0 +1,43 @@
+{
+    "keywords": [
+        "Crypto Mine",
+        "defi"
+    ],
+    "logoURI": "https://app.cmblk.com/logo192.png",
+    "name": "CM Token List",
+    "timestamp": "2020-12-15T23:19:44.347Z",
+    "tokens": [
+        {
+            "address": "0x6c3f90f043a72fa612cbac8115ee7e52bde6e490",
+            "chainId": 1,
+            "decimals": 18,
+            "logoURI": "https://app.cmblk.com/images/CM-icon.png",
+            "name": "Crypto Mine",
+            "symbol": "CM"
+        },
+        {
+            "address": "0x0000000000000000000000000000000000000000",
+            "chainId": 1,
+            "decimals": 18,
+            "logoURI": "https://app.cmblk.com/images/ETH-icon.png",
+            "name": "Ethereum",
+            "symbol": "ETH"
+        },
+
+        {
+            "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "chainId": 1,
+            "decimals": 6,
+            "logoURI": "https://app.cmblk.com/images/USDT-icon.png",
+            "name": "Tether",
+            "symbol": "USDT"
+        }
+
+
+    ],
+    "version": {
+        "major": 0,
+        "minor": 0,
+        "patch": 0
+    }
+}

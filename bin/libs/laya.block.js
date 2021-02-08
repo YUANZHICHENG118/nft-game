@@ -3172,11 +3172,11 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 if (i === version) {
                     income["status"] = false;
 
-                } else if (ethReward === 0) {
+                } else if (ethReward === 0 && tokenReward === 0) {
                     income["status"] = false;
 
                 } else {
-                    income["status"] = !receive;
+                    income["status"] = !!receive;
                 }
 
 
