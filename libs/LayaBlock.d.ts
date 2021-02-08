@@ -364,6 +364,14 @@ interface ISelect{
     realLoad:number// 实际运走
 }
 
+interface IMarket{
+    symbol:string,// 交易币种
+    priceSymbol:string,// 定价币
+    price:number,// 价格
+    high:number, // 高
+    low:number,// 低
+    vol?:number// 量
+}
 /**
  * ETH区块链相关
  */
@@ -633,4 +641,12 @@ declare class LayaBlock {
      * @returns {ISelect}
      */
     static selectMachine(id:number, selected:boolean):ISelect
+
+    /**
+     * 市场数据
+     * @returns {IMarket}
+     */
+    static market():IMarket
+
+
 }
