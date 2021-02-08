@@ -28,7 +28,7 @@ export default class MePannel extends ui.MePannelUI {
     }
     onEnable(): void {
         this.on(Laya.Event.CLICK,this,this.thisClick)
-        this.nick2_txt.visible=this.btnSetName.visible=false
+        this.nick2_txt.visible=this.btnSetName.visible=this.lockPan_mc.visible=false;
         
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.btnCopyRef.on(Laya.Event.CLICK,this,this.copyRef)
@@ -39,6 +39,10 @@ export default class MePannel extends ui.MePannelUI {
         this.btn1.on(Laya.Event.CLICK,this,this.btnClick)
         this.btn2.on(Laya.Event.CLICK,this,this.btnClick)
         this.btnWen1.on(Laya.Event.CLICK,this,this.btnWenClick)
+        this.btnCloseLock.on(Laya.Event.CLICK,this,this.btnCloseLockClick)
+        this.btnUnLock.on(Laya.Event.CLICK,this,this.btnUnLockClick)
+        this.btnLock.on(Laya.Event.CLICK,this,this.btnLockClick)
+        this.btnOk.on(Laya.Event.CLICK,this,this.btnOkClick)
         this.tip_mc.x=1000;
         this.group0.visible=true
         this.group1.visible=this.group2.visible=false
@@ -88,7 +92,19 @@ export default class MePannel extends ui.MePannelUI {
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()        
     }
-    
+    btnOkClick=(e:Laya.Event)=>{
+        this.lockPan_mc.visible=false;
+        alert('btnOkClick'+this.lockNum2_txt.text)
+    }
+    btnLockClick=(e:Laya.Event)=>{
+        alert('btnLockClick')
+    }
+    btnUnLockClick=(e:Laya.Event)=>{
+        this.lockPan_mc.visible=true;
+    }
+    btnCloseLockClick=(e:Laya.Event)=>{
+        this.lockPan_mc.visible=false;
+    }
     btnWenClick=(e:Laya.Event)=>{
         this.tip_mc.x=325;
         this.tip_txt.text=DataBus.userBase.remark

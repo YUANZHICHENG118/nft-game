@@ -41,6 +41,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.selectAll_btn.on(Laya.Event.CHANGE,this,this.selectAllClick)
         this.auto_btn.on(Laya.Event.CLICK,this,this.autoClick)
         this.stakeTokenNft_btn.on(Laya.Event.CLICK,this,this.stakeTokenNft)
+        this.get_btn.on(Laya.Event.CLICK,this,this.getClick)
 
 
         //创建列表
@@ -75,11 +76,14 @@ export default class DevPannel extends ui.DevPannelUI {
     }
 
     onLanguage=()=>{
-        let arr=['nav1_3','nav1_4','nav1_5','nav1_6','nav1_7','nav1_8']
+        let arr=['nav1_3','nav1_4','nav1_5','nav1_6','nav1_7','nav1_8','nav1_9']
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
         }        
+    }
+    getClick(){
+        alert('getClick')
     }
     stakeTokenNft(){
         if(this.loading==true){

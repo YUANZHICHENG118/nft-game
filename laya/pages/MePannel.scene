@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":16,
-    "selecteID":95,
+    "selecteID":107,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":96,
+    "maxID":114,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -302,7 +302,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":603,"x":44,"presetID":8,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                    "props":{"y":603,"x":44,"width":662,"presetID":8,"preset":"laya/pages/prefab/BaseInfo.prefab","height":288},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
                     "isOpen":true,
@@ -315,7 +315,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,nav4_6_txt",
-                            "props":{"var":"nav4_6_txt","presetID":9,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "props":{"var":"nav4_6_txt","text":"资产：","presetID":9,"preset":"laya/pages/prefab/BaseInfo.prefab"},
                             "nodeParent":16,
                             "label":"nav4_6_txt",
                             "isDirectory":false,
@@ -380,13 +380,156 @@
                             "compId":95,
                             "child":[
                                 ]
-                        }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,lockNum_txt",
+                            "props":{"y":217.5,"x":27,"width":234,"var":"lockNum_txt","text":"锁仓：1000CM","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "nodeParent":16,
+                            "label":"lockNum_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":99,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Sprite",
+                            "searchKey":"Sprite,btnLock",
+                            "props":{"y":205,"x":486,"var":"btnLock","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "nodeParent":16,
+                            "label":"btnLock",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":103,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,nav4_6_2_txt",
+                                    "props":{"y":12,"x":0,"width":153,"var":"nav4_6_2_txt","text":"解锁","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab","height":30},
+                                    "nodeParent":103,
+                                    "label":"nav4_6_2_txt",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":104,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Sprite",
+                            "searchKey":"Sprite,btnUnLock",
+                            "props":{"y":207.5,"x":300.5,"var":"btnUnLock","presetID":14,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                            "nodeParent":16,
+                            "label":"btnUnLock",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":105,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,nav4_6_1_txt",
+                                    "props":{"y":12,"x":0,"width":153,"var":"nav4_6_1_txt","text":"锁仓","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab","height":30},
+                                    "nodeParent":105,
+                                    "label":"nav4_6_1_txt",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":106,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,lockPan_mc",
+                            "props":{"y":7.5,"x":9,"width":644,"var":"lockPan_mc","skin":"gameimg/bg1.png","height":269},
+                            "nodeParent":16,
+                            "label":"lockPan_mc",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":107,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"TextInput",
+                                    "searchKey":"TextInput,lockNum2_txt",
+                                    "props":{"y":22,"x":19,"width":605,"var":"lockNum2_txt","text":"0","skin":"comp/textinput.png","height":109,"fontSize":48},
+                                    "nodeParent":107,
+                                    "label":"lockNum2_txt",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":111,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,btnOk",
+                                    "props":{"y":171,"x":164,"width":316,"var":"btnOk","skin":"gameimg/btnbg3.png","height":78},
+                                    "nodeParent":107,
+                                    "label":"btnOk",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":112,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Label",
+                                            "searchKey":"Label,nav4_6_3_txt",
+                                            "props":{"y":24,"x":3,"width":309,"var":"nav4_6_3_txt","text":"确定","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab","height":30},
+                                            "nodeParent":112,
+                                            "label":"nav4_6_3_txt",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":110,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Sprite",
+                                    "searchKey":"Sprite,btnCloseLock",
+                                    "props":{"y":-24,"x":615,"width":50,"var":"btnCloseLock","texture":"gameimg/btnClose.png","height":50},
+                                    "nodeParent":107,
+                                    "label":"btnCloseLock",
+                                    "isOpen":true,
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":113,
+                                    "child":[
+                                        ]
+                                }],
+                            "$HIDDEN":false
+                        }],
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"presetID":11,"preset":"laya/pages/prefab/BaseInfo.prefab"},
+                    "props":{"y":921,"x":44,"width":662,"presetID":11,"preset":"laya/pages/prefab/BaseInfo.prefab","height":368},
                     "nodeParent":54,
                     "label":"Image(BaseInfo)",
                     "isOpen":true,
@@ -450,27 +593,13 @@
                                     "child":[
                                         ]
                                 }]
-                        },
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"presetID":16,"preset":"laya/pages/prefab/BaseInfo.prefab"},
-                            "nodeParent":19,
-                            "label":"Image(BaseInfo)",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":25,
-                            "child":[
-                                ]
                         }]
                 },
                 {
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,tip_mc",
-                    "props":{"y":836,"x":325,"width":371,"var":"tip_mc","skin":"gameimg/bg2.png","height":163},
+                    "props":{"y":932,"x":325,"width":371,"var":"tip_mc","skin":"gameimg/bg2.png","height":163},
                     "nodeParent":54,
                     "label":"tip_mc",
                     "isOpen":true,
@@ -498,7 +627,7 @@
                     "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,btnWen1",
-                    "props":{"y":844,"x":244,"width":58,"var":"btnWen1","texture":"gameimg/btnHelp.png","height":57},
+                    "props":{"y":940,"x":244,"width":58,"var":"btnWen1","texture":"gameimg/btnHelp.png","height":57},
                     "nodeParent":54,
                     "label":"btnWen1",
                     "isDirectory":false,

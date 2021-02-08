@@ -78,6 +78,8 @@ export module ui {
 		public total_txt:Laya.Label;
 		public nav1_3_txt:Laya.Label;
 		public selectAll_btn:Laya.CheckBox;
+		public get_btn:Laya.Image;
+		public nav1_9_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -289,6 +291,16 @@ export module ui {
 		public tokenAmount_txt:Laya.Label;
 		public ethIcon:Laya.Image;
 		public tokenIcon:Laya.Image;
+		public lockNum_txt:Laya.Label;
+		public btnLock:Laya.Sprite;
+		public nav4_6_2_txt:Laya.Label;
+		public btnUnLock:Laya.Sprite;
+		public nav4_6_1_txt:Laya.Label;
+		public lockPan_mc:Laya.Image;
+		public lockNum2_txt:Laya.TextInput;
+		public btnOk:Laya.Image;
+		public nav4_6_3_txt:Laya.Label;
+		public btnCloseLock:Laya.Sprite;
 		public nav4_7_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;

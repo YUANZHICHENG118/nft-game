@@ -346,6 +346,7 @@
 	    nav1_6: '总挖矿：',
 	    nav1_7: '总车辆：',
 	    nav1_8: '开始挖矿',
+	    nav1_9: '获取',
 	    nav3_0: '当前TOP10',
 	    nav3_1: '当前TOP50',
 	    nav3_2: '全网TOP50',
@@ -359,6 +360,9 @@
 	    nav4_4_1: '保存',
 	    nav4_5: '我的地址',
 	    nav4_6: '资产',
+	    nav4_6_1: '锁仓',
+	    nav4_6_2: '解锁',
+	    nav4_6_3: '确定',
 	    nav4_7: '邀请链接',
 	    nav4_8: '复制',
 	    nav5_1: '期数',
@@ -427,6 +431,7 @@
 	    nav1_6: 'mining',
 	    nav1_7: 'Total：',
 	    nav1_8: 'Start',
+	    nav1_9: 'Get',
 	    nav3_0: 'Current TOP10',
 	    nav3_1: 'Current TOP50',
 	    nav3_2: 'All TOP50',
@@ -440,6 +445,9 @@
 	    nav4_4_1: 'Save',
 	    nav4_5: 'My Address',
 	    nav4_6: 'Assets',
+	    nav4_6_1: '锁仓',
+	    nav4_6_2: '解锁',
+	    nav4_6_3: '确定',
 	    nav4_7: 'Referral',
 	    nav4_8: 'Copy',
 	    nav5_1: 'Round',
@@ -507,6 +515,7 @@
 	    nav1_6: '총 채굴',
 	    nav1_7: '총 차량',
 	    nav1_8: '채굴 시작',
+	    nav1_9: 'get',
 	    nav3_0: '현재 탑10',
 	    nav3_1: '현재 탑50',
 	    nav3_2: '전체 탑50',
@@ -520,6 +529,9 @@
 	    nav4_4_1: '확인',
 	    nav4_5: '나의 주소',
 	    nav4_6: '자산',
+	    nav4_6_1: '锁仓',
+	    nav4_6_2: '解锁',
+	    nav4_6_3: '确定',
 	    nav4_7: '추천링크',
 	    nav4_8: '복사',
 	    nav5_1: '회차',
@@ -684,7 +696,7 @@
 	            this.devDetail.setData(d);
 	        };
 	        this.onLanguage = () => {
-	            let arr = ['nav1_3', 'nav1_4', 'nav1_5', 'nav1_6', 'nav1_7', 'nav1_8'];
+	            let arr = ['nav1_3', 'nav1_4', 'nav1_5', 'nav1_6', 'nav1_7', 'nav1_8', 'nav1_9'];
 	            for (let i in arr) {
 	                let txtName = arr[i];
 	                this[txtName + '_txt'].text = Langue.defaultLangue[txtName];
@@ -705,6 +717,7 @@
 	        this.selectAll_btn.on(Laya.Event.CHANGE, this, this.selectAllClick);
 	        this.auto_btn.on(Laya.Event.CLICK, this, this.autoClick);
 	        this.stakeTokenNft_btn.on(Laya.Event.CLICK, this, this.stakeTokenNft);
+	        this.get_btn.on(Laya.Event.CLICK, this, this.getClick);
 	        this.list.itemRender = ItemDev;
 	        this.list.repeatX = 4;
 	        this.list.x = 50;
@@ -723,6 +736,9 @@
 	        this.devDetail.visible = false;
 	        this.addChild(this.devDetail);
 	        Laya.stage.on(GameEvent.DETAILE, this, this.onDetaile);
+	    }
+	    getClick() {
+	        alert('getClick');
 	    }
 	    stakeTokenNft() {
 	        if (this.loading == true) {
@@ -1324,6 +1340,19 @@
 	        this.itemX = 0;
 	        this.itemY = 42;
 	        this.dataBus = DataBus.getDataBus();
+	        this.btnOkClick = (e) => {
+	            this.lockPan_mc.visible = false;
+	            alert(this.lockNum2_txt.text);
+	        };
+	        this.btnLockClick = (e) => {
+	            alert('btnLockClick');
+	        };
+	        this.btnUnLockClick = (e) => {
+	            this.lockPan_mc.visible = true;
+	        };
+	        this.btnCloseLockClick = (e) => {
+	            this.lockPan_mc.visible = false;
+	        };
 	        this.btnWenClick = (e) => {
 	            this.tip_mc.x = 325;
 	            this.tip_txt.text = DataBus.userBase.remark;
@@ -1354,7 +1383,7 @@
 	    }
 	    onEnable() {
 	        this.on(Laya.Event.CLICK, this, this.thisClick);
-	        this.nick2_txt.visible = this.btnSetName.visible = false;
+	        this.nick2_txt.visible = this.btnSetName.visible = this.lockPan_mc.visible = false;
 	        this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
 	        this.btnCopyRef.on(Laya.Event.CLICK, this, this.copyRef);
 	        this.btnSetName.on(Laya.Event.CLICK, this, this.btnSetNameClick);
@@ -1363,6 +1392,10 @@
 	        this.btn1.on(Laya.Event.CLICK, this, this.btnClick);
 	        this.btn2.on(Laya.Event.CLICK, this, this.btnClick);
 	        this.btnWen1.on(Laya.Event.CLICK, this, this.btnWenClick);
+	        this.btnCloseLock.on(Laya.Event.CLICK, this, this.btnCloseLockClick);
+	        this.btnUnLock.on(Laya.Event.CLICK, this, this.btnUnLockClick);
+	        this.btnLock.on(Laya.Event.CLICK, this, this.btnLockClick);
+	        this.btnOk.on(Laya.Event.CLICK, this, this.btnOkClick);
 	        this.tip_mc.x = 1000;
 	        this.group0.visible = true;
 	        this.group1.visible = this.group2.visible = false;
@@ -1941,7 +1974,8 @@
 	                DataBus.mine = d;
 	                this.mine_txt.text = (d.surplus / d.total * 100).toFixed(2) + '%';
 	                this.mineProgress.scaleX = 1 - (0.13 + (d.surplus / d.total) * 0.87);
-	                this.shan.scaleY = (d.surplus / d.total) * 0.9 + 0.1;
+	                const __scaleY = (d.surplus / d.total) * 0.7 + 0.3;
+	                Laya.Tween.to(this.shan, { scaleY: __scaleY }, 1000);
 	            });
 	            LayaBlock.getUserMine().then((d) => {
 	                DataBus.userMine = d;
@@ -2006,7 +2040,6 @@
 	            this.mainEnd(lastStraw);
 	        };
 	        this.onLanguage = () => {
-	            this.gongGao_txt.text = Langue.defaultLangue.notice_0;
 	            let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4', 'waitTip'];
 	            for (let i in arr) {
 	                let txtName = arr[i];
@@ -2055,13 +2088,60 @@
 	            let timeLine = new TimeLine();
 	            let dy = 30;
 	            timeLine.addLabel("road1", 0).to(aniMachine, { x: 900, y: 814 + dy }, 4000, null, 0)
-	                .addLabel("road2", 0).to(aniMachine, { x: 800, y: 490 + dy, scaleX: 0.3, scaleY: 0.3, alpha: 1 }, 1000, null, 0)
-	                .addLabel("road3", 0).to(aniMachine, { x: 520, y: 440 + dy, scaleX: 0.2, scaleY: 0.2, alpha: 1 }, 4000, null, 0)
-	                .addLabel("road4", 0).to(aniMachine, { x: 400, y: 430 + dy, scaleX: 0.1, scaleY: 0.1, alpha: 1 }, 3000, null, 0)
-	                .addLabel("road5", 0).to(aniMachine, { x: 270, y: 380 + dy, scaleX: 0.06, scaleY: 0.06, alpha: 1 }, 6000, null, 0);
+	                .addLabel("road2", 0).to(aniMachine, {
+	                x: 800,
+	                y: 490 + dy,
+	                scaleX: 0.3,
+	                scaleY: 0.3,
+	                alpha: 1
+	            }, 1000, null, 0)
+	                .addLabel("road3", 0).to(aniMachine, {
+	                x: 520,
+	                y: 440 + dy,
+	                scaleX: 0.2,
+	                scaleY: 0.2,
+	                alpha: 1
+	            }, 4000, null, 0)
+	                .addLabel("road4", 0).to(aniMachine, {
+	                x: 400,
+	                y: 430 + dy,
+	                scaleX: 0.1,
+	                scaleY: 0.1,
+	                alpha: 1
+	            }, 3000, null, 0)
+	                .addLabel("road5", 0).to(aniMachine, {
+	                x: 270,
+	                y: 380 + dy,
+	                scaleX: 0.06,
+	                scaleY: 0.06,
+	                alpha: 1
+	            }, 6000, null, 0);
 	            timeLine.play(0, false);
 	            timeLine.on(Laya.Event.COMPLETE, this, this.onComplete);
 	            timeLine.on(Laya.Event.LABEL, this, this.onLabel);
+	        };
+	        this.showMarket = () => {
+	            let market = Laya.Browser.document.getElementById('market');
+	            if (market) {
+	                market.style.display = 'block';
+	                return;
+	            }
+	            let iframe = Laya.Browser.document.createElement("iframe");
+	            iframe.id = 'market';
+	            iframe.style.position = "absolute";
+	            iframe.style.zIndex = 100;
+	            iframe.style.left = "0px";
+	            iframe.style.top = "0px";
+	            iframe.style.width = '100%';
+	            iframe.style.height = '100%';
+	            iframe.style.border = '0px';
+	            iframe.src = "/market/index.html";
+	            Laya.Browser.document.body.appendChild(iframe);
+	        };
+	        this.hideMarket = () => {
+	            let market = Laya.Browser.document.getElementById('market');
+	            if (market)
+	                market.style.display = 'none';
 	        };
 	        this.testBlock = () => {
 	            LayaBlock.getTokenBalance().then((d) => {
@@ -2087,6 +2167,9 @@
 	        this.initUI();
 	        this.loadData();
 	        this.addEvt();
+	    }
+	    setNotice(msg) {
+	        this.gongGao_txt.text = msg;
 	    }
 	    onComplete() {
 	    }
@@ -2146,7 +2229,7 @@
 	                this.devPannel.initList();
 	                break;
 	            case this.btnExchange:
-	                eval('f1()');
+	                this.showMarket();
 	                break;
 	            case this.btnRank:
 	                this.rankPannel.visible = true;
