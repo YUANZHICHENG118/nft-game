@@ -2874,23 +2874,24 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 cars.map((item, index) => {
                     setTimeout(function () {
                         that.machineGo(item)
+                        if (that.mineSoundPlay) that.mineSoundPlay();
                     }, index * 1000);
                 })
-
-
-                setTimeout(() => {
-                    if (that.mineSoundPlay) that.mineSoundPlay();
-                }, 1100)
-
-
-                const _address = await this.getAccount()
-
-                if (address.toLowerCase() === _address.toLowerCase()) {
-                    setTimeout(() => {
-                        if (that.coinSoundPlay) that.coinSoundPlay();
-                    }, 10000)
-
-                }
+                //
+                //
+                // setTimeout(() => {
+                //     if (that.mineSoundPlay) that.mineSoundPlay();
+                // }, 1100)
+                //
+                //
+                // const _address = await this.getAccount()
+                //
+                // if (address.toLowerCase() === _address.toLowerCase()) {
+                //     setTimeout(() => {
+                //         if (that.coinSoundPlay) that.coinSoundPlay();
+                //     }, 10000)
+                //
+                // }
             }
 
         }
@@ -3134,6 +3135,17 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             console.log("this.selectData==", this.selectData)
 
             return {...this.selectData}
+        }
+
+        /**
+         * 市价
+         */
+        static market=()=>{
+            let symbol=this.erc20Token.symbol;
+            let market={symbol:symbol,priceSymbol:'ETH',high:10,low:5,vol:1000};
+            return new Promise(function (resolve, reject) {
+                resolve(market)
+            });
         }
 
         /**
@@ -4018,6 +4030,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
     exports.getHelp = LayaBlock.getHelp;
     exports.getCommission = LayaBlock.getCommission;
     exports.selectMachine = LayaBlock.selectMachine;
+    exports.market = LayaBlock.market;
 
     return exports;
 
