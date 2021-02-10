@@ -2,8 +2,10 @@ import GameEvent from "./GameEvent";
 import { ui } from "./ui/layaMaxUI";
 
 export default class ItemDev extends ui.ItemDevUI {
+    //public static WID: number = 147;
+    //public static HEI: number = 134;
     public static WID: number = 147;
-    public static HEI: number = 134;
+    public static HEI: number = 121;
     private static machinaWid:Array<Array<number>>=[[230,123],[293,209],[312,133]]
     private sn:number
     constructor() { super(); 
@@ -31,14 +33,14 @@ export default class ItemDev extends ui.ItemDevUI {
     public setItem(sn:number,itemData:any,flag:number=1): void {
         this.sn=sn
         var __scale=(ItemDev.WID-40)/ItemDev.machinaWid[itemData.type-1][0]
-        var __y=0.5*(ItemDev.HEI- ItemDev.machinaWid[itemData.type-1][1]*__scale)
+        var __y=(ItemDev.HEI- ItemDev.machinaWid[itemData.type-1][1]*__scale)-10
         
         this.img.scaleX=this.img.scaleY=__scale
         this.img.y=__y;
         this.img.x=20;
         this.img.skin ='machine/m'+itemData.type +'_'+itemData.color+'.png'; //"machine/m1_1.png"
         this.bg.skin='gameimg/border'+itemData.color+'.png'
-        this.balance_txt.text=itemData.balance
+        this.balance_txt.text='×'+itemData.balance
 
         if(flag==1){
             if(itemData.selected){

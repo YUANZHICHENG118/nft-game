@@ -600,13 +600,13 @@
 	    setItem(sn, itemData, flag = 1) {
 	        this.sn = sn;
 	        var __scale = (ItemDev.WID - 40) / ItemDev.machinaWid[itemData.type - 1][0];
-	        var __y = 0.5 * (ItemDev.HEI - ItemDev.machinaWid[itemData.type - 1][1] * __scale);
+	        var __y = (ItemDev.HEI - ItemDev.machinaWid[itemData.type - 1][1] * __scale) - 10;
 	        this.img.scaleX = this.img.scaleY = __scale;
 	        this.img.y = __y;
 	        this.img.x = 20;
 	        this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
 	        this.bg.skin = 'gameimg/border' + itemData.color + '.png';
-	        this.balance_txt.text = itemData.balance;
+	        this.balance_txt.text = '×' + itemData.balance;
 	        if (flag == 1) {
 	            if (itemData.selected) {
 	                this.more_btn.visible = true;
@@ -623,7 +623,7 @@
 	    }
 	}
 	ItemDev.WID = 147;
-	ItemDev.HEI = 134;
+	ItemDev.HEI = 121;
 	ItemDev.machinaWid = [[230, 123], [293, 209], [312, 133]];
 
 	class DevDetail extends ui.DevDetailUI {
@@ -759,9 +759,6 @@
 	        this.btnColorArr = [this.color1, this.color2, this.color3, this.color4, this.color5, this.color6];
 	        this.devArr = [this.btnDev1, this.btnDev2, this.btnDev3];
 	        this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
-	        this.btnDev1.on(Laya.Event.CLICK, this, this.btnDevClick);
-	        this.btnDev2.on(Laya.Event.CLICK, this, this.btnDevClick);
-	        this.btnDev3.on(Laya.Event.CLICK, this, this.btnDevClick);
 	        this.sort_btn.on(Laya.Event.CLICK, this, this.sortClick);
 	        this.addClose_btn.on(Laya.Event.CLICK, this, this.addCloseClick);
 	        this.btnOk.on(Laya.Event.CLICK, this, this.btnOkClick);
@@ -775,8 +772,8 @@
 	        this.list.itemRender = ItemDev;
 	        this.list.repeatX = 3;
 	        this.list.x = 50;
-	        this.list.y = 423;
-	        this.list.height = 620;
+	        this.list.y = 197;
+	        this.list.height = 900;
 	        this.list.spaceX = 100;
 	        this.list.spaceY = 20;
 	        this.list.vScrollBarSkin = "";

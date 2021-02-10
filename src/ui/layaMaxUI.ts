@@ -60,6 +60,14 @@ export module ui {
 		public btnDev3:Laya.Image;
 		public stakeTokenNft_btn:Laya.Image;
 		public nav1_8_txt:Laya.Label;
+		public get_btn:Laya.Image;
+		public nav1_9_txt:Laya.Label;
+		public addDev_mc:Laya.Image;
+		public addNum_txt:Laya.TextInput;
+		public btnOk:Laya.Image;
+		public nav4_6_3_txt:Laya.Label;
+		public addClose_btn:Laya.Sprite;
+		public addTitle_txt:Laya.Label;
 		public sort_btn:Laya.Sprite;
 		public nav1_1_txt:Laya.Label;
 		public color1:Laya.Sprite;
@@ -70,22 +78,14 @@ export module ui {
 		public color6:Laya.Sprite;
 		public nav1_4_txt:Laya.Label;
 		public auto_btn:Laya.CheckBox;
+		public nav1_3_txt:Laya.Label;
+		public selectAll_btn:Laya.CheckBox;
 		public nav1_5_txt:Laya.Label;
 		public sumLoad_txt:Laya.Label;
 		public nav1_6_txt:Laya.Label;
 		public sumMining_txt:Laya.Label;
 		public nav1_7_txt:Laya.Label;
 		public total_txt:Laya.Label;
-		public nav1_3_txt:Laya.Label;
-		public selectAll_btn:Laya.CheckBox;
-		public get_btn:Laya.Image;
-		public nav1_9_txt:Laya.Label;
-		public addDev_mc:Laya.Image;
-		public addNum_txt:Laya.TextInput;
-		public btnOk:Laya.Image;
-		public nav4_6_3_txt:Laya.Label;
-		public addClose_btn:Laya.Sprite;
-		public addTitle_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -193,9 +193,9 @@ export module ui {
     export class ItemDevUI extends View {
 		public bg:Laya.Image;
 		public img:Laya.Image;
-		public balance_txt:Laya.Text;
 		public more_btn:Laya.Sprite;
 		public del_btn:Laya.Sprite;
+		public balance_txt:Laya.Text;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

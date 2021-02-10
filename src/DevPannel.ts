@@ -34,9 +34,9 @@ export default class DevPannel extends ui.DevPannelUI {
         this.devArr=[this.btnDev1,this.btnDev2,this.btnDev3]
 
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
-        this.btnDev1.on(Laya.Event.CLICK,this,this.btnDevClick)
-        this.btnDev2.on(Laya.Event.CLICK,this,this.btnDevClick)
-        this.btnDev3.on(Laya.Event.CLICK,this,this.btnDevClick)
+        //this.btnDev1.on(Laya.Event.CLICK,this,this.btnDevClick)
+        //this.btnDev2.on(Laya.Event.CLICK,this,this.btnDevClick)
+        //this.btnDev3.on(Laya.Event.CLICK,this,this.btnDevClick)
         this.sort_btn.on(Laya.Event.CLICK,this,this.sortClick)
         this.addClose_btn.on(Laya.Event.CLICK,this,this.addCloseClick)
         this.btnOk.on(Laya.Event.CLICK,this,this.btnOkClick)
@@ -56,8 +56,8 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list.repeatX = 3;
         //this.list.repeatY = 4;
         this.list.x = 50;
-        this.list.y = 423;
-        this.list.height=620;
+        this.list.y = 197;
+        this.list.height=900;
         this.list.spaceX=100;
         this.list.spaceY=20;
         //使用但隐藏滚动条
