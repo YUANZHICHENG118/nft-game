@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":86,
-    "selecteID":87,
+    "selectedBox":2,
+    "selecteID":113,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"DevPannel.ts","height":1333},
     "nodeParent":-1,
-    "maxID":88,
+    "maxID":114,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -34,20 +34,19 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,devPanel",
-            "props":{"y":20,"x":19,"var":"devPanel","height":1123},
+            "props":{"y":20,"x":19,"width":730,"var":"devPanel","height":1308},
             "nodeParent":2,
             "label":"devPanel",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":3,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"width":709,"skin":"gameimg/pannel.png","height":1123},
+                    "props":{"y":0,"x":0,"width":709,"skin":"gameimg/pannel.png","height":1300},
                     "nodeParent":3,
                     "label":"Image",
                     "isDirectory":false,
@@ -58,7 +57,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,btnClose",
                     "props":{"y":-15,"x":680,"width":50,"var":"btnClose","texture":"gameimg/btnClose.png","height":50},
@@ -160,7 +158,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,stakeTokenNft_btn",
-            "props":{"y":1046,"x":36,"width":325,"var":"stakeTokenNft_btn","skin":"gameimg/btnBg4.png","height":97},
+            "props":{"y":1216,"x":36,"width":325,"var":"stakeTokenNft_btn","skin":"gameimg/btnBg4.png","height":97},
             "nodeParent":2,
             "label":"stakeTokenNft_btn",
             "isOpen":true,
@@ -192,14 +190,13 @@
             "props":{"y":238,"x":63,"width":153,"var":"sort_btn","texture":"gameimg/btnbg3.png","height":51},
             "nodeParent":2,
             "label":"sort_btn",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":18,
             "child":[
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav1_1_txt",
                     "props":{"y":8,"x":1,"width":151,"var":"nav1_1_txt","valign":"middle","text":"低 → 高","strokeColor":"#954f03","stroke":4,"height":36,"fontSize":26,"font":"Microsoft YaHei","color":"#fffdfd","align":"center"},
@@ -361,14 +358,13 @@
             "props":{"y":145,"x":618,"var":"color6","presetID":1,"preset":"laya/assets/DuiGou.prefab"},
             "nodeParent":2,
             "label":"DuiGou",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":44,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"presetID":2,"preset":"laya/assets/DuiGou.prefab"},
@@ -526,8 +522,22 @@
         {
             "x":15,
             "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":1051,"x":27,"width":694,"skin":"gameimg/bg2.png","height":166},
+            "nodeParent":2,
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":113,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
             "searchKey":"Image,get_btn",
-            "props":{"y":1046,"x":390.5,"width":325,"var":"get_btn","skin":"gameimg/btnBg4.png","height":97},
+            "props":{"y":1216,"x":390.5,"width":325,"var":"get_btn","skin":"gameimg/btnBg4.png","height":97},
             "nodeParent":2,
             "label":"get_btn",
             "isOpen":true,
@@ -547,6 +557,87 @@
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":87,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,addDev_mc",
+            "props":{"y":581,"x":49,"width":644,"var":"addDev_mc","skin":"gameimg/bg2.png","height":322},
+            "nodeParent":2,
+            "label":"addDev_mc",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":106,
+            "child":[
+                {
+                    "type":"TextInput",
+                    "searchKey":"TextInput,addNum_txt",
+                    "props":{"y":82,"x":19,"width":605,"var":"addNum_txt","text":"0","skin":"comp/textinput.png","height":109,"fontSize":48},
+                    "nodeParent":106,
+                    "label":"addNum_txt",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":107,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Image",
+                    "searchKey":"Image,btnOk",
+                    "props":{"y":221,"x":164,"width":316,"var":"btnOk","skin":"gameimg/btnbg3.png","height":78},
+                    "nodeParent":106,
+                    "label":"btnOk",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":108,
+                    "child":[
+                        {
+                            "type":"Label",
+                            "searchKey":"Label,nav4_6_3_txt",
+                            "props":{"y":24,"x":3,"width":309,"var":"nav4_6_3_txt","text":"确定","presetID":15,"preset":"laya/pages/prefab/BaseInfo.prefab","height":30},
+                            "nodeParent":108,
+                            "label":"nav4_6_3_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":109,
+                            "child":[
+                                ]
+                        }]
+                },
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite,addClose_btn",
+                    "props":{"y":-24,"x":615,"width":50,"var":"addClose_btn","texture":"gameimg/btnClose.png","height":50},
+                    "nodeParent":106,
+                    "label":"addClose_btn",
+                    "isOpen":true,
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":110,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Label",
+                    "searchKey":"Label,addTitle_txt",
+                    "props":{"y":26,"x":19,"width":604,"var":"addTitle_txt","text":"增加派出数量","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"left"},
+                    "nodeParent":106,
+                    "label":"addTitle_txt",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":111,
                     "child":[
                         ]
                 }],

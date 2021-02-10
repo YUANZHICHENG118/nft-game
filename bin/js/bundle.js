@@ -262,6 +262,7 @@
 	GameEvent.CLOSE_PANNEL = 'closePannel';
 	GameEvent.LANGUAGE_CHANGE = 'languageChange';
 	GameEvent.DETAILE = 'detaile';
+	GameEvent.DEL = 'del';
 	GameEvent.RANK_MORE = 'rankMore';
 	GameEvent.COMMISSION_MORE = 'commissionMore';
 	GameEvent.INCOME_MORE = 'incomeMove';
@@ -582,15 +583,21 @@
 	        this.size(ItemDev.WID, ItemDev.HEI);
 	    }
 	    onEnable() {
-	        this.btn.on(Laya.Event.CLICK, this, this.btnClick);
+	        this.del_btn.visible = false;
+	        this.more_btn.on(Laya.Event.CLICK, this, this.moreClick);
+	        this.del_btn.on(Laya.Event.CLICK, this, this.delClick);
 	    }
-	    btnClick(event) {
+	    moreClick(event) {
 	        Laya.stage.event(GameEvent.DETAILE, this.sn);
+	        event.stopPropagation();
+	    }
+	    delClick(event) {
+	        Laya.stage.event(GameEvent.DEL, this.sn);
 	        event.stopPropagation();
 	    }
 	    onDisable() {
 	    }
-	    setItem(sn, itemData) {
+	    setItem(sn, itemData, flag = 1) {
 	        this.sn = sn;
 	        var __scale = (ItemDev.WID - 40) / ItemDev.machinaWid[itemData.type - 1][0];
 	        var __y = 0.5 * (ItemDev.HEI - ItemDev.machinaWid[itemData.type - 1][1] * __scale);
@@ -599,11 +606,19 @@
 	        this.img.x = 20;
 	        this.img.skin = 'machine/m' + itemData.type + '_' + itemData.color + '.png';
 	        this.bg.skin = 'gameimg/border' + itemData.color + '.png';
-	        if (itemData.selected) {
-	            this.btn.visible = true;
+	        this.balance_txt.text = itemData.balance;
+	        if (flag == 1) {
+	            if (itemData.selected) {
+	                this.more_btn.visible = true;
+	            }
+	            else {
+	                this.more_btn.visible = false;
+	            }
+	            this.del_btn.visible = false;
 	        }
-	        else {
-	            this.btn.visible = false;
+	        else if (flag == 2) {
+	            this.del_btn.visible = true;
+	            this.more_btn.visible = false;
 	        }
 	    }
 	}
@@ -686,14 +701,51 @@
 	        this.devArr = [];
 	        this.btnColorArr = [];
 	        this.list = new List();
+	        this.list2 = new List();
 	        this.hasInitList = false;
 	        this.dataBus = DataBus.getDataBus();
 	        this.devDetail = new DevDetail();
 	        this.loading = false;
+	        this.curMax = 0;
+	        this.curDevIndex = 0;
+	        this.addCloseClick = (e) => {
+	            this.addDev_mc.visible = false;
+	        };
+	        this.btnOkClick = (e) => {
+	            this.addDev_mc.visible = false;
+	            var addNum = Number(this.addNum_txt.text);
+	            if (addNum > this.curMax) {
+	                alert('不能超过' + this.curMax);
+	                return;
+	            }
+	            if (addNum < 0) {
+	                alert('不能小于0');
+	                return;
+	            }
+	            this.listData[this.curDevIndex].balance -= addNum;
+	            this.listData2[this.curDevIndex].balance += addNum;
+	            this.list.array = this.listData;
+	            this.listData2Simple = this.listData2.filter((item) => {
+	                return item.balance > 0;
+	            });
+	            this.list2.array = this.listData2Simple;
+	        };
 	        this.onDetaile = (e) => {
 	            this.devDetail.visible = true;
 	            let d = this.listData0[e];
 	            this.devDetail.setData(d);
+	        };
+	        this.onDel = (e) => {
+	            console.log(e);
+	            let addNum = this.listData2Simple[e].balance;
+	            let __index = this.listData2Simple[e].index;
+	            this.listData[__index].balance += addNum;
+	            this.listData2[__index].balance = 0;
+	            this.list.array = this.listData;
+	            this.listData2Simple = this.listData2.filter((item) => {
+	                return item.balance > 0;
+	            });
+	            this.list2.array = this.listData2Simple;
 	        };
 	        this.onLanguage = () => {
 	            let arr = ['nav1_3', 'nav1_4', 'nav1_5', 'nav1_6', 'nav1_7', 'nav1_8', 'nav1_9'];
@@ -711,6 +763,8 @@
 	        this.btnDev2.on(Laya.Event.CLICK, this, this.btnDevClick);
 	        this.btnDev3.on(Laya.Event.CLICK, this, this.btnDevClick);
 	        this.sort_btn.on(Laya.Event.CLICK, this, this.sortClick);
+	        this.addClose_btn.on(Laya.Event.CLICK, this, this.addCloseClick);
+	        this.btnOk.on(Laya.Event.CLICK, this, this.btnOkClick);
 	        for (let i in this.btnColorArr) {
 	            this.btnColorArr[i].on(Laya.Event.CLICK, this, this.btnColorClick);
 	        }
@@ -719,23 +773,38 @@
 	        this.stakeTokenNft_btn.on(Laya.Event.CLICK, this, this.stakeTokenNft);
 	        this.get_btn.on(Laya.Event.CLICK, this, this.getClick);
 	        this.list.itemRender = ItemDev;
-	        this.list.repeatX = 4;
+	        this.list.repeatX = 3;
 	        this.list.x = 50;
 	        this.list.y = 423;
-	        this.list.height = 600;
-	        this.list.spaceX = 20;
+	        this.list.height = 620;
+	        this.list.spaceX = 100;
 	        this.list.spaceY = 20;
 	        this.list.vScrollBarSkin = "";
 	        this.list.selectEnable = true;
 	        this.list.selectHandler = new Handler(this, this.onSelect);
 	        this.list.renderHandler = new Handler(this, this.updateItem);
 	        this.addChild(this.list);
+	        this.list2.itemRender = ItemDev;
+	        this.list2.repeatY = 1;
+	        this.list2.x = 50;
+	        this.list2.y = 1069;
+	        this.list2.height = 150;
+	        this.list2.width = 635;
+	        this.list2.spaceX = 20;
+	        this.list2.spaceY = 20;
+	        this.list2.hScrollBarSkin = "";
+	        this.list2.selectEnable = true;
+	        this.list2.renderHandler = new Handler(this, this.updateItem2);
+	        this.addChild(this.list2);
+	        this.list2.array = [];
 	        this.stakeTokenNft_btn.disabled = false;
 	        this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
 	        this.onLanguage();
-	        this.devDetail.visible = false;
+	        this.addDev_mc.visible = this.devDetail.visible = false;
 	        this.addChild(this.devDetail);
+	        this.addChild(this.addDev_mc);
 	        Laya.stage.on(GameEvent.DETAILE, this, this.onDetaile);
+	        Laya.stage.on(GameEvent.DEL, this, this.onDel);
 	    }
 	    getClick() {
 	        alert('getClick');
@@ -744,24 +813,18 @@
 	        if (this.loading == true) {
 	            return;
 	        }
-	        var machineNum = 0;
-	        var obj = {};
-	        for (var i in this.listData) {
-	            if (this.listData[i].selected == true) {
-	                machineNum++;
-	                let id = this.listData[i].id;
-	                if (obj[id]) {
-	                    obj[id] += 1;
-	                }
-	                else {
-	                    obj[id] = 1;
-	                }
-	            }
-	        }
-	        if (machineNum == 0) {
+	        if (this.listData2Simple.length == 0) {
 	            alert(Langue.defaultLangue.alert1);
 	            return;
 	        }
+	        var obj = {};
+	        for (var i in this.listData2Simple) {
+	            let id = this.listData2Simple[i].id;
+	            obj[id] = this.listData2Simple[i].balance;
+	        }
+	        this.listData2Simple = [];
+	        this.list2.array = [];
+	        console.log('派出数据：', obj);
 	        this.dataBus.showLoading();
 	        this.loading = true;
 	        LayaBlock.stakeTokenNft(obj, (d) => {
@@ -831,10 +894,14 @@
 	            console.log('设备列表：', d);
 	            this.listData0 = d;
 	            this.listData = [];
+	            this.listData2 = [];
 	            for (let i in d) {
-	                this.listData.push({ id: d[i].id, type: d[i].type, color: d[i].color, selected: false });
+	                this.listData.push({ index: i, id: d[i].id, balance: d[i].balance, type: d[i].type, color: d[i].color, selected: false });
+	                this.listData2.push({ index: i, id: d[i].id, balance: 0, type: d[i].type, color: d[i].color, selected: false });
 	            }
 	            this.list.array = this.listData;
+	            console.log('★this.listData2:', this.listData2);
+	            this.list2.array = this.listData2Simple;
 	            if (this.listData.length == 0) {
 	                let tipPannel = new TipPannel();
 	                tipPannel.msg = Langue.defaultLangue.t10;
@@ -849,9 +916,17 @@
 	    updateItem(cell, index) {
 	        cell.setItem(index, this.listData[index]);
 	    }
+	    updateItem2(cell, index) {
+	        cell.setItem(index, this.listData2Simple[index], 2);
+	    }
 	    onSelect(index) {
 	        this.listData[index].selected = !this.listData[index].selected;
 	        this.updateSum(this.listData[index]);
+	        this.addDev_mc.visible = true;
+	        this.addNum_txt.text = '';
+	        this.addTitle_txt.text = '请输入派出数量,最多' + this.listData[index].balance;
+	        this.curMax = this.listData[index].balance;
+	        this.curDevIndex = index;
 	    }
 	    updateSum(car) {
 	        let selectData = { load: 0, mining: 0, total: 0, realLoad: 0 };
@@ -1342,7 +1417,7 @@
 	        this.dataBus = DataBus.getDataBus();
 	        this.btnOkClick = (e) => {
 	            this.lockPan_mc.visible = false;
-	            alert(this.lockNum2_txt.text);
+	            alert('btnOkClick' + this.lockNum2_txt.text);
 	        };
 	        this.btnLockClick = (e) => {
 	            alert('btnLockClick');
@@ -2222,7 +2297,6 @@
 	    }
 	    menuClick(e) {
 	        let curBtn = e.currentTarget;
-	        this.selectBg.x = curBtn.x;
 	        switch (curBtn) {
 	            case this.btnDevice:
 	                this.devPannel.visible = true;

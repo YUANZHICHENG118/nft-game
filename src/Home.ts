@@ -377,7 +377,7 @@ export default class Home extends ui.HomeUI {
 
     menuClick(e: Laya.Event): void {
         let curBtn: Laya.Sprite = e.currentTarget as Laya.Sprite;
-        this.selectBg.x = curBtn.x
+        //this.selectBg.x = curBtn.x
         switch (curBtn) {
             case this.btnDevice:
                 this.devPannel.visible = true;

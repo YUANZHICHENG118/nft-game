@@ -80,6 +80,12 @@ export module ui {
 		public selectAll_btn:Laya.CheckBox;
 		public get_btn:Laya.Image;
 		public nav1_9_txt:Laya.Label;
+		public addDev_mc:Laya.Image;
+		public addNum_txt:Laya.TextInput;
+		public btnOk:Laya.Image;
+		public nav4_6_3_txt:Laya.Label;
+		public addClose_btn:Laya.Sprite;
+		public addTitle_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -187,7 +193,9 @@ export module ui {
     export class ItemDevUI extends View {
 		public bg:Laya.Image;
 		public img:Laya.Image;
-		public btn:Laya.Sprite;
+		public balance_txt:Laya.Text;
+		public more_btn:Laya.Sprite;
+		public del_btn:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
