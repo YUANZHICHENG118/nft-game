@@ -3720,9 +3720,9 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
                 let i = index + 1;
 
-                machine['id'] = i;
-                machine={...this.getMachineAttribute(i)}
-                machine['balance'] =parseInt(item);
+                //machine['id'] = i;
+                machine={id:i,balance:parseInt(item),...this.getMachineAttribute(i)}
+                //machine['balance'] =parseInt(item);
                 //machine['balance'] = parseInt(item);
                 if(i<=6){
                     a.push(machine)
