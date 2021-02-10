@@ -193,9 +193,9 @@ export module ui {
     export class ItemDevUI extends View {
 		public bg:Laya.Image;
 		public img:Laya.Image;
+		public balance_txt:Laya.Text;
 		public more_btn:Laya.Sprite;
 		public del_btn:Laya.Sprite;
-		public balance_txt:Laya.Text;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

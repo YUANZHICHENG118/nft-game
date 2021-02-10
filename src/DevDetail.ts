@@ -32,11 +32,14 @@ export default class DevDetail extends ui.DevDetailUI {
         this.visible=false;
     }
     setData(d:IMachine):void{
+        let posY=[0,196,148,196]
         console.log('设备详情:',d)
         this.machine.skin='machine/m'+d.type +'_'+d.color+'.png';
         this.load_txt.text=d.mining+''
         this.mining_txt.text=d.mining+''
         this.level_txt.text=d.level+''
         this.remark_txt.text=d.remark
+        this.machine.y=posY[d.type]
+        console.log('y',posY[d.type])
     }
 }

@@ -653,12 +653,15 @@
 	        this.visible = false;
 	    }
 	    setData(d) {
+	        let posY = [0, 196, 148, 196];
 	        console.log('设备详情:', d);
 	        this.machine.skin = 'machine/m' + d.type + '_' + d.color + '.png';
 	        this.load_txt.text = d.mining + '';
 	        this.mining_txt.text = d.mining + '';
 	        this.level_txt.text = d.level + '';
 	        this.remark_txt.text = d.remark;
+	        this.machine.y = posY[d.type];
+	        console.log('y', posY[d.type]);
 	    }
 	}
 
@@ -772,7 +775,7 @@
 	        this.list.itemRender = ItemDev;
 	        this.list.repeatX = 3;
 	        this.list.x = 50;
-	        this.list.y = 197;
+	        this.list.y = 125;
 	        this.list.height = 900;
 	        this.list.spaceX = 100;
 	        this.list.spaceY = 20;
@@ -798,8 +801,8 @@
 	        this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage);
 	        this.onLanguage();
 	        this.addDev_mc.visible = this.devDetail.visible = false;
-	        this.addChild(this.devDetail);
 	        this.addChild(this.addDev_mc);
+	        this.addChild(this.devDetail);
 	        Laya.stage.on(GameEvent.DETAILE, this, this.onDetaile);
 	        Laya.stage.on(GameEvent.DEL, this, this.onDel);
 	    }

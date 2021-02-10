@@ -2,7 +2,7 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":106,
+    "selecteID":114,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"DevPannel.ts","height":1333},
     "nodeParent":-1,
@@ -119,14 +119,13 @@
             "props":{"y":1216,"x":36,"width":325,"var":"stakeTokenNft_btn","skin":"gameimg/btnBg4.png","height":97},
             "nodeParent":2,
             "label":"stakeTokenNft_btn",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":17,
             "child":[
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav1_8_txt",
                     "props":{"y":31,"x":16,"width":289,"var":"nav1_8_txt","valign":"middle","text":"开始挖矿","height":36,"fontSize":33,"font":"Microsoft YaHei","color":"#fffdfd","align":"center"},
@@ -153,7 +152,8 @@
             "hasChild":false,
             "compId":113,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -162,14 +162,13 @@
             "props":{"y":1216,"x":390.5,"width":325,"var":"get_btn","skin":"gameimg/btnBg4.png","height":97},
             "nodeParent":2,
             "label":"get_btn",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":86,
             "child":[
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav1_9_txt",
                     "props":{"y":31,"x":16,"width":289,"var":"nav1_9_txt","valign":"middle","text":"领取","height":36,"fontSize":33,"font":"Microsoft YaHei","color":"#fffdfd","align":"center"},
@@ -550,19 +549,20 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
-            "props":{"y":120,"x":21},
+            "props":{"y":979,"x":19,"width":709,"height":69},
             "nodeParent":2,
             "label":"Sprite",
-            "isOpen":null,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":115,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"width":705,"skin":"gameimg/bg4.png","height":69},
+                    "props":{"y":0,"x":0,"width":709,"skin":"gameimg/bg4.png","height":69},
                     "nodeParent":115,
                     "label":"Image",
                     "isDirectory":false,
@@ -573,6 +573,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav1_5_txt",
                     "props":{"y":20,"x":9,"width":105,"var":"nav1_5_txt","text":"总载重:","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"right"},
@@ -586,6 +587,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,sumLoad_txt",
                     "props":{"y":22,"x":119,"width":105,"var":"sumLoad_txt","text":"0","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61"},
@@ -599,6 +601,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav1_6_txt",
                     "props":{"y":20,"x":226,"width":105,"var":"nav1_6_txt","text":"总挖矿:","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"right"},
@@ -612,6 +615,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,sumMining_txt",
                     "props":{"y":22,"x":338,"width":139,"var":"sumMining_txt","text":"0","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61"},
@@ -625,6 +629,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,nav1_7_txt",
                     "props":{"y":20,"x":437,"width":128,"var":"nav1_7_txt","text":"总车辆：","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61","align":"right"},
@@ -638,6 +643,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,total_txt",
                     "props":{"y":22,"x":565,"width":139,"var":"total_txt","text":"0","styleSkin":"comp/label.png","height":40,"fontSize":28,"font":"Microsoft YaHei","color":"#e59d61"},

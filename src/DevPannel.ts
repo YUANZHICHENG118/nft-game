@@ -56,7 +56,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list.repeatX = 3;
         //this.list.repeatY = 4;
         this.list.x = 50;
-        this.list.y = 197;
+        this.list.y = 125;
         this.list.height=900;
         this.list.spaceX=100;
         this.list.spaceY=20;
@@ -93,8 +93,8 @@ export default class DevPannel extends ui.DevPannelUI {
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()
         this.addDev_mc.visible=this.devDetail.visible=false
-        this.addChild(this.devDetail)
         this.addChild(this.addDev_mc)
+        this.addChild(this.devDetail)
         Laya.stage.on(GameEvent.DETAILE,this,this.onDetaile)
         Laya.stage.on(GameEvent.DEL,this,this.onDel)
     }
