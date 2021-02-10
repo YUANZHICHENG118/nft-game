@@ -3681,7 +3681,14 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 let _c = data[2].map(v => {
                     return {...v, remark: rule}
                 })
-                let m=[_a,_b,_c];
+                let m=[];
+                for(let i=0;i<=5;i++){
+                    m.push(_a[i])
+                    m.push(_b[i])
+                    m.push(_c[i])
+                }
+                //let m=[_a,_b,_c];
+                console.log("m===",m)
                 resolve(m)
             });
         }
@@ -3742,9 +3749,9 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             //     localStorage.setItem("machine", JSON.stringify(data));
             // }
 
-            data.push(a)
             data.push(b)
             data.push(c)
+            data.push(a)
             return data
 
         }
