@@ -295,7 +295,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             decimals: Math.pow(10, 18),
             scale: 4,
             approveAmount: 100000, //授权金额
-            lockAddress:'0x384113152787F177a1862b8Bb1e6fCdd9bA62AEC',
+            lockAddress: '0x384113152787F177a1862b8Bb1e6fCdd9bA62AEC',
             erc20TokenAddress: "0xC5e3C7ce3798B9b588633eF3d8d2A72f218C5a60",
             gameAddress: "0x1Fa2B50F6eFb15C992c72089E4FaD95a6DA27f4b",
             erc1155TokenAddress: "0xC5E887eA752eb452430c8D8bbD37E20b94621B41",
@@ -317,15 +317,15 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
     const defaultAddress = "0x0000000000000000000000000000000000000000";
 
-    const MULTICALL_NETWORKS= {
+    const MULTICALL_NETWORKS = {
         1: '0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441',
         3: '0x53C43764255c17BD724F74c4eF150724AC50a3ed',
         4: '0x2cc8688C5f75E365aaEEb4ea8D6a480405A48D2A',
         5: '0x42Ad527de7d4e9d9d011aC45B31D8551f8Fe9821',
-       42: '0x77dCa2C955b15e9dE4dbBCf1246B4B85b651e50e'
+        42: '0x77dCa2C955b15e9dE4dbBCf1246B4B85b651e50e'
     }
     //const multicallContractAddress="0x53C43764255c17BD724F74c4eF150724AC50a3ed";
-    const abi=[
+    const abi = [
         {
             "constant": true,
             "inputs": [],
@@ -469,7 +469,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         }
     ];
     // 锁仓合约
-    const lockABI=[{
+    const lockABI = [{
         "inputs": [
             {
                 "internalType": "address",
@@ -1940,38 +1940,37 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         }
     ];
     // erc20Token
-    const erc20TokenABI = [
-        {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "name",
-                    "type": "string"
-                },
-                {
-                    "internalType": "string",
-                    "name": "symbol",
-                    "type": "string"
-                },
-                {
-                    "internalType": "uint8",
-                    "name": "decimals",
-                    "type": "uint8"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "initialBalance",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "chainId",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
+    const erc20TokenABI = [{
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
+            },
+            {
+                "internalType": "uint8",
+                "name": "decimals",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "initialBalance",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "chainId",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
         {
             "anonymous": false,
             "inputs": [
@@ -3279,7 +3278,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
          */
         static activeGame = async (game, machineGo, gameOverHandel, coinSoundPlay, mineSoundPlay) => {
             this.selectData = {load: 0, mining: 0, total: 0, realLoad: 0}
-            this.lockAddress=game.lockAddress;
+            this.lockAddress = game.lockAddress;
             this.erc20TokenAddress = game.erc20TokenAddress;
             this.erc1155TokenAddress = game.erc1155TokenAddress;
             this.lastTopic = game.lastTopic;
@@ -3302,7 +3301,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 scale: game.scale,
                 approveAmount: game.approveAmount //授权金额
             }
-            localStorage.setItem("tokenAddress",game.erc20TokenAddress)
+            localStorage.setItem("tokenAddress", game.erc20TokenAddress)
 
             this.DIS = {
                 type: "10", // 广播派车
@@ -3659,7 +3658,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             //const machine = localStorage.getItem("machine");
             // let data = machine ? JSON.parse(machine) : await this.getNft1155();
             let data = await this.getNft1155();
-           // data.sort((a, b) => b.mining - a.mining)
+            // data.sort((a, b) => b.mining - a.mining)
             if (params) {
                 //data = params['type'] ? data.filter(item => params.type.includes(item.type)) : data;
                 data[0] = params['color'] ? data[0].filter(item => params.color.includes(item.color)) : data[0];
@@ -3681,14 +3680,14 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 let _c = data[2].map(v => {
                     return {...v, remark: rule}
                 })
-                let m=[];
-                for(let i=0;i<=5;i++){
+                let m = [];
+                for (let i = 0; i <= 5; i++) {
                     m.push(_a[i])
                     m.push(_b[i])
                     m.push(_c[i])
                 }
                 //let m=[_a,_b,_c];
-                console.log("m===",m)
+                console.log("m===", m)
                 resolve(m)
             });
         }
@@ -3702,9 +3701,9 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             // erc1155代币id 1-18分别对应:采矿车1-6;翻斗车7-12;挖掘机13-18 颜色顺序[白 绿 蓝 紫 粉 橙 ]
 
             let data = [];
-            let a=[]; // 采矿车
-            let b=[]; // 翻斗车
-            let c=[]; // 挖掘机
+            let a = []; // 采矿车
+            let b = []; // 翻斗车
+            let c = []; // 挖掘机
             const contract = this.token1155Contract();
             const address = await this.getAccount();
             let _address = [];
@@ -3721,17 +3720,17 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 let i = index + 1;
 
                 //machine['id'] = i;
-                machine={id:i,balance:parseInt(item),...this.getMachineAttribute(i)}
+                machine = {id: i, balance: parseInt(item), ...this.getMachineAttribute(i)}
                 //machine['balance'] =parseInt(item);
                 //machine['balance'] = parseInt(item);
-                if(i<=6){
+                if (i <= 6) {
                     a.push(machine)
                 }
-                if(i>6&&i<=12){
+                if (i > 6 && i <= 12) {
                     b.push(machine)
                 }
 
-                if(i>12){
+                if (i > 12) {
                     c.push(machine)
                 }
 
@@ -3809,9 +3808,9 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         /**
          * 市价
          */
-        static market=()=>{
-            let symbol=this.erc20Token.symbol;
-            let market={price:0.025,rate:-10.23,symbol:symbol,priceSymbol:'ETH',high:10,low:5,vol:1000};
+        static market = () => {
+            let symbol = this.erc20Token.symbol;
+            let market = {price: 0.025, rate: -10.23, symbol: symbol, priceSymbol: 'ETH', high: 10, low: 5, vol: 1000};
             return new Promise(function (resolve, reject) {
                 resolve(market)
             });
@@ -3830,7 +3829,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 let income = {gameId: i + 1}
                 //const data = await contract.methods.getVersionAward(version, address).call();
                 const record = await contract.methods.getPersonalStats(i, address).call();
-                console.log("record===",record)
+                console.log("record===", record)
                 //eth 收益
                 let ethReward = parseFloat(record["stats"][2] / ethToken.decimals).toFixed(ethToken.scale);
                 //token 收益
@@ -3949,24 +3948,24 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         static  stakeToken = async (value) => {
             const address = await  this.getAccount()
 
-            const ercContract=this.tokenContract();
+            const ercContract = this.tokenContract();
             const contract = this.lockContract();
-            console.log("value===",value,this.erc20Token.decimals)
-            let amount =value * this.erc20Token.decimals;
+            console.log("value===", value, this.erc20Token.decimals)
+            let amount = value * this.erc20Token.decimals;
             let _amount = '0x' + amount.toString(16)
 
 
-            const multicallContract=this.baseContract(abi,MULTICALL_NETWORKS[this.chainId])
+            const multicallContract = this.baseContract(abi, MULTICALL_NETWORKS[this.chainId])
             const multicall = await  multicallContract.methods.getCurrentBlockTimestamp().call()
 
-            const deadline=60*20+parseInt(multicall)
+            const deadline = 60 * 20 + parseInt(multicall)
             const nonce = await  ercContract.methods.nonces(address).call();
 
             const EIP712Domain = [
-                { name: 'name', type: 'string' },
-                { name: 'version', type: 'string' },
-                { name: 'chainId', type: 'uint256' },
-                { name: 'verifyingContract', type: 'address' }
+                {name: 'name', type: 'string'},
+                {name: 'version', type: 'string'},
+                {name: 'chainId', type: 'uint256'},
+                {name: 'verifyingContract', type: 'address'}
             ]
             const domain = {
                 name: 'Crypto Mine',
@@ -3975,19 +3974,19 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 verifyingContract: this.erc20TokenAddress
             }
             const Permit = [
-                { name: 'holder', type: 'address' },
-                { name: 'spender', type: 'address' },
-                { name: 'nonce', type: 'uint256' },
-                { name: 'expiry', type: 'uint256' },
-                { name: 'amount', type: 'uint256' },
+                {name: 'holder', type: 'address'},
+                {name: 'spender', type: 'address'},
+                {name: 'nonce', type: 'uint256'},
+                {name: 'expiry', type: 'uint256'},
+                {name: 'amount', type: 'uint256'},
 
             ]
             const message = {
                 holder: address,
                 spender: this.lockAddress,
-                nonce:'0x' + nonce.toString(16),
+                nonce: '0x' + nonce.toString(16),
                 expiry: deadline,
-                amount: amount
+                amount: _amount
             }
             const data = JSON.stringify({
                 types: {
@@ -3998,38 +3997,35 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 primaryType: 'Permit',
                 message
             })
-            return ethereum
-                .request({method: 'eth_signTypedData_v4',params:[address, data]})
-                .then(splitSignature =>{
-                    debugger
-                   return  splitSignature;
+            var params = [address, data]
+            var method = 'eth_signTypedData_v4'
+
+           return web3.currentProvider.request({
+                method,
+                params,
+                address,
+            }).then(data=>{
+
+                let signResult =data;
+
+                let r = signResult.slice(0, 66)
+                let s = '0x' + signResult.slice(66, 130)
+                let v = '0x' + signResult.slice(130, 132)
+
+                return contract.methods.stake(message.nonce,deadline, _amount, v, r, s).send({
+                    from: address,
+                    value: 0,
+                    gasLimit: 350000
+                }).then(data => {
+                    console.log("stake token ====", data)
+                    return data;
+                }).catch(e => {
+                    console.log("stake token error===", e)
+                    return new Promise(function (resolve, reject) {
+                        reject(e)
+                    });
                 })
-                .then(signature => {
-
-                    if (_amount && signature) {
-
-                        debugger
-                        contract.methods
-                            .stake(message.nonce,deadline.toNumber(),_amount,signature.v,signature.r,signature.s, { gasLimit: 350000 })
-                            .then((response) => {
-                               console.log("response====",response)
-                            })
-                            .catch((error) => {
-                                console.log(error)
-                            })
-
-                    }
-
-
-                })
-                .catch(error => {
-                    // for all errors other than 4001 (EIP-1193 user rejected request), fall back to manual approve
-                    if (error?.code !== 4001) {
-                        //approveCallback()
-                    }
-                })
-
-
+            })
 
 
         }
@@ -4039,26 +4035,84 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
          * @returns {Promise<any>}
          */
         static  receive1155 = async () => {
+            const address = await  this.getAccount()
+
+            const ercContract = this.lockContract();
             const contract = this.gameContract();
 
-            const gasAmount = await contract.methods.obtainCar().estimateGas({
-                from: await this.getAccount(),
-                value: 0
-            });
 
-            return contract.methods.obtainCar().send({
-                from: await this.getAccount(),
-                value: 0,
-                gasLimit: gasAmount
-            }).then(data => {
-                console.log("receive1155 ====", data)
-                return data;
-            }).catch(e => {
-                console.log("receive error===", e)
-                return new Promise(function (resolve, reject) {
-                    reject(e)
-                });
+            const multicallContract = this.baseContract(abi, MULTICALL_NETWORKS[this.chainId])
+            const multicall = await  multicallContract.methods.getCurrentBlockTimestamp().call()
+
+            const deadline = 60 * 20 + parseInt(multicall)
+            const nonce = await  ercContract.methods._nonces(address).call();
+
+            const EIP712Domain = [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' }
+            ]
+            const domain = {
+                name: 'MiningPool',
+                version: '1',
+                chainId: this.chainId,
+                verifyingContract: this.lockAddress
+            }
+            const Lock = [
+                { name: 'holder', type: 'address' },
+                { name: 'locker', type: 'address' },
+                { name: 'nonce', type: 'uint256' },
+                { name: 'expiry', type: 'uint256' },
+                { name: 'allowed', type: 'bool' },
+            ]
+            const message = {
+                holder: address,
+                locker: this.gameAddress,
+                nonce: '0x' + nonce.toString(16),
+                expiry: deadline,
+                allowed: true
+            }
+            const data = JSON.stringify({
+                types: {
+                    EIP712Domain,
+                    Lock
+                },
+                domain,
+                primaryType: 'Lock',
+                message
             })
+
+            var params = [address, data]
+            var method = 'eth_signTypedData_v4'
+
+            return web3.currentProvider.request({
+                method,
+                params,
+                address,
+            }).then(data=>{
+
+                let signResult =data;
+
+                let r = signResult.slice(0, 66)
+                let s = '0x' + signResult.slice(66, 130)
+                let v = '0x' + signResult.slice(130, 132)
+
+                return contract.methods.obtainCar(message.nonce,deadline, true, v, r, s).send({
+                    from: address,
+                    value: 0,
+                    gasLimit: 800000
+                }).then(data => {
+                    console.log("receive nft token ====", data)
+                    return data;
+                }).catch(e => {
+                    console.log("receive nft token error===", e)
+                    return new Promise(function (resolve, reject) {
+                        reject(e)
+                    });
+                })
+            })
+
         }
 
 
@@ -4221,9 +4275,9 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         /**
          * 赎回质押token
          */
-        static withdrawCapital = async () => {
+        static unStakeToken = async () => {
 
-            const contract = this.gameContract();
+            const contract = this.lockContract();
 
             const gasAmount = await contract.methods.withdrawCapital().estimateGas({
                 from: await this.getAccount(),
@@ -4485,7 +4539,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             const contract = this.lockContract();
             const users = await contract.methods.users(address).call();
 
-            const lockAmount=parseFloat(users['investment'] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
+            const lockAmount = parseFloat(users['investment'] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
             const results = {
                 /**
                  * 昵称
@@ -4516,7 +4570,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                  */
                 ref: exchangeUrl + "/#/swap?ref=" + address,
                 remark: investRemark[lan],
-                lockAmount:lockAmount
+                lockAmount: lockAmount
             }
 
             return new Promise(function (resolve, reject) {
@@ -4746,7 +4800,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
     exports.getTokenNftAllowance = LayaBlock.getTokenNftAllowance;
     exports.tokenNftApprove = LayaBlock.tokenNftApprove;
     exports.stakeTokenNft = LayaBlock.stakeTokenNft;
-    exports.withdrawCapital = LayaBlock.withdrawCapital;
+    exports.unStakeToken = LayaBlock.unStakeToken;
     exports.withdrawAward = LayaBlock.withdrawAward;
     exports.initWeb3 = LayaBlock.initWeb3;
     exports.getAccount = LayaBlock.getAccount;

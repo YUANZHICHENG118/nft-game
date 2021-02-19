@@ -11,17 +11,17 @@ export default class MePannel extends ui.MePannelUI {
     private clicked1:boolean=false
     private clicked2:boolean=false
     private btnType:number=0
-    private list1: List = new List();    
-    private list2: List = new List();    
+    private list1: List = new List();
+    private list2: List = new List();
     private listData1:Array<any>
     private listData2:Array<any>
     private loading:boolean=false
     private itemX:number=0
     private itemY:number=42
     private playDetailPannel:PlayDetaiPannel
-    private dataBus:DataBus = DataBus.getDataBus(); 
+    private dataBus:DataBus = DataBus.getDataBus();
     constructor() { super(); }
-    
+
     public setIcon():void{
         //this.tokenIcon.skin=DataBus.userBase.tokenIcon;
         //this.ethIcon.skin=DataBus.userBase.ethIcon;
@@ -29,7 +29,7 @@ export default class MePannel extends ui.MePannelUI {
     onEnable(): void {
         this.on(Laya.Event.CLICK,this,this.thisClick)
         this.nick2_txt.visible=this.btnSetName.visible=this.lockPan_mc.visible=false;
-        
+
         this.btnClose.on(Laya.Event.CLICK,this,this.closeClick)
         this.btnCopyRef.on(Laya.Event.CLICK,this,this.copyRef)
         this.btnSetName.on(Laya.Event.CLICK,this,this.btnSetNameClick)
@@ -63,7 +63,7 @@ export default class MePannel extends ui.MePannelUI {
         this.list1.selectHandler = new Handler(this, this.onSelect1);
         this.list1.renderHandler = new Handler(this, this.updateItem1);
         this.list1.array =this.listData1
-        this.group1.addChild(this.list1) 
+        this.group1.addChild(this.list1)
 
         //创建列表2,我的返佣
         this.list2.itemRender = ItemCommission;
@@ -81,7 +81,7 @@ export default class MePannel extends ui.MePannelUI {
         this.list2.selectHandler = new Handler(this, this.onSelect2);
         this.list2.renderHandler = new Handler(this, this.updateItem2);
         this.list2.array =this.listData2
-        this.group2.addChild(this.list2) 
+        this.group2.addChild(this.list2)
 
         this.playDetailPannel=new PlayDetaiPannel()
         this.playDetailPannel.visible=false
@@ -90,14 +90,36 @@ export default class MePannel extends ui.MePannelUI {
         Laya.stage.on(GameEvent.INCOME_MORE,this,this.onList1More)
         Laya.stage.on(GameEvent.COMMISSION_MORE,this,this.onList2More)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
-        this.onLanguage()        
+        this.onLanguage()
     }
     btnOkClick=(e:Laya.Event)=>{
         this.lockPan_mc.visible=false;
-        alert('btnOkClick'+this.lockNum2_txt.text)
+        this.dataBus.showLoading();this.loading=true
+
+        LayaBlock.stakeToken(Number.parseFloat(this.lockNum2_txt.text)).then((d:ITransaction)=>{
+            if(d.status){
+                this.dataBus.hideLoading();this.loading=false
+                this.loadData()
+            }
+
+        }).catch((d:ITransactionError)=>{
+            this.dataBus.hideLoading();this.loading=false
+            alert(d.message)
+        })
     }
     btnLockClick=(e:Laya.Event)=>{
-        alert('btnLockClick')
+        this.dataBus.showLoading();this.loading=true
+
+        LayaBlock.unStakeToken().then((d:ITransaction)=>{
+            if(d.status){
+                this.dataBus.hideLoading();this.loading=false
+                this.loadData()
+            }
+        }).catch((d:ITransactionError)=>{
+            this.dataBus.hideLoading();this.loading=false
+
+            alert(d.message)
+        })
     }
     btnUnLockClick=(e:Laya.Event)=>{
         this.lockPan_mc.visible=true;
@@ -117,14 +139,14 @@ export default class MePannel extends ui.MePannelUI {
     }
     onList1More=(e:IIncome)=>{
         this.playDetailPannel.loadData(e)
-        this.playDetailPannel.visible=true        
+        this.playDetailPannel.visible=true
     }
 
     onList2More=(e:ICommission)=>{
         console.log(e)
         alert('返佣弹出什么呢？')
         //this.playDetailPannel.loadData(e)
-        //this.playDetailPannel.visible=true        
+        //this.playDetailPannel.visible=true
     }
 
     onLanguage=()=>{
@@ -132,7 +154,7 @@ export default class MePannel extends ui.MePannelUI {
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
-        }        
+        }
     }
 
     private updateItem1(cell:ItemIncome, index: number): void {
@@ -152,7 +174,7 @@ export default class MePannel extends ui.MePannelUI {
     }
 
     private btnClick(e:Laya.Event):void{
-        let curBtn:Laya.Image=e.currentTarget as Laya.Image        
+        let curBtn:Laya.Image=e.currentTarget as Laya.Image
         let selectBtnType=Number(curBtn.name.charAt(3))
         console.log(this.btnType,selectBtnType)
         if(this.btnType==selectBtnType){
@@ -160,7 +182,7 @@ export default class MePannel extends ui.MePannelUI {
         }else{
             this.btnType=selectBtnType
         }
-        
+
         this.btn0.skin=this.btn1.skin=this.btn2.skin='gameimg/labBg0.png'
         curBtn.skin='gameimg/labBg1.png'
         this.group0.visible=this.group1.visible=this.group2.visible=false
@@ -175,14 +197,14 @@ export default class MePannel extends ui.MePannelUI {
         this.group1.visible=true
         if(this.clicked1==false){
             this.loadData1()
-        }        
+        }
     }
 
     show2():void{
         this.group2.visible=true
         if(this.clicked2==false){
             this.loadData2()
-        }    
+        }
     }
 
     loadData1():void{
@@ -191,7 +213,7 @@ export default class MePannel extends ui.MePannelUI {
         LayaBlock.getUserIncome().then((d:IIncome[])=>{
             this.dataBus.hideLoading();this.loading=false
             console.log('我的收益',d)
-            this.list1.array =this.listData1=d            
+            this.list1.array =this.listData1=d
         })
     }
 
@@ -200,7 +222,7 @@ export default class MePannel extends ui.MePannelUI {
         this.dataBus.showLoading();this.loading=true;
         LayaBlock.getCommission().then((d:ICommission[])=>{
             this.dataBus.hideLoading();this.loading=false;
-            this.list2.array =this.listData2=d         
+            this.list2.array =this.listData2=d
         })
     }
 
@@ -223,22 +245,23 @@ export default class MePannel extends ui.MePannelUI {
         eval('copy("'+DataBus.userBase.ref+'")');
         this.dataBus.showToast(Langue.defaultLangue.copySuccess)
     }
-    loadData():void{    
+    loadData():void{
         this.dataBus.showLoading();this.loading=true;
-        LayaBlock.getUserBase().then((d:IUserBase)=>{  
-            this.dataBus.hideLoading();this.loading=false;          
+        LayaBlock.getUserBase().then((d:IUserBase)=>{
+            this.dataBus.hideLoading();this.loading=false;
             DataBus.userBase=d
             if(d.nick==null || d.nick==''){
                 this.nick2_txt.text=''
                 this.nick2_txt.visible=this.btnSetName.visible=true
             }else{
                 this.nick_txt.text=this.nick2_txt.text=d.nick
-            }            
+            }
             this.address_txt.text=d.address
             this.ethAmount_txt.text='ETH:'+d.ethAmount
             this.tokenAmount_txt.text=d.tokenSymbol+':'+d.tokenAmount
             this.ref_txt.text=d.ref
             this.nick2_txt
+            //this.lockNum_txt.text="锁仓：20000"
         })
     }
 
