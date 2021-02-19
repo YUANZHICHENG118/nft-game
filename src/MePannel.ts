@@ -98,6 +98,7 @@ export default class MePannel extends ui.MePannelUI {
 
         LayaBlock.stakeToken(Number.parseFloat(this.lockNum2_txt.text)).then((d:ITransaction)=>{
             if(d.status){
+                this.dataBus.showToast("SUCCESS")
                 this.dataBus.hideLoading();this.loading=false
                 this.loadData()
             }
@@ -112,6 +113,7 @@ export default class MePannel extends ui.MePannelUI {
 
         LayaBlock.unStakeToken().then((d:ITransaction)=>{
             if(d.status){
+                this.dataBus.showToast("SUCCESS")
                 this.dataBus.hideLoading();this.loading=false
                 this.loadData()
             }

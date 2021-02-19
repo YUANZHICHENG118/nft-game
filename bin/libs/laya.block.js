@@ -3960,6 +3960,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
             const deadline = 60 * 20 + parseInt(multicall)
             const nonce = await  ercContract.methods.nonces(address).call();
+            debugger
 
             const EIP712Domain = [
                 {name: 'name', type: 'string'},
@@ -3984,7 +3985,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             const message = {
                 holder: address,
                 spender: this.lockAddress,
-                nonce: '0x' + nonce.toString(16),
+                nonce: nonce,
                 expiry: deadline,
                 amount: _amount
             }
@@ -4069,7 +4070,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             const message = {
                 holder: address,
                 locker: this.gameAddress,
-                nonce: '0x' + nonce.toString(16),
+                nonce: nonce,
                 expiry: deadline,
                 allowed: true
             }

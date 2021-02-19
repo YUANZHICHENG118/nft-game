@@ -160,7 +160,7 @@ export default class DevPannel extends ui.DevPannelUI {
             if(d.status){
                 this.dataBus.hideLoading();
                 this.loading=false;
-                alert('SUCCESS')
+                this.dataBus.showToast("SUCCESS")
                 // 重新加载设备
             }
         }).catch((e:ITransactionError)=>{
