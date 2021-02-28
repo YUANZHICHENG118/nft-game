@@ -46,6 +46,7 @@ export default class Home extends ui.HomeUI {
         //注册事件
         this.addEvt();
         //this.testBlock();
+        this.initMarket();
     }
 
     initUI = () => {
@@ -160,6 +161,11 @@ export default class Home extends ui.HomeUI {
         LayaBlock.getAccount().then((d: string) => {
             DataBus.account = d;
         })
+
+        let that=this;
+        setTimeout(()=>{
+            that.setNotice()
+        },1000)
     }
     addEvt = () => {
         this.mine_mc.on(Laya.Event.CLICK, this, this.mineClick)
@@ -188,10 +194,14 @@ export default class Home extends ui.HomeUI {
             this.tip_mc.x = 1000
         }
     }
-    setNotice(msg:string){
-        this.gongGao_txt.text = msg
+
+    setNotice() {
+        LayaBlock.market().then((data: IMarket) => {
+            let msg = data.price + "" + data.priceSymbol +" "+data.rate+ " High:" + data.high + " Low:" + data.low;
+            this.gongGao_txt.text = msg
+        })
     }
-        
+
     run = () => {
         this.cloud0.x += 1;
         if (this.cloud0.x > 800) {
@@ -231,7 +241,7 @@ export default class Home extends ui.HomeUI {
         partGold.play()
         */
     }
-    onLanguage = () => {        
+    onLanguage = () => {
         //console.log('当前语言：',Langue.defaultLangue)
         let arr = ['notice', 'email', 'chat', 'nav1', 'nav2', 'nav3', 'nav4', 'waitTip']
         for (let i in arr) {
@@ -274,7 +284,8 @@ export default class Home extends ui.HomeUI {
         this.gongGao_txt.text = '玩家' + obj.nick + '派出车辆挖矿'
         clearTimeout(this.timeoutGongGao)
         this.timeoutGongGao = setTimeout(() => {
-            this.gongGao_txt.text = Langue.defaultLangue.notice_0
+            this.setNotice();
+            //this.gongGao_txt.text = Langue.defaultLangue.notice_0
         }, 10000);
         let aniMachine: AniMachine = new AniMachine()
         aniMachine.obj = obj;
@@ -384,7 +395,7 @@ export default class Home extends ui.HomeUI {
                 this.devPannel.initList();
                 break;
             case this.btnExchange:
-                this.showMarket();
+                this.openMarket();
                 //Laya.Browser.window.location.href = LayaBlock.exchangeUrl
                 break;
             case this.btnRank:
@@ -399,7 +410,7 @@ export default class Home extends ui.HomeUI {
         }
     }
 
-    showMarket = () => {
+    initMarket = () => {
         let market = Laya.Browser.document.getElementById('market');
         if (market) {
             market.style.display = 'block'
@@ -412,8 +423,9 @@ export default class Home extends ui.HomeUI {
         iframe.style.left = "0px";
         iframe.style.top = "0px";
         iframe.style.width = '100%';
-        iframe.style.height = '100%';
+        iframe.style.height = '70%';
         iframe.style.border = '0px';
+        iframe.style.display = 'none'
         iframe.src = "/market/index.html";
         Laya.Browser.document.body.appendChild(iframe);
     };
@@ -421,6 +433,10 @@ export default class Home extends ui.HomeUI {
     hideMarket = () => {
         let market = Laya.Browser.document.getElementById('market');
         if (market) market.style.display = 'none'
+    }
+    openMarket = () => {
+        let market = Laya.Browser.document.getElementById('market');
+        if (market) market.style.display = 'block'
     }
     /**
      * 测试接口

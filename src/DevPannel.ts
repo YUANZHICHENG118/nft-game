@@ -14,7 +14,7 @@ export default class DevPannel extends ui.DevPannelUI {
     private selectColorArr:Array<number>=[1,2,3,4,5,6];
     private sort:'ASC'|'DESC'='DESC';
     private devArr:Array<Image>=[];
-    private btnColorArr:Array <Laya.Sprite>=[];    
+    private btnColorArr:Array <Laya.Sprite>=[];
     private list: List = new List();
     private list2: List = new List();
     private hasInitList:boolean=false;
@@ -22,13 +22,13 @@ export default class DevPannel extends ui.DevPannelUI {
     private listData:Array<any> //我的设备数据
     private listData2:Array<any>;// 选择的设备数据完整。包括数量为0的
     private listData2Simple:Array<any>;// 选择的设备数据。去掉了数量为0的
-    private dataBus:DataBus = DataBus.getDataBus(); 
+    private dataBus:DataBus = DataBus.getDataBus();
     private devDetail:DevDetail=new DevDetail();
     private loading:boolean=false;
     private curMax:number=0;
     private curDevIndex:number=0;
     constructor() { super(); }
-    
+
     onEnable(): void {
         this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];
         this.devArr=[this.btnDev1,this.btnDev2,this.btnDev3]
@@ -40,8 +40,8 @@ export default class DevPannel extends ui.DevPannelUI {
         this.sort_btn.on(Laya.Event.CLICK,this,this.sortClick)
         this.addClose_btn.on(Laya.Event.CLICK,this,this.addCloseClick)
         this.btnOk.on(Laya.Event.CLICK,this,this.btnOkClick)
-        
-        
+
+
         for(let i in this.btnColorArr){
             this.btnColorArr[i].on(Laya.Event.CLICK,this,this.btnColorClick)
         }
@@ -87,8 +87,8 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list2.renderHandler = new Handler(this, this.updateItem2);
         this.addChild(this.list2)
         this.list2.array=[];
-        
-        
+
+
         this.stakeTokenNft_btn.disabled=false
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE,this,this.onLanguage)
         this.onLanguage()
@@ -124,7 +124,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list2.array =this.listData2Simple
     }
 
-    onDetaile=(e:number)=>{   
+    onDetaile=(e:number)=>{
         this.devDetail.visible=true;
         let d:IMachine=this.listData0[e]
         this.devDetail.setData(d)
@@ -134,7 +134,7 @@ export default class DevPannel extends ui.DevPannelUI {
         //获得对应原始数组的索引和还原的数字
         let addNum=this.listData2Simple[e].balance
         let __index:number=this.listData2Simple[e].index
-        //原始数组数据还原        
+        //原始数组数据还原
         this.listData[__index].balance+=addNum
         //选中数组归零
         this.listData2[__index].balance=0
@@ -151,10 +151,22 @@ export default class DevPannel extends ui.DevPannelUI {
         for(let i in arr){
             let txtName:string=arr[i]
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
-        }        
+        }
     }
     getClick(){
-        alert('getClick')
+        this.dataBus.showLoading();this.loading=true;
+
+        LayaBlock.receive1155().then((d:ITransaction)=>{
+            if(d.status){
+                this.dataBus.hideLoading();
+                this.loading=false;
+                this.dataBus.showToast("SUCCESS")
+                // 重新加载设备
+            }
+        }).catch((e:ITransactionError)=>{
+            this.dataBus.hideLoading();
+            this.loading=false;
+        })
     }
     stakeTokenNft(){
         if(this.loading==true){
@@ -186,9 +198,9 @@ export default class DevPannel extends ui.DevPannelUI {
         }).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
             //这个对象如果返回 status=0x1
-            if(d.status==true){                
+            if(d.status==true){
                // Laya.SoundManager.playSound("sound/machine.mp3",0);
-            }            
+            }
         }).catch((e:ITransactionError)=>{
             this.dataBus.hideLoading()
             this.loading=false;
@@ -220,7 +232,7 @@ export default class DevPannel extends ui.DevPannelUI {
         }
         this.updateList()
     }
-    public initList(){        
+    public initList(){
         if(this.hasInitList==true){
             return
         }
@@ -230,8 +242,8 @@ export default class DevPannel extends ui.DevPannelUI {
         this.btnDev1.skin='gameimg/dev1_2.png'
         this.btnDev2.skin='gameimg/dev2_2.png'
         this.btnDev3.skin='gameimg/dev3_2.png'
-        this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];        
-        for(let i in this.btnColorArr){            
+        this.btnColorArr=[this.color1,this.color2,this.color3,this.color4,this.color5,this.color6];
+        for(let i in this.btnColorArr){
             this.btnColorArr[i].alpha=1
         }
         this.sort='ASC'
@@ -241,7 +253,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.updateList()
     }
 
-    loadData(params:IMachineSearch):void{   
+    loadData(params:IMachineSearch):void{
         this.dataBus.showLoading()
         LayaBlock.getUserMachine(params).then((d:IMachine[])=>{
             this.dataBus.hideLoading()
@@ -259,7 +271,7 @@ export default class DevPannel extends ui.DevPannelUI {
 
             console.log('★this.listData2:',this.listData2)
             this.list2.array =this.listData2Simple
-            
+
             if(this.listData.length==0){
                 let tipPannel:TipPannel=new TipPannel();
                 tipPannel.msg=Langue.defaultLangue.t10
@@ -319,17 +331,17 @@ export default class DevPannel extends ui.DevPannelUI {
     private onClickList(e:Laya.Event):void{
         console.log(e.type)
     }
-    
+
     btnColorClick(e:Laya.Event){
         let colorX:Laya.Sprite=e.currentTarget as Laya.Sprite
         colorX.alpha=colorX.alpha>0.5?0:1;
         this.selectColorArr=[];
-        for(let i in this.btnColorArr){            
+        for(let i in this.btnColorArr){
             if(this.btnColorArr[i].alpha>0.5){
                 this.selectColorArr.push(1+Number(i))
-            }            
+            }
         }
-        this.updateList()      
+        this.updateList()
     }
 
     btnDevClick(e:Laya.Event):void{
@@ -357,7 +369,7 @@ export default class DevPannel extends ui.DevPannelUI {
             sort:this.sort
         }
         console.log('params',params);
-        this.loadData(params)  
+        this.loadData(params)
     }
 
     closeClick():void{

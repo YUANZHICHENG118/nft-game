@@ -132,6 +132,7 @@ interface IUserBase {
      * 邀请链接说明
      */
     remark:string,
+    lockAmount?:number
 
 }
 
@@ -368,6 +369,7 @@ interface IMarket{
     symbol:string,// 交易币种
     priceSymbol:string,// 定价币
     price:number,// 价格
+    rate:number,// 涨跌幅
     high:number, // 高
     low:number,// 低
     vol?:number// 量
@@ -466,7 +468,7 @@ declare class LayaBlock {
      * 赎回质押erc20
      * @returns {Promise<IApprove | ITransactionError>}
      */
-    static withdrawCapital(): Promise<ITransaction | ITransactionError>;
+    static unStakeToken(): Promise<ITransaction | ITransactionError>;
 
 
     /**
@@ -646,7 +648,7 @@ declare class LayaBlock {
      * 市场数据
      * @returns {IMarket}
      */
-    static market():IMarket
+    static market():Promise<IMarket>;
 
 
 }
