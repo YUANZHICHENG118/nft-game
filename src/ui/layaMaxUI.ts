@@ -309,6 +309,7 @@ export module ui {
 		public btnOk:Laya.Image;
 		public nav4_6_3_txt:Laya.Label;
 		public btnCloseLock:Laya.Sprite;
+		public lockVal_txt:Laya.Label;
 		public nav4_7_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;

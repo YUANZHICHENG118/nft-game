@@ -376,6 +376,7 @@
 	    nav6_1: '昵称',
 	    nav6_2: '地址',
 	    nav6_3: '奖励',
+	    alert1: "请选设备...",
 	    nav7_1: '设备详情',
 	    nav7_2: '载重：',
 	    nav7_2_1: '挖矿：',
@@ -813,8 +814,9 @@
 	        if (this.loading == true) {
 	            return;
 	        }
-	        if (this.listData2Simple.length == 0) {
-	            alert(Langue.defaultLangue.alert1);
+	        console.log('===', this.listData2Simple);
+	        if (this.listData2Simple == undefined || this.listData2Simple.length == 0) {
+	            this.dataBus.showToast(Langue.defaultLangue.alert1);
 	            return;
 	        }
 	        var obj = {};
@@ -1606,6 +1608,7 @@
 	            this.address_txt.text = d.address;
 	            this.ethAmount_txt.text = 'ETH:' + d.ethAmount;
 	            this.tokenAmount_txt.text = d.tokenSymbol + ':' + d.tokenAmount;
+	            this.lockVal_txt.text = '12345Mc';
 	            this.ref_txt.text = d.ref;
 	            this.nick2_txt;
 	        });

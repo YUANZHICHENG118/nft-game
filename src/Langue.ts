@@ -53,6 +53,7 @@ export default class Langue extends Laya.EventDispatcher {
         nav6_1: '昵称',
         nav6_2: '地址',
         nav6_3: '奖励',
+        alert1: "请选设备...",
 
         nav7_1: '设备详情',
         nav7_2: '载重：',

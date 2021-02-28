@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":34,
-    "selecteID":139,
+    "selectedBox":28,
+    "selecteID":47,
     "searchKey":"Scene",
     "props":{"width":750,"sceneColor":"#000000","runtime":"Home.ts","height":1333},
     "nodeParent":-1,
@@ -291,13 +291,14 @@
             "props":{"y":21,"x":21,"width":704,"skin":"gameimg/numBg2.png","height":86},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":28,
             "child":[
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":24,"x":30,"width":39,"texture":"gameimg/icon6.png","height":39},
@@ -311,9 +312,10 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,gongGao_txt",
-                    "props":{"y":28,"x":88,"width":575,"var":"gongGao_txt","height":33,"fontSize":38,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                    "props":{"y":28,"x":88,"width":575,"var":"gongGao_txt","text":"公告","height":33,"fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                     "nodeParent":28,
                     "label":"gongGao_txt",
                     "isDirectory":false,

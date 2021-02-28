@@ -160,8 +160,12 @@ export default class DevPannel extends ui.DevPannelUI {
         if(this.loading==true){
             return;
         }
-        if(this.listData2Simple.length==0){
-            alert(Langue.defaultLangue.alert1)
+        console.log('===',this.listData2Simple);
+       // return;
+        
+        if(this.listData2Simple==undefined ||this.listData2Simple.length==0){
+            //alert(Langue.defaultLangue.alert1)
+            this.dataBus.showToast(Langue.defaultLangue.alert1)
             return;
         }
         var obj:object={}

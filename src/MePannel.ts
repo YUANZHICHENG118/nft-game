@@ -237,6 +237,7 @@ export default class MePannel extends ui.MePannelUI {
             this.address_txt.text=d.address
             this.ethAmount_txt.text='ETH:'+d.ethAmount
             this.tokenAmount_txt.text=d.tokenSymbol+':'+d.tokenAmount
+            this.lockVal_txt.text='12345Mc'
             this.ref_txt.text=d.ref
             this.nick2_txt
         })

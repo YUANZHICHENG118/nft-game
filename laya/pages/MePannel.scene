@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":54,
+    "selectedBox":16,
+    "selecteID":114,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":114,
+    "maxID":115,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -385,7 +385,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,lockNum_txt",
-                            "props":{"y":217.5,"x":27,"width":234,"var":"lockNum_txt","text":"锁仓：1000CM","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "props":{"y":218,"x":27,"width":103,"var":"lockNum_txt","text":"锁仓：","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
                             "nodeParent":16,
                             "label":"lockNum_txt",
                             "isDirectory":false,
@@ -521,7 +521,21 @@
                                     "child":[
                                         ]
                                 }],
-                            "$HIDDEN":false
+                            "$HIDDEN":true
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,lockVal_txt",
+                            "props":{"y":218,"x":113,"width":160,"var":"lockVal_txt","text":"0CM","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "nodeParent":16,
+                            "label":"lockVal_txt",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":114,
+                            "child":[
+                                ]
                         }],
                     "$HIDDEN":false
                 },
