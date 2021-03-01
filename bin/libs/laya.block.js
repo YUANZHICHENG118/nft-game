@@ -4540,7 +4540,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             const contract = this.lockContract();
             const users = await contract.methods.users(address).call();
 
-            const lockAmount = parseFloat(users['investment'] / this.erc20Token.decimals).toFixed(this.erc20Token.scale);
+            const lockAmount = parseFloat(users['investment'] / this.erc20Token.decimals).toFixed(2);
             const results = {
                 /**
                  * 昵称
