@@ -1,6 +1,5 @@
 import AniMachine from "./AniMachine";
 import DataBus from "./DataBus";
-import DataLoading from "./DataLoading";
 import DevPannel from "./DevPannel";
 import EmailPannel from "./EmailPannel";
 import GameEvent from "./GameEvent";
@@ -200,6 +199,8 @@ export default class Home extends ui.HomeUI {
             let msg = data.price + "" + data.priceSymbol +" "+data.rate+ " High:" + data.high + " Low:" + data.low;
             this.gongGao_txt.text = msg
         })
+        
+        
     }
 
     run = () => {

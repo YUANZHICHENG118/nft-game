@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":16,
-    "selecteID":114,
+    "selectedBox":2,
+    "selecteID":107,
     "searchKey":"View",
     "props":{"x":0,"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
@@ -355,6 +355,34 @@
                         },
                         {
                             "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,lockNum_txt",
+                            "props":{"y":218,"x":27,"width":103,"var":"lockNum_txt","text":"锁仓：","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                            "nodeParent":16,
+                            "label":"lockNum_txt",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":99,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,lockVal_txt",
+                                    "props":{"y":0,"x":86,"width":160,"var":"lockVal_txt","text":"0CM","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
+                                    "nodeParent":99,
+                                    "label":"lockVal_txt",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":114,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,ethIcon",
                             "props":{"y":127,"x":27,"width":30,"var":"ethIcon","skin":"gameimg/ETH.png","height":30},
@@ -378,20 +406,6 @@
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":95,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Label",
-                            "searchKey":"Label,lockNum_txt",
-                            "props":{"y":218,"x":27,"width":103,"var":"lockNum_txt","text":"锁仓：","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
-                            "nodeParent":16,
-                            "label":"lockNum_txt",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":99,
                             "child":[
                                 ]
                         },
@@ -521,21 +535,7 @@
                                     "child":[
                                         ]
                                 }],
-                            "$HIDDEN":true
-                        },
-                        {
-                            "x":45,
-                            "type":"Label",
-                            "searchKey":"Label,lockVal_txt",
-                            "props":{"y":218,"x":113,"width":160,"var":"lockVal_txt","text":"0CM","presetID":10,"preset":"laya/pages/prefab/BaseInfo.prefab","height":46},
-                            "nodeParent":16,
-                            "label":"lockVal_txt",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":114,
-                            "child":[
-                                ]
+                            "$HIDDEN":false
                         }],
                     "$HIDDEN":false
                 },

@@ -267,46 +267,6 @@
 	GameEvent.COMMISSION_MORE = 'commissionMore';
 	GameEvent.INCOME_MORE = 'incomeMove';
 
-	class DataBus extends Laya.EventDispatcher {
-	    constructor() {
-	        super();
-	        this.dataLoading = new DataLoading();
-	        this.toast = new ui.ToastUI();
-	    }
-	    static getDataBus() {
-	        if (!this.instance) {
-	            this.instance = new DataBus();
-	        }
-	        return this.instance;
-	    }
-	    addEvt() {
-	        Laya.stage.on('gameData', this, this.onGameData);
-	    }
-	    onEnable() {
-	    }
-	    onGameData(data) {
-	        console.log('DataBus收到数据：', data);
-	        this.event(GameEvent.FLAG1, data);
-	    }
-	    onDisable() {
-	    }
-	    showLoading() {
-	        this.dataLoading.popup(false, false);
-	    }
-	    hideLoading() {
-	        this.dataLoading.close();
-	    }
-	    showToast(msg) {
-	        this.toast.tip_txt.text = msg;
-	        this.toast.popup(false, false);
-	        setTimeout(() => {
-	            this.toast.close();
-	        }, 1000);
-	    }
-	}
-	DataBus.instance = null;
-	DataBus.account = '';
-
 	class Langue extends Laya.EventDispatcher {
 	    constructor() {
 	        super();
@@ -578,6 +538,86 @@
 	    t9: '예상 수익',
 	};
 
+	class TipPannel extends ui.TipPannelUI {
+	    constructor() {
+	        super();
+	        this.ok = '';
+	        this.msg = '';
+	        this.width = 750;
+	        this.height = 1334;
+	    }
+	    onEnable() {
+	        this.ok_txt.text = this.ok;
+	        this.msg_txt.text = this.msg;
+	        this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
+	        this.close_txt.text = Langue.defaultLangue.close;
+	        this.btnOk.on(Laya.Event.CLICK, this, this.okClick);
+	    }
+	    onDisable() {
+	    }
+	    closeClick() {
+	        this.close();
+	    }
+	    onClosed() {
+	        this.destroy();
+	    }
+	    okClick() {
+	        if (this.todo == null) {
+	            this.destroy();
+	            return;
+	        }
+	        this.todo();
+	    }
+	}
+
+	class DataBus extends Laya.EventDispatcher {
+	    constructor() {
+	        super();
+	        this.dataLoading = new DataLoading();
+	        this.toast = new ui.ToastUI();
+	    }
+	    static getDataBus() {
+	        if (!this.instance) {
+	            this.instance = new DataBus();
+	        }
+	        return this.instance;
+	    }
+	    addEvt() {
+	        Laya.stage.on('gameData', this, this.onGameData);
+	    }
+	    onEnable() {
+	    }
+	    onGameData(data) {
+	        console.log('DataBus收到数据：', data);
+	        this.event(GameEvent.FLAG1, data);
+	    }
+	    onDisable() {
+	    }
+	    showLoading(msg = '') {
+	        this.dataLoading.loading_txt.text = msg;
+	        this.dataLoading.popup(false, false);
+	    }
+	    hideLoading() {
+	        this.dataLoading.close();
+	    }
+	    showToast(msg) {
+	        this.toast.tip_txt.text = msg;
+	        this.toast.popup(false, false);
+	        setTimeout(() => {
+	            this.toast.close();
+	        }, 1000);
+	    }
+	    showTip(msg, ok, todo) {
+	        let tipPannel = new TipPannel();
+	        tipPannel.msg = '您将获取X个设备，此操作后将在x分钟内无法解锁CM代币';
+	        tipPannel.ok = 'ok';
+	        tipPannel.todo = null;
+	        tipPannel.popup(false, true);
+	    }
+	}
+	DataBus.instance = null;
+	DataBus.account = '';
+
 	class ItemDev extends ui.ItemDevUI {
 	    constructor() {
 	        super();
@@ -663,34 +703,6 @@
 	        this.remark_txt.text = d.remark;
 	        this.machine.y = posY[d.type];
 	        console.log('y', posY[d.type]);
-	    }
-	}
-
-	class TipPannel extends ui.TipPannelUI {
-	    constructor() {
-	        super();
-	        this.ok = '';
-	        this.msg = '';
-	        this.width = 750;
-	        this.height = 1334;
-	    }
-	    onEnable() {
-	        this.ok_txt.text = this.ok;
-	        this.msg_txt.text = this.msg;
-	        this.btnClose.on(Laya.Event.CLICK, this, this.closeClick);
-	        this.close_txt.text = Langue.defaultLangue.close;
-	        this.btnOk.on(Laya.Event.CLICK, this, this.okClick);
-	    }
-	    onDisable() {
-	    }
-	    closeClick() {
-	        this.close();
-	    }
-	    onClosed() {
-	        this.destroy();
-	    }
-	    okClick() {
-	        this.todo();
 	    }
 	}
 
@@ -808,7 +820,18 @@
 	        Laya.stage.on(GameEvent.DEL, this, this.onDel);
 	    }
 	    getClick() {
-	        alert('getClick');
+	        this.dataBus.showLoading();
+	        this.loading = true;
+	        LayaBlock.receive1155().then((d) => {
+	            if (d.status) {
+	                this.dataBus.hideLoading();
+	                this.loading = false;
+	                this.dataBus.showToast("SUCCESS");
+	            }
+	        }).catch((e) => {
+	            this.dataBus.hideLoading();
+	            this.loading = false;
+	        });
 	    }
 	    stakeTokenNft() {
 	        if (this.loading == true) {
@@ -834,6 +857,7 @@
 	            this.dataBus.hideLoading();
 	            this.loading = false;
 	            this.event('showWaitTip');
+	            this.dataBus.showTip('您将获取X个设备，此操作后将在x分钟内无法解锁CM代币,内容自己配置吧', 'ok', null);
 	        }).then((d) => {
 	            console.log('stakeTokenNft=====派车接口返回数据:', d);
 	            if (d.status == true) {
@@ -905,13 +929,9 @@
 	            console.log('★this.listData2:', this.listData2);
 	            this.list2.array = this.listData2Simple;
 	            if (this.listData.length == 0) {
-	                let tipPannel = new TipPannel();
-	                tipPannel.msg = Langue.defaultLangue.t10;
-	                tipPannel.ok = Langue.defaultLangue.t11;
-	                tipPannel.todo = () => {
+	                this.dataBus.showTip(Langue.defaultLangue.t10, Langue.defaultLangue.t11, () => {
 	                    Laya.Browser.window.location.href = LayaBlock.exchangeUrl;
-	                };
-	                tipPannel.popup(false, true);
+	                });
 	            }
 	        });
 	    }
@@ -1418,11 +1438,40 @@
 	        this.itemY = 42;
 	        this.dataBus = DataBus.getDataBus();
 	        this.btnOkClick = (e) => {
+	            if (Number.parseFloat(this.lockNum2_txt.text) <= 0) {
+	                return;
+	            }
 	            this.lockPan_mc.visible = false;
-	            alert('btnOkClick' + this.lockNum2_txt.text);
+	            this.dataBus.showLoading('loading');
+	            this.loading = true;
+	            LayaBlock.stakeToken(Number.parseFloat(this.lockNum2_txt.text)).then((d) => {
+	                if (d.status) {
+	                    this.dataBus.showToast("SUCCESS");
+	                    this.dataBus.hideLoading();
+	                    this.loading = false;
+	                    this.loadData();
+	                }
+	            }).catch((d) => {
+	                this.dataBus.hideLoading();
+	                this.loading = false;
+	                alert(d.message);
+	            });
 	        };
 	        this.btnLockClick = (e) => {
-	            alert('btnLockClick');
+	            this.dataBus.showLoading();
+	            this.loading = true;
+	            LayaBlock.unStakeToken().then((d) => {
+	                if (d.status) {
+	                    this.dataBus.showToast("SUCCESS");
+	                    this.dataBus.hideLoading();
+	                    this.loading = false;
+	                    this.loadData();
+	                }
+	            }).catch((d) => {
+	                this.dataBus.hideLoading();
+	                this.loading = false;
+	                alert(d.message);
+	            });
 	        };
 	        this.btnUnLockClick = (e) => {
 	            this.lockPan_mc.visible = true;
@@ -2065,6 +2114,10 @@
 	            LayaBlock.getAccount().then((d) => {
 	                DataBus.account = d;
 	            });
+	            let that = this;
+	            setTimeout(() => {
+	                that.setNotice();
+	            }, 1000);
 	        };
 	        this.addEvt = () => {
 	            this.mine_mc.on(Laya.Event.CLICK, this, this.mineClick);
@@ -2156,7 +2209,7 @@
 	            this.gongGao_txt.text = '玩家' + obj.nick + '派出车辆挖矿';
 	            clearTimeout(this.timeoutGongGao);
 	            this.timeoutGongGao = setTimeout(() => {
-	                this.gongGao_txt.text = Langue.defaultLangue.notice_0;
+	                this.setNotice();
 	            }, 10000);
 	            let aniMachine = new AniMachine();
 	            aniMachine.obj = obj;
@@ -2198,7 +2251,7 @@
 	            timeLine.on(Laya.Event.COMPLETE, this, this.onComplete);
 	            timeLine.on(Laya.Event.LABEL, this, this.onLabel);
 	        };
-	        this.showMarket = () => {
+	        this.initMarket = () => {
 	            let market = Laya.Browser.document.getElementById('market');
 	            if (market) {
 	                market.style.display = 'block';
@@ -2211,8 +2264,9 @@
 	            iframe.style.left = "0px";
 	            iframe.style.top = "0px";
 	            iframe.style.width = '100%';
-	            iframe.style.height = '100%';
+	            iframe.style.height = '70%';
 	            iframe.style.border = '0px';
+	            iframe.style.display = 'none';
 	            iframe.src = "/market/index.html";
 	            Laya.Browser.document.body.appendChild(iframe);
 	        };
@@ -2220,6 +2274,11 @@
 	            let market = Laya.Browser.document.getElementById('market');
 	            if (market)
 	                market.style.display = 'none';
+	        };
+	        this.openMarket = () => {
+	            let market = Laya.Browser.document.getElementById('market');
+	            if (market)
+	                market.style.display = 'block';
 	        };
 	        this.testBlock = () => {
 	            LayaBlock.getTokenBalance().then((d) => {
@@ -2245,9 +2304,13 @@
 	        this.initUI();
 	        this.loadData();
 	        this.addEvt();
+	        this.initMarket();
 	    }
-	    setNotice(msg) {
-	        this.gongGao_txt.text = msg;
+	    setNotice() {
+	        LayaBlock.market().then((data) => {
+	            let msg = data.price + "" + data.priceSymbol + " " + data.rate + " High:" + data.high + " Low:" + data.low;
+	            this.gongGao_txt.text = msg;
+	        });
 	    }
 	    onComplete() {
 	    }
@@ -2306,7 +2369,7 @@
 	                this.devPannel.initList();
 	                break;
 	            case this.btnExchange:
-	                this.showMarket();
+	                this.openMarket();
 	                break;
 	            case this.btnRank:
 	                this.rankPannel.visible = true;

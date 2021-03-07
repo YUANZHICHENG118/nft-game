@@ -93,8 +93,13 @@ export default class MePannel extends ui.MePannelUI {
         this.onLanguage()
     }
     btnOkClick=(e:Laya.Event)=>{
+        if(Number.parseFloat(this.lockNum2_txt.text)<=0){
+            return
+        }
+
         this.lockPan_mc.visible=false;
-        this.dataBus.showLoading();this.loading=true
+        this.dataBus.showLoading('loading');//loading动画下面的文字，可省略
+        this.loading=true
 
         LayaBlock.stakeToken(Number.parseFloat(this.lockNum2_txt.text)).then((d:ITransaction)=>{
             if(d.status){

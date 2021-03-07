@@ -7,7 +7,6 @@ import List = Laya.List;
 import Handler = Laya.Handler;
 import ItemDev from "./ItemDev";
 import DevDetail from "./DevDetail";
-import TipPannel from "./TipPannel";
 export default class DevPannel extends ui.DevPannelUI {
     /** @prop {name:devType, tips:"整数类型示例", type:Int, default:1}*/
     private devTypeArr: Array<number> = [1,2,3];
@@ -117,7 +116,6 @@ export default class DevPannel extends ui.DevPannelUI {
         this.listData2[this.curDevIndex].balance+=addNum
 
         this.list.array =this.listData
-
         this.listData2Simple=this.listData2.filter((item)=>{
             return item.balance>0
         })
@@ -195,6 +193,8 @@ export default class DevPannel extends ui.DevPannelUI {
             this.dataBus.hideLoading();
             this.loading=false;
             this.event('showWaitTip');//home里监听
+            // 参数：消息|确定按文字|点击按钮的函数，如果没有函数写null
+            this.dataBus.showTip('您将获取X个设备，此操作后将在x分钟内无法解锁CM代币,内容自己配置吧','ok',null)            
         }).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
             //这个对象如果返回 status=0x1
@@ -273,13 +273,9 @@ export default class DevPannel extends ui.DevPannelUI {
             this.list2.array =this.listData2Simple
 
             if(this.listData.length==0){
-                let tipPannel:TipPannel=new TipPannel();
-                tipPannel.msg=Langue.defaultLangue.t10
-                tipPannel.ok=Langue.defaultLangue.t11
-                tipPannel.todo=()=>{
+                this.dataBus.showTip(Langue.defaultLangue.t10,Langue.defaultLangue.t11,()=>{
                     Laya.Browser.window.location.href = LayaBlock.exchangeUrl
-                }
-                tipPannel.popup(false,true)
+                })
             }
         })
     }

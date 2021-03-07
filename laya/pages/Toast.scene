@@ -4,7 +4,7 @@
     "selectedBox":2,
     "selecteID":4,
     "searchKey":"Dialog",
-    "props":{"width":750,"sceneColor":"#ffeeee","height":1334},
+    "props":{"width":750,"height":1334},
     "nodeParent":-1,
     "maxID":5,
     "label":"Dialog",

@@ -24,6 +24,7 @@ export module ui {
     REG("ui.BlackBgUI",BlackBgUI);
     export class DataLoadingUI extends Dialog {
 		public loading_ani:Laya.Animation;
+		public loading_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -297,9 +298,10 @@ export module ui {
 		public nav4_6_txt:Laya.Label;
 		public ethAmount_txt:Laya.Label;
 		public tokenAmount_txt:Laya.Label;
+		public lockNum_txt:Laya.Label;
+		public lockVal_txt:Laya.Label;
 		public ethIcon:Laya.Image;
 		public tokenIcon:Laya.Image;
-		public lockNum_txt:Laya.Label;
 		public btnLock:Laya.Sprite;
 		public nav4_6_2_txt:Laya.Label;
 		public btnUnLock:Laya.Sprite;
@@ -309,7 +311,6 @@ export module ui {
 		public btnOk:Laya.Image;
 		public nav4_6_3_txt:Laya.Label;
 		public btnCloseLock:Laya.Sprite;
-		public lockVal_txt:Laya.Label;
 		public nav4_7_txt:Laya.Label;
 		public ref_txt:Laya.Label;
 		public btnCopyRef:Laya.Sprite;
@@ -406,9 +407,9 @@ export module ui {
 		public devPanel:Laya.Sprite;
 		public btnOk:Laya.Image;
 		public ok_txt:Laya.Label;
-		public msg_txt:Laya.Label;
 		public btnClose:Laya.Image;
 		public close_txt:Laya.Label;
+		public msg_txt:Laya.TextArea;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

@@ -2,11 +2,11 @@
     "x":0,
     "type":"Dialog",
     "selectedBox":2,
-    "selecteID":4,
+    "selecteID":5,
     "searchKey":"Dialog",
     "props":{"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
-    "maxID":5,
+    "maxID":6,
     "label":"Dialog",
     "isOpen":true,
     "isDirectory":true,
@@ -25,6 +25,20 @@
             "isAniNode":true,
             "hasChild":false,
             "compId":4,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,loading_txt",
+            "props":{"y":645,"x":28,"width":694,"var":"loading_txt","text":"...","height":44,"fontSize":36,"color":"#f3d36e","align":"center"},
+            "nodeParent":2,
+            "label":"loading_txt",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":5,
             "child":[
                 ]
         }],

@@ -26,6 +26,10 @@ export default class TipPannel extends ui.TipPannelUI {
         this.destroy();
     }
     okClick():void{
+        if(this.todo==null){
+            this.destroy();
+            return
+        }
         this.todo()
     }
 }
