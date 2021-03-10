@@ -87,7 +87,8 @@ export default class Langue extends Laya.EventDispatcher {
         t8:'我的占比',
         t9:'预计收益',
         t10:'需要获取设备挖矿赚钱ETH',
-        t11:'获取'
+        t11:'获取',
+        lockTip:'等待区块确认'
     }
     public static en = {
         start: 'start',
@@ -172,6 +173,7 @@ export default class Langue extends Laya.EventDispatcher {
         T7: 'my ranking',
         T8: 'my share',
         T9: 'expected revenue',
+        lockTip:'place wait block'
     }
     public static kr = {
         start: 'start',
@@ -258,6 +260,7 @@ export default class Langue extends Laya.EventDispatcher {
         t7: '내 랭 킹',
         t8: '내 차지 비',
         t9: '예상 수익',
+        lockTip:'블록 확인을 기다리는 중'
     }
 
     constructor() {

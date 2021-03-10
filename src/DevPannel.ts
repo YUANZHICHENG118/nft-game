@@ -104,11 +104,11 @@ export default class DevPannel extends ui.DevPannelUI {
         this.addDev_mc.visible=false;
         var addNum:number=Number(this.addNum_txt.text)
         if(addNum>this.curMax){
-            alert('不能超过'+this.curMax)
+            alert('Mix'+this.curMax)
             return
         }
         if(addNum<0){
-            alert('不能小于0')
+            alert('Min 0')
             return
         }
         //增加设备
@@ -120,6 +120,11 @@ export default class DevPannel extends ui.DevPannelUI {
             return item.balance>0
         })
         this.list2.array =this.listData2Simple
+
+        for(let i=0;i<addNum;i++){
+            //this.listData[this.curDevIndex].selected=!this.listData[this.curDevIndex].selected
+            this.updateSum(this.listData[this.curDevIndex].id,true)
+        }
     }
 
     onDetaile=(e:number)=>{
@@ -142,6 +147,11 @@ export default class DevPannel extends ui.DevPannelUI {
             return item.balance>0
         })
         this.list2.array =this.listData2Simple
+
+        for(let i=0;i<addNum;i++){
+            //this.listData[this.curDevIndex].selected=!this.listData[this.curDevIndex].selected
+            this.updateSum(this.listData2[__index].id,false)
+        }
     }
 
     onLanguage=()=>{
@@ -151,20 +161,33 @@ export default class DevPannel extends ui.DevPannelUI {
             this[txtName+'_txt'].text=Langue.defaultLangue[txtName]
         }
     }
-    getClick(){
-        this.dataBus.showLoading();this.loading=true;
+    getClick (){
+        LayaBlock.receiveInfo().then((data:IReceive)=>{
 
-        LayaBlock.receive1155().then((d:ITransaction)=>{
-            if(d.status){
-                this.dataBus.hideLoading();
-                this.loading=false;
-                this.dataBus.showToast("SUCCESS")
-                // 重新加载设备
-            }
-        }).catch((e:ITransactionError)=>{
-            this.dataBus.hideLoading();
-            this.loading=false;
+            this.event('showWaitTip');//home里监听
+            // 参数：消息|确定按文字|点击按钮的函数，如果没有函数写null
+            this.dataBus.showTip('您将获取'+data.receive+'个设备，此操作后将在24点前内无法解锁'+data.symbol+'代币,内容自己配置吧','领取',()=>{
+                this.loading=true;
+                this.dataBus.showLoading(Langue.defaultLangue.lockTip);//loading动画下面的文字，可省略
+
+                LayaBlock.receive1155().then((d:ITransaction)=>{
+                    if(d.status){
+                        this.dataBus.hideLoading();
+                        this.loading=false;
+                        this.dataBus.showToast("SUCCESS")
+                        // 重新加载设备
+                    }
+                }).catch((e:ITransactionError)=>{
+                    this.dataBus.hideLoading();
+                    this.loading=false;
+                })
+            })
+
+
         })
+
+
+
     }
     stakeTokenNft(){
         if(this.loading==true){
@@ -172,7 +195,7 @@ export default class DevPannel extends ui.DevPannelUI {
         }
         console.log('===',this.listData2Simple);
        // return;
-        
+
         if(this.listData2Simple==undefined ||this.listData2Simple.length==0){
             //alert(Langue.defaultLangue.alert1)
             this.dataBus.showToast(Langue.defaultLangue.alert1)
@@ -192,9 +215,6 @@ export default class DevPannel extends ui.DevPannelUI {
             console.log("d------",d.message);
             this.dataBus.hideLoading();
             this.loading=false;
-            this.event('showWaitTip');//home里监听
-            // 参数：消息|确定按文字|点击按钮的函数，如果没有函数写null
-            this.dataBus.showTip('您将获取X个设备，此操作后将在x分钟内无法解锁CM代币,内容自己配置吧','ok',null)            
         }).then((d:ITransaction)=>{
             console.log('stakeTokenNft=====派车接口返回数据:',d)
             //这个对象如果返回 status=0x1
@@ -216,7 +236,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.list.array =this.listData
 
         this.listData&&this.listData.map(item=>{
-            this.updateSum(item)
+            //this.updateSum(item)
         })
     }
     autoClick(e:Laya.Event){
@@ -288,8 +308,7 @@ export default class DevPannel extends ui.DevPannelUI {
     }
 
     private onSelect(index: number): void {
-        this.listData[index].selected=!this.listData[index].selected
-        this.updateSum(this.listData[index])
+
         this.addDev_mc.visible=true;
         this.addNum_txt.text=''
         this.addTitle_txt.text='请输入派出数量,最多'+this.listData[index].balance
@@ -297,7 +316,7 @@ export default class DevPannel extends ui.DevPannelUI {
         this.curDevIndex=index
     }
 
-    private updateSum(car:any){
+    private updateSum(id:any,select:boolean){
         // let sumLoad:number=0
         // let sumMining:number=0
         // let total:number=0
@@ -312,8 +331,8 @@ export default class DevPannel extends ui.DevPannelUI {
         // }
 
         let selectData:ISelect={load:0,mining:0,total:0,realLoad:0}
-        let id:number=car.id
-        if(car.selected==true){
+        //let id:number=car.id
+        if(select){
             selectData= LayaBlock.selectMachine(id,true)
         }else{
             selectData= LayaBlock.selectMachine(id,false)

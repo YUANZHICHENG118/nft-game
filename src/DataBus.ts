@@ -10,19 +10,19 @@ export default class DataBus extends Laya.EventDispatcher {
     public static userBase:IUserBase;
     public static mine:IMine;
     public static userMine:IUserMine;
-    
+
     public dataLoading:DataLoading=new DataLoading();
     public toast:ui.ToastUI=new ui.ToastUI()
-     
 
-    
+
+
     constructor() { super(); }
 
     public static getDataBus():DataBus
     {
         if(!this.instance)
         {
-            this.instance = new DataBus();                                         
+            this.instance = new DataBus();
         }
         return this.instance;
     }
@@ -30,12 +30,12 @@ export default class DataBus extends Laya.EventDispatcher {
     public addEvt(){
         Laya.stage.on('gameData',this,this.onGameData);
     }
-    
+
     onEnable(): void {
     }
 
-    public onGameData(data){   
-        console.log('DataBus收到数据：',data); 
+    public onGameData(data){
+        console.log('DataBus收到数据：',data);
         this.event(GameEvent.FLAG1,data)
     }
 
@@ -60,9 +60,9 @@ export default class DataBus extends Laya.EventDispatcher {
     }
     showTip(msg:string,ok:string,todo:any){
         let tipPannel:TipPannel=new TipPannel();
-        tipPannel.msg='您将获取X个设备，此操作后将在x分钟内无法解锁CM代币'
-        tipPannel.ok='ok'
-        tipPannel.todo=null
+        tipPannel.msg=msg
+        tipPannel.ok=ok
+        tipPannel.todo=todo
         tipPannel.popup(false,true)
     }
 }

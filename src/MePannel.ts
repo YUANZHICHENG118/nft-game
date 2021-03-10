@@ -98,14 +98,19 @@ export default class MePannel extends ui.MePannelUI {
         }
 
         this.lockPan_mc.visible=false;
-        this.dataBus.showLoading('loading');//loading动画下面的文字，可省略
+        this.dataBus.showLoading(Langue.defaultLangue.lockTip);//loading动画下面的文字，可省略
         this.loading=true
 
         LayaBlock.stakeToken(Number.parseFloat(this.lockNum2_txt.text)).then((d:ITransaction)=>{
             if(d.status){
+
+                this.dataBus.hideLoading();
+                this.loading=false;
                 this.dataBus.showToast("SUCCESS")
-                this.dataBus.hideLoading();this.loading=false
-                this.loadData()
+                setTimeout(()=>{
+                    this.loadData()
+                },1000)
+
             }
 
         }).catch((d:ITransactionError)=>{
@@ -114,7 +119,9 @@ export default class MePannel extends ui.MePannelUI {
         })
     }
     btnLockClick=(e:Laya.Event)=>{
-        this.dataBus.showLoading();this.loading=true
+        //this.dataBus.showLoading();
+        this.loading=true
+        this.dataBus.showLoading(Langue.defaultLangue.lockTip);//loading动画下面的文字，可省略
 
         LayaBlock.unStakeToken().then((d:ITransaction)=>{
             if(d.status){

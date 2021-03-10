@@ -199,8 +199,8 @@ export default class Home extends ui.HomeUI {
             let msg = data.price + "" + data.priceSymbol +" "+data.rate+ " High:" + data.high + " Low:" + data.low;
             this.gongGao_txt.text = msg
         })
-        
-        
+
+
     }
 
     run = () => {
@@ -424,7 +424,7 @@ export default class Home extends ui.HomeUI {
         iframe.style.left = "0px";
         iframe.style.top = "0px";
         iframe.style.width = '100%';
-        iframe.style.height = '70%';
+        iframe.style.height = '98%';
         iframe.style.border = '0px';
         iframe.style.display = 'none'
         iframe.src = "/market/index.html";

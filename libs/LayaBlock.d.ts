@@ -95,6 +95,23 @@ interface IMine {
     surplus: number,
 }
 
+
+// 可领取信息
+interface IReceive {
+    /**
+     * 游戏id
+     */
+    id: number,
+    /**
+     * 可领取数量
+     */
+    receive: number,
+    /**
+     * token
+     */
+    symbol: string,
+}
+
 //我的基础数据
 interface IUserBase {
     /**
@@ -644,11 +661,17 @@ declare class LayaBlock {
      */
     static selectMachine(id:number, selected:boolean):ISelect
 
-    /**
+      /**
      * 市场数据
      * @returns {IMarket}
      */
     static market():Promise<IMarket>;
+
+    /**
+     * 领取数据
+     * @returns {IReceive}
+     */
+    static receiveInfo():Promise<IReceive>;
 
 
 }

@@ -469,7 +469,8 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         }
     ];
     // 锁仓合约
-    const lockABI = [{
+    const lockABI = [
+        {
         "inputs": [
             {
                 "internalType": "address",
@@ -1940,7 +1941,8 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
         }
     ];
     // erc20Token
-    const erc20TokenABI = [{
+    const erc20TokenABI = [
+        {
         "inputs": [
             {
                 "internalType": "string",
@@ -4527,6 +4529,28 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
         }
 
+        static receiveInfo= async ()=>{
+            let version = this.version || await this.getGameVersion();
+
+
+            const address = this.account || await this.getAccount();
+
+            const contract = this.gameContract();
+
+            const nftReceive = await contract.methods.cat(address).call();
+
+            const receive = nftReceive["quantity"];
+
+            const results = {
+                id:version,
+                receive:receive,
+                symbol: this.erc20Token.symbol
+            }
+
+            return new Promise(function (resolve, reject) {
+                resolve(results)
+            });
+        }
 
         /**
          * 用户基础数据
@@ -4825,6 +4849,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
     exports.getCommission = LayaBlock.getCommission;
     exports.selectMachine = LayaBlock.selectMachine;
     exports.market = LayaBlock.market;
+    exports.receiveInfo=LayaBlock.receiveInfo;
 
     return exports;
 
