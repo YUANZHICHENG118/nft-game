@@ -57,7 +57,7 @@ export default class Langue extends Laya.EventDispatcher {
 
         nav7_1: '设备详情',
         nav7_2: '载重：',
-        nav7_2_1:'挖矿：',
+        nav7_2_1: '挖矿：',
         nav7_3: '等级：',
         nav7_4: '交易',
 
@@ -73,22 +73,27 @@ export default class Langue extends Laya.EventDispatcher {
         gasSet: '手续费',
         langSet: '语言设置',
         onOff: '开          ,关',
-        waitTip:'设备就绪等待发车',
-        verify:'验证',
-        lastHit:'完成了最后一击',
-        copySuccess:'复制成功',
-        t1:'总矿量',
-        t2:'已挖矿',
-        t3:'剩余矿量',
-        t4:'预计收益（ETH）',
-        t5:'预计收益（CM）',
-        t6:'我的运走量',
-        t7:'我的排名',
-        t8:'我的占比',
-        t9:'预计收益',
-        t10:'需要获取设备挖矿赚钱ETH',
-        t11:'获取',
-        lockTip:'等待区块确认'
+        waitTip: '设备就绪等待发车',
+        verify: '验证',
+        lastHit: '完成了最后一击',
+        copySuccess: '复制成功',
+        t1: '总矿量',
+        t2: '已挖矿',
+        t3: '剩余矿量',
+        t4: '预计收益（ETH）',
+        t5: '预计收益（CM）',
+        t6: '我的运走量',
+        t7: '我的排名',
+        t8: '我的占比',
+        t9: '预计收益',
+        t10: '需要获取设备挖矿赚钱ETH',
+        t11: '获取',
+        lockTip: '等待区块确认',
+        receive: '领取',
+        receive1: '您将获取',
+        receive2: '个设备，此操作后将在24点前内无法解锁',
+        receive3: '代币'
+
     }
     public static en = {
         start: 'start',
@@ -160,10 +165,10 @@ export default class Langue extends Laya.EventDispatcher {
         gasSet: 'Gas',
         langSet: 'Language',
         onOff: 'ON         ,OFF',
-        waitTip:'Preparing for mining',
-        verify:'verify',
-        lastHit:'The last shot',
-        copySuccess:'success',
+        waitTip: 'Preparing for mining',
+        verify: 'verify',
+        lastHit: 'The last shot',
+        copySuccess: 'success',
         T1: 'total ore quantity',
         T2: 'mined',
         T3: 'remaining ore amount',
@@ -173,7 +178,11 @@ export default class Langue extends Laya.EventDispatcher {
         T7: 'my ranking',
         T8: 'my share',
         T9: 'expected revenue',
-        lockTip:'place wait block'
+        lockTip: 'place wait block',
+        Receive: 'receive',
+        Receive1: 'you will get',
+        Receive2: 'devices, which will not be unlocked before 24:00 after this operation',
+        Receive3: 'token'
     }
     public static kr = {
         start: 'start',
@@ -247,10 +256,10 @@ export default class Langue extends Laya.EventDispatcher {
         gasSet: 'Gas',
         langSet: '언어 설정',
         onOff: '켜기          ,끄기',
-        waitTip:'마이닝 준비중',
-        verify:'verify',
-        lastHit:'최후 의 일 격 을 완성 했다',
-        copySuccess:'success',
+        waitTip: '마이닝 준비중',
+        verify: 'verify',
+        lastHit: '최후 의 일 격 을 완성 했다',
+        copySuccess: 'success',
         t1: '총 광 량',
         t2: '이미 발굴',
         t3: '남 은 광 량',
@@ -260,7 +269,11 @@ export default class Langue extends Laya.EventDispatcher {
         t7: '내 랭 킹',
         t8: '내 차지 비',
         t9: '예상 수익',
-        lockTip:'블록 확인을 기다리는 중'
+        lockTip: '블록 확인을 기다리는 중',
+        receive: '수령',
+        receive1: '당신 은 획득 합 니 다',
+        receive2: '개 장치, 이 조작 후 24 시 까지 잠 금 을 풀 수 없습니다',
+        receive3: '토 큰'
     }
 
     constructor() {

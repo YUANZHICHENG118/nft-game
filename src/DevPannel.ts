@@ -166,7 +166,7 @@ export default class DevPannel extends ui.DevPannelUI {
 
             this.event('showWaitTip');//home里监听
             // 参数：消息|确定按文字|点击按钮的函数，如果没有函数写null
-            this.dataBus.showTip('您将获取'+data.receive+'个设备，此操作后将在24点前内无法解锁'+data.symbol+'代币,内容自己配置吧','领取',()=>{
+            this.dataBus.showTip(Langue.defaultLangue.receive1+data.receive+Langue.defaultLangue.receive2+data.symbol+Langue.defaultLangue.receive3,Langue.defaultLangue.receive,()=>{
                 this.loading=true;
                 this.dataBus.showLoading(Langue.defaultLangue.lockTip);//loading动画下面的文字，可省略
 

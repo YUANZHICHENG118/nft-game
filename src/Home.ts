@@ -196,7 +196,7 @@ export default class Home extends ui.HomeUI {
 
     setNotice() {
         LayaBlock.market().then((data: IMarket) => {
-            let msg = data.price + "" + data.priceSymbol +" "+data.rate+ " High:" + data.high + " Low:" + data.low;
+            let msg = data.price + "" + data.priceSymbol +" "+data.rate+ " vol:" + data.vol ;
             this.gongGao_txt.text = msg
         })
 
@@ -411,12 +411,13 @@ export default class Home extends ui.HomeUI {
         }
     }
 
-    initMarket = () => {
+    initMarket =  () => {
         let market = Laya.Browser.document.getElementById('market');
         if (market) {
             market.style.display = 'block'
             return;
         }
+        let exurl=LayaBlock.swapUrl()
         let iframe = Laya.Browser.document.createElement("iframe");
         iframe.id = 'market';
         iframe.style.position = "absolute";
@@ -427,7 +428,7 @@ export default class Home extends ui.HomeUI {
         iframe.style.height = '98%';
         iframe.style.border = '0px';
         iframe.style.display = 'none'
-        iframe.src = "/market/index.html";
+        iframe.src = exurl;
         Laya.Browser.document.body.appendChild(iframe);
     };
 

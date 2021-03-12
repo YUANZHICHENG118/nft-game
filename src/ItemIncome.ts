@@ -1,13 +1,16 @@
 import Langue from "./Langue";
 import { ui } from "./ui/layaMaxUI";
 import GameEvent from "./GameEvent";
+import DataBus from "./DataBus";
 
 export default class ItemIncome extends ui.ItemIncomeUI {
     private itemData:IIncome
+    private dataBus:DataBus = DataBus.getDataBus();
+
     constructor() { super(); this.width=660;this.height=80;}
-    
+
     onEnable(): void {
-        this.btn.on(Laya.Event.CLICK,this,this.btnClick)  
+        this.btn.on(Laya.Event.CLICK,this,this.btnClick)
         this.btnReceive.on(Laya.Event.CLICK,this,this.btnReceiveClick)
     }
 
@@ -15,9 +18,10 @@ export default class ItemIncome extends ui.ItemIncomeUI {
         if(this.itemData.status==false){
             return
         }
-        
+
         this.btnReceive.disabled=true
-        LayaBlock.withdrawAward(this.itemData.gameId).then((d:ITransaction)=>{         
+        LayaBlock.withdrawAward(this.itemData.gameId).then((d:ITransaction)=>{
+            this.dataBus.showToast("SUCCESS")
             console.log('交易结果：',d)
         })
         event.stopPropagation();//阻止冒泡

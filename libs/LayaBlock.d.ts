@@ -408,6 +408,10 @@ declare class LayaBlock {
      * 交易连接地址
      */
     static exchangeUrl: string;
+    /**
+     * 交易连接地址
+     */
+    static swapUrl():string;
 
     /**
      * eth区块链浏览器地址
