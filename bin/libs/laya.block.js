@@ -1,6 +1,12 @@
 window.LayaBlock = (function (exports, Laya, LayaSocket) {
     'use strict';
 
+    Talk.ready.then(function() {
+
+
+
+    });
+
     //加载时的描述
     let gameLoadDec = {
         'zh-CN': '公元2020年2月22日，在cmswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
@@ -3333,6 +3339,25 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
                 {},
                 this.disGameConnectHandle
             );
+
+            this.initMyChat()
+        }
+        // 初始化聊天用户
+        static initMyChat= async ()=>{
+            const address = this.account || await this.getAccount();
+            const nick = await this.getNick(address)
+            var me = new Talk.User({
+                // just hardcode any user id, as long as your real users don't have this id
+                id: address,
+                name: nick?nick.nick:address
+
+            });
+            //
+            // // TODO: replace the appId below with the appId provided in the Dashboard
+            window.talkSession = new Talk.Session({
+                appId: "tXqzP3m2",
+                me: me
+            });
         }
         static  disMsgHandle = (msg) => {
 
@@ -4764,6 +4789,47 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             });
         }
 
+        static chat= async ()=>{
+            const conversation = talkSession.getOrCreateConversation("MC-WORD");
+            const address = this.account || await this.getAccount();
+            const nick = await this.getNick(address)
+            var me = new Talk.User({
+                // just hardcode any user id, as long as your real users don't have this id
+                id: address,
+                name: nick?nick.nick:address
+
+            });
+            conversation.setParticipant(me);
+
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (result) => {
+                    for (let i = 0; i < result.data.length; i++) {
+                        const user = new Talk.User(result.data[i]);
+                        conversation.setParticipant(user);
+                    }
+                    conversation.setAttributes({
+                        subject: "Word"
+                    });
+                    const popup = talkSession.createPopup(conversation, {keepOpen: false});
+                    popup.mount({show: true});
+                    popup.on("close", () => {
+                        popup.destroy();
+                    })
+                    resolve("success")
+
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send("https://api.talkjs.com/v1/tXqzP3m2/users?isOnline=true", {}, "get", "json", [
+                    "Authorization", "Bearer sk_test_s6K6Qi13LogxxoeCkU8WNau5qijewRgB"
+                ])
+
+            })
+
+        }
+
         /**
          * 用户基础数据
          * @returns {Promise<void>}
@@ -5064,6 +5130,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
     exports.market = LayaBlock.market;
     exports.receiveInfo=LayaBlock.receiveInfo;
     exports.getETHPrice=LayaBlock.getETHPrice;
+    exports.chat=LayaBlock.chat;
 
     return exports;
 

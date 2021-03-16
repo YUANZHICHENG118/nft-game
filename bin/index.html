@@ -6,6 +6,7 @@
     <meta name='renderer' content='webkit' />
     <meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
     />
+
     <meta name='apple-mobile-web-app-capable' content='yes' />
     <meta name='full-screen' content='true' />
     <meta name='x5-fullscreen' content='true' />
@@ -16,7 +17,13 @@
     <meta http-equiv='expires' content='0' />
     <meta http-equiv='Cache-Control' content='no-siteapp' />
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
-
+    <!-- minified snippet to load TalkJS without delaying your page -->
+    <script>
+        (function(t,a,l,k,j,s){
+            s=a.createElement('script');s.async=1;s.src="https://cdn.talkjs.com/talk.js";a.head.appendChild(s)
+            ;k=t.Promise;t.Talk={v:3,ready:{then:function(f){if(k)return new k(function(r,e){l.push([f,r,e])});l
+                        .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
+    </script>
     <style>
         body{
             background: #000;
@@ -50,11 +57,16 @@
 </head>
 
 <body>
+<!-- container element in which TalkJS will display a chat UI -->
+<div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px;">
+    <i>Loading chat...</i>
+</div>
     <input id="copy_target" type="" value="" style="opacity: 0;">
     <div id="videoWrap" onclick="videoStop()" class="hide">
         <!-- <div id="videoBg" ></div> -->
         <video id="guideVideo" onclick="videoClick(event)" controls  src="video/1.mp4"></video>
     </div>
+
 <script type="text/javascript">
     function f1(){
         alert('这里写功能...')
@@ -104,6 +116,8 @@
 <!--<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.10.4/dayjs.min.js"></script>
+
+
 
 
 <script type="text/javascript">

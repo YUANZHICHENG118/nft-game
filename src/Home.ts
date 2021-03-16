@@ -15,6 +15,8 @@ import TimeLine = Laya.TimeLine;
 
 export default class Home extends ui.HomeUI {
     private dataBus: DataBus = DataBus.getDataBus();
+    private loading:boolean=false;
+
     private devPannel: DevPannel
     private notiecPannel: NoticePannel
     private emailPannel: EmailPannel
@@ -251,7 +253,12 @@ export default class Home extends ui.HomeUI {
         }
     }
     btnChatClick = () => {
-        alert('敬请期待')
+        this.loading=true;
+        this.dataBus.showLoading()
+        LayaBlock.chat().then(data=>{
+            this.loading=false;
+            this.dataBus.hideLoading()
+        })
     }
     closePannel = () => {
         this.selectBg.x = -300;
@@ -547,6 +554,7 @@ export default class Home extends ui.HomeUI {
 
 
 import Image = Laya.Image;
+import DevDetail from "./DevDetail";
 
 class Stone extends Image {
     private vx: number = 0;

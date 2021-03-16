@@ -677,5 +677,9 @@ declare class LayaBlock {
      */
     static receiveInfo():Promise<IReceive>;
 
+    /**
+     * 聊天
+     */
+    static chat():Promise<String>;
 
 }
