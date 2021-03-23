@@ -7,7 +7,7 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
 
     });
 
-    //加载时的描述
+    //加载时的描述1
     let gameLoadDec = {
         'zh-CN': '公元2020年2月22日，在cmswap坐标0xlddkk0394处发现一个金矿。于是很多淘客们开始了挖矿致富。',
         'en-US': 'On February 22nd, 2020, a gold deposit was discovered at the coordinate of cmswap. So many Taoke began to mine to get rich',
