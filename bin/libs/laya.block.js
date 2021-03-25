@@ -4917,6 +4917,139 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
             });
         }
 
+        static drawOrder = async () => {
+            const address = this.account || await this.getAccount();
+
+            let that=this;
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data)
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/earn/order/" + address+"/"+that.erc20TokenAddress, "", "get", "json")
+            });
+        }
+        static getEarn = async () => {
+            const address = this.account || await this.getAccount();
+
+            let that=this;
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data)
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+
+                req.send(apiUrl + "/nft/api/gamereg/earn/" + address+"/"+that.erc20TokenAddress, "", "get", "json")
+            });
+        }
+        static getLock = async () => {
+            const address = this.account || await this.getAccount();
+
+            let that=this;
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data)
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+
+                req.send(apiUrl + "/nft/api/gamereg/lock/" + address+"/"+that.erc20TokenAddress, "", "get", "json")
+            });
+        }
+        static getPlatAddress = async () => {
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data)
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/address", "", "get", "json")
+            });
+        }
+        static hasReg = async () => {
+            const address = this.account || await this.getAccount();
+
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data )
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/exists/"+address, "", "get", "json")
+            });
+        }
+        static reg = async () => {
+            const address = this.account || await this.getAccount();
+
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data )
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/reg", {address:address}, "post", "json")
+            });
+        }
+        static draw = async () => {
+            const address = this.account || await this.getAccount();
+
+            let that=this;
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data)
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/draw", {address:address,contractAddress:that.erc20TokenAddress,type:1}, "post", "json")
+            });
+        }
+
+        static drawToken = async () => {
+            const address = this.account || await this.getAccount();
+
+            let that=this;
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data)
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/draw", {address:address,contractAddress:that.erc20TokenAddress,type:0}, "post", "json")
+            });
+        }
+
+        static canceldraw = async (order) => {
+
+            let req = new Laya.HttpRequest();
+            return new Promise(function (resolve, reject) {
+                req.once(Laya.Event.COMPLETE, this, (data) => {
+                    resolve(data )
+                });
+                req.once(Laya.Event.ERROR, this, (data) => {
+
+                });
+                req.send(apiUrl + "/nft/api/gamereg/canceldraw", {orderId:order}, "post", "json")
+            });
+        }
+
         /**
          * 获取nick
          * @param address
@@ -5120,6 +5253,22 @@ window.LayaBlock = (function (exports, Laya, LayaSocket) {
     exports.getPlayDetail = LayaBlock.getPlayDetail;
 
     exports.getGameLoadDec = LayaBlock.getGameLoadDec;
+
+    exports.getEarn = LayaBlock.getEarn;
+    exports.getLock = LayaBlock.getLock;
+
+
+
+    exports.getPlatAddress = LayaBlock.getPlatAddress;
+    exports.reg = LayaBlock.reg;
+    exports.draw = LayaBlock.draw;
+    exports.drawToken=LayaBlock.drawToken;
+    exports.drawOrder = LayaBlock.drawOrder;
+    exports.canceldraw = LayaBlock.canceldraw;
+    exports.hasReg = LayaBlock.hasReg;
+
+
+
     exports.getNick = LayaBlock.getNick;
     exports.saveNick = LayaBlock.saveNick;
     exports.getNotice = LayaBlock.getNotice;

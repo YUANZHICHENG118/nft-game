@@ -22,6 +22,27 @@ export module ui {
         }
     }
     REG("ui.BlackBgUI",BlackBgUI);
+    export class DaiTouPannelUI extends Scene {
+		public devPanel:Laya.Sprite;
+		public btnClose:Laya.Sprite;
+		public t12_txt:Laya.Label;
+		public btn0:Laya.Image;
+		public t13_txt:Laya.Label;
+		public t15_txt:Laya.Label;
+		public zhuanZhangDiZhi_txt:Laya.Label;
+		public t16_txt:Laya.Label;
+		public tokenAmount_txt:Laya.Label;
+		public btn3:Laya.Sprite;
+		public t18_txt:Laya.Label;
+		public btn2:Laya.Sprite;
+		public t17_txt:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("DaiTouPannel");
+        }
+    }
+    REG("ui.DaiTouPannelUI",DaiTouPannelUI);
     export class DataLoadingUI extends Dialog {
 		public loading_ani:Laya.Animation;
 		public loading_txt:Laya.Label;
@@ -170,6 +191,8 @@ export module ui {
 		public waitTip_txt:Laya.Label;
 		public tip_mc:Laya.Image;
 		public tip_txt:Laya.Label;
+		public btnDaiTou:Laya.Sprite;
+		public daiTou_txt:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

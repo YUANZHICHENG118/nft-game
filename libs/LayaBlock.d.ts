@@ -682,4 +682,17 @@ declare class LayaBlock {
      */
     static chat():Promise<String>;
 
+
+    static getEarn():Promise<number>;
+    static getLock():Promise<number>;
+
+    static getPlatAddress():Promise<string>;
+    static reg():Promise<any>;
+    static draw():Promise<any>;
+    static drawToken():Promise<any>;
+    static drawOrder():Promise<any>;
+    static canceldraw(order:string):Promise<any>;
+
+    static hasReg():Promise<any>;
+
 }

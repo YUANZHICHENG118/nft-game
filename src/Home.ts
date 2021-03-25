@@ -10,6 +10,7 @@ import MePannel from "./MePannel";
 import NoticePannel from "./NoticePannel";
 import RankPannel from "./RankPannel";
 import SetPannel from "./SetPannel";
+import DaiTouPannel from "./DaiTouPannel";
 import {ui} from "./ui/layaMaxUI";
 import TimeLine = Laya.TimeLine;
 
@@ -27,6 +28,7 @@ export default class Home extends ui.HomeUI {
     private helpPannel: HelpPannel
     private timeoutGongGao: number
     private timeoutOfLoadData: number
+    private daiTouPannel:DaiTouPannel
     private stoneNum: number = 0
     private booms: Laya.Sprite = new Laya.Sprite()
     private boomLoopId: number = 0
@@ -86,6 +88,11 @@ export default class Home extends ui.HomeUI {
         this.helpPannel = new HelpPannel()
         this.addChild(this.helpPannel);
         this.helpPannel.visible = false;
+
+        //代投面板
+        this.daiTouPannel = new DaiTouPannel()
+        this.addChild(this.daiTouPannel);
+        this.daiTouPannel.visible = false;
         this.onLanguage()
 
         this.cloud0.alpha = Math.random()
@@ -187,6 +194,7 @@ export default class Home extends ui.HomeUI {
         this.btnSet.on(Laya.Event.CLICK, this, this.showSetPannel)
         this.btnChat.on(Laya.Event.CLICK, this, this.btnChatClick)
         this.dataBus.on(GameEvent.LANGUAGE_CHANGE, this, this.onLanguage)
+        this.btnDaiTou.on(Laya.Event.CLICK, this, this.btnDaiTouClick)
         this.test_btn.on(Laya.Event.CLICK, this, this.test)
         Laya.timer.frameLoop(3, this, this.run)
     }
@@ -251,6 +259,9 @@ export default class Home extends ui.HomeUI {
             let txtName: string = arr[i]
             this[txtName + '_txt'].text = Langue.defaultLangue[txtName]
         }
+    }
+    btnDaiTouClick = () => {
+        this.daiTouPannel.visible = true;
     }
     btnChatClick = () => {
         this.loading=true;
